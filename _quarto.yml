@@ -72,8 +72,7 @@ format:
     code-link: true
     callout-appearance: simple
     toc: true
-    number-sections: true
-    number-depth: 2
+    number-sections: false
 
 bibliography: references.bib
 csl: ieee.csl

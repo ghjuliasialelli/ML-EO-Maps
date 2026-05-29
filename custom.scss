@@ -5,3 +5,47 @@ $link-color: #2c5282;
 .sidebar-title {
   font-size: 1.1rem;
 }
+
+/* ── Sidebar: per-part chapter numbering ── */
+
+/* Each part resets its own chapter counter */
+.sidebar-navigation .sidebar-item-section {
+  counter-reset: part-chapter;
+}
+
+/* Chapters inside a part get numbered */
+.sidebar-navigation .sidebar-item-section > ul > .sidebar-item {
+  counter-increment: part-chapter;
+}
+
+.sidebar-navigation .sidebar-item-section > ul > .sidebar-item > .sidebar-item-container > a .menu-text::before {
+  content: counter(part-chapter) "\2002";
+}
+
+/* Appendices (last part section) use letter numbering */
+.sidebar-navigation > ul > .sidebar-item-section:last-of-type > ul > .sidebar-item > .sidebar-item-container > a .menu-text::before {
+  content: counter(part-chapter, upper-alpha) "\2002";
+}
+
+/* ── In-page: section numbering per chapter ── */
+
+#quarto-document-content {
+  counter-reset: page-section;
+}
+
+#quarto-document-content section.level2 {
+  counter-increment: page-section;
+  counter-reset: page-subsection;
+}
+
+#quarto-document-content section.level2 > h2.anchored::before {
+  content: counter(page-section) "\2002";
+}
+
+#quarto-document-content section.level3 {
+  counter-increment: page-subsection;
+}
+
+#quarto-document-content section.level3 > h3.anchored::before {
+  content: counter(page-section) "." counter(page-subsection) "\2002";
+}
