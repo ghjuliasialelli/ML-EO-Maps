@@ -3,14 +3,14 @@ id: sec-general-considerations
 title: "General considerations"
 ---
 
-### Scope
+## Scope
 
 This section primarily builds on established land-cover validation frameworks and good-practice recommendations for design-based inference [@olofsson2014good; @tyukavina2025practical]. The central principle is that reference data used for validation should ideally be derived from a probability sampling design with known, non-zero inclusion probabilities, enabling statistically rigorous and unbiased accuracy assessment. While many of these concepts originated in land-cover validation, they remain broadly applicable across a wide range of geospatial products.
 
 The discussion covers both categorical and continuous map products. Categorical products include multi-class land-cover maps as well as thematic single-class products such as forest extent or forest change maps. Continuous products include variables such as biomass and forest height. Although the general validation principles are shared, specific aspects of response design and accuracy assessment may differ across product types.
 
 Not all mapping applications lend themselves to probability sampling, however. In cases where validation must rely on existing non-probability data sources (e.g., opportunistic field campaigns), alternative approaches are necessary. We discuss these in Section [Validation Beyond Probability Sampling](validation_beyond.qmd), along with recommended best practices for situations where design-based inference (based on probability sampling) is not feasible.
-### Common sources of confusion
+## Common sources of confusion
 Despite the central role of validation in establishing the scientific credibility of geospatial products, accuracy assessment methodology is frequently under-reported, and reference datasets are rarely made publicly available [@stehman2019key; @foody2002status]. Several recurring sources of confusion contribute to this problem.
 The first is the conflation of algorithm-derived uncertainty with map accuracy. Metrics produced by ensemble variance, posterior probabilities, or model confidence scores quantify internal model uncertainty, not agreement with ground truth. These measures reflect what the model "thinks" about its own predictions and should not be interpreted as accuracy estimates [@lcgoodpractices].
 The second is the conflation of model evaluation with map validation. In many studies, standard ML practices (such as evaluating performance on a held-out test set) are presented as evidence of map quality. 

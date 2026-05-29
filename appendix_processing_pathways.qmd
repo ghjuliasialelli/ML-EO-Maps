@@ -43,7 +43,7 @@ The DEM choice is also where the most significant divergence between Sentinel Hu
 
 Speckle filtering is not applied by default on any pathway: it is left to the user. GEE provides only GRD-level data, so any workflow requiring phase information for interferometry must use CDSE direct download (or another canonical provider such as ASF), as SLC products are not available through Sentinel Hub, openEO, or GEE.
 
-#### Sentinel-1 {#sec-s1-pathways} RTC CDSE also distributes a Sentinel-1 Radiometric Terrain Corrected (RTC) backscatter product, processed from GRD inputs and compliant with the CEOS Analysis Ready Data for Land (CARD4L) specifications for Normalized Radar Backscatter (NRB). RTC products are orthorectified using the Copernicus DEM and delivered without speckle filtering. The NRB standard --- which combines range--Doppler geocoding with radiometric terrain correction --- is increasingly adopted across providers and may eventually supersede GRD as the default Sentinel-1 distribution format for analysis-ready use cases.
+### Sentinel-1 {#sec-s1-pathways} RTC CDSE also distributes a Sentinel-1 Radiometric Terrain Corrected (RTC) backscatter product, processed from GRD inputs and compliant with the CEOS Analysis Ready Data for Land (CARD4L) specifications for Normalized Radar Backscatter (NRB). RTC products are orthorectified using the Copernicus DEM and delivered without speckle filtering. The NRB standard --- which combines range--Doppler geocoding with radiometric terrain correction --- is increasingly adopted across providers and may eventually supersede GRD as the default Sentinel-1 distribution format for analysis-ready use cases.
 
 ## Further reading
 

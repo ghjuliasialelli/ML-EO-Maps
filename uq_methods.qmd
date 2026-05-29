@@ -19,9 +19,9 @@ We organize UQ methods along two axes by whether uncertainty is intrinsic to the
 
 : Overview of uncertainty quantification methods for large-scale EO maps. Inference overhead is relative to a single forward pass. "Calibrated" indicates whether the method produces well-calibrated intervals by theoretical construction (✓), requires post-hoc calibration ($\sim$), or provides no calibration guarantee ($\times$). {#tbl-uq-methods}
 
-### Intrinsic methods
+## Intrinsic methods
 
-#### Gaussian Processes
+### Gaussian Processes
 
 Gaussian processes (GPs) provide the theoretically principled baseline for spatial prediction with uncertainty [@rasmussen2005gaussianprocesses]. Under a well-specified kernel, the GP posterior yields exact, calibrated predictive distributions including at unobserved locations, which is the inference setting for map generation. The classical limitation is computational as exact GP inference scales as $O(n^3)$ in the number of observations (pixels usually), which is prohibitive for the millions-to-billions of data points typical of global EO datasets.
 
@@ -29,21 +29,21 @@ Sparse approximations based on inducing points [@titsias2009variational; @hensma
 
 EO data are non-stationary (tropical forests and savannas have fundamentally different covariance structures), and misspecifying the kernel undermines the calibration that is the GP's principal advantage. The geostatistical literature, where GPs appear under the name *kriging*, has a long history of addressing non-stationarity and change-of-support problems [@cressie1993statistics; @goovaerts2001geostatistical] and these insights remain relevant even as the ML community increasingly favors neural approaches.
 
-#### Heteroskedastic and Distributional Regression
+### Heteroskedastic and Distributional Regression
 
 The simplest neural approach to uncertainty is to add a second output head predicting the variance alongside the mean, trained via a Gaussian negative log-likelihood loss [@nix1994estimating]. This captures aleatoric uncertainty cheaply (because the overhead is a single additional output neuron) but is blind to epistemic uncertainty. If the model is systematically wrong in some region (e.g., due to training data gaps), the variance head will not reflect this. The training signal for the variance head is also weak since the model must learn the noise structure from the same data it uses to learn the function, and the loss landscape for the variance parameter is poorly behaved when the model is misspecified.
 
 More expressive approaches predict the full parameters of a flexible distribution rather than just a Gaussian mean and variance. For skewed variables such as biomass, where a Gaussian assumption is often inappropriate even after log-transformation, mixture density networks [@bishop1994mixture] or distributions with explicit skewness and kurtosis parameters (e.g., sinh-arcsinh normal) [@jonespewsey2009] offer a richer representation of predictive uncertainty.
 
-#### Variational Inference and Neural Processes
+### Variational Inference and Neural Processes
 
 Neural processes (NPs) [@garnelo2018conditional; @kim2018attentive] can be understood as amortized variational approximations to Gaussian processes. They learn to map a set of context observations to a predictive distribution, much as kriging maps observations to a conditional Gaussian, but with the kernel learned implicitly rather than specified parametrically. This connection to the geostatistical framework that underpins decades of spatial prediction is underappreciated, in part because the NP literature has developed largely within the meta-learning community using different vocabulary and training conventions. From the perspective of an EO researcher already familiar with kriging, the core proposition is not a new uncertainty framework but a scalable approximation to an existing one, with $O(n)$ inference cost and the capacity to learn non-stationary covariance structure directly from data.
 
 The standard caveats of variational inference apply. The approximate posterior can underestimate uncertainty if the variational family is too restrictive, and the ELBO objective can trade off data fit against KL divergence in ways that are not transparent. In practice, design choices specific to the NP framework can produce well-calibrated prediction intervals. As an example, [@young2026interpolation; @young2026neural] demonstrated that attentive neural processes produce residual standard deviations near the ideal value for biomass mapping across ecologically distinct regions, including under active deforestation. However, these remain among the few validated applications of NPs in large-scale EO mapping, and broader adoption has been limited by the absence of mature tooling and the unfamiliarity of the meta-learning paradigm.
 
-### Post-training methods
+## Post-training methods
 
-#### Ensembles
+### Ensembles
 
 Deep ensembles [@lakshminarayanan2017deep] train $N$ models with different random seeds or bootstrap samples and take the spread as an uncertainty estimate. Their dominance in practice is largely explained by their simplicity. Ensembles require no changes to the base model architecture, loss function, or training pipeline. One simply trains the same model multiple times and measures disagreement. Random forests offer an even lower barrier, since every tree is already an ensemble member and quantile regression forests [@meinshausen2006quantile] formalize this by retaining the full distribution of training samples at leaf nodes. For those already using tree-based methods for mapping, uncertainty estimates are essentially a byproduct.
 
@@ -55,13 +55,13 @@ Several approaches reduce the computational cost of ensembles without addressing
 
 A complementary direction is multi-model ensembling at the foundation model level. As the ecosystem of geospatial foundation models grows, disagreement between independently pretrained representations of the same location could be a proxy for epistemic uncertainty, analogous to classical ensembles but operating in embedding space rather than prediction space. This is appealing because the diversity between foundation models (different training data, different sensors, different pretraining objectives) is far greater than the diversity between ensemble members that differ only in random seed, which is the limitation that can make classical deep ensembles miscalibrated for spatial data. Recent work has shown that fusing embeddings from multiple geospatial foundation models yields complementary information that improves downstream task performance [@vanderplas2026bettertogether], confirming that these models capture meaningfully different representations. However, whether embedding-space disagreement translates into well-calibrated predictive uncertainty remains an open question, and the computational cost of running multiple foundation models at inference may rival or exceed that of traditional ensembles.
 
-#### Quantile Regression
+### Quantile Regression
 
 Rather than deriving prediction intervals from a point-estimate model, quantile regression directly targets conditional quantiles by optimizing a pinball (check) loss [@koenker1978regression]. One can train separate models for the $\tau$-th and $(1-\tau)$-th quantiles, or use a single model with multiple quantile heads, to obtain prediction intervals at any nominal level. Quantile Random Forests [@meinshausen2006quantile] retain the full distribution of training samples at leaf nodes to estimate conditional quantiles non-parametrically.
 
 The appeal is directness as the model is optimized for the quantity of interest (interval bounds) rather than deriving intervals from variance estimates. The limitation is that there is no guarantee the resulting intervals are calibrated. A model trained for the 5th and 95th percentiles may achieve empirical coverage far from 90
 
-#### Conformal Prediction
+### Conformal Prediction
 
 Conformal prediction [@vovk2005algorithmiclearning] provides distribution-free coverage guarantees. Given exchangeable calibration data, a conformal procedure produces prediction sets that contain the true value with at least the nominal probability. The accessible tutorial by @angelopoulos2023conformal has driven recent adoption in the EO community [@singh2024uncertaintyconformal; @valle2023luluconformal].
 

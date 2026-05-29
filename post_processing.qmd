@@ -5,13 +5,13 @@ title: "Post-processing"
 
 Raw model outputs rarely constitute publication-ready data products. Depending on the application, additional post-processing may be required to enforce physical plausibility, ensure temporal and thematic consistency, or convert raster predictions into vector geometries suitable for downstream use. Notably, most correction strategies are contingent on the availability of redundant information (whether from multiple time steps or from jointly predicted variables) that can be leveraged to identify and suppress inconsistencies. Single-epoch, single-task predictions offer comparatively little basis for correction beyond external validation.
 
-### Corrections
+## Corrections
 
 When generating multi-temporal maps with consistent methodologies, the resulting temporal redundancy provides a critical opportunity to detect and suppress observational noise. Existing correction approaches fall into two broad families. The first relies on rule-based constraints rooted in domain knowledge, such as imposing biological growth limits on tree canopy height, smoothing sensor noise via moving-window trends [@turubanova2023tree; @glazer2025tempo], or stabilizing boundary pixels that would otherwise appear to jitter across time steps [@turubanova2023tree]. The second employs statistical or optimization-based trajectory modeling to identify the most plausible temporal path for individual pixels; examples include BFAST, Hidden Markov Models, and multi-model comparison methods [@copernicus2021globalland; @anderson2026forest], as well as Total Variation regularization to enforce piecewise-constant trajectories that preserve disturbance events while filtering high-frequency noise [@schwartz2025formspo].
 
 In multi-task settings, corrections must also enforce consistency across predicted variables. Physical dependencies can be maintained by nullifying secondary structural metrics (such as canopy height or biomass) whenever the primary variable falls below a minimum ecological threshold [@anderson2026forest], while rule-based logic can resolve classification conflicts and align related outputs [@Van_Tricht_2023].
 
-### Polygonization
+## Polygonization
 
 The transition from pixel-wise semantic segmentation masks to vector-based geometries presents a significant bottleneck in modern geospatial ML pipelines. While deep learning models have reached high levels of semantic maturity, many tasks require going beyond pixel-level predictions to produce actionable, topologically sound vector data. This requirement is pervasive across diverse domains, including field or forest delineation [@kerner2025fields; @schwartz2025formspo], building mapping [@glazer2025tempo], and the mapping of photovoltaic installations [@microsoft2024renewables]. Beyond geometric precision, this conversion is critical for data portability; vector geometries are significantly easier to distribute to stakeholders than dense rasters. 
 

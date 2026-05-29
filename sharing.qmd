@@ -5,11 +5,11 @@ title: "Sharing"
 
 To maximize the impact and reproducibility of the results, it is essential to provide a robust infrastructure for data sharing that addresses two distinct user requirements: *large-scale batch downloads* for researchers who need to integrate spatial predictions into their own analytical pipelines, and *interactive visualization interfaces* for stakeholders who want to explore results and perform targeted downloads of specific areas.
 
-### Compression
+## Compression
 
 Data accessibility is inextricably linked to storage efficiency: large datasets can be a deterrent to researchers with limited storage resources. To facilitate the dissemination of high-resolution maps, compression provides a practical framework for reducing storage overhead. In scenarios where high numerical precision is not the primary requirement, lossy compression can be employed by rounding $32$-bit floating-point values to the nearest integer and storing them as $8$-bit unsigned integers. Where finer detail is necessary, fixed-point scaling offers a viable alternative: for instance, biomass values in the range of $[0, 500]$ can be multiplied by a factor of $100$ to preserve two decimal places within a $[0, 50000]$ range, enabling the use of $16$-bit unsigned integers. Furthermore, for applications demanding bit-for-bit accuracy, modern lossless compression methods (e.g., [@pcodec]) ensure data integrity while minimizing the digital footprint. By adopting these multi-tiered compression strategies, data providers can significantly lower the barrier to entry for geospatial analysis.
 
-### Distribution unit
+## Distribution unit
 
 The dissemination of global predictions also requires a choice of distribution unit. A common approach is to partition the Earth into regular tiles---for instance, the ESA WorldCover [@esa2021worldcover] and global canopy height [@lang2023canopyheight] products are distributed in 3\degree$\times$3\degree\ tiles, while the Tropical Moist Forests dataset [@Vancutsem_2021] uses 10\degree$\times$10\degree\ tiles. Tiles are ideally encoded as Cloud Optimized GeoTIFFs (COGs), which support partial reads via HTTP range requests, allowing clients to retrieve only the spatial extent or resolution level they need. Discovery and access can be further streamlined by publishing the tile collection as a SpatioTemporal Asset Catalog (STAC), which provides a standardized, queryable index of assets along with their spatial extents, timestamps, and associated metadata. Providing tile geometries as a separate vector file is equally valuable, as it enables users to programmatically identify which tiles intersect a given area of interest.
 
@@ -19,11 +19,11 @@ For products that include vector outputs (e.g., from polygonization), cloud-nati
 
 Regardless of the distribution format, aggregating predictions into a common spatial framework generally requires reprojecting data from its native coordinate reference system. For tile-based distribution, this arises when tiles span multiple UTM zones and data from adjacent zones must be merged. For global mosaics stored in a single CRS, reprojection is unavoidable for all data not originally in that system. In both cases, resampling introduces artifacts whose severity depends on the interpolation method and on the geometric distortion between the source and target projections.
 
-### Platforms
+## Platforms
 
 Several platforms are available for hosting global products, each with different trade-offs in accessibility, infrastructure requirements, and long-term sustainability. Object storage provides a reliable backbone for distributing large datasets in cloud-native formats, and community-oriented repositories such as Source Cooperative lower the barrier further by offering (to this date) free hosting for open geospatial data. Google Earth Engine offers high visibility and built-in interactive tooling, but requires data to be ingested into its own infrastructure, introducing platform dependency. Domain-specific platforms such as Global Forest Watch and EOForestSTAC provide established dissemination channels with dedicated user bases; however, contributing new datasets to these platforms typically requires coordination with their maintainers rather than direct self-service upload, making them more suitable as complementary high-visibility channels than as primary distribution mechanisms. Furthermore, no single platform is universally optimal, and the long-term availability of any given service cannot be guaranteed. 
 
-### Projection
+## Projection
 
 Finally, we recommend distributing data in its native projection, typically a local UTM zone, to avoid introducing resampling artifacts. Many visualization platforms expect a web-compatible projection, such as EPSG:3857, for display purposes. In such cases, the reprojected version should be treated as a visualization layer only, with the native-projection product remaining the authoritative distribution format.
 
