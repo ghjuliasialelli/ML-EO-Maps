@@ -14,10 +14,10 @@ book:
       Built with [Quarto](https://quarto.org/)
 
   # Update these with your GitHub repo URL
-  # site-url: https://YOUR-USERNAME.github.io/Best_Practices_EO_maps/
-  # repo-url: https://github.com/YOUR-USERNAME/Best_Practices_EO_maps
-  # repo-branch: main
-  # repo-actions: [edit, issue]
+  site-url: https://ghjuliasialelli.github.io/ml-eo-maps
+  repo-url: https://github.com/ghjuliasialelli/ml-eo-maps
+  repo-branch: main
+  repo-actions: [edit, issue]
 
   chapters:
     - index.qmd
