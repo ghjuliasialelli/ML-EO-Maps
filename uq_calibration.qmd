@@ -1,0 +1,20 @@
+---
+id: sec-uq-calibration
+title: "Assessing calibration"
+---
+
+The preceding methods differ not only in cost but in whether they produce calibrated uncertainty, which raises the question of how to verify calibration in the first place. Reporting uncertainty without verifying its calibration is akin to reporting accuracy without a test set. We recommend a minimal set of diagnostics that should accompany maps with per-pixel uncertainty:
+
+#### Coverage and Reliability Do the $1\sigma$ ($\approx$68
+
+#### Standardized residuals For regression, compute $z = (y_\text{true} - y_\text{pred}) / \sigma_\text{pred}$. If the predicted uncertainties are well-calibrated, $z$ should follow $\mathcal{N}(0, 1)$. The Z-score mean (ideal: 0.0) detects systematic bias; the Z-score standard deviation (ideal: 1.0) detects miscalibrated interval width. Values above 1 indicate overconfidence; below 1 indicate underconfidence. For classification, the Brier score, expected calibration error (ECE), and reliability diagrams stratified by class replace the continuous variable diagnostics.
+
+#### Scoring rules The interval score (Winkler score; @gneiting2007probabilistic) simultaneously penalizes miscoverage and interval width, rewarding intervals that are both sharp and calibrated. The continuous ranked probability score (CRPS) evaluates the full predictive distribution. These are more informative than coverage alone, which can be achieved by making intervals arbitrarily wide.
+
+#### Additional diagnostics Probability integral transform (PIT) histograms and Q-Q plots provide visual checks of distributional calibration. The uncertainty--error correlation assesses whether predicted uncertainty is actually informative about where the model makes large errors.
+
+A model calibrated on a geographically restricted validation set may not be calibrated on the inference domain, which, for a global map, is almost certainly different from where validation data were available. This is especially relevant for the "one model globally versus one model per region" design choice. A global model may be well calibrated on average but poorly calibrated in specific biomes where training data were sparse. Conversely, regional models may be well-calibrated locally but provide no guarantees when extrapolating to adjacent regions.
+
+When calibration diagnostics reveal problems, the response depends on the severity and pattern of the failure. Mild, smooth miscalibration where the reliability diagram shows a consistent curve away from the diagonal can often be corrected post hoc. Isotonic regression applied to the predicted CDF values, or Platt scaling for parametric models, can remap predicted intervals to achieve empirical coverage without retraining [@kuleshov2018accurate]. These are cheap fixes and should be attempted first. If miscalibration is more structured, for instance, systematic overconfidence in one biome but reasonable calibration elsewhere, post hoc recalibration on a stratified held out set can help, but the stratification should reflect the structure of the miscalibration, which requires enough validation data in each stratum to fit the recalibration reliably. When miscalibration is severe or regionally patterned in ways that post hoc correction cannot resolve, the model itself may need revisiting by retraining with a proper scoring rule as the loss function (e.g., CRPS for distributional regression, or Gaussian NLL rather than MSE for heteroskedastic models) can produce better-calibrated uncertainty at source. 
+
+Switching to a method that provides calibration by construction such as conformal prediction as a post hoc wrapper is another option, with the caveat that the resulting guarantees are marginal rather than conditional. At a minimum, if calibration cannot be achieved, this should be documented explicitly by reporting the empirical coverage alongside the nominal coverage, stratified by region or land cover class, so that downstream users can judge for themselves whether the uncertainty layer is trustworthy for their application.

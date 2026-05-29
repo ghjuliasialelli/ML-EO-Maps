@@ -1,0 +1,6 @@
+---
+id: sec-making-a-map
+title: "Map production and distribution"
+---
+
+Producing a geospatial map product from a trained model is a non-trivial engineering task that extends well beyond inference. Generating predictions at scale requires choosing a compute architecture suited to the volume of EO data involved, and the tiling strategies that make large-area inference tractable can introduce spatial artifacts that must be addressed. Downstream applications typically require additional corrections, and some use cases call for a conversion from raster predictions to discrete vector geometries. Furthermore, making a map practically accessible to end users raises its own set of considerations: from how the data is compressed and spatially partitioned, to how it is projected and through which platforms it is served. This section describes the full pipeline from trained model to published map product, detailing the challenges to be expected at each stage.

@@ -1,0 +1,6 @@
+---
+id: sec-validation
+title: "Validation"
+---
+
+Validation is between map production and map credibility. Yet, it is not a one-size-fits-all procedure and the validation protocol must be designed in relation to the intended use of the map and integrated into project planning from the outset. The choice of validation approach, metrics, and reporting standards should therefore be defined before any map is produced. This is increasingly relevant with the growing accessibility of large-scale computing infrastructure and ML methods, which have dramatically lowered the barrier to generating new maps.

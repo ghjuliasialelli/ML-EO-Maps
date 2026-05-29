@@ -1,0 +1,31 @@
+---
+id: sec-available-products
+title: "EO missions"
+---
+
+EO data spans a range of processing levels and thematic focuses, each suited to different analytical needs. Data providers typically distribute measurements across standardized processing levels (from raw instrument data to results from analyses of lower-level data) and most ML workflows operate on data with varying degrees of preprocessing. At its core, this ecosystem draws on a rich archive of satellite imagery from well-established missions (e.g., Sentinel-1, Sentinel-2, Sentinel-3, Landsat, MODIS, VIIRS, HLS, ALOS PALSAR), complemented by higher-resolution commercial data (e.g., Planet, Airbus, and Vantor, formerly known as Maxar) and specialized missions with a targeted scope (e.g., GRACE, ICESat-2, GEDI, BIOMASS). In Table @tbl-eo-missions, we summarize the key attributes of widely used missions that structure this diverse data landscape.
+
+**Mission** | **Sensor** | **Spatial res.** | **Revisit** | **Cov.** | **Active** | **Typical use cases** |
+| --- | --- | --- | --- | --- | --- | --- |
+| Sentinel-1 | SAR-C | 5--20 m | 6 days | 🌐<sup>\*</sup> | 2014-- | Flood, oil spill mapping |
+| Sentinel-2 | Optical | 10--60 m | 5 days | 🌿 | 2015-- | Land cover, agriculture |
+| Sentinel-3 | Optical | 300--1200 m | $<$2 days | 🌐 | 2016-- | Ocean color, SST |
+| Landsat | Optical | 15--120 m | 8-18 days | 🌿 | 1972-- | Land cover change |
+| MODIS | Optical | 250--1000 m | 1--2 days | 🌐 | 1999-- | Vegetation, fire, albedo |
+| VIIRS | Optical | 375--750 m | $\sim$1 day | 🌐 | 2011-- | Nighttime lights, fire |
+| ALOS PALSAR | SAR-L | 6--100 m | 14--46 days | 🌐 | 2006-- | Forest mapping |
+| NISAR | SAR-L/S | 10--20 m | 12 days | 🌿 | 2026-- | Land/forests/ice changes |
+| Planet (Dove) | Optical | 3--5 m | Daily | 🌿 | 2017-- | Change detection, agriculture |
+| Planet (SkySat) | Optical | 50cm | 🎯 | 🎯 | 2016-- | Sub-daily site-monitoring |
+| Vantor (formerly Maxar) (WorldView) | Optical | 0.3--2 m | 🎯 | 🎯 | 2001-- | Change detection, defense |
+| Airbus (Pléiades/SPOT) | Optical | 0.3--6 m | 🎯 | 🎯 | 2002-- | Large-area mapping, 3D |
+| GEDI | LiDAR | 25 m footprint | Sparse | $\pm$51.6° | 2019-- | Canopy height, biomass |
+| ICESat-2 | LiDAR | 11 m footprint | 91 days | 🌐 | 2018-- | Ice sheet elevation |
+| GRACE / GRACE-FO | Gravimetry | $\sim$300 km | 30 days | 🌐 | 2002-- | Groundwater, ice mass |
+: Overview of widely used Earth observation missions. Revisit times assume full constellation availability. Spatial resolution ranges reflect different acquisition modes or spectral bands. Coverage symbols: 🌐 = global (land & ocean), 🌿 = land surfaces and coastal areas only, 🌲 = forest, 🎯 = tasked/on-demand, \* = the failure of Sentinel-1B induced significant data gaps, see [Sentinel-1 Data Gaps](appendix_s1_gaps.qmd). {#tbl-eo-missions}
+
+Beyond satellite observations, derived products constitute a second category of EO data. These include land use and land cover maps (e.g., Copernicus Global Dynamic Land Cover [@copernicus2021globalland]), terrain models (e.g., Copernicus GLO-30 Digital Elevation Model [@CopernicusDEM], NASA SRTM [@NASASRTM]), atmospheric variables (e.g., ERA5 [@Hersbach2020]), climate (e.g., TerraClimate [@Abatzoglou2018]) and vegetation (e.g., MOD13 [@MOD13]) indices, population density (e.g., WorldPop [@Tatem2017]) and numerous other thematic data layers. These products combine observations from one or more satellite missions with domain knowledge and modeling capabilities (that may or may not incorporate ML methods) to produce analysis-ready information. A more recent addition to this category is pre-computed geospatial embeddings: dense vector representations of locations on Earth produced by large models trained on satellite imagery and often complementary EO modalities. Unlike traditional thematic layers, which target a specific variable interpretable in its own units, embeddings are purportedly general-purpose and task-agnostic. Recent examples include AlphaEarth Foundations [@brown2025alphaearthfoundations], TESSERA [@feng2025tessera] and ESL [@chen2026esd]. Like other derived products, embeddings inherit the uncertainties of their upstream inputs, compounded by the biases of their pre-training data and learning objectives, caveats that should be accounted for in downstream analyses.
+
+A more accessible entry point into EO data is offered by curated EO datasets for ML: preprocessed samples of the above-mentioned data sources, purportedly ready to feed into ML training pipelines. Such datasets are typically assembled by individual researchers [@wang2022ssl4eo; @toker2022dynamicearthnet; @garnot2021panoptic; @plekhanova2025ssl4eco; @Fogel_2025_CVPR] or through community efforts such as TorchGeo [@stewart2024torchgeo] or Major TOM [@Francis2024MajorTOM], and hosted on platforms like Zenodo [@zenodo], HuggingFace [@lhoest-etal-2021-datasets], or Source Cooperative^[<https://source.coop/products>]. They lower the barrier to entry for ML practitioners who would otherwise face the non-trivial task of assembling training-ready inputs from raw or derived EO products. The trade-off, however, is a loss of control: adopting an existing curated dataset means inheriting its creators' design choices (spatiotemporal coverage, selected data sources, sampling strategy, processing pipeline) which may not match the requirements of another downstream task.
+
+The choice among these dataset categories carries important implications for research design. Furthermore, selecting any data source requires weighing its spatiotemporal coverage, the reliability of its long-term open accessibility, and the practical costs of download and storage.

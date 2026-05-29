@@ -1,0 +1,6 @@
+---
+id: sec-eo-data-landscape
+title: "Overview of the EO data infrastructure landscape"
+---
+
+Researchers and practitioners must navigate a complex and rapidly evolving ecosystem of satellite data sources, derived products, and access platforms. The choices made at early stages (which mission to use, which processing level to start from, and which platform to retrieve the data through) have downstream consequences that are easy to underestimate. This section maps the landscape of available EO data, from raw observations to existing ML-ready datasets, and discusses the practical considerations of accessing them.

@@ -1,0 +1,5 @@
+---
+title: "Acknowledgments"
+---
+
+GS is supported by an ETH AI Center doctoral fellowship. We thank Isabelle Tingzon, Chiara Ceccobello, and Sebastian Hafner (RISE Research Institutes of Sweden), Henry Herzog (Allen Institute for AI), Christelle Vancutsem (EU Joint Research Centre), Robert N.\ Masolele (Wageningen University), Peter Potapov (World Resources Institute), Louis de Vitry (Kanop), and Valerie J.\ Pasquarella (Google) for generously sharing their experience and insights during the preparation of this work. Their input helped shape several of the practical recommendations presented here, though responsibility for any errors or omissions remains with the authors.

@@ -1,0 +1,50 @@
+---
+id: sec-processing-pathways
+title: "Sentinel-1 and Sentinel-2 processing across access pathways"
+---
+
+The same nominal Sentinel-1 or Sentinel-2 product can differ depending on where it is accessed. CDSE distributes the authoritative ESA outputs through three principal interfaces (direct download, Sentinel Hub, and openEO) each exposing a different subset of preprocessing options. Google Earth Engine (GEE) ingests from CDSE but applies its own preprocessing chain, particularly for Sentinel-1, and refreshes its catalog on its own schedule. This appendix summarizes the resulting differences and discusses aspects that are not self-evident from the tables alone.
+
+## Sentinel-2 {#sec-s2-pathways}
+
+For Sentinel-2, the differences between CDSE and GEE are summarized in Table @tbl-s2-pathways. The atmospheric correction is identical between the two platforms, so observed differences in surface reflectance might arise from baseline currency or radiometric offset handling.
+
+**Aspect** | **CDSE (native)** | **GEE** |
+| --- | --- | --- |
+| Atmospheric correction | Sen2Cor | Same (ingested from CDSE) |
+| Processing baseline currency | Authoritative; updated on ESA's schedule | May lag CDSE during reprocessing campaigns |
+| QA60 cloud mask | Discontinued by ESA after Feb 2022 | Reconstructed from classification data starting Feb 2024 |
+
+: Processing differences between native Sentinel-2 products on CDSE and the corresponding GEE collections. DN: digital number. SR: surface reflectance. {#tbl-s2-pathways}
+
+The most consequential subtlety beyond the table is the *timing of baseline reprocessing*. CDSE has carried out a Collection-1 reprocessing campaign in stages. Phase 1 brought all data through the end of 2021 to baseline 05.00 (which uses the 30 m Copernicus DEM in place of the older 90 m one) and harmonizes radiometry between Sentinel-2A and Sentinel-2B. Phase 2 reprocessed January 2022 through December 2023 to baseline 05.10. Baseline 05.11 (July 2024) introduced further refinements to geometric registration, cloud screening (with parallax handling), and snow/ice detection, and renamed the SCL class `DARK_FEATURES` to `CAST_SHADOW`. Because GEE ingests from CDSE, it inherits these improvements but with a refresh lag whose duration depends on the granule volume. During such windows, CDSE and GEE may serve different baseline versions of the same granule.
+
+The *QA60 reconstruction* introduced by GEE in February 2024 is similarly worth flagging. ESA discontinued the legacy polygon-based cloud mask after February 2022, leaving a two-year gap in QA60 availability on GEE. The reconstructed band, derived from classification outputs, is intended to preserve backward compatibility with pipelines that depend on QA60 but is not part of the native CDSE distribution and should not be assumed to be bit-identical to pre-2022 QA60 values.
+
+## Sentinel-1
+
+For Sentinel-1, the differences are more substantial because GEE applies a full preprocessing chain (thermal noise removal, data calibration, multi-looking and range-doppler terrain correction) rather than redistributing the GRD product, and the three CDSE pathways themselves expose different defaults and degrees of configurability. Table @tbl-s1-pathways summarizes the four options side by side.
+
+| **Step** | **CDSE (OData)** | **CDSE (Sentinel Hub)** | **CDSE (openEO)** | **Google Earth Engine** |
+| --- | --- | --- | --- | --- |
+| Thermal noise removal | $\times$ | ✓ | ✓ | ✓ |
+| Speckle filtering | $\times$ | Configurable | $\times$ | $\times$ |
+| Orthorectification | $\times$ | Configurable, with Range--Doppler terrain correction | ✓ | ✓ |
+| DEM for orthorectification | User choice | Copernicus 10 m / 30 m / 90 m, or Mapzen (regional defaults differ) | Copernicus 30 m | SRTM 30 m, with ASTER fallback above $\pm 60^\circ$ latitude |
+| Radiometric terrain correction | $\times$ | Available via `gamma0_terrain` + orthorectification | $\times$ | $\times$ |
+| Output units | DN | Linear power; dB via evalscript | Linear power | dB (`S1_GRD`) or linear power (`S1_GRD_FLOAT`) |
+| SLC products | ✓ | $\times$ | $\times$ | $\times$ |
+
+: Sentinel-1 GRD processing options across CDSE access pathways and GEE. "Configurable" indicates that the option is exposed through the API and can be enabled or disabled by the user. {#tbl-s1-pathways}
+
+Several details in Table @tbl-s1-pathways have downstream consequences worth flagging. The default backscatter coefficient on Sentinel Hub is $\gamma^0$ ellipsoid, which contrasts with both the openEO default ($\sigma^0$ ellipsoid) and GEE's $\sigma^0$-only output. Radiometric terrain correction on Sentinel Hub is not selected by a single flag: it requires setting `backCoeff` to `gamma0_terrain` *and* enabling orthorectification, with users selecting `gamma0_ellipsoid` alone obtaining only the ellipsoid-referenced coefficient. The DEM defaults on Sentinel Hub also differ between deployment regions (Copernicus 30 m in EU-Central-1, Mapzen in US-West-2), so reproducibility across deployments requires setting `demInstance` explicitly.
+
+The DEM choice is also where the most significant divergence between Sentinel Hub and GEE arises. GEE uses SRTM 30 m, with an ASTER fallback above $\pm 60^\circ$ latitude, while Sentinel Hub recommends the Copernicus DEM. The resulting geometric and radiometric differences are typically small over flat terrain but can become significant in regions with strong relief, especially when collocating Sentinel-1 with optical imagery.
+
+Speckle filtering is not applied by default on any pathway: it is left to the user. GEE provides only GRD-level data, so any workflow requiring phase information for interferometry must use CDSE direct download (or another canonical provider such as ASF), as SLC products are not available through Sentinel Hub, openEO, or GEE.
+
+#### Sentinel-1 {#sec-s1-pathways} RTC CDSE also distributes a Sentinel-1 Radiometric Terrain Corrected (RTC) backscatter product, processed from GRD inputs and compliant with the CEOS Analysis Ready Data for Land (CARD4L) specifications for Normalized Radar Backscatter (NRB). RTC products are orthorectified using the Copernicus DEM and delivered without speckle filtering. The NRB standard --- which combines range--Doppler geocoding with radiometric terrain correction --- is increasingly adopted across providers and may eventually supersede GRD as the default Sentinel-1 distribution format for analysis-ready use cases.
+
+## Further reading
+
+ESA's Sentinel-2 User Handbook [@esas2handbook] and the Sen2Cor Algorithm Theoretical Basis Document [@sen2coratbd] provide the authoritative description of the L2A processing chain. The Sentinel Hub Sentinel-1 GRD processing documentation [@sentinelhubs1grd] details the full set of `demInstance` and `backCoeff` options exposed through the API. The GEE Sentinel-1 algorithm [@gees1grd] documents the preprocessing applied to the GRD collections. @Mullissa2021 provide a community-validated reference implementation for analysis-ready Sentinel-1 preprocessing on GEE, which is the recommended starting point for users who require more control than the default GEE collections provide.

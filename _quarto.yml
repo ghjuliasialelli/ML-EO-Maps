@@ -1,0 +1,78 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "From Machine Learning to Large-Scale EO Products"
+  subtitle: "Best Practices and Guidelines for Making Maps"
+  reader-mode: true
+
+  page-footer:
+    left: |
+      Best Practices for EO Maps
+    right: |
+      Built with [Quarto](https://quarto.org/)
+
+  # Update these with your GitHub repo URL
+  # site-url: https://YOUR-USERNAME.github.io/Best_Practices_EO_maps/
+  # repo-url: https://github.com/YOUR-USERNAME/Best_Practices_EO_maps
+  # repo-branch: main
+  # repo-actions: [edit, issue]
+
+  chapters:
+    - index.qmd
+    - introduction.qmd
+    - part: eo_data_landscape.qmd
+      chapters:
+        - eo_missions.qmd
+        - accessing_eo_data.qmd
+    - part: data_selection_preprocessing.qmd
+      chapters:
+        - data_selection.qmd
+        - data_preprocessing.qmd
+    - part: ml_pipeline.qmd
+      chapters:
+        - ml_ready_dataset.qmd
+        - model_design_training.qmd
+    - part: uncertainty_quantification.qmd
+      chapters:
+        - uq_sources.qmd
+        - uq_methods.qmd
+        - uq_calibration.qmd
+        - uq_spatial.qmd
+        - uq_operationalizing.qmd
+    - part: map_production.qmd
+      chapters:
+        - map_generation.qmd
+        - post_processing.qmd
+        - sharing.qmd
+    - part: validation.qmd
+      chapters:
+        - validation_general.qmd
+        - validation_design_based.qmd
+        - validation_beyond.qmd
+    - part: conclusion.qmd
+      chapters:
+        - conclusion_summary.qmd
+        - conclusion_forward.qmd
+        - conclusion_limitations.qmd
+    - acknowledgments.qmd
+
+  appendices:
+    - appendix_s1_gaps.qmd
+    - appendix_processing_pathways.qmd
+    - appendix_sar_rtc.qmd
+    - appendix_cloud_masking.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+      - custom.scss
+    code-link: true
+    callout-appearance: simple
+    toc: true
+    number-sections: true
+
+bibliography: references.bib
+csl: ieee.csl

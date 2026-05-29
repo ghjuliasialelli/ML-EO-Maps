@@ -1,0 +1,10 @@
+---
+id: sec-uq
+title: "Uncertainty quantification"
+---
+
+International frameworks for climate reporting, including the UNFCCC REDD+ mechanism [@UNFCCC2013_Warsaw_REDD] and IPCC national greenhouse gas inventory guidelines [@ipcc2006guidelines], require that participating countries report estimates of forest carbon stock changes with quantified uncertainty. Carbon credit markets depend on this, as overconfident uncertainty bounds can overstate the precision of issued credits, while excessively wide bounds waste verification resources [@haya2020managing]. Beyond carbon accounting, uncertainty is what transforms a map from a static product into a tool that can guide action by identifying where additional field measurements would be most valuable, where policy conclusions are robust, and where they are not.
+
+The challenge is that uncertainty quantification (UQ) for maps is different from UQ for individual predictions. Maps are spatial products, so users do not consume pixel values in isolation but aggregate them into regional statistics, compare them across years, and derive change estimates. A model may be well-calibrated on average across a global test set while being systematically overconfident in specific biomes or regions. If the uncertainty layer does not capture this spatial variation in reliability, it fails where it is most needed.
+
+This section surveys the methods available for quantifying prediction uncertainty in large-scale EO maps, the techniques for assessing whether that uncertainty is trustworthy, the underappreciated role of spatial error correlation in aggregated estimates, and the practical question of what to do with uncertainty once it has been estimated.

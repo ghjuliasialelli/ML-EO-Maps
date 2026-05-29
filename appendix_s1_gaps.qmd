@@ -1,0 +1,8 @@
+---
+id: sec-s1-gaps
+title: "Sentinel-1 data gaps"
+---
+
+The failure of the Sentinel-1B sensor reduced the number of available radar images and introduced gaps in global coverage (see Figure @fig-s1-coverage) from December 2021 until Sentinel-1C became operational in early 2025. This loss was particularly significant because synthetic aperture radar (SAR) can image through clouds and in darkness, making it an invaluable complement to optical imagery, especially in persistently cloud-covered regions such as Gabon. Furthermore, SAR provides sensing capabilities unavailable from other instruments and has proven particularly useful for various tasks, such as flood detection [@Misra2025], vegetation monitoring [@PARAG2024101107], or ocean object detection [@10234538]. Rather than viewing these data gaps as a limitation, we encourage readers to explore complementary or alternative SAR sources (such as ALOS-2 PALSAR/PALSAR-2 yearly mosaics) and to develop models capable of handling multiple or missing modalities (see Section [Model Design and Training](model_design_training.qmd)). 
+
+![Sentinel-1 Level 1 GRD data coverage, as provided by the Alaska Satellite Facility [@ASFS1]. The map shows the number of Sentinel-1A and Sentinel-1B GRD observations acquired globally, in April 2024.](images/s1.png){#fig-s1-coverage}

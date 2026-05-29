@@ -1,0 +1,6 @@
+---
+id: sec-ml
+title: "Machine learning dataset construction and model training"
+---
+
+With preprocessed data in hand, the focus shifts to the machine learning core of the pipeline. This section covers two stages: constructing an ML-ready dataset (Section [Constructing an ML-Ready Dataset](ml_ready_dataset.qmd)) and designing and training the model (Section [Model Design and Training](model_design_training.qmd)). Each stage raises challenges that are specific to the EO context, and the decisions made at these stages directly determine the quality of the pixel-level predictions.

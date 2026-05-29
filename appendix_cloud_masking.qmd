@@ -1,0 +1,28 @@
+---
+id: sec-s2-cloud-masking
+title: "Cloud masking methods for Sentinel-2"
+---
+
+Cloud and cloud-shadow detection is the single most consequential preprocessing step for any Sentinel-2 workflow that operates on individual scenes rather than aggregated composites. The choice of method involves a trade-off along three axes: detection quality (does it correctly flag thin cirrus, cloud edges, and cast shadows?), computational cost (can it run at archive scale on available infrastructure?), and operational availability (is it pre-computed and shipped with the product, or must it be run separately?). No single method dominates on all three axes, and the appropriate choice depends on the use case: a global mapping pipeline running monthly composites has different requirements from a single-scene change-detection workflow where every false negative becomes a visible artifact.
+
+Table @tbl-s2-cloud-masking compares the methods in current use. We distinguish the algorithmic family (rule-based, classical ML, or deep learning), the form of the output (binary mask versus continuous quality score), and the practical considerations that govern whether a given method is realistic to deploy at scale.
+
+**Method** | **Family** | **Output** | **Pre-computed** |
+| --- | --- | --- | --- |
+| Fmask [@QIU2019111205] | Physics-based and ML | Multi-class label | $\times$ |
+| Cloud Score+ [@Pasquarella2023] | Deep learning | Continuous probability | ✓$^*$ |
+| s2cloudless [@zupanc2017improving] | ML | Continuous probability | ✓$^{\dagger}$ |
+| KappaMask [@Domnich2021] | Deep learning | Multi-class label | $\times$ |
+| CloudSen12 [@Aybar2022] | Deep learning | Multi-class label | $\times$ |
+| OmniCloudMask [@Wright2025] | Deep learning | Multi-class label | $\times$ |
+
+: Cloud and cloud-shadow masking methods for Sentinel-2 data. $^*$On Google Earth Engine. $^{\dagger}$On Sentinel Hub. {#tbl-s2-cloud-masking}
+
+A few practical considerations are worth highlighting. The SCL layer is the path of least resistance: it ships with every L2A product, requires no additional compute, and is sufficient for the dominant use case of cleaning cloudy pixels before median compositing. Its known weaknesses --- conservative cirrus detection, missed cloud edges, occasional confusion between bright surfaces and clouds --- become problematic when working with single scenes or when the application is sensitive to false negatives in cloud detection. Fmask, originally developed for Landsat, offers a more physics-informed and well-validated alternative, but is slower than SCL and must be run separately. s2cloudless occupies the opposite end of the efficiency spectrum: it is lightweight, fast on CPU, and widely used in operational pipelines.
+
+Cloud Score+ [@Pasquarella2023] occupies an unusual position because of its continuous output. Rather than committing to a binary mask, it returns a per-pixel quality score that the downstream user can threshold according to the sensitivity of the application. This is convenient when the same archive must serve multiple workflows with different tolerances. The principal limitation is operational: Cloud Score+ is exposed natively only through Google Earth Engine, so workflows running outside that ecosystem cannot use it directly. CloudSen12, trained on hand-labeled patches stratified across biomes, and OmniCloudMask address the same need with self-hostable models at the cost of having to run inference oneself.
+
+The deep learning methods (KappaMask, CloudSen12, OmniCloudMask) generally outperform the rule-based and classical-ML alternatives on hand-labeled benchmarks, but the magnitude of the gain depends on the region, the scene composition, and the specific failure modes the benchmark is designed to expose. @Wright2025 report computational efficiency for OmniCloudMask against several alternatives on an NVIDIA RTX 4090, providing a useful reference point for relative throughput on consumer-grade hardware. Whether the accuracy gain justifies the additional compute and infrastructure complexity is a judgment that should be made against the requirements of the specific mapping task: for global-scale composite-based workflows, the marginal benefit over SCL is often modest; for single-scene applications or studies in cloud-prone regions such as the humid tropics, it can be decisive.
+
+Finally, none of these methods is sensor-agnostic by default with the exception of OmniCloudMask. Methods originally developed for Sentinel-2 can be retrained on other optical sensors, but doing so requires either a labeled dataset for the target sensor or a sufficiently large labeled Sentinel-2 dataset together with a domain adaptation strategy. Practitioners working across multiple optical missions should weigh this carefully, as the cost of maintaining one cloud-masking pipeline per sensor can rapidly exceed the cost of the inference itself.
+

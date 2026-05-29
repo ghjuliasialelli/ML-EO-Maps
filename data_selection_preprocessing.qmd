@@ -1,0 +1,6 @@
+---
+id: sec-all-things-data
+title: "Data selection and preprocessing"
+---
+
+The quality of any ML-derived map is bounded by the quality of the data that feeds it. This section addresses the two foundational stages of the data pipeline: selecting which observations to include, and processing them into a form suitable for analysis. Data selection (Section [Data Selection](data_selection.qmd)) involves navigating trade-offs between spatial coverage, temporal density, and data quality. These decisions are particularly consequential when working with global-scale EO archives where gaps, overlaps, and redundancies must all be managed explicitly. Data preprocessing (Section [Data Preprocessing](data_preprocessing.qmd)) covers the transformation of sensor measurements into analysis-ready data, a step whose apparent simplicity conceals a number of sensor-specific subtleties. Throughout, we emphasize that preprocessing choices are not neutral: they encode assumptions that propagate into the training signal and ultimately shape the reliability of the final product.

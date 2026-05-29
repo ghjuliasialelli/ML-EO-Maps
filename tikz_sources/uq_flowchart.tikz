@@ -1,0 +1,94 @@
+\begin{tikzpicture}[
+    >={Stealth[length=3mm]},
+    question/.style={
+        rectangle, rounded corners=3pt, draw=qborder, fill=qgray,
+        text width=4.4cm, minimum height=1.1cm, align=center, font=\small
+    },
+    method/.style={
+        rectangle, rounded corners=3pt, draw=#1, fill=#1!12,
+        text width=4.4cm, minimum height=1cm, align=center, font=\small
+    },
+    method/.default=dkblue,
+    secref/.style={font=\scriptsize\itshape, text=dkred},
+    elabel/.style={font=\scriptsize, fill=white, inner sep=2pt}
+]
+
+\definecolor{dkblue}{HTML}{2B4C7E}
+\definecolor{ltblue}{HTML}{D6E4F0}
+\definecolor{dkgreen}{HTML}{2E6B4F}
+\definecolor{ltgreen}{HTML}{D4EDDA}
+\definecolor{dkorange}{HTML}{8B5E3C}
+\definecolor{ltorange}{HTML}{FDEBD0}
+\definecolor{dkred}{HTML}{7B2D3B}
+\definecolor{ltred}{HTML}{F5D6D6}
+\definecolor{dkpurple}{HTML}{5B3A6E}
+\definecolor{ltpurple}{HTML}{E8D5F5}
+\definecolor{qgray}{HTML}{F5F5F5}
+\definecolor{qborder}{HTML}{888888}
+
+% start 
+\node[question, draw=dkblue, line width=1pt, fill=ltblue, text width=5.5cm, minimum height=1.3cm] 
+    (start) {\textbf{What will you do with\\the uncertainty?}};
+ 
+% four use cases 
+\node[question] (mask) at (-8, -3) {Mask unreliable pixels\\before release or aggregation};
+\node[question] (report) at (-2.7, -3) {Report calibrated\\prediction intervals};
+\node[question] (aggregate) at (3.2, -3) {Estimate uncertainty\\over spatial aggregates};
+\node[question] (change) at (8.5, -3) {Estimate uncertainty\\for temporal change};
+ 
+% Mask recommendation 
+\node[method=dkgreen] (mask_method) at (-8, -5.8) 
+    {\textbf{Any rough proxy}\\[2pt]
+    Heteroskedastic head,\\ensemble spread, or\\area of applicability};
+\node[secref] at (-8, -7.25) {Calibration desirable, not required};
+ 
+% Report sub-question 
+\node[question] (budget) at (-2.7, -5.8) {What is your\\compute budget?};
+ 
+\node[method=dkorange] (cheap) at (-5, -8.8) 
+    {\textbf{Low budget}\\[2pt]
+    Conformalized quantile\\regression (CQR)};
+\node[secref] at (-5, -10) {Post-hoc; marginal coverage only};
+ 
+\node[method=dkpurple] (expensive) at (-0.2, -8.8) 
+    {\textbf{Higher budget}\\[2pt]
+    Gaussian/neural process, ensembles + spatial block};
+\node[secref] at (-0.2, -10) {Verify calibration};
+ 
+% Aggregate recommendation 
+\node[method=dkred] (agg_method) at (3.2, -5.8)
+    {\textbf{Spatial error correlation}\\[2pt]
+    Block kriging on model\\residuals; pixel-level UQ\\alone is insufficient};
+\node[secref] at (3.2, -7.25) {Wadoux \& Heuvelink (2023)};
+ 
+% Change recommendation 
+\node[method=dkblue] (change_method) at (8.5, -5.8) 
+    {\textbf{Propagate through\\differencing}\\[2pt]
+    Temporal error correlation between epochs};
+\node[secref] at (8.5, -7.25) {correlated vs.\ independent errors};
+ 
+% Edges 
+\draw[thick, ->] (start.south) -- ++(0,-0.6) -| (mask.north);
+\node[elabel, above=0.1cm of mask] {Filtering};
+\draw[thick, ->] (start.south) -- ++(0,-0.6) -| (report.north);
+\node[elabel, above=0.1cm of report] {Reporting};
+\draw[thick, ->] (start.south) -- ++(0,-0.6) -| (aggregate.north);
+\node[elabel, above=0.1cm of aggregate] {Aggregation};
+\draw[thick, ->] (start.south) -- ++(0,-0.6) -| (change.north);
+\node[elabel, above=0.1cm of change] {Change};
+
+\draw[thick, ->] (mask) -- (mask_method);
+\draw[thick, ->] (report) -- (budget);
+\draw[thick, ->] (budget.south) -- ++(0,-0.6) -| (cheap.north)
+    node[elabel, pos=0.25, above] {Low};
+\draw[thick, ->] (budget.south) -- ++(0,-0.6) -| (expensive.north)
+    node[elabel, pos=0.25, above] {High};
+\draw[thick, ->] (aggregate) -- (agg_method);
+\draw[thick, ->] (change) -- (change_method);
+ 
+% aggregation also needs pixel-level UQ 
+\draw[thick, dashed, ->, dkred!55] 
+    (agg_method.west) -- (budget.east)
+    node[elabel, midway, above=2pt, text=dkred!70] {\emph{+ pixel-level UQ}};
+ 
+\end{tikzpicture}
