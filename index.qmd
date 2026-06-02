@@ -1,14 +1,31 @@
 ---
 title: "From Machine Learning to Large-Scale EO Products"
 subtitle: "Best Practices and Guidelines for Making Maps"
+sidebar-title: "Welcome"
 ---
 
 The past decade has seen a rapid expansion in the production of large-scale geospatial products derived from Earth observation (EO) data using machine learning (ML). This website presents an end-to-end account of the best practices, challenges, and common pitfalls that span the entire pipeline from raw satellite data to a published, validated map product.
 
 We organize the discussion around six interconnected themes which trace the pipeline from the EO data landscape and preprocessing, through ML-specific stages of dataset construction, model design, and training, to uncertainty quantification, map generation, dissemination, and validation.
 
+![Overview of the pipeline covered in this book.](images/overview.png){#fig-overview}
+
+## Main Sections {.unnumbered}
+
+**Overview of the EO data infrastructure landscape** — Satellite missions, data access platforms, and the practical trade-offs of working with petabyte-scale archives.
+
+**Data selection and preprocessing** — Temporal strategies, cloud masking, SAR preprocessing, and the hidden choices that shape the training signal.
+
+**ML dataset construction and model training** — Data formats, spatial splitting, gridding, model design, and training considerations specific to EO.
+
+**Uncertainty quantification** — Sources of uncertainty, quantification methods, calibration diagnostics, and how to operationalize uncertainty in map products.
+
+**Map production and distribution** — Tiled inference at scale, artifact mitigation, post-processing, and cloud-native dissemination.
+
+**Validation** — Design-based accuracy assessment, the distinction between model evaluation and map validation, and reporting standards.
+
 ::: {.callout-tip}
 ## How to cite
 
-*Citation information to be added.*
+Sialelli, G. et al. (2026). "From Machine Learning to Large-Scale EO Products: Best Practices and Guidelines for Making Maps." In preparation. Available at: [https://ghjuliasialelli.github.io/ML-EO-Maps/](https://ghjuliasialelli.github.io/ML-EO-Maps/)
 :::

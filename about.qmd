@@ -1,0 +1,51 @@
+---
+title: "About the Authors"
+---
+
+&nbsp;
+
+⚠️ Subject to change. This page is a work in progress and will be updated as the project evolves. The list of contributors and advisors may expand.
+
+## Core Contributors {.unnumbered}
+
+**Ghjulia Sialelli** (lead author) is a PhD student in the Photogrammetry and Remote Sensing group at ETH Zurich and an ETH AI Center Doctoral Fellow. Her research focuses on high-resolution global mapping of above-ground biomass using deep learning and multi-modal satellite imagery, combining data from Sentinel-2, SAR sensors, and NASA's GEDI mission. She is also a co-organizer of the AI + Environment Summit.
+
+**Robin Young** is a researcher at the Department of Computer Science and Technology at the University of Cambridge. He works on machine learning for Earth observation, contributing to the development of TESSERA, a pixel-wise foundation model for multi-modal Sentinel-1/2 time series that learns robust, label-efficient embeddings for downstream EO tasks.
+
+**Cesar Aybar** is a researcher at Asterisk Labs and formerly at the Image and Signal Processing Group (ISP) at the University of Valencia. His work spans remote sensing and machine learning, including contributions to super-resolution of satellite imagery (SEN2NAIP), cloud detection and atmospheric correction, and benchmarking of optical remote sensing methods.
+
+**Yuchang Jiang** is a postdoctoral researcher at the Swiss Federal Institute for Forest, Snow and Landscape Research (WSL). She obtained her PhD from the EcoVision Lab at the University of Zurich, supervised by Jan D. Wegner and Konrad Schindler, and completed her master's at ETH Zurich. She has interned at Google DeepMind. Her research lies at the intersection of computer vision and remote sensing, with a focus on applying deep learning to environmental and ecological monitoring, including forest type mapping, habitat mapping, and phenological forecasting.
+
+**Damien Robert** is a postdoctoral researcher in the EcoVision Lab at the University of Zurich. He received his PhD in 3D Deep Learning from Gustave Eiffel University, where he worked at IGN (French mapping agency). His research at UZH focuses on deep learning methods for remote sensing and environmental applications, including forest structure analysis and species distribution modeling.
+
+**Linus Scheibenreif** is a postdoctoral researcher in the Photogrammetry and Remote Sensing group at ETH Zurich. He received his PhD in Computer Science from the University of St. Gallen. His research focuses on foundation models for satellite imagery, with contributions to parameter-efficient fine-tuning of geospatial models, hyperspectral foundation models, and climate-aware satellite imagery generation.
+
+## Technical Advisors {.unnumbered}
+
+**Clemens Mosig** is a PhD candidate at Leipzig University's Institute for Earth System Science and Remote Sensing. His research applies data science to Earth system data, with a focus on tree mortality monitoring. He developed deadtrees.earth, an open-access interactive database for centimeter-scale aerial imagery to study global tree mortality dynamics.
+
+**Daniel Lusk** is a PhD candidate in the Department for Sensor-based Geoinformatics at the University of Freiburg. He holds an M.Sc. in Remote Sensing from the University of Potsdam and a B.Sc. in Ecology from the University of Tennessee. His research focuses on global biodiversity patterns using citizen science and Earth observation, plant trait modeling, and bias reduction in geospatial data science.
+
+**Martin Schwartz** is a postdoctoral researcher at the Laboratoire des Sciences du Climat et de l'Environnement (LSCE) in France. His research focuses on forest monitoring using remote sensing and deep learning, including the creation of FORMS — high-resolution tree height, wood volume, and biomass maps of France based on Sentinel-1, Sentinel-2, and GEDI data.
+
+**Mikolaj Czerkawski** is a co-founder and partner scientist at Asterisk Labs and a former research fellow at the European Space Agency Φ-lab. His research lies at the intersection of computer vision, signal processing, and Earth observation, with recent work on open foundation model embeddings for Sentinel data (BetaEarth).
+
+**Zhengpeng Feng** is a PhD student at the Department of Computer Science and Technology at the University of Cambridge. His research focuses on self-supervised learning for remote sensing imagery. He is the lead author of TESSERA, a foundation model for multi-modal Earth observation time series accepted at CVPR 2026.
+
+**Nandika Tsendbazar** is an Assistant Professor at the Laboratory of Geo-Information Science and Remote Sensing at Wageningen University & Research. She specializes in satellite-based land change monitoring, with extensive expertise in quality and uncertainty assessment of global land cover products. She developed an operational validation framework used for Copernicus Global Land Service and ESA WorldCover maps.
+
+**Jan D. Wegner** is an Associate Professor at the University of Zurich, where he holds the "Data Science for Sciences" chair and heads the EcoVision Lab. His research is at the frontier of machine learning, computer vision, and remote sensing for environmental sciences, with applications ranging from deforestation monitoring to ecosystem analysis at global scale.
+
+**Aleksis Pirinen** is a Senior Researcher in Machine Learning and Computer Vision at RISE Research Institutes of Sweden and co-founder of Climate AI Nordics. He holds a PhD from Lund University on reinforcement learning for active visual perception. His current work focuses on AI for climate adaptation and environmental monitoring.
+
+**Olof Mogren** is a Senior Research Scientist and director of deep learning research at RISE Research Institutes of Sweden, co-founder of Climate AI Nordics, and co-PI of CLIMES (Swedish Centre for Impacts of Climate Extremes). He holds a PhD in Machine Learning from Chalmers University of Technology. His work spans biodiversity monitoring, remote sensing, stream flow forecasting, and smart fire detection.
+
+**Konrad Schindler** is a Full Professor of Photogrammetry and Remote Sensing at ETH Zurich, where he heads the Institute of Geodesy and Photogrammetry. He holds a PhD in Computer Science and has been at ETH since 2010. His research spans Earth observation, computer vision, and geo-AI, with a focus on extracting geospatial information from large-scale imagery and sensor data.
+
+## Acknowledgments {.unnumbered}
+
+GS is supported by an ETH AI Center doctoral fellowship. We thank Isabelle Tingzon, Chiara Ceccobello, and Sebastian Hafner (RISE Research Institutes of Sweden), Henry Herzog (Allen Institute for AI), Christelle Vancutsem (EU Joint Research Centre), Robert N. Masolele (Wageningen University), Peter Potapov (World Resources Institute), Louis de Vitry (Kanop), and Valerie J. Pasquarella (Google) for generously sharing their experience and insights during the preparation of this work. Their input helped shape several of the practical recommendations presented here, though responsibility for any errors or omissions remains with the authors.
+
+## Contact {.unnumbered}
+
+<!-- TODO: Add contact information or a link to the corresponding author's page. -->

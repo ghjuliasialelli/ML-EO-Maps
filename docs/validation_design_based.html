@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Design-based accuracy assessment – From Machine Learning to Large-Scale EO Products:</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./validation_beyond.html" rel="next">
+<link href="./validation_general.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-7cfea83ef4c10f509d7acd07c74e5a1b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./validation.html">Validation</a></li><li class="breadcrumb-item"><a href="./validation_design_based.html"><span class="chapter-title">Design-based accuracy assessment</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">From Machine Learning to Large-Scale EO Products:</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/ghjuliasialelli/ml-eo-maps" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./eo_data_landscape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview of the EO data infrastructure landscape</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./eo_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">EO missions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./accessing_eo_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Accessing EO data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./data_selection_preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data selection and preprocessing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_selection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data selection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data preprocessing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./ml_pipeline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Machine learning dataset construction and model training</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ml_ready_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Constructing a machine-learning-ready dataset</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./model_design_training.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Model design and training</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./uncertainty_quantification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Uncertainty quantification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_sources.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sources of uncertainty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_methods.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Uncertainty quantification methods</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_calibration.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Assessing calibration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Spatial structure of uncertainty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_operationalizing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Operationalizing uncertainty</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./map_production.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Map production and distribution</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./map_generation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Map generation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./post_processing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Post-processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sharing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sharing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">General considerations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./validation_design_based.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Design-based accuracy assessment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./validation_beyond.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Validation beyond probability sampling</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusion</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion_summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion_forward.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Looking forward</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion_limitations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Limitations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acknowledgments.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acknowledgments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_s1_gaps.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sentinel-1 data gaps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_processing_pathways.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sentinel-1 and Sentinel-2 processing across access pathways</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#reporting-and-transparency" id="toc-reporting-and-transparency" class="nav-link active" data-scroll-target="#reporting-and-transparency">Reporting and transparency</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/validation_design_based.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./validation.html">Validation</a></li><li class="breadcrumb-item"><a href="./validation_design_based.html"><span class="chapter-title">Design-based accuracy assessment</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Design-based accuracy assessment</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>A statistically rigorous map accuracy assessment in a design-based inference framework relies on three essential components <span class="citation" data-cites="Stehman1998"><a href="#ref-Stehman1998" role="doc-biblioref">[1]</a></span>: - the sampling design used to select the reference sample, - the response design used to obtain the reference for each sampling unit, - the estimation and analysis procedures.</p>
+<p>These components must be considered jointly <span class="citation" data-cites="stehman2001statistical congalton2019assessing tyukavina2025practical"><a href="#ref-stehman2001statistical" role="doc-biblioref">[2]</a>, <a href="#ref-congalton2019assessing" role="doc-biblioref">[3]</a>, <a href="#ref-tyukavina2025practical" role="doc-biblioref">[4]</a></span>. Across all stages, a clear and consistent problem definition is critical and should precede the validation process. In particular, the definitions used in sampling and labeling (such as what constitutes “forest” or the boundaries between land-cover classes) must be explicitly defined and aligned with the broader conceptual framing of the map product. ## Sampling design Sampling design determines how locations are selected for validation across the mapped domain. Design-based inference derives its validity from the randomness of the sample selection process rather than from model assumptions <span class="citation" data-cites="stehman2001statistical"><a href="#ref-stehman2001statistical" role="doc-biblioref">[2]</a></span>. Under this framework, every location within the study area must have a known, non-zero probability of being selected. This requirement is known as the inclusion probability criterion <span class="citation" data-cites="pengra2015global tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[4]</a>, <a href="#ref-pengra2015global" role="doc-biblioref">[5]</a></span>. A wide range of probability sampling strategies can be applied, including simple random, systematic, and stratified approaches. The choice of sampling design, as well as the definition of strata, directly influences the statistical properties of the resulting accuracy estimates <span class="citation" data-cites="olofsson2014good"><a href="#ref-olofsson2014good" role="doc-biblioref">[6]</a></span>. For example, different designs may affect the balance between the precision of user’s accuracy and producer’s accuracy, particularly in the presence of class imbalance <span class="citation" data-cites="olofsson2020mitigating"><a href="#ref-olofsson2020mitigating" role="doc-biblioref">[7]</a></span>. Among available options, stratified random sampling is widely recommended as an adequate general-purpose design <span class="citation" data-cites="olofsson2014good stehman2009sampling"><a href="#ref-olofsson2014good" role="doc-biblioref">[6]</a>, <a href="#ref-stehman2009sampling" role="doc-biblioref">[8]</a></span>. It allows better control over sample allocation across strata (e.g., land cover classes) while maintaining a probabilistic framework for unbiased inference.</p>
+<p>For maps that include rare classes such as deforestation or urban expansion, buffer-based stratification methods can substantially improve estimation. <span class="citation" data-cites="olofsson2020mitigating"><a href="#ref-olofsson2020mitigating" role="doc-biblioref">[7]</a></span> propose introducing an additional stratum around mapped change areas, increasing the likelihood of sampling near class boundaries where omission errors concentrate. Sample size must balance statistical precision against the practical cost of reference labeling. Minimum sample sizes per class are generally recommended to ensure reliable per-class accuracy estimates, and formal procedures for determining sample size under stratified designs are well established <span class="citation" data-cites="congalton2019assessing olofsson2014good"><a href="#ref-congalton2019assessing" role="doc-biblioref">[3]</a>, <a href="#ref-olofsson2014good" role="doc-biblioref">[6]</a></span>. In practice, a widely adopted implementation is the stratified one-stage cluster approach <span class="citation" data-cites="pengra2015global"><a href="#ref-pengra2015global" role="doc-biblioref">[5]</a></span>, which combines stratification and clustering to balance statistical efficiency with the logistical constraints of human interpretation. The study area is first divided into strata based on attributes such as biomes, ensuring that rare but important classes (e.g., urban areas or water bodies) are sufficiently represented. Within each stratum, the area is partitioned into clusters or blocks, referred to as primary sampling units (PSUs). In a one-stage design, once a cluster is selected, every pixel within it is evaluated as part of the reference data <span class="citation" data-cites="xu2024comparative"><a href="#ref-xu2024comparative" role="doc-biblioref">[9]</a></span>. Because clusters are selected from different strata at varying frequencies, each sample is assigned a weight based on its inclusion probability, enabling unbiased estimation of overall map accuracy and class-specific areas <span class="citation" data-cites="tsendbazar2021towards"><a href="#ref-tsendbazar2021towards" role="doc-biblioref">[10]</a></span>. A concrete example of this approach is the multi-purpose Global Land Cover Validation dataset developed for the Copernicus Global Land Service <span class="citation" data-cites="tsendbazar2018developing tsendbazar2021towards"><a href="#ref-tsendbazar2021towards" role="doc-biblioref">[10]</a>, <a href="#ref-tsendbazar2018developing" role="doc-biblioref">[11]</a></span>. This dataset uses a global stratification that is independent of any land cover map and employs the Sentinel-2 UTM grid as its geographic base. It comprises more than 21 000 PSUs globally, each containing one hundred <span class="math inline">\(10 \times 10\)</span> m reference pixels, and is updated annually to capture areas of change. The dataset has been used to validate multiple products, including the CGLS-LC100m and ESA WorldCover maps, demonstrating that CEOS WGCV Stage 4 validation, currently the highest validation stage achieved for satellite-derived land-cover products and characterized by sustained validation across product updates, is practically feasible at global scale. An alternative systematic approach uses a Discrete Global Grid System (DGGS) based on a hierarchical hexagonal tessellation of the globe, which minimizes geometric distortions inherent in regular latitude-longitude grids. A PSU is defined within each hexagon cell and reprojected into the local UTM zone to ensure alignment with the sensor pixels used for classification, guaranteeing equal-area sampling across the globe <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[4]</a></span>. ## Response design Response design specifies how reference labels are assigned at the sampled locations. It encompasses the choice of spatial assessment unit (pixel, spatial window, or object-based), the source of reference information (field observations, high-resolution imagery, or crowdsourced data), the labeling protocol, and the definition of agreement between map and reference labels. Each of these choices must be explicitly documented <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[4]</a></span>.</p>
+<p>In practice, reference labels are most commonly derived from visual interpretation of high-resolution imagery by trained experts. While widely regarded as the best available approach, this process is not fully reproducible: interpreter disagreement rates of 30</p>
+<p>Several practices help mitigate these uncertainties. Reference data should be produced by interpreters who are independent from the map makers and unaware of map labels at sample locations, to avoid confirmation bias. Using multiple interpreters with consensus-based labeling further improves reliability <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[4]</a></span>. Positional uncertainty can be addressed through the use of alternative labels derived from the spatial neighborhood of each sample unit, for instance by considering the majority class within a <span class="math inline">\(3\times3\)</span> kernel around each reference pixel <span class="citation" data-cites="xu2024comparative tsendbazar2016comparative"><a href="#ref-xu2024comparative" role="doc-biblioref">[9]</a>, <a href="#ref-tsendbazar2016comparative" role="doc-biblioref">[12]</a></span>. Finally, reference data should be temporally matched to the map epoch <span class="citation" data-cites="tsendbazar2021towards"><a href="#ref-tsendbazar2021towards" role="doc-biblioref">[10]</a></span>. ## Analysis Analysis refers to the statistical procedures used to derive accuracy metrics from the validation sample. For categorical maps, this typically involves constructing an error (confusion) matrix, which should be expressed in terms of area proportions rather than sample counts <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[4]</a></span>. When sampling is stratified or otherwise non-uniform, unequal inclusion probabilities between strata must be accounted for, since sample sites are typically not allocated proportionally to strata areas <span class="citation" data-cites="olofsson2012making wickham2010effect"><a href="#ref-olofsson2012making" role="doc-biblioref">[13]</a>, <a href="#ref-wickham2010effect" role="doc-biblioref">[14]</a></span>. The inclusion probability for stratum <span class="math inline">\(h\)</span> is defined as <span class="math inline">\(\pi_h = k_h / K_h\)</span>, where <span class="math inline">\(k_h\)</span> is the number of sample sites in stratum <span class="math inline">\(h\)</span> and <span class="math inline">\(K_h\)</span> is the population size for that stratum. The estimation weight is then calculated as the inverse of the inclusion probability (<span class="math inline">\(1/\pi_h\)</span>). These weights are used to construct an area-weighted confusion matrix from which unbiased estimates of overall and class-specific accuracies, as well as area proportions, can be derived <span class="citation" data-cites="olofsson2013good tsendbazar2018developing pengra2015global"><a href="#ref-pengra2015global" role="doc-biblioref">[5]</a>, <a href="#ref-tsendbazar2018developing" role="doc-biblioref">[11]</a>, <a href="#ref-olofsson2013good" role="doc-biblioref">[15]</a></span>. More generally, when validation data are collected using a stratified sampling design, corresponding stratified estimators and appropriate sample weighting must be applied during analysis to obtain unbiased accuracy and area estimates <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[4]</a></span>. User’s and producer’s accuracy (or equivalently, precision and recall), along with other metrics quantifying omission and commission errors, should be reported for individual classes in addition to overall accuracy. This is particularly important when a target class occupies a small proportion of the map, as high overall accuracy can mask poor performance on the class of interest <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[4]</a></span>. In addition to traditional accuracy metrics, alternative decompositions of classification error, such as quantity disagreement and allocation disagreement <span class="citation" data-cites="pontius2011death"><a href="#ref-pontius2011death" role="doc-biblioref">[16]</a></span>, can provide complementary insight into the nature of map errors and are commonly adopted in the literature. For continuous-field products (e.g., tree cover fraction), adaptations of the standard confusion matrix framework, along with continuous accuracy metrics such as mean absolute error (MAE) and root mean square error (RMSE), are available <span class="citation" data-cites="pengra2015global tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[4]</a>, <a href="#ref-pengra2015global" role="doc-biblioref">[5]</a></span>. Accuracy metrics should be accompanied by measures of uncertainty, such as standard errors or confidence intervals, to reflect the variability inherent in the sampling process <span class="citation" data-cites="stehman2019key"><a href="#ref-stehman2019key" role="doc-biblioref">[17]</a></span>. In practice, standard errors of accuracy metrics are often not reported, making it difficult for users to assess whether the provided estimates are reliable. Bootstrapping with replacement is commonly used to derive confidence intervals because it does not rely on parametric assumptions about the error distribution, although it does not correct systematic sampling bias in the validation design.</p>
+<section id="reporting-and-transparency" class="level2">
+<h2 class="anchored" data-anchor-id="reporting-and-transparency">Reporting and transparency</h2>
+<p>Transparent reporting of validation procedures is essential for ensuring credibility, reproducibility, and appropriate interpretation of map products <span class="citation" data-cites="stehman2019key"><a href="#ref-stehman2019key" role="doc-biblioref">[17]</a></span>. At a minimum, studies should document the sampling design (including strategy, sample size, and allocation), response design (reference data sources, labeling protocol, and uncertainty considerations), and analysis methods (accuracy metrics, area estimation procedures, and uncertainty measures such as confidence intervals). Any deviations from probability-based sampling or limitations in reference data should be clearly acknowledged. For products that are operationally updated, accuracy should be monitored for temporal stability, not only assessed at a single point in time. <span class="citation" data-cites="tsendbazar2021towards"><a href="#ref-tsendbazar2021towards" role="doc-biblioref">[10]</a></span> propose to quantify stability by calculating an index from class accuracies at different moments in time, following the requirement that omission and commission error should each remain below 15</p>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-Stehman1998" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">S. V. Stehman and R. L. Czaplewski, <span>“<span class="nocase">Design and analysis for thematic map accuracy assessment: fundamental principles</span>,”</span> <em>Remote sensing of environment</em>, vol. 64, no. 3, pp. 331–344, 1998.</div>
+</div>
+<div id="ref-stehman2001statistical" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">S. V. Stehman, <span>“<span class="nocase">Statistical rigor and practical utility in thematic map accuracy assessment</span>,”</span> <em>Photogrammetric Engineering and Remote Sensing</em>, vol. 67, no. 6, pp. 727–734, 2001.</div>
+</div>
+<div id="ref-congalton2019assessing" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">R. G. Congalton and K. Green, <em><span class="nocase">Assessing the Accuracy of Remotely Sensed Data: Principles and Practices, Third Edition</span></em>. CRC Press, 2019. doi: <a href="https://doi.org/10.1201/9780429052729">10.1201/9780429052729</a>.</div>
+</div>
+<div id="ref-tyukavina2025practical" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">A. Tyukavina, S. V. Stehman, A. H. Pickens, P. Potapov, and M. C. Hansen, <span>“<span class="nocase">Practical global sampling methods for estimating area and map accuracy of land cover and change</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 324, p. 114714, 2025.</div>
+</div>
+<div id="ref-pengra2015global" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">B. Pengra, J. Long, D. Dahal, S. V. Stehman, and T. R. Loveland, <span>“<span class="nocase">A global reference database from very high resolution commercial satellite data and methodology for application to Landsat derived 30 m continuous field tree cover data</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 165, pp. 234–248, Aug. 2015, doi: <a href="https://doi.org/10.1016/j.rse.2015.01.018">10.1016/j.rse.2015.01.018</a>.</div>
+</div>
+<div id="ref-olofsson2014good" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">P. Olofsson, G. M. Foody, M. Herold, S. V. Stehman, C. E. Woodcock, and M. A. Wulder, <span>“<span class="nocase">Good practices for estimating area and assessing accuracy of land change</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 148, pp. 42–57, May 2014, doi: <a href="https://doi.org/10.1016/j.rse.2014.02.015">10.1016/j.rse.2014.02.015</a>.</div>
+</div>
+<div id="ref-olofsson2020mitigating" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">P. Olofsson <em>et al.</em>, <span>“<span class="nocase">Mitigating the effects of omission errors on area and area change estimates</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 236, p. 111492, Jan. 2020, doi: <a href="https://doi.org/10.1016/j.rse.2019.111492">10.1016/j.rse.2019.111492</a>.</div>
+</div>
+<div id="ref-stehman2009sampling" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">S. V. Stehman, <span>“<span class="nocase">Sampling designs for accuracy assessment of land cover</span>,”</span> <em>International Journal of Remote Sensing</em>, vol. 30, no. 20, pp. 5243–5272, 2009, doi: <a href="https://doi.org/10.1080/01431160903131000">10.1080/01431160903131000</a>.</div>
+</div>
+<div id="ref-xu2024comparative" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">P. Xu, N.-E. Tsendbazar, and M. Herold, <span>“<span class="nocase">Comparative validation of recent 10 m-resolution global land cover maps</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 314, p. 114316, 2024, doi: <a href="https://doi.org/10.1016/j.rse.2024.114316">10.1016/j.rse.2024.114316</a>.</div>
+</div>
+<div id="ref-tsendbazar2021towards" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">N. Tsendbazar, M. Herold, L. Li, A. Tarko, and M. Duerauer, <span>“<span class="nocase">Towards operational validation of annual global land cover maps</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 266, p. 112686, 2021, doi: <a href="https://doi.org/10.1016/j.rse.2021.112686">10.1016/j.rse.2021.112686</a>.</div>
+</div>
+<div id="ref-tsendbazar2018developing" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">N.-E. Tsendbazar <em>et al.</em>, <span>“<span class="nocase">Developing and applying a multi-purpose land cover validation dataset for Africa</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 219, pp. 298–309, Dec. 2018, doi: <a href="https://doi.org/10.1016/j.rse.2018.10.025">10.1016/j.rse.2018.10.025</a>.</div>
+</div>
+<div id="ref-tsendbazar2016comparative" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">N. E. Tsendbazar, S. de Bruin, B. Mora, L. Schouten, and M. Herold, <span>“<span class="nocase">Comparative assessment of thematic accuracy of GLC maps for specific applications using existing reference data</span>,”</span> <em>International Journal of Applied Earth Observation and Geoinformation</em>, vol. 44, pp. 124–135, Feb. 2016, doi: <a href="https://doi.org/10.1016/j.jag.2015.08.009">10.1016/j.jag.2015.08.009</a>.</div>
+</div>
+<div id="ref-olofsson2012making" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">P. Olofsson <em>et al.</em>, <span>“<span class="nocase">A global land-cover validation data set, part I: fundamental design principles</span>,”</span> <em>International Journal of Remote Sensing</em>, vol. 33, no. 18, pp. 5768–5788, Mar. 2012, doi: <a href="https://doi.org/10.1080/01431161.2012.674230">10.1080/01431161.2012.674230</a>.</div>
+</div>
+<div id="ref-wickham2010effect" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">J. D. Wickham, S. V. Stehman, J. A. Fry, J. H. Smith, and C. G. Homer, <span>“<span class="nocase">Thematic accuracy of the NLCD 2001 land cover for the conterminous United States</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 114, no. 6, pp. 1286–1296, 2010, doi: <a href="https://doi.org/10.1016/j.rse.2010.01.018">10.1016/j.rse.2010.01.018</a>.</div>
+</div>
+<div id="ref-olofsson2013good" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">P. Olofsson, G. M. Foody, S. V. Stehman, and C. E. Woodcock, <span>“<span class="nocase">Making better use of accuracy data in land change studies: Estimating accuracy and area and quantifying uncertainty using stratified estimation</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 129, pp. 122–131, Feb. 2013, doi: <a href="https://doi.org/10.1016/j.rse.2012.10.031">10.1016/j.rse.2012.10.031</a>.</div>
+</div>
+<div id="ref-pontius2011death" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">R. G. Pontius and M. Millones, <span>“<span class="nocase">Death to Kappa: birth of quantity disagreement and allocation disagreement for accuracy assessment</span>,”</span> <em>International Journal of Remote Sensing</em>, vol. 32, no. 15, pp. 4407–4429, Aug. 2011, doi: <a href="https://doi.org/10.1080/01431161.2011.552923">10.1080/01431161.2011.552923</a>.</div>
+</div>
+<div id="ref-stehman2019key" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">S. V. Stehman and G. M. Foody, <span>“<span class="nocase">Key issues in rigorous accuracy assessment of land cover products</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 231, p. 111199, 2019, doi: <a href="https://doi.org/10.1016/j.rse.2019.05.018">10.1016/j.rse.2019.05.018</a>.</div>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ghjuliasialelli\.github\.io\/ml-eo-maps");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./validation_general.html" class="pagination-link" aria-label="General considerations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">General considerations</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./validation_beyond.html" class="pagination-link" aria-label="Validation beyond probability sampling">
+        <span class="nav-page-text"><span class="chapter-title">Validation beyond probability sampling</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Best Practices for EO Maps</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/validation_design_based.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

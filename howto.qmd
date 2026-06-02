@@ -1,0 +1,35 @@
+---
+title: "How to Use This Book"
+---
+
+## Overview {.unnumbered}
+
+This book presents an end-to-end account of best practices for producing large-scale geospatial products from Earth observation data using machine learning. It is organized around six interconnected themes that trace the pipeline from raw satellite data to a published, validated map product. Each chapter can be read independently or as part of the full pipeline.
+
+## Structure {.unnumbered}
+
+The book is divided into the following parts:
+
+**Overview of the EO data infrastructure landscape** covers the satellite missions and data access platforms available to practitioners, and the practical trade-offs involved in choosing between them.
+
+**Data selection and preprocessing** addresses how to select which observations to include and how to process them into analysis-ready formats, covering both optical and SAR data.
+
+**Machine learning dataset construction and model training** discusses data formats, spatial splitting strategies, gridding choices, and model design considerations specific to EO data.
+
+**Uncertainty quantification** surveys sources of uncertainty in EO-derived maps and methods for quantifying, calibrating, and operationalizing uncertainty estimates.
+
+**Map production and distribution** covers the engineering challenges of tiled inference at scale, post-processing, and dissemination in cloud-native formats.
+
+**Validation** distinguishes model evaluation from map validation and presents design-based accuracy assessment and complementary validation approaches.
+
+## How to Cite {.unnumbered}
+
+<!-- TODO: Add citation information here. -->
+
+## Contributing {.unnumbered}
+
+This book is hosted on [GitHub](https://github.com/ghjuliasialelli/ML-EO-Maps). Contributions, corrections, and suggestions are welcome via pull requests or issues.
+
+## License {.unnumbered}
+
+<!-- TODO: Specify the license for this work (e.g., CC BY 4.0, CC BY-NC-SA 4.0). -->

@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data preprocessing – From Machine Learning to Large-Scale EO Products:</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./ml_pipeline.html" rel="next">
+<link href="./data_selection.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-7cfea83ef4c10f509d7acd07c74e5a1b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_selection_preprocessing.html">Data selection and preprocessing</a></li><li class="breadcrumb-item"><a href="./data_preprocessing.html"><span class="chapter-title">Data preprocessing</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">From Machine Learning to Large-Scale EO Products:</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/ghjuliasialelli/ml-eo-maps" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./eo_data_landscape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview of the EO data infrastructure landscape</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./eo_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">EO missions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./accessing_eo_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Accessing EO data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./data_selection_preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data selection and preprocessing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_selection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data selection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_preprocessing.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Data preprocessing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./ml_pipeline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Machine learning dataset construction and model training</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ml_ready_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Constructing a machine-learning-ready dataset</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./model_design_training.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Model design and training</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./uncertainty_quantification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Uncertainty quantification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_sources.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sources of uncertainty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_methods.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Uncertainty quantification methods</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_calibration.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Assessing calibration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Spatial structure of uncertainty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_operationalizing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Operationalizing uncertainty</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./map_production.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Map production and distribution</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./map_generation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Map generation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./post_processing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Post-processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sharing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sharing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">General considerations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./validation_design_based.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Design-based accuracy assessment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./validation_beyond.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Validation beyond probability sampling</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusion</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion_summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion_forward.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Looking forward</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion_limitations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Limitations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acknowledgments.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acknowledgments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_s1_gaps.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sentinel-1 data gaps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_processing_pathways.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sentinel-1 and Sentinel-2 processing across access pathways</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sentinel-1-preprocessing" id="toc-sentinel-1-preprocessing" class="nav-link active" data-scroll-target="#sentinel-1-preprocessing">Sentinel-1 preprocessing</a>
+  <ul class="collapse">
+  <li><a href="#processing-steps" id="toc-processing-steps" class="nav-link" data-scroll-target="#processing-steps">Processing steps</a></li>
+  <li><a href="#platform-specific-processing" id="toc-platform-specific-processing" class="nav-link" data-scroll-target="#platform-specific-processing">Platform-specific processing</a></li>
+  <li><a href="#alos-palsarpalsar-2-mosaics" id="toc-alos-palsarpalsar-2-mosaics" class="nav-link" data-scroll-target="#alos-palsarpalsar-2-mosaics">ALOS PALSAR/PALSAR-2 mosaics</a></li>
+  </ul></li>
+  <li><a href="#sentinel-2-preprocessing" id="toc-sentinel-2-preprocessing" class="nav-link" data-scroll-target="#sentinel-2-preprocessing">Sentinel-2 preprocessing</a>
+  <ul class="collapse">
+  <li><a href="#cloud-masking" id="toc-cloud-masking" class="nav-link" data-scroll-target="#cloud-masking">Cloud masking</a></li>
+  <li><a href="#radiometric-processing" id="toc-radiometric-processing" class="nav-link" data-scroll-target="#radiometric-processing">Radiometric processing</a></li>
+  <li><a href="#additional-corrections" id="toc-additional-corrections" class="nav-link" data-scroll-target="#additional-corrections">Additional corrections</a></li>
+  </ul></li>
+  <li><a href="#landsat-preprocessing" id="toc-landsat-preprocessing" class="nav-link" data-scroll-target="#landsat-preprocessing">Landsat preprocessing</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/data_preprocessing.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_selection_preprocessing.html">Data selection and preprocessing</a></li><li class="breadcrumb-item"><a href="./data_preprocessing.html"><span class="chapter-title">Data preprocessing</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Data preprocessing</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Processing steps for Earth observation data vary considerably across the major data sources, but share common goals of converting sensor measurements into analysis-ready data formats. Here, we provide an overview of the processing steps that the remote sensing community commonly applies to three of the most widely used EO products: Sentinel-1, Sentinel-2, and Landsat.</p>
+<section id="sentinel-1-preprocessing" class="level2">
+<h2 class="anchored" data-anchor-id="sentinel-1-preprocessing">Sentinel-1 preprocessing</h2>
+<p>Synthetic aperture radar data requires a distinct and often more involved preprocessing chain than optical imagery. SAR sensors measure the coherent backscatter of microwave pulses, and the resulting images are affected by multiplicative speckle noise, radiometric variations driven by local terrain geometry, and geometric distortions inherent to the side-looking acquisition (as described in Section <a href="./data_selection.html#sec-sar">SAR data selection</a>). Unlike optical sensors, whose Level-2 products are typically delivered as atmospherically corrected products, Sentinel-1 Ground Range Detected (GRD) products are distributed at a relatively early processing stage and require several user-side corrections before they can be meaningfully compared across space and time.</p>
+<section id="processing-steps" class="level3">
+<h3 class="anchored" data-anchor-id="processing-steps">Processing steps</h3>
+<p>The corrections needed to convert GRD products into analysis ready backscatter can be grouped into four stages. First, <strong>thermal noise removal</strong> suppresses additive noise artifacts that are particularly visible near swath edges and in cross-polarization channels. Second, <strong>radiometric calibration</strong> converts digital numbers to a physically meaningful backscatter coefficient. The most common conventions are <span class="math inline">\(\sigma_0\)</span> (referenced to the area on the reference ellipsoid), <span class="math inline">\(\beta_0\)</span> (referenced to the slant range area), and <span class="math inline">\(\gamma_0\)</span> (referenced to the area perpendicular to the look direction). The latter is increasingly preferred because, when combined with DEM-based radiometric terrain flattening, it reduces the dependence of backscatter on local terrain slope, making it more suitable as an input to terrain correction (see <a href="./appendix_sar_rtc.html">SAR Radiometric Calibration</a>). Third, <strong>speckle reduction</strong> addresses the multiplicative speckle noise produced by the coherent nature of SAR imaging. Speckle can be suppressed through spatial filtering <span class="citation" data-cites="LeeFiltering FrostFiltering RefinedLee"><a href="#ref-LeeFiltering" role="doc-biblioref">[1]</a>, <a href="#ref-FrostFiltering" role="doc-biblioref">[2]</a>, <a href="#ref-RefinedLee" role="doc-biblioref">[3]</a></span>, though this trades spatial resolution for radiometric smoothness. Resolution-preserving alternatives exist, notably methods that leverage a stack of SAR acquisitions to denoise individual images <span class="citation" data-cites="Quegan2001"><a href="#ref-Quegan2001" role="doc-biblioref">[4]</a></span>. A simple strategy adopted in the SatML community <span class="citation" data-cites="pauls2025capturing schwartzRetrievingYearlyForest2025"><a href="#ref-pauls2025capturing" role="doc-biblioref">[5]</a>, <a href="#ref-schwartzRetrievingYearlyForest2025" role="doc-biblioref">[6]</a></span> is temporal averaging, e.g., monthly compositing, which reduces speckle without sacrificing spatial detail, at the cost of discarding individual observations. Each approach navigates a trade-off between computational complexity, spatial resolution, and temporal resolution, and the appropriate choice depends on which of these the downstream application can afford to sacrifice. Fourth, <strong>geometric and radiometric terrain correction</strong> addresses distortions caused by topography. GRD products are projected onto an Earth ellipsoid model and do not account for local terrain relief, leading to geometric distortions in areas with significant topography. Range-Doppler terrain correction uses a DEM to project the data onto map geometry with accurate geolocation, recovering foreshortened areas. This DEM-based orthorectification step is essential, particularly when collocating Sentinel-1 with optical imagery over anything but flat ground. Even with correct geolocation, the standard backscatter conventions all normalize for area assuming a flat ellipsoid, so slopes tilted toward the sensor receive more illumination per unit assumed area and appear brighter than equivalent slopes facing away, and intensity becomes partly a function of topography rather than ground properties. Radiometric terrain correction addresses this by normalizing against the true terrain-illuminated area per pixel. Established toolboxes including pyroSAR <span class="citation" data-cites="pyrosar"><a href="#ref-pyrosar" role="doc-biblioref">[7]</a></span> and the ESA SNAP toolbox <span class="citation" data-cites="esasnap"><a href="#ref-esasnap" role="doc-biblioref">[8]</a></span> provide implementations of these workflows.</p>
+</section>
+<section id="platform-specific-processing" class="level3">
+<h3 class="anchored" data-anchor-id="platform-specific-processing">Platform-specific processing</h3>
+<p>The absence of a standardized preprocessing pipeline for Sentinel-1 GRD data means that the choice of data provider is, in practice, inseparable from the preprocessing approach. Different platforms deliver Sentinel-1 data at different stages of processing, using different DEMs, backscatter conventions, and speckle treatments — differences that can propagate silently into downstream models. Details are provided in <a href="./appendix_processing_pathways.html#sentinel-1">Sentinel-1 Processing</a>. Within the Copernicus Data Space Ecosystem (<strong>CDSE</strong>) <span class="citation" data-cites="cdses1"><a href="#ref-cdses1" role="doc-biblioref">[9]</a></span>, data are available from GRD products to the more recent Sentinel-1 RTC product. <strong>Google Earth Engine</strong> applies its own processing to native GRD data; the reference implementation <span class="citation" data-cites="Mullissa2021"><a href="#ref-Mullissa2021" role="doc-biblioref">[10]</a></span> and its associated package <span class="citation" data-cites="gees1ard"><a href="#ref-gees1ard" role="doc-biblioref">[11]</a></span> provide guidance on proper analysis-ready data preparation on GEE. <strong>AWS S3</strong> hosts the GRD archive from CDSE in cloud-optimized GeoTIFF format <span class="citation" data-cites="aws3grd"><a href="#ref-aws3grd" role="doc-biblioref">[12]</a></span> as well as a Sentinel-1 RTC collection over the contiguous United States <span class="citation" data-cites="aws3rtc"><a href="#ref-aws3rtc" role="doc-biblioref">[13]</a></span>. <strong>Microsoft Planetary Computer</strong> <span class="citation" data-cites="mpc"><a href="#ref-mpc" role="doc-biblioref">[14]</a></span> provides both a GRD collection from ESA and an RTC collection that they process themselves; for the former, they encourage users to apply geometric or radiometric terrain correction on the fly using any DEM available on the platform.</p>
+</section>
+<section id="alos-palsarpalsar-2-mosaics" class="level3">
+<h3 class="anchored" data-anchor-id="alos-palsarpalsar-2-mosaics">ALOS PALSAR/PALSAR-2 mosaics</h3>
+<p>Beyond Sentinel-1, another widely used SAR data source is the ALOS PALSAR/PALSAR-2 annual mosaic, a seamless global L-band SAR image created by mosaicking strips of PALSAR and PALSAR-2 imagery. Each strip is orthorectified and slope-corrected using the ALOS World 3D–30 m digital surface model, and polarization data can be converted to <span class="math inline">\(\gamma_0\)</span> values. Because these mosaics are delivered as annual composites with terrain and radiometric corrections already applied, they require less user-side preprocessing than Sentinel-1 GRD products.</p>
+</section>
+</section>
+<section id="sentinel-2-preprocessing" class="level2">
+<h2 class="anchored" data-anchor-id="sentinel-2-preprocessing">Sentinel-2 preprocessing</h2>
+<p>Sentinel-2 data are distributed at two main processing levels: Level-1C, which provides top-of-atmosphere reflectance, and Level-2A, which provides bottom-of-atmosphere (BOA) reflectance after atmospheric correction via the Sen2Cor processor. The vast majority of ML workflows operate on L2A products, but several preprocessing steps are still required before the data are suitable for model ingestion. Some of these are near-universal and straightforward while others are more specialized and applied only when the application demands high temporal or spatial consistency.</p>
+<section id="cloud-masking" class="level3">
+<h3 class="anchored" data-anchor-id="cloud-masking">Cloud masking</h3>
+<p>Cloud and cloud shadow contamination is a challenge common to all passive optical sensors, not only Sentinel-2. However, because Sentinel-2 is the dominant optical data source in the recent ML literature, most dedicated cloud detection methods (particularly deep learning-based approaches) have been developed and benchmarked on Sentinel-2 imagery. Many of these methods are in principle applicable to other optical sensors (Landsat, MODIS, etc.), though they may require retraining or adaptation to account for differences in spectral bands and spatial resolution. Several cloud and cloud shadow detection methods are available for Sentinel-2, ranging from the Scene Classification Layer (SCL) included in every L2A product to dedicated deep learning models, as summarized in <a href="./appendix_cloud_masking.html">Cloud Masking Methods</a>. The choice of which method to use is largely dependent on computing resources and the length of processing efforts one is willing to go. The SCL layer is already provided for each L2A product and, for GEE users, Cloud Score+ scores are, too. The other methods need to be run for each product, and while the DL methods outperform the more traditional ones, some of them require substantial computational requirements. <span class="citation" data-cites="Wright2025"><a href="#ref-Wright2025" role="doc-biblioref">[15]</a></span> report the computational efficiency of their method against some others on an NVIDIA 4090 GPU, which can provide an indication of relative processing speeds, although GPUs might not be available for this processing step. Furthermore, whether to apply cloud and cloud shadow masking at all depends on the intended use of the data. For workflows that temporally aggregate observations into composites, median aggregation already suppresses most cloud contamination, though masking cloudy and shadowed pixels beforehand generally yields cleaner composites and, for that purpose, the SCL layer is typically sufficient. For workflows that operate on individual scenes, the decision involves a trade-off between input quality and model robustness: aggressive masking produces cleaner inputs but discards data, while retaining cloudy pixels forces the model to learn to identify and handle these artifacts itself, consuming part of its representational capacity.</p>
+</section>
+<section id="radiometric-processing" class="level3">
+<h3 class="anchored" data-anchor-id="radiometric-processing">Radiometric processing</h3>
+<p>Since the deployment of Sentinel-2 Processing Baseline (PB) 04.00 in January 2022, a radiometric offset is added to the digital number values of all bands. For Sentinel-2 L1C data, the conversion to reflectance is given by Equation <a href="#eq-1" class="quarto-xref">Equation&nbsp;<span>6.1</span></a>, where <span class="math inline">\(\rho_{TOA}\)</span> is the top-of-atmosphere (TOA) reflectance, <span class="math inline">\(DN\)</span> is the digital number, <span class="math inline">\(RADIO_ADD_OFFSET\)</span> is the radiometric offset (<span class="math inline">\(-1000\)</span> for all bands for PB<span class="math inline">\(\geq04.00\)</span>, <span class="math inline">\(0\)</span> otherwise), and <span class="math inline">\(QUANTIFICATION_VALUE = 10{,}000\)</span>. For Sentinel-2 L2A data, the conversion is given by Equation <a href="#eq-2" class="quarto-xref">Equation&nbsp;<span>6.2</span></a>, where <span class="math inline">\(\rho_{BOA}\)</span> is the bottom-of-atmosphere (BOA) reflectance, <span class="math inline">\(BOA_ADD_OFFSET\)</span> is the corresponding offset (<span class="math inline">\(-1000\)</span> for all bands for PB<span class="math inline">\(\geq04.00\)</span>, <span class="math inline">\(0\)</span> otherwise), and <span class="math inline">\(BOA_QUANTIFICATION_VALUE = 10{,}000\)</span>. All values can be retrieved from the product metadata files. The offset applies to any product with Processing Baseline <span class="math inline">\(\geq\)</span> 04.00, which should be determined from the <code>PROCESSING_BASELINE</code> field in the metadata rather than the acquisition date: as part of the Collection-1 reprocessing campaign completed in 2024, ESA reprocessed the entire historical archive, so even early acquisitions now carry the offset convention. This procedure applies to products distributed by ESA (e.g., through CDSE). Some third-party platforms (such as GEE’s harmonized collections) apply the offset upstream, in which case it must not be applied a second time.</p>
+<p><span id="eq-1"><span class="math display">\[
+\rho_{TOA}=\frac{DN+RADIO\_ADD\_OFFSET}{QUANTIFICATION\_VALUE}
+\tag{6.1}\]</span></span></p>
+<p><span id="eq-2"><span class="math display">\[
+\rho_{BOA}=\frac{DN+BOA\_ADD\_OFFSET}{BOA\_QUANTIFICATION\_VALUE}
+\tag{6.2}\]</span></span></p>
+<p>While Equations <a href="#eq-1" class="quarto-xref">Equation&nbsp;<span>6.1</span></a>–<a href="#eq-2" class="quarto-xref">Equation&nbsp;<span>6.2</span></a> use a quantification value of <span class="math inline">\(10{,}000\)</span> as specified in the product metadata, ML pipelines sometimes substitute alternative divisors: <span class="citation" data-cites="kerner2025fields"><a href="#ref-kerner2025fields" role="doc-biblioref">[16]</a></span> use <span class="math inline">\(3{,}000\)</span> and <span class="citation" data-cites="pauls2025capturing pauls2026echosat"><a href="#ref-pauls2025capturing" role="doc-biblioref">[5]</a>, <a href="#ref-pauls2026echosat" role="doc-biblioref">[17]</a></span> apply band-specific divisors. These linear schemes target a bounded range such as <span class="math inline">\([0,1]\)</span> or <span class="math inline">\([-1,1]\)</span>, typically with further clipping. A less conventional family of approaches instead applies nonlinear transformations to handle the long-tailed distribution of reflectance values. <span class="citation" data-cites="Brown_2022"><a href="#ref-Brown_2022" role="doc-biblioref">[18]</a></span> log-transform reflectance values and remap percentiles of the result onto a sigmoid function, bounding the data to <span class="math inline">\((0,1)\)</span> without hard truncation. Similarly, <span class="citation" data-cites="brown2025alphaearthfoundations Pasquarella2023"><a href="#ref-brown2025alphaearthfoundations" role="doc-biblioref">[19]</a>, <a href="#ref-Pasquarella2023" role="doc-biblioref">[20]</a></span> compress the distribution as <span class="math inline">\(x'=\log(x+1)/10\)</span>.</p>
+</section>
+<section id="additional-corrections" class="level3">
+<h3 class="anchored" data-anchor-id="additional-corrections">Additional corrections</h3>
+<p>The steps described above are near-universal in ML workflows using Sentinel-2 L2A data. However, L2A products still contain systematic variations in reflectance that are unrelated to actual surface properties, and addressing these requires additional, more specialized corrections. The most prominent source of such variation is viewing and illumination geometry. Pixels at the edge of the swath are observed at a noticeably different angle than those at nadir, and across orbits and dates the sun position changes, meaning the same ground pixel can yield different reflectance values purely because of geometry. Bidirectional Reflectance Distribution Function (BRDF) normalization adjusts reflectance to a standard viewing and illumination configuration, producing smoother time series and reducing visible seam lines at tile boundaries, at the cost of surface structure assumptions and an additional preprocessing step. Implementations are available through Sentinel Hub <span class="citation" data-cites="sentinelhub"><a href="#ref-sentinelhub" role="doc-biblioref">[21]</a></span>, the sen2nbar package <span class="citation" data-cites="Montero2024"><a href="#ref-Montero2024" role="doc-biblioref">[22]</a></span> and the FORCE framework <span class="citation" data-cites="force"><a href="#ref-force" role="doc-biblioref">[23]</a></span>; an example is shown in Figure <a href="#fig-brdf" class="quarto-xref">Figure&nbsp;<span>6.1</span></a>. Topography introduces a related but distinct problem: slope, aspect, and cast shadows modulate recorded reflectance in mountainous areas in ways that the flat-Earth assumption underlying Sen2Cor does not fully resolve. Multi-temporal consistency can also be degraded by geometric misalignment: images processed before the adoption of the Ground Reference Image (GRI) in 2021 have a nominal geolocation uncertainty of around 12 m <span class="citation" data-cites="9057384"><a href="#ref-9057384" role="doc-biblioref">[24]</a></span>, which is problematic for change detection or any pixel-wise temporal method. For products obtained prior to the GRI adoption, methods such as phase correlation <span class="citation" data-cites="kuglin1975phase"><a href="#ref-kuglin1975phase" role="doc-biblioref">[25]</a></span> can correct residual misalignments. Rather than addressing these issues individually on top of L2A products, some users bypass the operational processing chain entirely and apply their own atmospheric correction, topographic normalization, and BRDF adjustment to Level-1C data. The FORCE framework provides such an integrated pipeline, offering more control and consistency at a substantially higher computational cost.</p>
+<div id="fig-brdf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-brdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/brdf.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-brdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.1: Illustration of BRDF normalization, adapted from Sentinel Hub documentation. Left: true color RGB acquired with Sentinel-2 (L2A processing level) over the Australian desert. The image is composed of two acquisitions from different orbits from 2nd January 2022 and 4th January 2022. Right: Identical to the left image, with the BRDF normalization applied.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="landsat-preprocessing" class="level2">
+<h2 class="anchored" data-anchor-id="landsat-preprocessing">Landsat preprocessing</h2>
+<p>While Sentinel-2 requires substantial user-side preprocessing, Landsat benefits from a more mature and standardised processing pipeline. For Landsat data, the preprocessing burden is correspondingly lower, owing to the maturity of the USGS processing pipeline. Collection 2 Level-2 Science Products provide atmospherically corrected surface reflectance along with surface temperature, delivered scene-by-scene in UTM projection. Each scene includes a per-pixel quality assessment band produced by FMask <span class="citation" data-cites="QIU2019111205"><a href="#ref-QIU2019111205" role="doc-biblioref">[26]</a></span>. The Landsat Analysis Ready Data (ARD) product further standardises the geometric framework by tiling scenes onto a fixed grid in Albers Equal Area projection, eliminating the need to manage overlapping scene boundaries, though the underlying radiometric processing is identical to Collection 2 Level-2.</p>
+<p>Researchers working with multi-decadal archives should be aware that the spectral response functions differ across Landsat generations. Landsat 8/9 uses narrower bands that avoid atmospheric absorption features present in Landsat 5 and Landsat 7 bandpasses, leading to systematic offsets that can bias time-series analysis if uncorrected. Spectral bandpass adjustment coefficients have been published by <span class="citation" data-cites="Roy2016b"><a href="#ref-Roy2016b" role="doc-biblioref">[27]</a></span> to harmonize across sensors. As with Sentinel-2, BRDF normalization can improve temporal consistency by reducing view-angle and illumination effects: <span class="citation" data-cites="Roy2016a"><a href="#ref-Roy2016a" role="doc-biblioref">[28]</a></span> developed an approach that applies MODIS BRDF spectral model parameters to normalize Landsat surface reflectance to a nadir view at a standard solar zenith angle.</p>
+<p>The Harmonized Landsat Sentinel-2 (HLS) dataset <span class="citation" data-cites="Claverie2018"><a href="#ref-Claverie2018" role="doc-biblioref">[29]</a></span> offers a convenient starting point for studies that combine both missions. HLS provides 30m surface reflectance from Landsat 8/9 and Sentinel-2A/B, with atmospheric correction, BRDF normalization, cloud masking, and spectral bandpass adjustment applied consistently across both sensors. Products are delivered on the Sentinel-2 MGRS tile grid, yielding an effective revisit period of 2–3 days. For ML researchers building large-scale maps, HLS removes much of the cross-sensor harmonization burden, though users should note the trade-off: Sentinel-2’s native 10m resolution is sacrificed in favour of cross-mission consistency.</p>
+<p>At this point in the pipeline, the EO data has been selected, downloaded, and preprocessed into a spatially and radiometrically consistent dataset. The next section addresses the ML stages of the pipeline: how to structure these preprocessed observations into a training-ready dataset and how to design and train models that are both accurate and efficient enough for large-scale inference.</p>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-LeeFiltering" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">J.-S. Lee, <span>“<span class="nocase">Digital Image Enhancement and Noise Filtering by Use of Local Statistics</span>,”</span> <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em>, vol. PAMI–2, no. 2, pp. 165–168, 1980, doi: <a href="https://doi.org/10.1109/TPAMI.1980.4766994">10.1109/TPAMI.1980.4766994</a>.</div>
+</div>
+<div id="ref-FrostFiltering" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">V. S. Frost, J. A. Stiles, K. S. Shanmugan, and J. C. Holtzman, <span>“<span class="nocase">A Model for Radar Images and Its Application to Adaptive Digital Filtering of Multiplicative Noise</span>,”</span> <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em>, vol. PAMI–4, no. 2, pp. 157–166, 1982, doi: <a href="https://doi.org/10.1109/TPAMI.1982.4767223">10.1109/TPAMI.1982.4767223</a>.</div>
+</div>
+<div id="ref-RefinedLee" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">J.-S. Lee, M. R. Grunes, and G. de Grandi, <span>“<span class="nocase">Polarimetric SAR speckle filtering and its implication for classification</span>,”</span> <em>IEEE Transactions on Geoscience and Remote Sensing</em>, vol. 37, no. 5, pp. 2363–2373, 1999, doi: <a href="https://doi.org/10.1109/36.789635">10.1109/36.789635</a>.</div>
+</div>
+<div id="ref-Quegan2001" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">S. Quegan and J. J. Yu, <span>“Filtering of multichannel SAR images,”</span> <em>IEEE Transactions on Geoscience and Remote Sensing</em>, vol. 39, no. 11, pp. 2373–2379, 2001, doi: <a href="https://doi.org/10.1109/36.964973">10.1109/36.964973</a>.</div>
+</div>
+<div id="ref-pauls2025capturing" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">J. Pauls <em>et al.</em>, <span>“<span class="nocase">Capturing Temporal Dynamics in Large-Scale Canopy Tree Height Estimation</span>,”</span> <em>arXiv preprint arXiv:2501.19328</em>, 2025, Available: <a href="https://arxiv.org/abs/2501.19328">https://arxiv.org/abs/2501.19328</a></div>
+</div>
+<div id="ref-schwartzRetrievingYearlyForest2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">M. Schwartz <em>et al.</em>, <span>“Retrieving yearly forest growth from satellite data: <span>A</span> deep learning based approach,”</span> <em>Remote Sensing of Environment</em>, vol. 330, p. 114959, Dec. 2025, doi: <a href="https://doi.org/10.1016/j.rse.2025.114959">10.1016/j.rse.2025.114959</a>.</div>
+</div>
+<div id="ref-pyrosar" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline"><span class="nocase">pyroSAR</span>, <span>“<span class="nocase">A <span>Python</span> Framework for Large-Scale <span>SAR</span> Satellite Data Processing, <span>GitHub</span> repository</span>.”</span> <a href="https://github.com/johntruckenbrodt/pyroSAR" class="uri">https://github.com/johntruckenbrodt/pyroSAR</a>, n.d.</div>
+</div>
+<div id="ref-esasnap" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">European Space Agency, <span>“<span><span>SNAP</span> — <span>Sentinel</span> Application Platform</span>.”</span> <a href="http://step.esa.int" class="uri">http://step.esa.int</a>, n.d.</div>
+</div>
+<div id="ref-cdses1" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">Copernicus Dataspace Ecosystem, <span>“<span class="nocase"><span>Sentinel-1</span> Documentation — Derived products &amp; Processing options</span>.”</span> <a href="https://perma.cc/5YKB-NXSS" class="uri">https://perma.cc/5YKB-NXSS</a>, n.d.</div>
+</div>
+<div id="ref-Mullissa2021" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">A. Mullissa <em>et al.</em>, <span>“<span class="nocase">Sentinel-1 SAR Backscatter Analysis Ready Data Preparation in Google Earth Engine</span>,”</span> <em>Remote Sensing</em>, vol. 13, no. 10, p. 1954, May 2021, doi: <a href="https://doi.org/10.3390/rs13101954">10.3390/rs13101954</a>.</div>
+</div>
+<div id="ref-gees1ard" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">A. Mullissa, <span>“<span class="nocase"><span>Sentinel-1</span> <span>SAR</span> Backscatter Analysis Ready Data Preparation in <span>Google Earth Engine</span>, <span>GitHub</span> repository</span>.”</span> <a href="https://github.com/adugnag/gee_s1_ard" class="uri">https://github.com/adugnag/gee_s1_ard</a>, 2021.</div>
+</div>
+<div id="ref-aws3grd" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">Registry of Open Data on AWS, <span>“<span>Sentinel-1</span>.”</span> <a href="https://registry.opendata.aws/sentinel-1/" class="uri">https://registry.opendata.aws/sentinel-1/</a>, n.d.</div>
+</div>
+<div id="ref-aws3rtc" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">Registry of Open Data on AWS, <span>“<span>Analysis Ready <span>Sentinel-1</span> Backscatter Imagery</span>.”</span> <a href="https://registry.opendata.aws/sentinel-1-rtc-indigo/" class="uri">https://registry.opendata.aws/sentinel-1-rtc-indigo/</a>, n.d.</div>
+</div>
+<div id="ref-mpc" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">Microsoft Planetary Computer, <span>“<span><span>Sentinel-1</span> Synthetic Aperture Radar (<span>SAR</span>) Datasets</span>.”</span> <a href="https://planetarycomputer.microsoft.com/dataset/group/sentinel-1" class="uri">https://planetarycomputer.microsoft.com/dataset/group/sentinel-1</a>, n.d.</div>
+</div>
+<div id="ref-Wright2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">N. Wright, J. M. A. Duncan, J. N. Callow, S. E. Thompson, and R. J. George, <span>“<span class="nocase">Training sensor-agnostic deep learning models for remote sensing: Achieving state-of-the-art cloud and cloud shadow identification with OmniCloudMask</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 322, p. 114694, May 2025, doi: <a href="https://doi.org/10.1016/j.rse.2025.114694">10.1016/j.rse.2025.114694</a>.</div>
+</div>
+<div id="ref-kerner2025fields" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">H. Kerner <em>et al.</em>, <span>“<span class="nocase">Fields of the World: A Machine Learning Benchmark Dataset for Global Agricultural Field Boundary Segmentation</span>,”</span> in <em>Proceedings of the AAAI conference on artificial intelligence</em>, 2025, pp. 28151–28159. doi: <a href="https://doi.org/10.1609/aaai.v39i27.35034">10.1609/aaai.v39i27.35034</a>.</div>
+</div>
+<div id="ref-pauls2026echosat" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">J. Pauls <em>et al.</em>, <span>“<span class="nocase">ECHOSAT: Estimating Canopy Height Over Space and Time</span>,”</span> <em>arXiv preprint arXiv:2602.21421</em>, 2026, Available: <a href="https://arxiv.org/abs/2602.21421">https://arxiv.org/abs/2602.21421</a></div>
+</div>
+<div id="ref-Brown_2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline">C. F. Brown <em>et al.</em>, <span>“<span class="nocase">Dynamic World, Near real-time global 10 m land use land cover mapping</span>,”</span> <em>Scientific Data</em>, vol. 9, no. 1, Jun. 2022, doi: <a href="https://doi.org/10.1038/s41597-022-01307-4">10.1038/s41597-022-01307-4</a>.</div>
+</div>
+<div id="ref-brown2025alphaearthfoundations" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline">C. F. Brown <em>et al.</em>, <span>“<span class="nocase">AlphaEarth Foundations: An embedding field model for accurate and efficient global mapping from sparse label data</span>,”</span> <em>arXiv preprint arXiv:2507.22291</em>, 2025, Available: <a href="https://arxiv.org/abs/2507.22291">https://arxiv.org/abs/2507.22291</a></div>
+</div>
+<div id="ref-Pasquarella2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline">V. J. Pasquarella, C. F. Brown, W. Czerwinski, and W. J. Rucklidge, <span>“<span class="nocase">Comprehensive quality assessment of optical satellite imagery using weakly supervised video learning</span>,”</span> in <em>2023 IEEE/CVF conference on computer vision and pattern recognition workshops (CVPRW)</em>, IEEE, 2023, pp. 2125–2135. doi: <a href="https://doi.org/10.1109/cvprw59228.2023.00206">10.1109/cvprw59228.2023.00206</a>.</div>
+</div>
+<div id="ref-sentinelhub" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline">Sentinel Hub, <span>“<span><span>BRDF</span> Normalization Script — <span>Sentinel-2</span> Custom Scripts</span>.”</span> <a href="https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/brdf/" class="uri">https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/brdf/</a>, n.d.</div>
+</div>
+<div id="ref-Montero2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline">D. Montero, M. D. Mahecha, C. Aybar, C. Mosig, and S. Wieneke, <span>“<span class="nocase">Facilitating advanced Sentinel-2 analysis through a simplified computation of Nadir BRDF Adjusted Reflectance</span>,”</span> <em>The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences</em>, vol. XLVIII–4/W12–2024, pp. 105–112, Jun. 2024, doi: <a href="https://doi.org/10.5194/isprs-archives-xlviii-4-w12-2024-105-2024">10.5194/isprs-archives-xlviii-4-w12-2024-105-2024</a>.</div>
+</div>
+<div id="ref-force" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[23] </div><div class="csl-right-inline">FORCE, <span>“<span><span>FORCE</span> Documentation</span>.”</span> <a href="https://force-eo.readthedocs.io/en/latest/about.html" class="uri">https://force-eo.readthedocs.io/en/latest/about.html</a>, n.d.</div>
+</div>
+<div id="ref-9057384" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[24] </div><div class="csl-right-inline">P. Rufin, D. Frantz, L. Yan, and P. Hostert, <span>“<span class="nocase">Operational Coregistration of the Sentinel-2A/B Image Archive Using Multitemporal Landsat Spectral Averages</span>,”</span> <em>IEEE Geoscience and Remote Sensing Letters</em>, vol. 18, no. 4, pp. 712–716, 2021, doi: <a href="https://doi.org/10.1109/LGRS.2020.2982245">10.1109/LGRS.2020.2982245</a>.</div>
+</div>
+<div id="ref-kuglin1975phase" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[25] </div><div class="csl-right-inline">C. D. Kuglin, <span>“<span class="nocase">The phase correlation image alignment method</span>,”</span> in <em>IEEE int. Conf. On cybernetics and society, 1975</em>, 1975, pp. 163–165.</div>
+</div>
+<div id="ref-QIU2019111205" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[26] </div><div class="csl-right-inline">S. Qiu, Z. Zhu, and B. He, <span>“<span class="nocase">Fmask 4.0: Improved cloud and cloud shadow detection in Landsats 4–8 and Sentinel-2 imagery</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 231, p. 111205, 2019, doi: <a href="https://doi.org/10.1016/j.rse.2019.05.024">10.1016/j.rse.2019.05.024</a>.</div>
+</div>
+<div id="ref-Roy2016b" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[27] </div><div class="csl-right-inline">D. P. Roy <em>et al.</em>, <span>“<span class="nocase">Characterization of Landsat-7 to Landsat-8 reflective wavelength and normalized difference vegetation index continuity</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 185, pp. 57–70, Nov. 2016, doi: <a href="https://doi.org/10.1016/j.rse.2015.12.024">10.1016/j.rse.2015.12.024</a>.</div>
+</div>
+<div id="ref-Roy2016a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[28] </div><div class="csl-right-inline">D. P. Roy <em>et al.</em>, <span>“<span class="nocase">A general method to normalize Landsat reflectance data to nadir BRDF adjusted reflectance</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 176, pp. 255–271, Apr. 2016, doi: <a href="https://doi.org/10.1016/j.rse.2016.01.023">10.1016/j.rse.2016.01.023</a>.</div>
+</div>
+<div id="ref-Claverie2018" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[29] </div><div class="csl-right-inline">M. Claverie <em>et al.</em>, <span>“<span class="nocase">The Harmonized Landsat and Sentinel-2 surface reflectance data set</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 219, pp. 145–161, Dec. 2018, doi: <a href="https://doi.org/10.1016/j.rse.2018.09.002">10.1016/j.rse.2018.09.002</a>.</div>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ghjuliasialelli\.github\.io\/ml-eo-maps");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./data_selection.html" class="pagination-link" aria-label="Data selection">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Data selection</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./ml_pipeline.html" class="pagination-link" aria-label="Machine learning dataset construction and model training">
+        <span class="nav-page-text">Machine learning dataset construction and model training</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Best Practices for EO Maps</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/data_preprocessing.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

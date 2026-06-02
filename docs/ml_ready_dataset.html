@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Constructing a machine-learning-ready dataset – From Machine Learning to Large-Scale EO Products:</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./model_design_training.html" rel="next">
+<link href="./ml_pipeline.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-7cfea83ef4c10f509d7acd07c74e5a1b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ml_pipeline.html">Machine learning dataset construction and model training</a></li><li class="breadcrumb-item"><a href="./ml_ready_dataset.html"><span class="chapter-title">Constructing a machine-learning-ready dataset</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">From Machine Learning to Large-Scale EO Products:</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/ghjuliasialelli/ml-eo-maps" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./eo_data_landscape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview of the EO data infrastructure landscape</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./eo_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">EO missions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./accessing_eo_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Accessing EO data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./data_selection_preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data selection and preprocessing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_selection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data selection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data preprocessing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./ml_pipeline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Machine learning dataset construction and model training</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ml_ready_dataset.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Constructing a machine-learning-ready dataset</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./model_design_training.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Model design and training</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./uncertainty_quantification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Uncertainty quantification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_sources.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sources of uncertainty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_methods.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Uncertainty quantification methods</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_calibration.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Assessing calibration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Spatial structure of uncertainty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_operationalizing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Operationalizing uncertainty</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./map_production.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Map production and distribution</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./map_generation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Map generation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./post_processing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Post-processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sharing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sharing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">General considerations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./validation_design_based.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Design-based accuracy assessment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./validation_beyond.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Validation beyond probability sampling</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusion</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion_summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion_forward.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Looking forward</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion_limitations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Limitations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acknowledgments.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acknowledgments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_s1_gaps.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sentinel-1 data gaps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_processing_pathways.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sentinel-1 and Sentinel-2 processing across access pathways</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-data-formats" id="toc-sec-data-formats" class="nav-link active" data-scroll-target="#sec-data-formats">Data formats</a>
+  <ul class="collapse">
+  <li><a href="#container-formats-with-an-internal-index" id="toc-container-formats-with-an-internal-index" class="nav-link" data-scroll-target="#container-formats-with-an-internal-index">Container formats with an internal index</a></li>
+  <li><a href="#key-value-chunk-stores" id="toc-key-value-chunk-stores" class="nav-link" data-scroll-target="#key-value-chunk-stores">Key value chunk stores</a></li>
+  </ul></li>
+  <li><a href="#sec-dataset-splits" id="toc-sec-dataset-splits" class="nav-link" data-scroll-target="#sec-dataset-splits">Dataset splits</a></li>
+  <li><a href="#sec-grid" id="toc-sec-grid" class="nav-link" data-scroll-target="#sec-grid">Spatial gridding</a>
+  <ul class="collapse">
+  <li><a href="#geographic-grids" id="toc-geographic-grids" class="nav-link" data-scroll-target="#geographic-grids">Geographic grids</a></li>
+  </ul></li>
+  <li><a href="#sec-gridtopatches" id="toc-sec-gridtopatches" class="nav-link" data-scroll-target="#sec-gridtopatches">Data samples</a>
+  <ul class="collapse">
+  <li><a href="#sampling-strategy" id="toc-sampling-strategy" class="nav-link" data-scroll-target="#sampling-strategy">Sampling strategy</a></li>
+  <li><a href="#projection-choice" id="toc-projection-choice" class="nav-link" data-scroll-target="#projection-choice">Projection choice</a></li>
+  <li><a href="#multimodal-alignment" id="toc-multimodal-alignment" class="nav-link" data-scroll-target="#multimodal-alignment">Multimodal alignment</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/ml_ready_dataset.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ml_pipeline.html">Machine learning dataset construction and model training</a></li><li class="breadcrumb-item"><a href="./ml_ready_dataset.html"><span class="chapter-title">Constructing a machine-learning-ready dataset</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Constructing a machine-learning-ready dataset</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Constructing an ML-ready dataset from EO imagery introduces challenges that have no direct analogue in standard computer vision: spatial autocorrelation in the labels inflates apparent performance <span class="citation" data-cites="Ploton2020-ub Kattenborn2022"><a href="#ref-Ploton2020-ub" role="doc-biblioref">[1]</a>, <a href="#ref-Kattenborn2022" role="doc-biblioref">[2]</a></span> if not handled at the splitting stage, geographic bias in the sampling distorts what the model learns, and the choice of tiling and gridding scheme can silently introduce data leakage or duplication. We address these issues in turn, starting with the data formats that underpin the entire dataset design.</p>
+<section id="sec-data-formats" class="level2">
+<h2 class="anchored" data-anchor-id="sec-data-formats">Data formats</h2>
+<p>The data format used to store an ML-ready dataset is a <em>creation time</em> decision that propagates through the entire pipeline. It defines how array payloads are physically laid out, how metadata are encoded, how chunks or tiles are addressed, and which codec is required to decode the data. These choices are not strictly irreversible, but changing them requires repacking, rechunking, or rewriting the dataset, and they should therefore be treated as part of the dataset design rather than as a late implementation detail. The most important consequence of a format choice is the efficiency of the access pattern. The optimal layout minimizes <em>over-read</em>, understood as the gap between bytes fetched from storage and bytes actually used by the model. In practice, this depends on how well the physical layout matches the logical access pattern of training, including the shape of the chunks, the band interleaving strategy, the compression block size, the placement of metadata, and the latency of the storage backend. Most formats used for ML on EO data can be understood through two broad storage patterns.</p>
+<section id="container-formats-with-an-internal-index" class="level3">
+<h3 class="anchored" data-anchor-id="container-formats-with-an-internal-index">Container formats with an internal index</h3>
+<p>The first pattern stores data inside <em>binary containers</em>, each with its own internal metadata and offset structures. A dataset may consist of a single such file or a collection of them. HDF5 <span class="citation" data-cites="folk1999hdf5"><a href="#ref-folk1999hdf5" role="doc-biblioref">[3]</a></span>, NetCDF4 <span class="citation" data-cites="rew1990netcdf"><a href="#ref-rew1990netcdf" role="doc-biblioref">[4]</a></span>, GeoTIFF <span class="citation" data-cites="ogc_geotiff"><a href="#ref-ogc_geotiff" role="doc-biblioref">[5]</a></span>, and the Cloud Optimized GeoTIFF (COG, <span class="citation" data-cites="ogc_cog"><a href="#ref-ogc_cog" role="doc-biblioref">[6]</a></span>) belong to this family. HDF5 organises data as hierarchical groups and arrays, with metadata describing dimensionality, datatype, layout, and filters. Each array is stored either contiguously, as a single block of bytes, or split into fixed size multidimensional chunks that are addressed independently and compressed separately. NetCDF4 builds on HDF5 while imposing the netCDF data model of named variables, dimensions, and attributes. The Climate and Forecast (CF, <span class="citation" data-cites="hassell2017cf"><a href="#ref-hassell2017cf" role="doc-biblioref">[7]</a></span>) conventions associated with NetCDF are a separate specification that defines standard names, units, and coordinate axes so that datasets from different sources can be compared without ad hoc translation. GeoTIFF extends TIFF with geospatial keys for regularly gridded raster imagery defined by an affine matrix and, unlike the formats above, it requires the data to lie on a regular spatial grid. The COG is a profile of GeoTIFF that constrains its <em>create options</em> for efficient spatial partial reads, requiring tiled image data, all metadata at the start of the file, and internal reduced resolution <em>overviews</em>. All formats in this family share two practical considerations. The first is the order in which array values are serialised, called the <em>interleave</em>, which fixes which neighbours end up physically adjacent in the file and therefore which reads are cheap. The second is the cost of opening the file. The internal index of offsets and byte lengths must be fetched before any data can be addressed, but once that index sits in memory, reads to individual chunks are independent and parallel by design.</p>
+</section>
+<section id="key-value-chunk-stores" class="level3">
+<h3 class="anchored" data-anchor-id="key-value-chunk-stores">Key value chunk stores</h3>
+<p>The second pattern stores arrays as independently addressable chunks in a key value store. Zarr <span class="citation" data-cites="miles2020zarr"><a href="#ref-miles2020zarr" role="doc-biblioref">[8]</a></span> is the canonical example. A Zarr hierarchy contains metadata documents for groups and arrays, while each encoded chunk is stored under a key in an abstract store, which may be implemented as a directory on a filesystem (as objects in cloud storage) or through any backend exposing equivalent read and write operations. This removes the need to open a single monolithic container before locating chunk data, since the storage keys themselves provide the addressing mechanism, which aligns naturally with distributed readers and parallel workloads. The trade off is that a naive Zarr layout can create very large numbers of small files or objects, which stresses POSIX metadata operations and inode limits, or inflates object storage request overhead. The Zarr v3 sharding extension (ZEP2) addresses this by packing multiple logical chunks into a larger physical storage object while preserving chunk level access. Zarr alone defines array storage, chunking, codecs, and metadata containers. However, it does not define the geospatial meaning of coordinates, CRS, affine transforms, or multiscale pyramids, which GeoZarr and related conventions are emerging to address.</p>
+<div id="tbl-data-formats" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-formats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.1: Storage layout and practical properties of data formats relevant for AI4EO datasets.
+</figcaption>
+<div aria-describedby="tbl-data-formats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Format</strong></th>
+<th><strong>Storage model</strong></th>
+<th><strong>Typical payload</strong></th>
+<th><strong>Random access mechanism</strong></th>
+<th><strong>Geospatial metadata</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NetCDF4</td>
+<td>NetCDF data model on an HDF5 backend</td>
+<td>N dimensional variables with named dimensions, attributes, and groups</td>
+<td>HDF5 chunking through the netCDF API</td>
+<td>Usually via CF conventions</td>
+</tr>
+<tr class="even">
+<td>GeoTIFF</td>
+<td>TIFF image container extended with GeoTIFF keys</td>
+<td>Regular gridded raster imagery, usually 2D with bands</td>
+<td>Strips or tiles, efficient spatial access requires tiling</td>
+<td>Built in through GeoTIFF tags and keys</td>
+</tr>
+<tr class="odd">
+<td>COG</td>
+<td>GeoTIFF organised for partial reads and overviews</td>
+<td>Cloud distributed geospatial rasters and image scenes</td>
+<td>Tile offsets and range requests, overviews reduce full scene reads</td>
+<td>Built in through GeoTIFF keys</td>
+</tr>
+<tr class="even">
+<td>Zarr</td>
+<td>Key value hierarchy of metadata documents and encoded chunks</td>
+<td>Chunked N dimensional arrays for cloud or distributed processing</td>
+<td>Direct key lookup for chunks, v3 sharding can group chunks into larger objects</td>
+<td>Via emerging GeoZarr or other domain conventions</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>These two patterns are often compared by raw performance, but with equivalent <em>create options</em> on similar workloads, both deliver comparable read speed. Statements such as “HDF5 does not support parallel writes” or “COG is faster than Zarr” are typically claims about implementations rather than about formats. Format selection should therefore weigh the specification and the maturity of its tooling.</p>
+<p>Recent additions to this tooling target practical bottlenecks in dataset generation, storage, and access. For instance, <code>Rasteret</code> <span class="citation" data-cites="rasteret"><a href="#ref-rasteret" role="doc-biblioref">[9]</a></span> caches COG headers in a GeoParquet index and reads pixels without GDAL, removing the repeated header parsing that dominates cold-start cost in ML pipelines. <code>hdf5plugin</code> <span class="citation" data-cites="hdf5plugin"><a href="#ref-hdf5plugin" role="doc-biblioref">[10]</a></span> adds HDF5 compression filters, <code>Dask</code> <span class="citation" data-cites="dask"><a href="#ref-dask" role="doc-biblioref">[11]</a></span> parallelises processing, and <code>xarrayvideo</code> <span class="citation" data-cites="xarrayvideo"><a href="#ref-xarrayvideo" role="doc-biblioref">[12]</a></span> stores spatiotemporal xarray datasets as videos to save space.</p>
+<p>All of the above operate at the array level and leave the organisation of an ML-ready dataset itself unspecified, including splits, modalities, and sample-level metadata. Emerging specifications such as TACO <span class="citation" data-cites="taco"><a href="#ref-taco" role="doc-biblioref">[13]</a></span>, currently under active development, aim to fill this gap by defining a structure tree and metadata schema over standard containers, giving the dataset a portable contract that is independent of the underlying array format.</p>
+</section>
+</section>
+<section id="sec-dataset-splits" class="level2">
+<h2 class="anchored" data-anchor-id="sec-dataset-splits">Dataset splits</h2>
+<p>When evaluating the performance of a ML model, we want to avoid over-confident results. A conventional uniformly at random assignment of data samples to training and test sets can bias the evaluation if labels are spatially auto-correlated and clustered <span class="citation" data-cites="rolf2024mission"><a href="#ref-rolf2024mission" role="doc-biblioref">[14]</a></span>. A widely spread approach to tackle spatial autocorrelation is to perform block cross-validation, which <span class="citation" data-cites="Roberts2017"><a href="#ref-Roberts2017" role="doc-biblioref">[15]</a></span> recommends using “wherever dependence structures exist in a dataset, even if no correlation structure is visible in the fitted model residuals, or if the fitted models account for such correlations”. Spatial <span class="math inline">\(K\)</span>-fold block cross-validation first divides the area into non-overlapping spatial blocks of a certain size, before assigning each block to one of <span class="math inline">\(K\)</span> folds. Model training and evaluation are then performed using the leave one-out method, where samples from a single fold are set aside for model evaluation, while samples from the remaining <span class="math inline">\(K-1\)</span> folds are used for model training, and the process is repeated for each fold, as in <span class="citation" data-cites="Mosig2026 Lusk_2026"><a href="#ref-Mosig2026" role="doc-biblioref">[16]</a>, <a href="#ref-Lusk_2026" role="doc-biblioref">[17]</a></span>. Alternatively, one fold can be assigned for model evaluation, one fold for validation, and the <span class="math inline">\(K-2\)</span> others for training, as in <span class="citation" data-cites="garnot2021panoptic"><a href="#ref-garnot2021panoptic" role="doc-biblioref">[18]</a></span>. Results are then reported across the concatenated test folds. In order to avoid cross-fold contamination, a good practice consists in enforcing spatial buffers between blocks, as in <span class="citation" data-cites="garnot2021panoptic"><a href="#ref-garnot2021panoptic" role="doc-biblioref">[18]</a></span>. Buffers and block size address the same underlying issue and are partially substitutable: sufficiently large blocks reduce edge leakage to negligible levels without explicit buffers <span class="citation" data-cites="Roberts2017"><a href="#ref-Roberts2017" role="doc-biblioref">[15]</a></span>, while buffers are most useful when block size is constrained by study extent or sample distribution. We illustrate those different approaches in Figure <a href="#fig-splits" class="quarto-xref">Figure&nbsp;<span>7.1</span></a>. While spatial block cross-validation provides a reliable assessment of model generalizability, most works perform a more limited spatial block validation equivalent to setting <span class="math inline">\(K=1\)</span>, in which blocks are partitioned once and randomly assigned to train, validation, and test sets <span class="citation" data-cites="Neumann_2025 herzog2025olmoearthstable kerner2025fields pauls2024estimating"><a href="#ref-Neumann_2025" role="doc-biblioref">[19]</a>, <a href="#ref-herzog2025olmoearthstable" role="doc-biblioref">[20]</a>, <a href="#ref-kerner2025fields" role="doc-biblioref">[21]</a>, <a href="#ref-pauls2024estimating" role="doc-biblioref">[22]</a></span>. The definition of a block varies across works. Some impose a regular grid (<span class="citation" data-cites="Mosig2026"><a href="#ref-Mosig2026" role="doc-biblioref">[16]</a></span> grid the Earth into non-overlapping blocks of 50km in equal area projection) while others adopt the geographical unit at which the data is delivered, such as Sentinel-2 tiles <span class="citation" data-cites="lang2023canopyheight"><a href="#ref-lang2023canopyheight" role="doc-biblioref">[23]</a></span> or Planet quads <span class="citation" data-cites="herzog2025olmoearthstable glazer2025tempo"><a href="#ref-herzog2025olmoearthstable" role="doc-biblioref">[20]</a>, <a href="#ref-glazer2025tempo" role="doc-biblioref">[24]</a></span>. <span class="citation" data-cites="Lusk_2026"><a href="#ref-Lusk_2026" role="doc-biblioref">[17]</a></span> take a more principled approach, determining the spatial autocorrelation via semivariograms at a <span class="math inline">\(1\text{km}^2\)</span> resolution and defining hexagonal blocks accordingly. The appropriate block size depends on the spatial scale of residual autocorrelation: blocks should be substantially larger than the distance at which model residuals become uncorrelated, since smaller blocks leave train and test samples near boundaries effectively dependent <span class="citation" data-cites="Roberts2017"><a href="#ref-Roberts2017" role="doc-biblioref">[15]</a></span>. We elaborate on various gridding choices and their implications in the next section.</p>
+<div id="fig-splits" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-splits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/splits.png" id="fig-splits" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-splits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.1
+</figcaption>
+</figure>
+</div>
+<p>While we have focused on spatial blocking, the underlying principle generalizes to any source of dependence in the data: folds must be independent along whatever structure the model is expected to extrapolate across. Extensions include phylogenetic blocking for taxonomic relatedness <span class="citation" data-cites="Revell2010"><a href="#ref-Revell2010" role="doc-biblioref">[25]</a></span>, temporal blocking for serial autocorrelation <span class="citation" data-cites="Bergmeir2012"><a href="#ref-Bergmeir2012" role="doc-biblioref">[26]</a></span>, and blocking in environmental or feature space, which tests generalization to novel conditions rather than novel locations <span class="citation" data-cites="meyer2021areaofapplicability"><a href="#ref-meyer2021areaofapplicability" role="doc-biblioref">[27]</a></span>. The appropriate choice depends on what form of generalization the evaluation is meant to characterize.</p>
+<p>Furthermore, in the case of geographically distributed labeled data, it might be of interest to evaluate the performance of the model for different regions, by defining individual splits for each region, as in <span class="citation" data-cites="kerner2025fields"><a href="#ref-kerner2025fields" role="doc-biblioref">[21]</a></span>. This also enables the assessment of a model’s geographical generalization abilities in a comprehensive manner: any region can be held out from the training set and be evaluated on, as in <span class="citation" data-cites="butsko2025deploying"><a href="#ref-butsko2025deploying" role="doc-biblioref">[28]</a></span>.</p>
+<p>The spatial blocks used for splitting must be defined on a grid, and this choice is not neutral. It interacts with the projection of the map, the spatial distribution of the samples, and the granularity of the split.</p>
+</section>
+<section id="sec-grid" class="level2">
+<h2 class="anchored" data-anchor-id="sec-grid">Spatial gridding</h2>
+<p>A grid defines the spatial index over which data is catalogued, sampled, and split. Table <a href="#tbl-grid-comparison" class="quarto-xref">Table&nbsp;<span>7.2</span></a> compares candidate grids across conformality, global continuity (i.e.&nbsp;no seams or inter-zone overlaps) and whether they are area-preserving. A grid is <em>equal-area</em> (or area-preserving) if every cell (or pixel) represents the same ground area, and <em>conformal</em> if it preserves local angles and shapes (so that a square pixel corresponds to a square patch on the ground). We group candidate grids into four families, which we now describe.</p>
+<div id="tbl-grid-comparison" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-grid-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.2: Comparison of candidate grids for global EO dataset construction. <em>Globally continuous</em> indicates that the grid tiles the entire sphere with each point assigned to a uniquely defined cell and well-defined adjacency across all cell boundaries. <span class="math inline">\(\approx\)</span> &nbsp;indicates that the property holds approximately but not exactly. <sup>📍</sup> The property holds locally within a single UTM zone, not globally. <span class="math inline">\(^a\)</span> Clips at <span class="math inline">\(\pm85\degree\)</span> latitude. <span class="math inline">\(^b\)</span> Continental boundaries have 50 km overlap. <span class="math inline">\(^c\)</span> Via implicit Voronoi tessellation of sample points. <span class="math inline">\(^d\)</span> Point-based grid; projection not prescribed. <sup>e</sup> Grid cells do not align cleanly across the antimeridian.
+</figcaption>
+<div aria-describedby="tbl-grid-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><strong>Grid</strong></th>
+<th><strong>Equal-area</strong></th>
+<th><strong>Conformal</strong></th>
+<th><strong>Globally continuous</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Plate carrée</td>
+<td>×</td>
+<td>×</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>Web Mercator</td>
+<td>×</td>
+<td>✓</td>
+<td>✓<span class="math inline">\(^a\)</span></td>
+</tr>
+<tr class="odd">
+<td>UTM / MGRS</td>
+<td>×, ✓<sup>📍</sup></td>
+<td>×, ✓<sup>📍</sup></td>
+<td>×</td>
+</tr>
+<tr class="even">
+<td>Equi7 Grid</td>
+<td><span class="math inline">\(\approx\)</span></td>
+<td>×</td>
+<td>×<span class="math inline">\(^b\)</span></td>
+</tr>
+<tr class="odd">
+<td>S2 Geometry</td>
+<td><span class="math inline">\(\approx\)</span></td>
+<td>×</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>H3</td>
+<td><span class="math inline">\(\approx\)</span></td>
+<td>×</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td>HEALPix</td>
+<td>✓</td>
+<td>×</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>Major TOM</td>
+<td><span class="math inline">\(\approx\)</span><sup>c</sup></td>
+<td>n/a<span class="math inline">\(^d\)</span></td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td>Equal Earth grid</td>
+<td>✓</td>
+<td>×</td>
+<td>×<span class="math inline">\(^e\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<section id="geographic-grids" class="level3">
+<h3 class="anchored" data-anchor-id="geographic-grids">Geographic grids</h3>
+<p>Geographic grids partition the sphere directly by lines of constant latitude and longitude, without applying any map projection. The simplest instance is plate carrée: cells of fixed angular extent that are trivial to index but whose ground area scales with the cosine of the latitude. A <span class="math inline">\(1\degree \times 1\degree\)</span> cell covers approximately 12{,}400 km<span class="math inline">\(^2\)</span> at the equator and under 2000 km<span class="math inline">\(^2\)</span> at 80<span class="math inline">\(\degree\)</span> latitude, such that uniform sampling on this grid systematically oversamples high latitudes. ### Projection-based tilings</p>
+<p>Projection-based tilings lay a regular metric Cartesian grid over a planar coordinate system produced by a general-purpose cartographic projection. The grid’s geometric properties (conformality, area preservation, global continuity) are inherited from the projection. Web Mercator (EPSG:3857) is the industry standard of <span class="math inline">\(256\times256\)</span> tiles used by web mapping platforms. It is conformal but not equal-area, with ground resolution varying by roughly a factor of six between the equator and <span class="math inline">\(\pm60\degree\)</span> latitude. UTM partitions the globe into 60 UTM zones of <span class="math inline">\(6\degree\)</span> width, each with a conformal transverse Mercator projection. MGRS <span class="citation" data-cites="NGA_SIG_0012_2014"><a href="#ref-NGA_SIG_0012_2014" role="doc-biblioref">[29]</a></span> subdivides each UTM zone by <span class="math inline">\(\approx8\degree\)</span> latitude bands into <em>grid zones</em>, each further divided into 100 km × 100 km squares. The Sentinel-2 tiling scheme, which inherits the UTM/MGRS framework, delivers products as 109.8 km x 109.8 km tiles, such that locations within the resulting 10 km border strips appear in two (or more) tiles <span class="citation" data-cites="BauerMarschallinger2023"><a href="#ref-BauerMarschallinger2023" role="doc-biblioref">[30]</a></span>. The Equi7 Grid <span class="citation" data-cites="BauerMarschallinger2014"><a href="#ref-BauerMarschallinger2014" role="doc-biblioref">[31]</a></span> uses seven continental sub-grids in Equidistant Azimuthal projections with a multi-level tiling structure (100 km <span class="math inline">\(\times\)</span> 100 km at level T1), offering a principled alternative to MGRS. ### Discrete Global Grid Systems (DGGS)</p>
+<p>Discrete Global Grid Systems are tessellations of the sphere designed to provide approximately or exactly equal-area cells with global continuity, avoiding the zone boundaries and overlaps of projection-based tilings. S2 Geometry <span class="citation" data-cites="veach2017s2"><a href="#ref-veach2017s2" role="doc-biblioref">[32]</a></span> projects the sphere onto a cube and subdivides each face via a quadtree, yielding approximately equal-area quadrilateral cells (area ratio <span class="math inline">\(\leq 2\)</span> at any level). H3 <span class="citation" data-cites="h3"><a href="#ref-h3" role="doc-biblioref">[33]</a></span> tiles the sphere in nested hexagons with similar distortion bounds. HEALPix <span class="citation" data-cites="Gorski2005"><a href="#ref-Gorski2005" role="doc-biblioref">[34]</a></span> achieves exact equal-area pixelation of the sphere on iso-latitude rings; its rHEALPix variant <span class="citation" data-cites="Gibb2016"><a href="#ref-Gibb2016" role="doc-biblioref">[35]</a></span> unfolds the tessellation onto a planar rectangle. ### Purpose-built EO grids</p>
+<p>Rather than adopting an existing cartographic standard, some grids have been designed specifically for the needs of EO dataset construction, prioritizing simplicity and compatibility with source imagery over formal geometric guarantees. Major TOM <span class="citation" data-cites="Francis2024MajorTOM"><a href="#ref-Francis2024MajorTOM" role="doc-biblioref">[36]</a></span> defines a set of approximately equidistant sampling <em>points</em> on the WGS84 ellipsoid, adapting longitudinal spacing to latitude so that high latitudes are not oversampled. It deliberately does not prescribe a projection or cell extent: the grid is an indexing layer, and patches are extracted in the source product’s native CRS. A simpler alternative is to partition the projected plane of a global equal-area projection such as Equal Earth <span class="citation" data-cites="avri2018"><a href="#ref-avri2018" role="doc-biblioref">[37]</a></span> (EPSG:8857) into regular cells; this gives exact equal-area stratification at the cost of shape distortion toward the poles and an antimeridian discontinuity.</p>
+</section>
+</section>
+<section id="sec-gridtopatches" class="level2">
+<h2 class="anchored" data-anchor-id="sec-gridtopatches">Data samples</h2>
+<p>With the data format, splitting strategy, and grid in place, the final step is to extract the actual samples used to train the model. We define a data sample as an <span class="math inline">\(W\times H\times T \times C\)</span> patch, where <span class="math inline">\(W\)</span> is the width, <span class="math inline">\(H\)</span> is the height, <span class="math inline">\(T\)</span> is the timestep, and <span class="math inline">\(C\)</span> is the number of channels (dimensionality of the EO data at hand). This process involves three considerations: the choice of projection, the sampling strategy, and the optional alignment of the various data modalities.</p>
+<section id="sampling-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="sampling-strategy">Sampling strategy</h3>
+<p>ML researchers typically need to extract EO data samples corresponding to a set of labeled points (or polygons) distributed non-uniformly. In label-scarce regimes, the classic approach is to extract a sample per label, a sampling design that inherits the geographic bias the labels might have. An alternative approach is to sample a certain number of samples per grid cell, keeping all labels in sparsely populated cells and subsampling in densely populated ones, preventing dense regions from dominating. The area that each cell represents impacts the sampling: if the cells have area variation (like S2/H3) or are latitude-distorted (plate carrée), this sampling implicitly gives smaller cells more samples per unit area. For the cap to correspond to a true “labels per <span class="math inline">\(\text{km}^2\)</span>” ceiling, one can use equal-area grids (HEALPix) or weight by cell area.</p>
+</section>
+<section id="projection-choice" class="level3">
+<h3 class="anchored" data-anchor-id="projection-choice">Projection choice</h3>
+<p>Most approaches <span class="citation" data-cites="Mosig2026 feng2025tessera brown2025alphaearthfoundations Van_Tricht_2023 lang2023canopyheight pauls2024estimating pauls2026echosat"><a href="#ref-Mosig2026" role="doc-biblioref">[16]</a>, <a href="#ref-pauls2024estimating" role="doc-biblioref">[22]</a>, <a href="#ref-lang2023canopyheight" role="doc-biblioref">[23]</a>, <a href="#ref-feng2025tessera" role="doc-biblioref">[38]</a>, <a href="#ref-brown2025alphaearthfoundations" role="doc-biblioref">[39]</a>, <a href="#ref-Van_Tricht_2023" role="doc-biblioref">[40]</a>, <a href="#ref-pauls2026echosat" role="doc-biblioref">[41]</a></span> keep the EO data in the native Coordinate Reference System (CRS) at which it is distributed. Others reproject the data to a single global CRS such as EPSG:3857 (Web Mercator) <span class="citation" data-cites="glazer2025tempo"><a href="#ref-glazer2025tempo" role="doc-biblioref">[24]</a></span> or EPSG:4326 <span class="citation" data-cites="kerner2025fields"><a href="#ref-kerner2025fields" role="doc-biblioref">[21]</a></span>, although this can introduce distortions. The native CRS at which Sentinel-2 data is distributed is UTM/WGS84, which is conformal and maintains near-constant spatial resolution: a pixel represents approximately <span class="math inline">\(10\text{ m}\times 10\text{ m}\)</span> on the ground everywhere within a zone <span class="citation" data-cites="Snyder1987"><a href="#ref-Snyder1987" role="doc-biblioref">[42]</a></span>, a property that could help the model learn consistent spatial features. In a projection that does not minimize distortion, the physical distance represented by one degree of longitude shrinks with latitude, which could degrade the model’s ability to generalize across regions. If a single global CRS is required, an equal-area projection (e.g., Equal Earth, EPSG:8857) might be preferred, so that pixels represent the same amount of ground everywhere.</p>
+</section>
+<section id="multimodal-alignment" class="level3">
+<h3 class="anchored" data-anchor-id="multimodal-alignment">Multimodal alignment</h3>
+<p>When training patches combine data from multiple sensors (e.g., Sentinel-2 and ALOS-2 PALSAR-2), the inputs will generally differ in native projection, pixel spacing, and temporal sampling. The most common solution is to reproject and resample all modalities onto a shared grid and resolution before patch extraction, so that each training sample is aligned. This simplifies the data loader and model architecture but forces a choice of target resolution. The choice of resampling kernel also interacts with the downstream task: nearest-neighbor preserves categorical or integer-valued layers but introduces blocky patterns, whereas smooth kernels suit continuous fields but blur edges. An alternative is to preserve each modality at its native resolution and delegate alignment to the model architecture (Section <a href="./model_design_training.html">Model Design and Training</a>), avoiding information loss at the cost of greater architectural complexity.</p>
+<p>Taken together, these considerations argue for decoupling two concepts that are often conflated: the indexing strategy (how to select samples) and the patch projection (the coordinate system each sample lives in). Indexing should be done on a global grid that minimizes over-/under-sampling and overlap, independently of the patch projection and of how the EO data is tiled. Operations that rely on geography, such as train/test splitting, should be done on this grid. The patch projection, by contrast, only needs to minimize distortion at the scale of a single patch. UTM/WGS84, for instance, is a natural choice when the source archive is already UTM-native.</p>
+<p>The construction of the dataset defines the information that the model will see during training. But a well-constructed dataset is a necessary condition, not a sufficient one. The next question is how to design a model architecture and training procedure that can translate this information into accurate predictions at the scale of the entire globe, within practical computational budgets.</p>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-Ploton2020-ub" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">P. Ploton <em>et al.</em>, <span>“Spatial validation reveals poor predictive performance of large-scale ecological mapping models,”</span> <em>Nat. Commun.</em>, vol. 11, no. 1, p. 4540, Sep. 2020.</div>
+</div>
+<div id="ref-Kattenborn2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">T. Kattenborn, F. Schiefer, J. Frey, H. Feilhauer, M. D. Mahecha, and C. F. Dormann, <span>“Spatially autocorrelated training and validation samples inflate performance assessment of convolutional neural networks,”</span> <em>ISPRS Open Journal of Photogrammetry and Remote Sensing</em>, vol. 5, p. 100018, Aug. 2022, doi: <a href="https://doi.org/10.1016/j.ophoto.2022.100018">10.1016/j.ophoto.2022.100018</a>.</div>
+</div>
+<div id="ref-folk1999hdf5" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">M. Folk, A. Cheng, and K. Yates, <span>“<span class="nocase">HDF5: A file format and I/O library for high performance computing applications</span>,”</span> in <em>Proceedings of supercomputing</em>, 1999, pp. 5–33.</div>
+</div>
+<div id="ref-rew1990netcdf" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">R. Rew and G. Davis, <span>“<span class="nocase">NetCDF: an interface for scientific data access</span>,”</span> <em>IEEE computer graphics and applications</em>, vol. 10, no. 4, pp. 76–82, 1990.</div>
+</div>
+<div id="ref-ogc_geotiff" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">Open Geospatial Consortium, <span>“<span><span>OGC GeoTIFF Standard</span>, Version 1.1</span>,”</span> Open Geospatial Consortium, OGC Implementation Standard 19-008r4, 2019. Available: <a href="https://docs.ogc.org/is/19-008r4/19-008r4.html">https://docs.ogc.org/is/19-008r4/19-008r4.html</a></div>
+</div>
+<div id="ref-ogc_cog" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">Open Geospatial Consortium, <span>“<span><span>OGC Cloud Optimized GeoTIFF Standard</span>, Version 1.0</span>,”</span> Open Geospatial Consortium, OGC Implementation Standard 21-026, 2023. Available: <a href="https://docs.ogc.org/is/21-026/21-026.html">https://docs.ogc.org/is/21-026/21-026.html</a></div>
+</div>
+<div id="ref-hassell2017cf" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">D. Hassell, J. Gregory, J. Blower, B. N. Lawrence, and K. E. Taylor, <span>“<span class="nocase">A data model of the Climate and Forecast metadata conventions (CF-1.6) with a software implementation (cf-python v2.1)</span>,”</span> <em>Geoscientific Model Development</em>, vol. 10, no. 12, pp. 4619–4646, 2017, doi: <a href="https://doi.org/10.5194/gmd-10-4619-2017">10.5194/gmd-10-4619-2017</a>.</div>
+</div>
+<div id="ref-miles2020zarr" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline"><span class="nocase">A. Miles <em>et al.</em></span>, <em><span class="nocase">zarr-developers/zarr-python</span></em>. (2020). Zenodo. doi: <a href="https://doi.org/10.5281/zenodo.3773449">10.5281/zenodo.3773449</a>.</div>
+</div>
+<div id="ref-rasteret" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">Terrafloww Labs, Inc., <em><span class="nocase">Rasteret: Index-first GeoTIFF access layer for ML and analysis, powered by queryable Parquet indexes.</span></em> (Jan. 2025). Available: <a href="https://github.com/terrafloww/rasteret">https://github.com/terrafloww/rasteret</a></div>
+</div>
+<div id="ref-hdf5plugin" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline"><span class="nocase">T. Vincent <em>et al.</em></span>, <span>“<span class="nocase">silx-kit/hdf5plugin: 6.0.0: 08/10/2025</span>.”</span> Zenodo, 2025. doi: <a href="https://doi.org/10.5281/ZENODO.17296025">10.5281/ZENODO.17296025</a>.</div>
+</div>
+<div id="ref-dask" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">Dask Development Team, <em><span class="nocase">Dask: Library for dynamic task scheduling</span></em>. 2016. Available: <a href="http://dask.pydata.org">http://dask.pydata.org</a></div>
+</div>
+<div id="ref-xarrayvideo" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">O. J. Pellicer-Valero, C. Aybar, and G. C. Valls, <span>“<span class="nocase">Video Compression for Spatiotemporal Earth System Data</span>.”</span> arXiv, 2025. doi: <a href="https://doi.org/10.48550/ARXIV.2506.19656">10.48550/ARXIV.2506.19656</a>.</div>
+</div>
+<div id="ref-taco" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">C. Aybar <em>et al.</em>, <span>“<span class="nocase">The Missing Piece: Standardising for <span>AI</span>-ready <span>E</span>arth <span>O</span>bservation Datasets</span>,”</span> in <em>ICML 2025 workshop TerraBytes</em>, 2025. Available: <a href="https://openreview.net/forum?id=HV6F0dsGLK">https://openreview.net/forum?id=HV6F0dsGLK</a></div>
+</div>
+<div id="ref-rolf2024mission" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">E. Rolf, K. Klemmer, C. Robinson, and H. Kerner, <span>“<span class="nocase">Mission Critical–Satellite Data is a Distinct Modality in Machine Learning</span>,”</span> <em>arXiv preprint arXiv:2402.01444</em>, 2024, Available: <a href="https://arxiv.org/abs/2402.01444">https://arxiv.org/abs/2402.01444</a></div>
+</div>
+<div id="ref-Roberts2017" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">D. R. Roberts <em>et al.</em>, <span>“<span class="nocase">Cross‐validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure</span>,”</span> <em>Ecography</em>, vol. 40, no. 8, pp. 913–929, Mar. 2017, doi: <a href="https://doi.org/10.1111/ecog.02881">10.1111/ecog.02881</a>.</div>
+</div>
+<div id="ref-Mosig2026" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">C. Mosig <em>et al.</em>, <span>“<span class="nocase">Sub-pixel mapping of disturbance and tree mortality dynamics from Sentinel-2 time series around the globe</span>,”</span> Feb. 2026, doi: <a href="https://doi.org/10.31223/x5b18w">10.31223/x5b18w</a>.</div>
+</div>
+<div id="ref-Lusk_2026" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">D. Lusk <em>et al.</em>, <span>“<span class="nocase">Crowdsourced biodiversity monitoring fills gaps in global plant trait mapping</span>,”</span> <em>Nature Communications</em>, vol. 17, no. 1, Jan. 2026, doi: <a href="https://doi.org/10.1038/s41467-026-68996-y">10.1038/s41467-026-68996-y</a>.</div>
+</div>
+<div id="ref-garnot2021panoptic" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline">V. Sainte Fare Garnot and L. Landrieu, <span>“Panoptic segmentation of satellite image time series with convolutional temporal attention networks,”</span> <em>ICCV</em>, 2021.</div>
+</div>
+<div id="ref-Neumann_2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline">M. Neumann <em>et al.</em>, <span>“<span class="nocase">Natural forests of the world – a 2020 baseline for deforestation and degradation monitoring</span>,”</span> <em>Scientific Data</em>, vol. 12, no. 1, Nov. 2025, doi: <a href="https://doi.org/10.1038/s41597-025-06097-z">10.1038/s41597-025-06097-z</a>.</div>
+</div>
+<div id="ref-herzog2025olmoearthstable" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline">H. Herzog <em>et al.</em>, <span>“<span class="nocase">OlmoEarth: Stable Latent Image Modeling for Multimodal Earth Observation</span>,”</span> <em>arXiv preprint arXiv:2511.13655</em>, 2025, Available: <a href="https://arxiv.org/abs/2511.13655">https://arxiv.org/abs/2511.13655</a></div>
+</div>
+<div id="ref-kerner2025fields" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline">H. Kerner <em>et al.</em>, <span>“<span class="nocase">Fields of the World: A Machine Learning Benchmark Dataset for Global Agricultural Field Boundary Segmentation</span>,”</span> in <em>Proceedings of the AAAI conference on artificial intelligence</em>, 2025, pp. 28151–28159. doi: <a href="https://doi.org/10.1609/aaai.v39i27.35034">10.1609/aaai.v39i27.35034</a>.</div>
+</div>
+<div id="ref-pauls2024estimating" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline">J. Pauls <em>et al.</em>, <span>“<span class="nocase">Estimating Canopy Height at Scale</span>,”</span> <em>arXiv preprint arXiv:2406.01076</em>, 2024, Available: <a href="https://arxiv.org/abs/2406.01076">https://arxiv.org/abs/2406.01076</a></div>
+</div>
+<div id="ref-lang2023canopyheight" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[23] </div><div class="csl-right-inline">N. Lang, W. Jetz, K. Schindler, and J. D. Wegner, <span>“<span class="nocase">A High-Resolution Canopy Height Model of the Earth</span>,”</span> <em>Nature Ecology &amp; Evolution</em>, vol. 7, pp. 1778–1789, 2023, doi: <a href="https://doi.org/10.1038/s41559-023-02206-6">10.1038/s41559-023-02206-6</a>.</div>
+</div>
+<div id="ref-glazer2025tempo" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[24] </div><div class="csl-right-inline">T. Glazer <em>et al.</em>, <span>“<span class="nocase">TEMPO: Global Temporal Building Density and Height Estimation from Satellite Imagery</span>,”</span> <em>arXiv preprint arXiv:2511.12104</em>, 2025, Available: <a href="https://arxiv.org/abs/2511.12104">https://arxiv.org/abs/2511.12104</a></div>
+</div>
+<div id="ref-Revell2010" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[25] </div><div class="csl-right-inline">L. J. Revell, <span>“Phylogenetic signal and linear regression on species data: &lt;I&gt;phylogenetic regression&lt;/i&gt;,”</span> <em>Methods in Ecology and Evolution</em>, vol. 1, no. 4, pp. 319–329, 2010, doi: <a href="https://doi.org/10.1111/j.2041-210x.2010.00044.x">10.1111/j.2041-210x.2010.00044.x</a>.</div>
+</div>
+<div id="ref-Bergmeir2012" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[26] </div><div class="csl-right-inline">C. Bergmeir and J. M. Benítez, <span>“On the use of cross-validation for time series predictor evaluation,”</span> <em>Information Sciences</em>, vol. 191, pp. 192–213, May 2012, doi: <a href="https://doi.org/10.1016/j.ins.2011.12.028">10.1016/j.ins.2011.12.028</a>.</div>
+</div>
+<div id="ref-meyer2021areaofapplicability" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[27] </div><div class="csl-right-inline">H. Meyer and E. Pebesma, <span>“<span class="nocase">Predicting into Unknown Space? Estimating the Area of Applicability of Spatial Prediction Models</span>,”</span> <em>Methods in Ecology and Evolution</em>, vol. 12, pp. 1620–1633, 2021, doi: <a href="https://doi.org/10.1111/2041-210X.13650">10.1111/2041-210X.13650</a>.</div>
+</div>
+<div id="ref-butsko2025deploying" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[28] </div><div class="csl-right-inline">C. Butsko <em>et al.</em>, <span>“<span class="nocase">Deploying Geospatial Foundation Models in the Real World: Lessons from WorldCereal</span>,”</span> <em>arXiv preprint arXiv:2508.00858</em>, 2025, Available: <a href="https://arxiv.org/abs/2508.00858">https://arxiv.org/abs/2508.00858</a></div>
+</div>
+<div id="ref-NGA_SIG_0012_2014" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[29] </div><div class="csl-right-inline">National Geospatial-Intelligence Agency, <span>“<span class="nocase">The Universal Grids and the Transverse Mercator and Polar Stereographic Map Projections</span>,”</span> National Geospatial-Intelligence Agency, Technical Manual NGA.SIG.0012_2.0.0_UTMUPS, Mar. 2014. Available: <a href="https://www.nga.mil/">https://www.nga.mil/</a></div>
+</div>
+<div id="ref-BauerMarschallinger2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[30] </div><div class="csl-right-inline">B. Bauer-Marschallinger and K. Falkner, <span>“<span class="nocase">Wasting petabytes: A survey of the Sentinel-2 UTM tiling grid and its spatial overhead</span>,”</span> <em>ISPRS Journal of Photogrammetry and Remote Sensing</em>, vol. 202, pp. 682–690, Aug. 2023, doi: <a href="https://doi.org/10.1016/j.isprsjprs.2023.07.015">10.1016/j.isprsjprs.2023.07.015</a>.</div>
+</div>
+<div id="ref-BauerMarschallinger2014" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[31] </div><div class="csl-right-inline">B. Bauer-Marschallinger, D. Sabel, and W. Wagner, <span>“<span class="nocase">Optimisation of global grids for high-resolution remote sensing data</span>,”</span> <em>Computers &amp;amp; Geosciences</em>, vol. 72, pp. 84–93, Nov. 2014, doi: <a href="https://doi.org/10.1016/j.cageo.2014.07.005">10.1016/j.cageo.2014.07.005</a>.</div>
+</div>
+<div id="ref-veach2017s2" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[32] </div><div class="csl-right-inline">E. Veach, J. Rosenstock, E. Engle, and T. Manshreck, <span>“<span class="nocase"><span>S2 Geometry Library</span>: Computational geometry and spatial indexing on the sphere</span>.”</span> <a href="http://s2geometry.io/" class="uri">http://s2geometry.io/</a>, 2017.</div>
+</div>
+<div id="ref-h3" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[33] </div><div class="csl-right-inline">Uber, <span>“<span class="nocase"><span>H3</span>: A Hexagonal Hierarchical Geospatial Indexing System, <span>GitHub</span> repository</span>.”</span> <a href="https://github.com/uber/h3" class="uri">https://github.com/uber/h3</a>, n.d.</div>
+</div>
+<div id="ref-Gorski2005" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[34] </div><div class="csl-right-inline">K. M. Gorski <em>et al.</em>, <span>“<span class="nocase">HEALPix: A Framework for High‐Resolution Discretization and Fast Analysis of Data Distributed on the Sphere</span>,”</span> <em>The Astrophysical Journal</em>, vol. 622, no. 2, pp. 759–771, Apr. 2005, doi: <a href="https://doi.org/10.1086/427976">10.1086/427976</a>.</div>
+</div>
+<div id="ref-Gibb2016" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[35] </div><div class="csl-right-inline">R. G. Gibb, <span>“<span class="nocase">The rHEALPix Discrete Global Grid System</span>,”</span> <em>IOP Conference Series: Earth and Environmental Science</em>, vol. 34, p. 012012, Apr. 2016, doi: <a href="https://doi.org/10.1088/1755-1315/34/1/012012">10.1088/1755-1315/34/1/012012</a>.</div>
+</div>
+<div id="ref-Francis2024MajorTOM" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[36] </div><div class="csl-right-inline">A. Francis and M. Czerkawski, <span>“<span class="nocase">Major TOM: Expandable Datasets for Earth Observation</span>,”</span> in <em>IGARSS 2024 - 2024 IEEE international geoscience and remote sensing symposium</em>, 2024, pp. 2935–2940. doi: <a href="https://doi.org/10.1109/IGARSS53475.2024.10640760">10.1109/IGARSS53475.2024.10640760</a>.</div>
+</div>
+<div id="ref-avri2018" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[37] </div><div class="csl-right-inline">B. Šavrič, T. Patterson, and B. Jenny, <span>“<span class="nocase">The Equal Earth map projection</span>,”</span> <em>International Journal of Geographical Information Science</em>, vol. 33, no. 3, pp. 454–465, Aug. 2018, doi: <a href="https://doi.org/10.1080/13658816.2018.1504949">10.1080/13658816.2018.1504949</a>.</div>
+</div>
+<div id="ref-feng2025tessera" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[38] </div><div class="csl-right-inline">Z. Feng <em>et al.</em>, <span>“<span class="nocase">TESSERA: Temporal Embeddings of Surface Spectra for Earth Representation and Analysis</span>,”</span> <em>arXiv preprint arXiv:2506.20380</em>, 2025, Available: <a href="https://arxiv.org/abs/2506.20380">https://arxiv.org/abs/2506.20380</a></div>
+</div>
+<div id="ref-brown2025alphaearthfoundations" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[39] </div><div class="csl-right-inline">C. F. Brown <em>et al.</em>, <span>“<span class="nocase">AlphaEarth Foundations: An embedding field model for accurate and efficient global mapping from sparse label data</span>,”</span> <em>arXiv preprint arXiv:2507.22291</em>, 2025, Available: <a href="https://arxiv.org/abs/2507.22291">https://arxiv.org/abs/2507.22291</a></div>
+</div>
+<div id="ref-Van_Tricht_2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[40] </div><div class="csl-right-inline">K. Van Tricht <em>et al.</em>, <span>“<span class="nocase">WorldCereal: a dynamic open-source system for global-scale, seasonal, and reproducible crop and irrigation mapping</span>,”</span> <em>Earth System Science Data</em>, vol. 15, no. 12, pp. 5491–5515, Dec. 2023, doi: <a href="https://doi.org/10.5194/essd-15-5491-2023">10.5194/essd-15-5491-2023</a>.</div>
+</div>
+<div id="ref-pauls2026echosat" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[41] </div><div class="csl-right-inline">J. Pauls <em>et al.</em>, <span>“<span class="nocase">ECHOSAT: Estimating Canopy Height Over Space and Time</span>,”</span> <em>arXiv preprint arXiv:2602.21421</em>, 2026, Available: <a href="https://arxiv.org/abs/2602.21421">https://arxiv.org/abs/2602.21421</a></div>
+</div>
+<div id="ref-Snyder1987" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[42] </div><div class="csl-right-inline">J. P. Snyder, <em><span class="nocase">Map projections: A working manual</span></em>. US Geological Survey, 1987. doi: <a href="https://doi.org/10.3133/pp1395">10.3133/pp1395</a>.</div>
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ghjuliasialelli\.github\.io\/ml-eo-maps");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./ml_pipeline.html" class="pagination-link" aria-label="Machine learning dataset construction and model training">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Machine learning dataset construction and model training</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./model_design_training.html" class="pagination-link" aria-label="Model design and training">
+        <span class="nav-page-text"><span class="chapter-title">Model design and training</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Best Practices for EO Maps</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/ml_ready_dataset.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

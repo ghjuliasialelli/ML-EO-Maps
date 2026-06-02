@@ -6,6 +6,11 @@ $link-color: #2c5282;
   font-size: 1.1rem;
 }
 
+/* Justified text for body content */
+#quarto-document-content {
+  text-align: justify;
+}
+
 /* ── Sidebar: per-part chapter numbering ── */
 
 /* Each part resets its own chapter counter */

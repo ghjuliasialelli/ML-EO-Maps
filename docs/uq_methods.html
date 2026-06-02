@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Uncertainty quantification methods – From Machine Learning to Large-Scale EO Products:</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./uq_calibration.html" rel="next">
+<link href="./uq_sources.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-7cfea83ef4c10f509d7acd07c74e5a1b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./uncertainty_quantification.html">Uncertainty quantification</a></li><li class="breadcrumb-item"><a href="./uq_methods.html"><span class="chapter-title">Uncertainty quantification methods</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">From Machine Learning to Large-Scale EO Products:</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/ghjuliasialelli/ml-eo-maps" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./eo_data_landscape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview of the EO data infrastructure landscape</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./eo_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">EO missions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./accessing_eo_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Accessing EO data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./data_selection_preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data selection and preprocessing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_selection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data selection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data preprocessing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./ml_pipeline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Machine learning dataset construction and model training</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ml_ready_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Constructing a machine-learning-ready dataset</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./model_design_training.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Model design and training</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./uncertainty_quantification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Uncertainty quantification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_sources.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sources of uncertainty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_methods.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Uncertainty quantification methods</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_calibration.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Assessing calibration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Spatial structure of uncertainty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./uq_operationalizing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Operationalizing uncertainty</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./map_production.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Map production and distribution</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./map_generation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Map generation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./post_processing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Post-processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sharing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sharing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">General considerations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./validation_design_based.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Design-based accuracy assessment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./validation_beyond.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Validation beyond probability sampling</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusion</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion_summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion_forward.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Looking forward</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion_limitations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Limitations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acknowledgments.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acknowledgments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_s1_gaps.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sentinel-1 data gaps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_processing_pathways.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sentinel-1 and Sentinel-2 processing across access pathways</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#intrinsic-methods" id="toc-intrinsic-methods" class="nav-link active" data-scroll-target="#intrinsic-methods">Intrinsic methods</a>
+  <ul class="collapse">
+  <li><a href="#gaussian-processes" id="toc-gaussian-processes" class="nav-link" data-scroll-target="#gaussian-processes">Gaussian Processes</a></li>
+  <li><a href="#heteroskedastic-and-distributional-regression" id="toc-heteroskedastic-and-distributional-regression" class="nav-link" data-scroll-target="#heteroskedastic-and-distributional-regression">Heteroskedastic and Distributional Regression</a></li>
+  <li><a href="#variational-inference-and-neural-processes" id="toc-variational-inference-and-neural-processes" class="nav-link" data-scroll-target="#variational-inference-and-neural-processes">Variational Inference and Neural Processes</a></li>
+  </ul></li>
+  <li><a href="#post-training-methods" id="toc-post-training-methods" class="nav-link" data-scroll-target="#post-training-methods">Post-training methods</a>
+  <ul class="collapse">
+  <li><a href="#ensembles" id="toc-ensembles" class="nav-link" data-scroll-target="#ensembles">Ensembles</a></li>
+  <li><a href="#quantile-regression" id="toc-quantile-regression" class="nav-link" data-scroll-target="#quantile-regression">Quantile Regression</a></li>
+  <li><a href="#conformal-prediction" id="toc-conformal-prediction" class="nav-link" data-scroll-target="#conformal-prediction">Conformal Prediction</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/uq_methods.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./uncertainty_quantification.html">Uncertainty quantification</a></li><li class="breadcrumb-item"><a href="./uq_methods.html"><span class="chapter-title">Uncertainty quantification methods</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Uncertainty quantification methods</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>We organize UQ methods along two axes by whether uncertainty is intrinsic to the model (produced during training) or applied post hoc, and what type of uncertainty each method captures. Table <a href="#tbl-uq-methods" class="quarto-xref">Table&nbsp;<span>10.1</span></a> provides a summary and we discuss each family below. The methods below represent different points on the tradeoff between statistical rigor and computational feasibility, and no existing method occupies the ideal corner of that space.</p>
+<div id="tbl-uq-methods" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-uq-methods-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;10.1: Overview of uncertainty quantification methods for large-scale EO maps. Inference overhead is relative to a single forward pass. “Calibrated” indicates whether the method produces well-calibrated intervals by theoretical construction (✓), requires post-hoc calibration (<span class="math inline">\(\sim\)</span>), or provides no calibration guarantee (<span class="math inline">\(\times\)</span>).
+</figcaption>
+<div aria-describedby="tbl-uq-methods-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Method</strong></th>
+<th><strong>Captures</strong></th>
+<th><strong>Overhead</strong></th>
+<th><strong>EO failure modes</strong></th>
+<th><strong>Calibrated?</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Heteroskedastic NN</td>
+<td>Aleatoric</td>
+<td><span class="math inline">\(1\times\)</span></td>
+<td>Blind to epistemic; weak variance signal</td>
+<td><span class="math inline">\(\times\)</span></td>
+</tr>
+<tr class="even">
+<td>Distributional regression</td>
+<td>Aleatoric</td>
+<td><span class="math inline">\(1\times\)</span></td>
+<td>Distribution family misspecification</td>
+<td><span class="math inline">\(\times\)</span></td>
+</tr>
+<tr class="odd">
+<td>Neural Processes</td>
+<td>Both</td>
+<td><span class="math inline">\(1\times\)</span></td>
+<td>VI approximation error</td>
+<td><span class="math inline">\(\sim\)</span></td>
+</tr>
+<tr class="even">
+<td>Deep Ensembles</td>
+<td>Epistemic</td>
+<td><span class="math inline">\(N\times\)</span></td>
+<td>Correlated members from data</td>
+<td><span class="math inline">\(\times\)</span></td>
+</tr>
+<tr class="odd">
+<td>MC Dropout</td>
+<td>Epistemic</td>
+<td><span class="math inline">\(K\times\)</span></td>
+<td>Systematic underestimation</td>
+<td><span class="math inline">\(\times\)</span></td>
+</tr>
+<tr class="even">
+<td>Cheap ensembles<span class="math inline">\(^\dagger\)</span></td>
+<td>Epistemic</td>
+<td><span class="math inline">\(1.2\)</span>–<span class="math inline">\(2\times\)</span></td>
+<td>Same as ensembles, reduced</td>
+<td><span class="math inline">\(\times\)</span></td>
+</tr>
+<tr class="odd">
+<td>Quantile Regression</td>
+<td>Aleatoric</td>
+<td><span class="math inline">\(1\)</span>–<span class="math inline">\(Q\times\)</span></td>
+<td>No calibration guarantee; crossing</td>
+<td><span class="math inline">\(\times\)</span></td>
+</tr>
+<tr class="even">
+<td>Conformal Prediction</td>
+<td>Marginal</td>
+<td><span class="math inline">\(1\times\)</span></td>
+<td>Only marginal coverage; exchangeability</td>
+<td>✓<span class="math inline">\(^\ddagger\)</span></td>
+</tr>
+<tr class="odd">
+<td>CQR</td>
+<td>Both<span class="math inline">\(^\S\)</span></td>
+<td><span class="math inline">\(1\times\)</span></td>
+<td>Marginal not conditional coverage</td>
+<td>✓<span class="math inline">\(^\ddagger\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<section id="intrinsic-methods" class="level2">
+<h2 class="anchored" data-anchor-id="intrinsic-methods">Intrinsic methods</h2>
+<section id="gaussian-processes" class="level3">
+<h3 class="anchored" data-anchor-id="gaussian-processes">Gaussian Processes</h3>
+<p>Gaussian processes (GPs) provide the theoretically principled baseline for spatial prediction with uncertainty <span class="citation" data-cites="rasmussen2005gaussianprocesses"><a href="#ref-rasmussen2005gaussianprocesses" role="doc-biblioref">[1]</a></span>. Under a well-specified kernel, the GP posterior yields exact, calibrated predictive distributions including at unobserved locations, which is the inference setting for map generation. The classical limitation is computational as exact GP inference scales as <span class="math inline">\(O(n^3)\)</span> in the number of observations (pixels usually), which is prohibitive for the millions-to-billions of data points typical of global EO datasets.</p>
+<p>Sparse approximations based on inducing points <span class="citation" data-cites="titsias2009variational hensman2013gaussian"><a href="#ref-titsias2009variational" role="doc-biblioref">[2]</a>, <a href="#ref-hensman2013gaussian" role="doc-biblioref">[3]</a></span> reduce the cost to <span class="math inline">\(O(nm^2)\)</span> where <span class="math inline">\(m \ll n\)</span>, making GPs feasible for moderately large datasets. However, the choice of kernel function is significant and the placement of inducing points is itself also an optimization problem that interacts with kernel specification. A fixed inducing set may adequately represent covariance structure in data-dense regions while underrepresenting data-sparse ones, precisely where uncertainty estimates matter most. For non-stationary EO data, this means the user must jointly navigate kernel selection, inducing point placement, and potential domain partitioning, which often require domain expertise.</p>
+<p>EO data are non-stationary (tropical forests and savannas have fundamentally different covariance structures), and misspecifying the kernel undermines the calibration that is the GP’s principal advantage. The geostatistical literature, where GPs appear under the name <em>kriging</em>, has a long history of addressing non-stationarity and change-of-support problems <span class="citation" data-cites="cressie1993statistics goovaerts2001geostatistical"><a href="#ref-cressie1993statistics" role="doc-biblioref">[4]</a>, <a href="#ref-goovaerts2001geostatistical" role="doc-biblioref">[5]</a></span> and these insights remain relevant even as the ML community increasingly favors neural approaches.</p>
+</section>
+<section id="heteroskedastic-and-distributional-regression" class="level3">
+<h3 class="anchored" data-anchor-id="heteroskedastic-and-distributional-regression">Heteroskedastic and Distributional Regression</h3>
+<p>The simplest neural approach to uncertainty is to add a second output head predicting the variance alongside the mean, trained via a Gaussian negative log-likelihood loss <span class="citation" data-cites="nix1994estimating"><a href="#ref-nix1994estimating" role="doc-biblioref">[6]</a></span>. This captures aleatoric uncertainty cheaply (because the overhead is a single additional output neuron) but is blind to epistemic uncertainty. If the model is systematically wrong in some region (e.g., due to training data gaps), the variance head will not reflect this. The training signal for the variance head is also weak since the model must learn the noise structure from the same data it uses to learn the function, and the loss landscape for the variance parameter is poorly behaved when the model is misspecified.</p>
+<p>More expressive approaches predict the full parameters of a flexible distribution rather than just a Gaussian mean and variance. For skewed variables such as biomass, where a Gaussian assumption is often inappropriate even after log-transformation, mixture density networks <span class="citation" data-cites="bishop1994mixture"><a href="#ref-bishop1994mixture" role="doc-biblioref">[7]</a></span> or distributions with explicit skewness and kurtosis parameters (e.g., sinh-arcsinh normal) <span class="citation" data-cites="jonespewsey2009"><a href="#ref-jonespewsey2009" role="doc-biblioref">[8]</a></span> offer a richer representation of predictive uncertainty.</p>
+</section>
+<section id="variational-inference-and-neural-processes" class="level3">
+<h3 class="anchored" data-anchor-id="variational-inference-and-neural-processes">Variational Inference and Neural Processes</h3>
+<p>Neural processes (NPs) <span class="citation" data-cites="garnelo2018conditional kim2018attentive"><a href="#ref-garnelo2018conditional" role="doc-biblioref">[9]</a>, <a href="#ref-kim2018attentive" role="doc-biblioref">[10]</a></span> can be understood as amortized variational approximations to Gaussian processes. They learn to map a set of context observations to a predictive distribution, much as kriging maps observations to a conditional Gaussian, but with the kernel learned implicitly rather than specified parametrically. This connection to the geostatistical framework that underpins decades of spatial prediction is underappreciated, in part because the NP literature has developed largely within the meta-learning community using different vocabulary and training conventions. From the perspective of an EO researcher already familiar with kriging, the core proposition is not a new uncertainty framework but a scalable approximation to an existing one, with <span class="math inline">\(O(n)\)</span> inference cost and the capacity to learn non-stationary covariance structure directly from data.</p>
+<p>The standard caveats of variational inference apply. The approximate posterior can underestimate uncertainty if the variational family is too restrictive, and the ELBO objective can trade off data fit against KL divergence in ways that are not transparent. In practice, design choices specific to the NP framework can produce well-calibrated prediction intervals. As an example, <span class="citation" data-cites="young2026interpolation young2026neural"><a href="#ref-young2026interpolation" role="doc-biblioref">[11]</a>, <a href="#ref-young2026neural" role="doc-biblioref">[12]</a></span> demonstrated that attentive neural processes produce residual standard deviations near the ideal value for biomass mapping across ecologically distinct regions, including under active deforestation. However, these remain among the few validated applications of NPs in large-scale EO mapping, and broader adoption has been limited by the absence of mature tooling and the unfamiliarity of the meta-learning paradigm.</p>
+</section>
+</section>
+<section id="post-training-methods" class="level2">
+<h2 class="anchored" data-anchor-id="post-training-methods">Post-training methods</h2>
+<section id="ensembles" class="level3">
+<h3 class="anchored" data-anchor-id="ensembles">Ensembles</h3>
+<p>Deep ensembles <span class="citation" data-cites="lakshminarayanan2017deep"><a href="#ref-lakshminarayanan2017deep" role="doc-biblioref">[13]</a></span> train <span class="math inline">\(N\)</span> models with different random seeds or bootstrap samples and take the spread as an uncertainty estimate. Their dominance in practice is largely explained by their simplicity. Ensembles require no changes to the base model architecture, loss function, or training pipeline. One simply trains the same model multiple times and measures disagreement. Random forests offer an even lower barrier, since every tree is already an ensemble member and quantile regression forests <span class="citation" data-cites="meinshausen2006quantile"><a href="#ref-meinshausen2006quantile" role="doc-biblioref">[14]</a></span> formalize this by retaining the full distribution of training samples at leaf nodes. For those already using tree-based methods for mapping, uncertainty estimates are essentially a byproduct.</p>
+<p>As an example, <span class="citation" data-cites="lang2022canopy"><a href="#ref-lang2022canopy" role="doc-biblioref">[15]</a></span> estimated uncertainty in global canopy height predictions using an ensemble of heteroskedastic CNNs, where each member predicts both a mean and a variance via Gaussian negative log-likelihood. Aleatoric uncertainty is estimated by averaging the individual variance predictions, and epistemic uncertainty by the variance of the individual means with a decomposition that follows the law of total variance. The approach illustrates both the appeal and the cost, as the heteroskedastic heads required no post-hoc calibration step, but inference at global scale meant running ten forward passes over the full domain.</p>
+<p>However, ensemble spread measures model disagreement, which is related to but distinct from prediction interval width. For bootstrap based ensembles, including random forests, samples drawn from spatially autocorrelated data overlap substantially, and <span class="citation" data-cites="wager2014randomforestsci"><a href="#ref-wager2014randomforestsci" role="doc-biblioref">[16]</a></span> showed that the resulting confidence intervals are only valid under conditions that such data systematically violate. Deep ensembles face a more severe form of the same problem class as members typically share the entire training set and differ only in random initialization, so the sole source of disagreement is optimization stochasticity. When the training data contain spatially structured biases as EO data invariably do, all members learn similar biases in the same regions and agree with each other where they are collectively wrong. In both cases, the mechanism parallels the well documented effect by which spatial autocorrelation inflates apparent model accuracy <span class="citation" data-cites="ploton2020spatialvalidation Roberts2017"><a href="#ref-ploton2020spatialvalidation" role="doc-biblioref">[17]</a>, <a href="#ref-Roberts2017" role="doc-biblioref">[18]</a></span>: the same data structure that makes test-set <span class="math inline">\(R^2\)</span> overly optimistic makes ensemble spread overly narrow.</p>
+<p>Several approaches reduce the computational cost of ensembles without addressing the spread-versus-interval issue. Monte Carlo dropout <span class="citation" data-cites="gal2016dropout"><a href="#ref-gal2016dropout" role="doc-biblioref">[19]</a></span> approximates an ensemble by applying dropout at test time, but systematically underestimates uncertainty because it explores a narrow region of weight space. Snapshot ensembles <span class="citation" data-cites="huang2017snapshot"><a href="#ref-huang2017snapshot" role="doc-biblioref">[20]</a></span> collect checkpoints along a cyclic learning rate schedule. Stochastic Weight Averaging (SWA/SWAG; <span class="citation" data-cites="izmailov2018averaging"><a href="#ref-izmailov2018averaging" role="doc-biblioref">[21]</a></span>) averages weights or samples from a Gaussian approximation to the weight posterior. BatchEnsemble <span class="citation" data-cites="wen2020batchensemble"><a href="#ref-wen2020batchensemble" role="doc-biblioref">[22]</a></span> shares most parameters across members, reducing cost to approximately <span class="math inline">\(1.2\times\)</span> a single model. FiLM-Ensemble <span class="citation" data-cites="turkoglu2022film"><a href="#ref-turkoglu2022film" role="doc-biblioref">[23]</a></span> modulates network activations via feature-wise linear modulation to produce diverse ensemble members from a single base network, achieving calibration comparable to explicit ensembles at a fraction of the memory cost. These techniques change the cost–calibration tradeoff but do not resolve the correlation-induced miscalibration when applied to spatially structured data.</p>
+<p>A complementary direction is multi-model ensembling at the foundation model level. As the ecosystem of geospatial foundation models grows, disagreement between independently pretrained representations of the same location could be a proxy for epistemic uncertainty, analogous to classical ensembles but operating in embedding space rather than prediction space. This is appealing because the diversity between foundation models (different training data, different sensors, different pretraining objectives) is far greater than the diversity between ensemble members that differ only in random seed, which is the limitation that can make classical deep ensembles miscalibrated for spatial data. Recent work has shown that fusing embeddings from multiple geospatial foundation models yields complementary information that improves downstream task performance <span class="citation" data-cites="vanderplas2026bettertogether"><a href="#ref-vanderplas2026bettertogether" role="doc-biblioref">[24]</a></span>, confirming that these models capture meaningfully different representations. However, whether embedding-space disagreement translates into well-calibrated predictive uncertainty remains an open question, and the computational cost of running multiple foundation models at inference may rival or exceed that of traditional ensembles.</p>
+</section>
+<section id="quantile-regression" class="level3">
+<h3 class="anchored" data-anchor-id="quantile-regression">Quantile Regression</h3>
+<p>Rather than deriving prediction intervals from a point-estimate model, quantile regression directly targets conditional quantiles by optimizing a pinball (check) loss <span class="citation" data-cites="koenker1978regression"><a href="#ref-koenker1978regression" role="doc-biblioref">[25]</a></span>. One can train separate models for the <span class="math inline">\(\tau\)</span>-th and <span class="math inline">\((1-\tau)\)</span>-th quantiles, or use a single model with multiple quantile heads, to obtain prediction intervals at any nominal level. Quantile Random Forests <span class="citation" data-cites="meinshausen2006quantile"><a href="#ref-meinshausen2006quantile" role="doc-biblioref">[14]</a></span> retain the full distribution of training samples at leaf nodes to estimate conditional quantiles non-parametrically.</p>
+<p>The appeal is directness as the model is optimized for the quantity of interest (interval bounds) rather than deriving intervals from variance estimates. The limitation is that there is no guarantee the resulting intervals are calibrated. A model trained for the 5th and 95th percentiles may achieve empirical coverage far from 90</p>
+</section>
+<section id="conformal-prediction" class="level3">
+<h3 class="anchored" data-anchor-id="conformal-prediction">Conformal Prediction</h3>
+<p>Conformal prediction <span class="citation" data-cites="vovk2005algorithmiclearning"><a href="#ref-vovk2005algorithmiclearning" role="doc-biblioref">[26]</a></span> provides distribution-free coverage guarantees. Given exchangeable calibration data, a conformal procedure produces prediction sets that contain the true value with at least the nominal probability. The accessible tutorial by <span class="citation" data-cites="angelopoulos2023conformal"><a href="#ref-angelopoulos2023conformal" role="doc-biblioref">[27]</a></span> has driven recent adoption in the EO community <span class="citation" data-cites="singh2024uncertaintyconformal valle2023luluconformal"><a href="#ref-singh2024uncertaintyconformal" role="doc-biblioref">[28]</a>, <a href="#ref-valle2023luluconformal" role="doc-biblioref">[29]</a></span>.</p>
+<p>The appeal is theoretical cleanliness as coverage is guaranteed without distributional assumptions, and practical cheapness since conformal methods operate as a post-hoc wrapper around any base predictor. The limitation for spatial mapping is that the guarantee is marginal. The coverage holds on average over the full test distribution, not conditionally for specific regions or subpopulations. For a map user who needs to know how uncertain a given pixel is in the Amazon, a guarantee that averages over the entire globe is of limited value.</p>
+<p>More fundamentally, standard conformal prediction assumes exchangeability of calibration and test points, which spatial autocorrelation violates. Spatially correlated data are not exchangeable: nearby points carry redundant information, and the effective calibration sample size is smaller than the nominal one. This can lead to coverage that is correct marginally but arbitrarily poor conditionally <span class="citation" data-cites="barber2023conformal"><a href="#ref-barber2023conformal" role="doc-biblioref">[30]</a></span>. To address this limitation, <span class="citation" data-cites="guan2023localized"><a href="#ref-guan2023localized" role="doc-biblioref">[31]</a></span> proposed localized conformal prediction, which emphasizes a local region around each test point when computing prediction sets, retaining the finite-sample marginal coverage guarantee while offering additional local coverage guarantees under suitable assumptions. Adapting such methods to the data volumes and non-stationarities of global EO maps remains an open problem, but they represent a promising direction beyond purely marginal guarantees.</p>
+<p>Conformalized quantile regression (CQR; <span class="citation" data-cites="romano2019conformalized"><a href="#ref-romano2019conformalized" role="doc-biblioref">[32]</a></span>) offers a middle ground. CQR uses conformal calibration to adjust model-produced quantile intervals, inheriting the adaptivity of the base quantile model while gaining the marginal coverage guarantee. <span class="citation" data-cites="kuronen2025conformal"><a href="#ref-kuronen2025conformal" role="doc-biblioref">[33]</a></span> applied conformal prediction with a regression model to forest attribute mapping, using split conformal inference to construct prediction intervals and evaluating empirical coverage on withheld test data. While CQR does not solve the conditional coverage problem for spatial data, it is a practical post-hoc calibration approach that is currently available.</p>
+<p>The methods above are framed primarily for continuous-valued predictions, but many EO maps are categorical like land cover, crop type, or change detection, and UQ for classification raises distinct issues. The natural uncertainty output is a vector of class probabilities, typically from a softmax layer, but these are usually miscalibrated and neural networks tend to produce overconfident probability vectors where the maximum class probability is systematically higher than the true likelihood of being correct <span class="citation" data-cites="guo2017calibration"><a href="#ref-guo2017calibration" role="doc-biblioref">[34]</a></span>. Temperature scaling is the standard fix and is effective for its simplicity in classification where it is appropriate. Focal loss is a training time alternative that produces better-calibrated models than cross entropy by implicitly maximizing prediction entropy <span class="citation" data-cites="mukhoti2020calibrating"><a href="#ref-mukhoti2020calibrating" role="doc-biblioref">[35]</a></span>. Platt scaling and isotonic regression provide further options when miscalibration is non-uniform across the probability range <span class="citation" data-cites="niculescu2005predicting"><a href="#ref-niculescu2005predicting" role="doc-biblioref">[36]</a></span>.</p>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-rasmussen2005gaussianprocesses" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">C. E. Rasmussen and C. K. I. Williams, <em><span class="nocase">Gaussian Processes for Machine Learning</span></em>. The MIT Press, 2005. doi: <a href="https://doi.org/10.7551/mitpress/3206.001.0001">10.7551/mitpress/3206.001.0001</a>.</div>
+</div>
+<div id="ref-titsias2009variational" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">M. Titsias, <span>“<span class="nocase">Variational Learning of Inducing Variables in Sparse Gaussian Processes</span>,”</span> in <em>Proceedings of the twelfth international conference on artificial intelligence and statistics</em>, D. van Dyk and M. Welling, Eds., in Proceedings of machine learning research, vol. 5. Hilton Clearwater Beach Resort, Clearwater Beach, Florida USA: PMLR, 2009, pp. 567–574. Available: <a href="https://proceedings.mlr.press/v5/titsias09a.html">https://proceedings.mlr.press/v5/titsias09a.html</a></div>
+</div>
+<div id="ref-hensman2013gaussian" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">J. Hensman, N. Fusi, and N. D. Lawrence, <span>“<span class="nocase">Gaussian Processes for Big Data</span>,”</span> in <em>Proceedings of the twenty-ninth conference on uncertainty in artificial intelligence (UAI 2013)</em>, AUAI Press, 2013, pp. 282–290. Available: <a href="https://arxiv.org/abs/1309.6835">https://arxiv.org/abs/1309.6835</a></div>
+</div>
+<div id="ref-cressie1993statistics" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">N. A. C. Cressie, <em><span class="nocase">Statistics for Spatial Data</span></em>, 2nd ed. New York: Wiley, 1993.</div>
+</div>
+<div id="ref-goovaerts2001geostatistical" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">P. Goovaerts, <span>“<span class="nocase">Geostatistical modelling of uncertainty in soil science</span>,”</span> <em>Geoderma</em>, vol. 103, no. 1–2, pp. 3–26, 2001, doi: <a href="https://doi.org/10.1016/S0016-7061(01)00067-2">10.1016/S0016-7061(01)00067-2</a>.</div>
+</div>
+<div id="ref-nix1994estimating" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">D. A. Nix and A. S. Weigend, <span>“<span class="nocase">Estimating the mean and variance of the target probability distribution</span>,”</span> in <em>Proceedings of 1994 IEEE international conference on neural networks (ICNN’94)</em>, 1994, pp. 55–60 vol.1. doi: <a href="https://doi.org/10.1109/ICNN.1994.374138">10.1109/ICNN.1994.374138</a>.</div>
+</div>
+<div id="ref-bishop1994mixture" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">C. M. Bishop, <span>“Mixture density networks,”</span> Aston University, Birmingham, UK, Technical Report NCRG/94/004, 1994. Available: <a href="https://research.aston.ac.uk/en/publications/mixture-density-networks">https://research.aston.ac.uk/en/publications/mixture-density-networks</a></div>
+</div>
+<div id="ref-jonespewsey2009" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">M. C. Jones and A. Pewsey, <span>“Sinh-arcsinh distributions,”</span> <em>Biometrika</em>, vol. 96, no. 4, pp. 761–780, 2009, doi: <a href="https://doi.org/10.1093/biomet/asp053">10.1093/biomet/asp053</a>.</div>
+</div>
+<div id="ref-garnelo2018conditional" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">M. Garnelo <em>et al.</em>, <span>“<span>Conditional Neural Processes</span>,”</span> in <em>Proceedings of the 35th international conference on machine learning</em>, J. Dy and A. Krause, Eds., in Proceedings of machine learning research, vol. 80. PMLR, 2018, pp. 1704–1713. Available: <a href="https://proceedings.mlr.press/v80/garnelo18a.html">https://proceedings.mlr.press/v80/garnelo18a.html</a></div>
+</div>
+<div id="ref-kim2018attentive" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">H. Kim <em>et al.</em>, <span>“<span>Attentive Neural Processes</span>,”</span> in <em>International conference on learning representations</em>, 2019. Available: <a href="https://openreview.net/forum?id=SkE6PjC9KX">https://openreview.net/forum?id=SkE6PjC9KX</a></div>
+</div>
+<div id="ref-young2026interpolation" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">R. Young and S. Keshav, <span>“<span class="nocase">Interpolation of GEDI Biomass Estimates with Calibrated Uncertainty Quantification</span>.”</span> 2026. Available: <a href="https://arxiv.org/abs/2601.16834">https://arxiv.org/abs/2601.16834</a></div>
+</div>
+<div id="ref-young2026neural" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">R. Young and S. Keshav, <span>“<span class="nocase">Neural Processes Maintain Calibrated Biomass Estimates Across Spatiotemporal Gaps and Disturbance</span>.”</span> 2026. Available: <a href="https://arxiv.org/abs/2604.03874">https://arxiv.org/abs/2604.03874</a></div>
+</div>
+<div id="ref-lakshminarayanan2017deep" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">B. Lakshminarayanan, A. Pritzel, and C. Blundell, <span>“<span class="nocase">Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles</span>,”</span> in <em>Advances in neural information processing systems</em>, 2017, pp. 6405–6416. Available: <a href="https://proceedings.neurips.cc/paper_files/paper/2017/file/9ef2ed4b7fd2c810847ffa5fa85bce38-Paper.pdf">https://proceedings.neurips.cc/paper_files/paper/2017/file/9ef2ed4b7fd2c810847ffa5fa85bce38-Paper.pdf</a></div>
+</div>
+<div id="ref-meinshausen2006quantile" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">N. Meinshausen, <span>“<span>Quantile Regression Forests</span>,”</span> <em>Journal of Machine Learning Research</em>, vol. 7, pp. 983–999, 2006, Available: <a href="https://www.jmlr.org/papers/volume7/meinshausen06a/meinshausen06a.pdf">https://www.jmlr.org/papers/volume7/meinshausen06a/meinshausen06a.pdf</a></div>
+</div>
+<div id="ref-lang2022canopy" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">N. Lang, N. Kalischek, J. Armston, K. Schindler, R. Dubayah, and J. D. Wegner, <span>“<span class="nocase">Global canopy height regression and uncertainty estimation from GEDI LIDAR waveforms with deep ensembles</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 268, p. 112760, 2022, doi: <a href="https://doi.org/10.1016/j.rse.2021.112760">10.1016/j.rse.2021.112760</a>.</div>
+</div>
+<div id="ref-wager2014randomforestsci" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">S. Wager, T. Hastie, and B. Efron, <span>“<span class="nocase">Confidence Intervals for Random Forests: The Jackknife and the Infinitesimal Jackknife</span>,”</span> <em>Journal of Machine Learning Research</em>, vol. 15, no. 1, pp. 1625–1651, 2014, Available: <a href="https://jmlr.org/papers/volume15/wager14a/wager14a.pdf">https://jmlr.org/papers/volume15/wager14a/wager14a.pdf</a></div>
+</div>
+<div id="ref-ploton2020spatialvalidation" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">P. Ploton <em>et al.</em>, <span>“<span class="nocase">Spatial Validation Reveals Poor Predictive Performance of Large-Scale Ecological Mapping Models</span>,”</span> <em>Nature Communications</em>, vol. 11, no. 4540, 2020, doi: <a href="https://doi.org/10.1038/s41467-020-18321-y">10.1038/s41467-020-18321-y</a>.</div>
+</div>
+<div id="ref-Roberts2017" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline">D. R. Roberts <em>et al.</em>, <span>“<span class="nocase">Cross‐validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure</span>,”</span> <em>Ecography</em>, vol. 40, no. 8, pp. 913–929, Mar. 2017, doi: <a href="https://doi.org/10.1111/ecog.02881">10.1111/ecog.02881</a>.</div>
+</div>
+<div id="ref-gal2016dropout" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline">Y. Gal and Z. Ghahramani, <span>“<span class="nocase">Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning</span>,”</span> in <em>Proceedings of the 33rd international conference on machine learning</em>, M. F. Balcan and K. Q. Weinberger, Eds., in Proceedings of machine learning research, vol. 48. New York, New York, USA: PMLR, 2016, pp. 1050–1059. Available: <a href="https://proceedings.mlr.press/v48/gal16.html">https://proceedings.mlr.press/v48/gal16.html</a></div>
+</div>
+<div id="ref-huang2017snapshot" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline">G. Huang, Y. Li, G. Pleiss, Z. Liu, J. E. Hopcroft, and K. Q. Weinberger, <span>“<span class="nocase">Snapshot Ensembles: Train 1, Get M for Free</span>,”</span> in <em>International conference on learning representations</em>, 2017. Available: <a href="https://openreview.net/forum?id=BJYwwY9ll">https://openreview.net/forum?id=BJYwwY9ll</a></div>
+</div>
+<div id="ref-izmailov2018averaging" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline">P. Izmailov, D. Podoprikhin, T. Garipov, D. Vetrov, and A. G. Wilson, <span>“<span class="nocase">Averaging Weights Leads to Wider Optima and Better Generalization</span>,”</span> in <em>Proceedings of the conference on uncertainty in artificial intelligence (UAI 2018)</em>, AUAI Press, 2018. doi: <a href="https://doi.org/10.48550/arXiv.1803.05407">10.48550/arXiv.1803.05407</a>.</div>
+</div>
+<div id="ref-wen2020batchensemble" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline">Y. Wen, D. Tran, and J. Ba, <span>“<span class="nocase">BatchEnsemble: an Alternative Approach to Efficient Ensemble and Lifelong Learning</span>,”</span> in <em>International conference on learning representations</em>, 2020. Available: <a href="https://openreview.net/forum?id=Sklf1yrYDr">https://openreview.net/forum?id=Sklf1yrYDr</a></div>
+</div>
+<div id="ref-turkoglu2022film" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[23] </div><div class="csl-right-inline">M. O. Turkoglu <em>et al.</em>, <span>“FiLM-ensemble: Probabilistic deep learning via feature-wise linear modulation,”</span> in <em>Proceedings of the 36th international conference on neural information processing systems</em>, in NIPS ’22. Red Hook, NY, USA: Curran Associates Inc., 2022.</div>
+</div>
+<div id="ref-vanderplas2026bettertogether" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[24] </div><div class="csl-right-inline">T. L. van der Plas, J. J. Bakermans, V. Nedungadi, G. Tijūnaitytė, M. Rußwurm, and I. N. Athanasiadis, <span>“Better together: Evaluating the complementarity of earth embedding models.”</span> 2026. Available: <a href="https://arxiv.org/abs/2605.18667">https://arxiv.org/abs/2605.18667</a></div>
+</div>
+<div id="ref-koenker1978regression" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[25] </div><div class="csl-right-inline">R. Koenker and Jr. Bassett Gilbert, <span>“<span>Regression Quantiles</span>,”</span> <em>Econometrica</em>, vol. 46, no. 1, pp. 33–50, 1978, doi: <a href="https://doi.org/10.2307/1913643">10.2307/1913643</a>.</div>
+</div>
+<div id="ref-vovk2005algorithmiclearning" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[26] </div><div class="csl-right-inline">V. Vovk, A. Gammerman, and G. Shafer, <em><span class="nocase">Algorithmic Learning in a Random World</span></em>, 1st ed. Springer New York, NY, 2005. doi: <a href="https://doi.org/10.1007/b106715">10.1007/b106715</a>.</div>
+</div>
+<div id="ref-angelopoulos2023conformal" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[27] </div><div class="csl-right-inline">A. N. Angelopoulos and S. Bates, <span>“<span>Conformal Prediction: A Gentle Introduction</span>,”</span> <em>Foundations and Trends in Machine Learning</em>, vol. 16, no. 4, pp. 494–591, 2023, doi: <a href="https://doi.org/10.1561/2200000101">10.1561/2200000101</a>.</div>
+</div>
+<div id="ref-singh2024uncertaintyconformal" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[28] </div><div class="csl-right-inline">G. Singh, G. Moncrieff, Z. Venter, K. Cawse-Nicholson, J. Slingsby, and T. B. Robinson, <span>“<span class="nocase">Uncertainty Quantification for Probabilistic Machine Learning in Earth Observation Using Conformal Prediction</span>,”</span> <em>Scientific Reports</em>, vol. 14, no. 16166, 2024, doi: <a href="https://doi.org/10.1038/s41598-024-65954-w">10.1038/s41598-024-65954-w</a>.</div>
+</div>
+<div id="ref-valle2023luluconformal" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[29] </div><div class="csl-right-inline">D. Valle, R. Izbicki, and R. V. Leite, <span>“<span class="nocase">Quantifying Uncertainty in Land-Use Land-Cover Classification Using Conformal Statistics</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 295, p. 113682, 2023, doi: <a href="https://doi.org/10.1016/j.rse.2023.113682">10.1016/j.rse.2023.113682</a>.</div>
+</div>
+<div id="ref-barber2023conformal" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[30] </div><div class="csl-right-inline">R. F. Barber, E. J. Candès, A. Ramdas, and R. J. Tibshirani, <span>“<span class="nocase">Conformal prediction beyond exchangeability</span>,”</span> <em>The Annals of Statistics</em>, vol. 51, no. 2, pp. 816–845, 2023, doi: <a href="https://doi.org/10.1214/23-AOS2276">10.1214/23-AOS2276</a>.</div>
+</div>
+<div id="ref-guan2023localized" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[31] </div><div class="csl-right-inline">L. Guan, <span>“<span class="nocase">Localized conformal prediction: a generalized inference framework for conformal prediction</span>,”</span> <em>Biometrika</em>, vol. 110, no. 1, pp. 33–50, 2023, doi: <a href="https://doi.org/10.1093/biomet/asac040">10.1093/biomet/asac040</a>.</div>
+</div>
+<div id="ref-romano2019conformalized" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[32] </div><div class="csl-right-inline">Y. Romano, E. Patterson, and E. J. Candès, <span>“<span>Conformalized Quantile Regression</span>,”</span> in <em>Advances in neural information processing systems</em>, 2019, pp. 3543–3553. Available: <a href="https://papers.neurips.cc/paper/8613-conformalized-quantile-regression.pdf">https://papers.neurips.cc/paper/8613-conformalized-quantile-regression.pdf</a></div>
+</div>
+<div id="ref-kuronen2025conformal" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[33] </div><div class="csl-right-inline">M. Kuronen, J. Räty, P. Packalen, and M. Myllymäki, <span>“<span class="nocase">Uncertainty quantification for forest attribute maps with conformal prediction and k-nearest neighbor method</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 325, p. 114758, 2025, doi: <a href="https://doi.org/10.1016/j.rse.2025.114758">10.1016/j.rse.2025.114758</a>.</div>
+</div>
+<div id="ref-guo2017calibration" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[34] </div><div class="csl-right-inline">C. Guo, G. Pleiss, Y. Sun, and K. Q. Weinberger, <span>“<span class="nocase">On Calibration of Modern Neural Networks</span>,”</span> in <em>Proceedings of the 34th international conference on machine learning</em>, D. Precup and Y. W. Teh, Eds., in Proceedings of machine learning research, vol. 70. PMLR, 2017, pp. 1321–1330. Available: <a href="https://proceedings.mlr.press/v70/guo17a.html">https://proceedings.mlr.press/v70/guo17a.html</a></div>
+</div>
+<div id="ref-mukhoti2020calibrating" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[35] </div><div class="csl-right-inline">J. Mukhoti, V. Kulharia, A. Sanyal, S. Golodetz, P. H. S. Torr, and P. K. Dokania, <span>“<span class="nocase">Calibrating Deep Neural Networks using Focal Loss</span>,”</span> in <em>Advances in neural information processing systems (NeurIPS)</em>, 2020, pp. 15288–15299. Available: <a href="https://proceedings.neurips.cc/paper/2020/hash/aeb7b30ef1d024a76f21a1d40e30c302-Abstract.html">https://proceedings.neurips.cc/paper/2020/hash/aeb7b30ef1d024a76f21a1d40e30c302-Abstract.html</a></div>
+</div>
+<div id="ref-niculescu2005predicting" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[36] </div><div class="csl-right-inline">A. Niculescu-Mizil and R. Caruana, <span>“<span class="nocase">Predicting Good Probabilities with Supervised Learning</span>,”</span> in <em>Proceedings of the 22nd international conference on machine learning (ICML)</em>, ACM, 2005, pp. 625–632. doi: <a href="https://doi.org/10.1145/1102351.1102430">10.1145/1102351.1102430</a>.</div>
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ghjuliasialelli\.github\.io\/ml-eo-maps");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./uq_sources.html" class="pagination-link" aria-label="Sources of uncertainty">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Sources of uncertainty</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./uq_calibration.html" class="pagination-link" aria-label="Assessing calibration">
+        <span class="nav-page-text"><span class="chapter-title">Assessing calibration</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Best Practices for EO Maps</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/uq_methods.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

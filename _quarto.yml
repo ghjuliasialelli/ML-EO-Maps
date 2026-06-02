@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 book:
-  title: "From Machine Learning to Large-Scale EO Products:"
+  title: "From Machine Learning to Large-Scale EO Products"
   subtitle: "Best Practices and Guidelines for Making Maps"
   reader-mode: true
 
@@ -21,6 +21,8 @@ book:
 
   chapters:
     - index.qmd
+    - about.qmd
+    - howto.qmd
     - introduction.qmd
     - part: eo_data_landscape.qmd
       chapters:
@@ -56,8 +58,6 @@ book:
         - conclusion_summary.qmd
         - conclusion_forward.qmd
         - conclusion_limitations.qmd
-    - acknowledgments.qmd
-
   appendices:
     - appendix_s1_gaps.qmd
     - appendix_processing_pathways.qmd
