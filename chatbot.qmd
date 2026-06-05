@@ -1,0 +1,12 @@
+---
+title: "Chatbot"
+---
+
+Ask questions about the best practices covered in this book — the chatbot will point you to the relevant section.
+
+<iframe 
+  src="https://huggingface.co/spaces/ghjuliasialelli/ML-EO-Maps" 
+  width="100%" 
+  height="700px" 
+  style="border:none; border-radius: 8px;">
+</iframe>

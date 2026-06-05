@@ -23,6 +23,7 @@ book:
     - index.qmd
     - about.qmd
     - howto.qmd
+    - chatbot.qmd
     - introduction.qmd
     - part: eo_data_landscape.qmd
       chapters:

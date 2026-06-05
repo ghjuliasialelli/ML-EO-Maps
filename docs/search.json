@@ -726,5 +726,15 @@
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>About the Authors</span>"
     ]
+  },
+  {
+    "objectID": "chatbot.html",
+    "href": "chatbot.html",
+    "title": "Chatbot",
+    "section": "",
+    "text": "Ask questions about the best practices covered in this book — the chatbot will point you to the relevant section.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Chatbot</span>"
+    ]
   }
 ]
