@@ -2,6 +2,28 @@
 title: "From Machine Learning to Large-Scale EO Products"
 subtitle: "Best Practices and Guidelines for Making Maps"
 sidebar-title: "Welcome"
+date: "2026"
+date-format: "YYYY"
+author:
+  - name: Ghjulia Sialelli
+    affiliation: ETH Zurich
+  - name: Robin Young
+    affiliation: University of Cambridge
+  - name: Cesar Aybar
+    affiliation: Asterisk Labs
+  - name: Yuchang Jiang
+    affiliation: WSL
+  - name: Damien Robert
+    affiliation: University of Zurich
+  - name: Linus Scheibenreif
+    affiliation: ETH Zurich
+google-scholar: true
+citation:
+  type: book
+  title: "From Machine Learning to Large-Scale EO Products: Best Practices and Guidelines for Making Maps"
+  url: "https://ghjuliasialelli.github.io/ml-eo-maps/"
+  publisher: "ETH Zurich"
+  issued: 2026
 ---
 
 The past decade has seen a rapid expansion in the production of large-scale geospatial products derived from Earth observation (EO) data using machine learning (ML). This website presents an end-to-end account of the best practices, challenges, and common pitfalls that span the entire pipeline from raw satellite data to a published, validated map product.
