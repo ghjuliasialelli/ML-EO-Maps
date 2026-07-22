@@ -24,8 +24,6 @@ We organize the discussion around six interconnected themes which trace the pipe
 
 **Validation** — Design-based accuracy assessment, the distinction between model evaluation and map validation, and reporting standards.
 
-::: {.callout-tip}
-## How to cite
-
-Sialelli, G. et al. (2026). "From Machine Learning to Large-Scale EO Products: Best Practices and Guidelines for Making Maps." In preparation. Available at: [https://ghjuliasialelli.github.io/ML-EO-Maps/](https://ghjuliasialelli.github.io/ML-EO-Maps/)
+::: {.callout-note appearance="minimal" icon="false"}
+© 2026 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, in any current or future media, including reprinting/republishing this material for advertising or promotional purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works.
 :::

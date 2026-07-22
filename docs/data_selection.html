@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data selection – From Machine Learning to Large-Scale EO Products:</title>
+<title>Data selection – From Machine Learning to Large-Scale EO Products</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -120,7 +120,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">From Machine Learning to Large-Scale EO Products:</a> 
+      <a href="./">From Machine Learning to Large-Scale EO Products</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/ghjuliasialelli/ml-eo-maps" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
@@ -141,6 +141,16 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -325,11 +335,6 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./acknowledgments.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acknowledgments</span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
@@ -417,14 +422,14 @@ div.csl-indent {
 <img src="images/s2-combined.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s2-combined-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.1: Illustration of Sentinel-2 artifacts. <em>Top</em>: Sentinel-2 L2A products for tile 31TGN, from sensor A, orbit 008 (left) and sensor B, orbit 108 (right) for the same date, April 8th 2026. <em>Middle</em>: Sentinel-2 L2A products for tile 30SUH, sensor B on June 4th 2025, orbit 137 (left) vs.&nbsp;sensor C on June 6th 2026, orbit 094 (right). <em>Bottom</em>: Sentinel-2C L2A products for tile 30STH, acquired on April 5th 2026, in the same orbit (137). <em>The images were acquired using the Copernicus Browser.</em>
+Figure&nbsp;7.1: Illustration of Sentinel-2 artifacts. <em>Top</em>: Sentinel-2 L2A products for tile 31TGN, from sensor A, orbit 008 (left) and sensor B, orbit 108 (right) for the same date, April 8th 2026. <em>Middle</em>: Sentinel-2 L2A products for tile 30SUH, sensor B on June 4th 2025, orbit 137 (left) vs.&nbsp;sensor C on June 6th 2026, orbit 094 (right). <em>Bottom</em>: Sentinel-2C L2A products for tile 30STH, acquired on April 5th 2026, in the same orbit (137). <em>The images were acquired using the Copernicus Browser.</em>
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="sec-sar" class="level2">
 <h2 class="anchored" data-anchor-id="sec-sar">SAR data selection</h2>
-<p>SAR imagery is not affected by clouds, but its side-looking acquisition geometry introduces its own artifacts: geometric distortion due to foreshortening, layover, and shadow (see Figure <a href="#fig-s1-distortions" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>). These deterministic perturbations arise from the interaction between terrain relief and the radar’s look vector: given a digital elevation model and the acquisition geometry, the distortion pattern can be predicted.</p>
+<p>SAR imagery is not affected by clouds, but its side-looking acquisition geometry introduces its own artifacts: geometric distortion due to foreshortening, layover, and shadow (see Figure <a href="#fig-s1-distortions" class="quarto-xref">Figure&nbsp;<span>7.2</span></a>). These deterministic perturbations arise from the interaction between terrain relief and the radar’s look vector: given a digital elevation model and the acquisition geometry, the distortion pattern can be predicted.</p>
 <p>For Sentinel-1 in Interferometric Wide (IW) mode, three factors define this viewing geometry: the relative orbit number or track (the satellite’s repeating ground path), the sub-swath (which sets the incidence angle range), and the pass direction (ascending or descending). Ascending and descending acquisitions of the same area are complementary (slopes that suffer layover under one geometry are often well-imaged under the other) and combining the two is a standard strategy for filling distortion gaps in mountainous regions. More generally, several tracks are typically available over any target area, each contributing hundreds of acquisitions over the mission’s lifetime. Both the data volume and the need for geometric consistency over time (required for analyses such as interferometric stacks, amplitude change detection, or feature extraction) may push toward the selection of a single track. ESA’s Sentinel-1 Burst ID Map <span class="citation" data-cites="sarmpc2022burstid"><a href="#ref-sarmpc2022burstid" role="doc-biblioref">[29]</a></span> provides the metadata needed to make this choice. It consists of global polygons that divide each sub-swath into smaller units called bursts, each annotated with its track and sub-swath identifier. Together with the pass direction, these identifiers specify the viewing geometry for any given location, and three approaches of increasing detail can be used to select among the candidates. The simplest uses the burst grid alone: candidates are filtered by sub-swath, typically with a preference for mid-range incidence angles, which is sufficient for flat or moderate terrain. For rougher terrain, combining the burst grid with a digital elevation model allows candidates to be ranked by the alignment between the radar’s look direction and the dominant slope aspect. For a more exact comparison, tools such as <a href="https://step.esa.int/main/wp-content/help/versions/9.0.0/snap-toolboxes/org.esa.s1tbx.s1tbx.op.sar.processing.ui/operators/SARSimulationOp.html">SNAP’s SAR Simulation Operator</a> can simulate the per-pixel layover and shadow masks that would arise from each candidate, though the per-candidate simulation cost makes this approach impractical at scale.</p>
 <div id="fig-s1-distortions" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -432,7 +437,7 @@ Figure&nbsp;5.1: Illustration of Sentinel-2 artifacts. <em>Top</em>: Sentinel-2 
 <img src="images/s1-distortions.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s1-distortions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.2: Main geometric distortions on SAR images with their dependence on acquisition geometry. Figure from <span class="citation" data-cites="sarhandbook"><a href="#ref-sarhandbook" role="doc-biblioref">[30]</a></span>.
+Figure&nbsp;7.2: Main geometric distortions on SAR images with their dependence on acquisition geometry. Figure from <span class="citation" data-cites="sarhandbook"><a href="#ref-sarhandbook" role="doc-biblioref">[30]</a></span>.
 </figcaption>
 </figure>
 </div>

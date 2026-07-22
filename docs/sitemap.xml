@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/accessing_eo_data.html</loc>
-    <lastmod>2026-06-01T08:04:05.671Z</lastmod>
+    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/index.html</loc>
+    <lastmod>2026-07-21T12:39:37.179Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/howto.html</loc>
+    <lastmod>2026-06-02T08:23:47.182Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/chatbot.html</loc>
+    <lastmod>2026-06-05T12:44:54.585Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/introduction.html</loc>
@@ -15,6 +23,10 @@
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/eo_missions.html</loc>
     <lastmod>2026-05-29T15:31:35.849Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/accessing_eo_data.html</loc>
+    <lastmod>2026-06-01T08:04:05.671Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/data_selection_preprocessing.html</loc>
@@ -113,10 +125,6 @@
     <lastmod>2026-05-29T15:31:35.831Z</lastmod>
   </url>
   <url>
-    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/acknowledgments.html</loc>
-    <lastmod>2026-05-29T15:31:35.811Z</lastmod>
-  </url>
-  <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/appendix_s1_gaps.html</loc>
     <lastmod>2026-05-29T15:31:35.821Z</lastmod>
   </url>
@@ -131,21 +139,5 @@
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/appendix_cloud_masking.html</loc>
     <lastmod>2026-05-29T15:31:35.814Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/index.html</loc>
-    <lastmod>2026-06-02T08:45:23.565Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/about.html</loc>
-    <lastmod>2026-06-02T09:07:20.947Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/howto.html</loc>
-    <lastmod>2026-06-02T08:23:47.182Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/chatbot.html</loc>
-    <lastmod>2026-06-05T12:44:54.585Z</lastmod>
   </url>
 </urlset>

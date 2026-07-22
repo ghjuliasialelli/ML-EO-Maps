@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Map generation – From Machine Learning to Large-Scale EO Products:</title>
+<title>Map generation – From Machine Learning to Large-Scale EO Products</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7cfea83ef4c10f509d7acd07c74e5a1b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c255c5907d4ec97ac61b80091d22c4d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -149,7 +149,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">From Machine Learning to Large-Scale EO Products:</a> 
+      <a href="./">From Machine Learning to Large-Scale EO Products</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/ghjuliasialelli/ml-eo-maps" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
@@ -170,6 +170,16 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -354,11 +364,6 @@ window.Quarto = {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./acknowledgments.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acknowledgments</span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
@@ -452,14 +457,14 @@ window.Quarto = {
 </section>
 <section id="mitigation-of-artifacts" class="level2">
 <h2 class="anchored" data-anchor-id="mitigation-of-artifacts">Mitigation of artifacts</h2>
-<p>Due to the significant memory constraints of modern ML architectures, EO scenes cannot be processed in their entirety. Instead, they are partitioned into a grid of smaller patches for inference. However, many models exhibit a spatial bias: predictive confidence tends to be highest near the center of a patch and degrades toward the borders. When these individually processed patches are reassembled into a final output, this bias manifests as patch artifacts—unnatural discontinuities or “seams” along the patch boundaries. This spatial bias is a consequence of translational variance in neural networks, arising in convolutional architectures primarily from zero-padding and non-unary strides <span class="citation" data-cites="huang2018tiling zhang2019making kayhan2020translation"><a href="#ref-huang2018tiling" role="doc-biblioref">[3]</a>, <a href="#ref-zhang2019making" role="doc-biblioref">[4]</a>, <a href="#ref-kayhan2020translation" role="doc-biblioref">[5]</a></span>, and in vision transformers from patch embedding, positional encodings, and windowed attention <span class="citation" data-cites="rojasgomez2023making"><a href="#ref-rojasgomez2023making" role="doc-biblioref">[6]</a></span>. Architectural remedies exist <span class="citation" data-cites="zhang2019making kayhan2020translation"><a href="#ref-zhang2019making" role="doc-biblioref">[4]</a>, <a href="#ref-kayhan2020translation" role="doc-biblioref">[5]</a></span>, but are rarely adopted in large-scale EO inference, where translational variance remains a practical concern. To mitigate the resulting artifacts at inference time, researchers typically employ one of two strategies, illustrated in Figure <a href="#fig-inference-tiling" class="quarto-xref">Figure&nbsp;<span>14.1</span></a>.</p>
+<p>Due to the significant memory constraints of modern ML architectures, EO scenes cannot be processed in their entirety. Instead, they are partitioned into a grid of smaller patches for inference. However, many models exhibit a spatial bias: predictive confidence tends to be highest near the center of a patch and degrades toward the borders. When these individually processed patches are reassembled into a final output, this bias manifests as patch artifacts—unnatural discontinuities or “seams” along the patch boundaries. This spatial bias is a consequence of translational variance in neural networks, arising in convolutional architectures primarily from zero-padding and non-unary strides <span class="citation" data-cites="huang2018tiling zhang2019making kayhan2020translation"><a href="#ref-huang2018tiling" role="doc-biblioref">[3]</a>, <a href="#ref-zhang2019making" role="doc-biblioref">[4]</a>, <a href="#ref-kayhan2020translation" role="doc-biblioref">[5]</a></span>, and in vision transformers from patch embedding, positional encodings, and windowed attention <span class="citation" data-cites="rojasgomez2023making"><a href="#ref-rojasgomez2023making" role="doc-biblioref">[6]</a></span>. Architectural remedies exist <span class="citation" data-cites="zhang2019making kayhan2020translation"><a href="#ref-zhang2019making" role="doc-biblioref">[4]</a>, <a href="#ref-kayhan2020translation" role="doc-biblioref">[5]</a></span>, but are rarely adopted in large-scale EO inference, where translational variance remains a practical concern. To mitigate the resulting artifacts at inference time, researchers typically employ one of two strategies, illustrated in Figure <a href="#fig-inference-tiling" class="quarto-xref">Figure&nbsp;<span>16.1</span></a>.</p>
 <div id="fig-inference-tiling" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-inference-tiling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/patches.png" id="fig-inference-tiling" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-inference-tiling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14.1
+Figure&nbsp;16.1
 </figcaption>
 </figure>
 </div>
