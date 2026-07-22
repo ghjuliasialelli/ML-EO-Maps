@@ -184,6 +184,11 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction</span></a>
   </div>
 </li>
@@ -323,7 +328,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">General considerations</span></a>
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Common misconceptions in map validation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -405,7 +410,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#coverage-and-reliability-do-the-1sigma-68" id="toc-coverage-and-reliability-do-the-1sigma-68" class="nav-link active" data-scroll-target="#coverage-and-reliability-do-the-1sigma-68">Coverage and Reliability Do the <span class="math inline">\(1\sigma\)</span> ($$68</a></li>
+  <li><a href="#coverage-and-reliability" id="toc-coverage-and-reliability" class="nav-link active" data-scroll-target="#coverage-and-reliability">Coverage and Reliability</a></li>
   <li><a href="#standardized-residuals" id="toc-standardized-residuals" class="nav-link" data-scroll-target="#standardized-residuals">Standardized residuals</a></li>
   <li><a href="#scoring-rules" id="toc-scoring-rules" class="nav-link" data-scroll-target="#scoring-rules">Scoring rules</a></li>
   <li><a href="#additional-diagnostics" id="toc-additional-diagnostics" class="nav-link" data-scroll-target="#additional-diagnostics">Additional diagnostics</a></li>
@@ -435,8 +440,9 @@ window.Quarto = {
 
 
 <p>The preceding methods differ not only in cost but in whether they produce calibrated uncertainty, which raises the question of how to verify calibration in the first place. Reporting uncertainty without verifying its calibration is akin to reporting accuracy without a test set. We recommend a minimal set of diagnostics that should accompany maps with per-pixel uncertainty:</p>
-<section id="coverage-and-reliability-do-the-1sigma-68" class="level3">
-<h3 class="anchored" data-anchor-id="coverage-and-reliability-do-the-1sigma-68">Coverage and Reliability Do the <span class="math inline">\(1\sigma\)</span> ($$68</h3>
+<section id="coverage-and-reliability" class="level3">
+<h3 class="anchored" data-anchor-id="coverage-and-reliability">Coverage and Reliability</h3>
+<p>Do the <span class="math inline">\(1\sigma\)</span> ($$68%) prediction intervals contain 68% of held-out observations, and the <span class="math inline">\(2\sigma\)</span> ($$95%) intervals contain 95%? Coverage above the nominal level indicates underconfident (conservative) intervals and coverage below indicates overconfidence. Plot observed coverage against nominal coverage for a range of probability levels (e.g., 10% through 90%). A well-calibrated model lies on the diagonal. This generalises the coverage check to all levels simultaneously and is the regression analogue of the classification reliability diagram <span class="citation" data-cites="kuleshov2018accurate"><a href="#ref-kuleshov2018accurate" role="doc-biblioref">[1]</a></span>.</p>
 </section>
 <section id="standardized-residuals" class="level3">
 <h3 class="anchored" data-anchor-id="standardized-residuals">Standardized residuals</h3>
@@ -444,27 +450,129 @@ window.Quarto = {
 </section>
 <section id="scoring-rules" class="level3">
 <h3 class="anchored" data-anchor-id="scoring-rules">Scoring rules</h3>
-<p>The interval score (Winkler score; <span class="citation" data-cites="gneiting2007probabilistic"><a href="#ref-gneiting2007probabilistic" role="doc-biblioref">[1]</a></span>) simultaneously penalizes miscoverage and interval width, rewarding intervals that are both sharp and calibrated. The continuous ranked probability score (CRPS) evaluates the full predictive distribution. These are more informative than coverage alone, which can be achieved by making intervals arbitrarily wide.</p>
+<p>The interval score (Winkler score; <span class="citation" data-cites="gneiting2007probabilistic"><a href="#ref-gneiting2007probabilistic" role="doc-biblioref">[2]</a></span>) simultaneously penalizes miscoverage and interval width, rewarding intervals that are both sharp and calibrated. The continuous ranked probability score (CRPS) evaluates the full predictive distribution. These are more informative than coverage alone, which can be achieved by making intervals arbitrarily wide.</p>
 </section>
 <section id="additional-diagnostics" class="level3">
 <h3 class="anchored" data-anchor-id="additional-diagnostics">Additional diagnostics</h3>
 <p>Probability integral transform (PIT) histograms and Q-Q plots provide visual checks of distributional calibration. The uncertainty–error correlation assesses whether predicted uncertainty is actually informative about where the model makes large errors.</p>
 <p>A model calibrated on a geographically restricted validation set may not be calibrated on the inference domain, which, for a global map, is almost certainly different from where validation data were available. This is especially relevant for the “one model globally versus one model per region” design choice. A global model may be well calibrated on average but poorly calibrated in specific biomes where training data were sparse. Conversely, regional models may be well-calibrated locally but provide no guarantees when extrapolating to adjacent regions.</p>
-<p>When calibration diagnostics reveal problems, the response depends on the severity and pattern of the failure. Mild, smooth miscalibration where the reliability diagram shows a consistent curve away from the diagonal can often be corrected post hoc. Isotonic regression applied to the predicted CDF values, or Platt scaling for parametric models, can remap predicted intervals to achieve empirical coverage without retraining <span class="citation" data-cites="kuleshov2018accurate"><a href="#ref-kuleshov2018accurate" role="doc-biblioref">[2]</a></span>. These are cheap fixes and should be attempted first. If miscalibration is more structured, for instance, systematic overconfidence in one biome but reasonable calibration elsewhere, post hoc recalibration on a stratified held out set can help, but the stratification should reflect the structure of the miscalibration, which requires enough validation data in each stratum to fit the recalibration reliably. When miscalibration is severe or regionally patterned in ways that post hoc correction cannot resolve, the model itself may need revisiting by retraining with a proper scoring rule as the loss function (e.g., CRPS for distributional regression, or Gaussian NLL rather than MSE for heteroskedastic models) can produce better-calibrated uncertainty at source.</p>
+<p>When calibration diagnostics reveal problems, the response depends on the severity and pattern of the failure. Mild, smooth miscalibration where the reliability diagram shows a consistent curve away from the diagonal can often be corrected post hoc. Isotonic regression applied to the predicted CDF values, or Platt scaling for parametric models, can remap predicted intervals to achieve empirical coverage without retraining <span class="citation" data-cites="kuleshov2018accurate"><a href="#ref-kuleshov2018accurate" role="doc-biblioref">[1]</a></span>. These are cheap fixes and should be attempted first. If miscalibration is more structured, for instance, systematic overconfidence in one biome but reasonable calibration elsewhere, post hoc recalibration on a stratified held out set can help, but the stratification should reflect the structure of the miscalibration, which requires enough validation data in each stratum to fit the recalibration reliably. When miscalibration is severe or regionally patterned in ways that post hoc correction cannot resolve, the model itself may need revisiting by retraining with a proper scoring rule as the loss function (e.g., CRPS for distributional regression, or Gaussian NLL rather than MSE for heteroskedastic models) can produce better-calibrated uncertainty at source.</p>
 <p>Switching to a method that provides calibration by construction such as conformal prediction as a post hoc wrapper is another option, with the caveat that the resulting guarantees are marginal rather than conditional. At a minimum, if calibration cannot be achieved, this should be documented explicitly by reporting the empirical coverage alongside the nominal coverage, stratified by region or land cover class, so that downstream users can judge for themselves whether the uncertainty layer is trustworthy for their application.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
-<div id="ref-gneiting2007probabilistic" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">T. Gneiting, F. Balabdaoui, and A. E. Raftery, <span>“<span class="nocase">Probabilistic Forecasts, Calibration and Sharpness</span>,”</span> <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em>, vol. 69, no. 2, pp. 243–268, 2007, doi: <a href="https://doi.org/10.1111/j.1467-9868.2007.00587.x">10.1111/j.1467-9868.2007.00587.x</a>.</div>
-</div>
 <div id="ref-kuleshov2018accurate" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">V. Kuleshov, N. Fenner, and S. Ermon, <span>“<span class="nocase">Accurate Uncertainties for Deep Learning Using Calibrated Regression</span>,”</span> in <em>Proceedings of the 35th international conference on machine learning</em>, J. Dy and A. Krause, Eds., in Proceedings of machine learning research, vol. 80. PMLR, 2018, pp. 2796–2804. Available: <a href="https://proceedings.mlr.press/v80/kuleshov18a.html">https://proceedings.mlr.press/v80/kuleshov18a.html</a></div>
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">V. Kuleshov, N. Fenner, and S. Ermon, <span>“<span class="nocase">Accurate Uncertainties for Deep Learning Using Calibrated Regression</span>,”</span> in <em>Proceedings of the 35th international conference on machine learning</em>, J. Dy and A. Krause, Eds., in Proceedings of machine learning research, vol. 80. PMLR, 2018, pp. 2796–2804. Available: <a href="https://proceedings.mlr.press/v80/kuleshov18a.html">https://proceedings.mlr.press/v80/kuleshov18a.html</a></div>
+</div>
+<div id="ref-gneiting2007probabilistic" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">T. Gneiting, F. Balabdaoui, and A. E. Raftery, <span>“<span class="nocase">Probabilistic Forecasts, Calibration and Sharpness</span>,”</span> <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em>, vol. 69, no. 2, pp. 243–268, 2007, doi: <a href="https://doi.org/10.1111/j.1467-9868.2007.00587.x">10.1111/j.1467-9868.2007.00587.x</a>.</div>
 </div>
 </div>
 </section>
 
 </main> <!-- /main -->
+<script>
+// Feedback pre-fill: maps each page to its part/chapter, stamps the footer
+// "Feedback" link with those values, and (on the Feedback page) injects them
+// into the Tally embed so the two dropdowns arrive pre-selected.
+(function () {
+  // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
+  var MAP = {
+    "index.html":                        { part: "General / whole book" },
+    "howto.html":                        { part: "General / whole book" },
+    "chatbot.html":                      { part: "General / whole book" },
+    "introduction.html":                 { part: "General / whole book" },
+
+    "eo_data_landscape.html":            { part: "EO data landscape" },
+    "eo_missions.html":                  { part: "EO data landscape", chapter: "EO missions" },
+    "accessing_eo_data.html":            { part: "EO data landscape", chapter: "Accessing EO data" },
+
+    "data_selection_preprocessing.html": { part: "Data selection & preprocessing" },
+    "data_selection.html":               { part: "Data selection & preprocessing", chapter: "Data selection" },
+    "data_preprocessing.html":           { part: "Data selection & preprocessing", chapter: "Data preprocessing" },
+
+    "ml_pipeline.html":                  { part: "ML dataset & training" },
+    "ml_ready_dataset.html":             { part: "ML dataset & training", chapter: "Constructing an ML-ready dataset" },
+    "model_design_training.html":        { part: "ML dataset & training", chapter: "Model design and training" },
+
+    "uncertainty_quantification.html":   { part: "Uncertainty quantification" },
+    "uq_sources.html":                   { part: "Uncertainty quantification", chapter: "Sources of uncertainty" },
+    "uq_methods.html":                   { part: "Uncertainty quantification", chapter: "Uncertainty quantification methods" },
+    "uq_calibration.html":               { part: "Uncertainty quantification", chapter: "Assessing calibration" },
+    "uq_spatial.html":                   { part: "Uncertainty quantification", chapter: "Spatial structure of uncertainty" },
+    "uq_operationalizing.html":          { part: "Uncertainty quantification", chapter: "Operationalizing uncertainty" },
+
+    "map_production.html":               { part: "Map production & distribution" },
+    "map_generation.html":               { part: "Map production & distribution", chapter: "Map generation" },
+    "post_processing.html":              { part: "Map production & distribution", chapter: "Post-processing" },
+    "sharing.html":                      { part: "Map production & distribution", chapter: "Sharing" },
+
+    "validation.html":                   { part: "Validation" },
+    "validation_general.html":           { part: "Validation", chapter: "Common misconceptions in map validation" },
+    "validation_design_based.html":      { part: "Validation", chapter: "Design-based accuracy assessment" },
+    "validation_beyond.html":            { part: "Validation", chapter: "Validation beyond probability sampling" },
+
+    "conclusion.html":                   { part: "Conclusion" },
+    "conclusion_summary.html":           { part: "Conclusion", chapter: "Conclusion: summary" },
+    "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
+    "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
+
+    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
+    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
+    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+  };
+
+  function currentInfo() {
+    var base = (window.location.pathname.split("/").pop() || "index.html");
+    if (!base) base = "index.html";
+    return MAP[base] || null;
+  }
+
+  function qs(info) {
+    var p = [];
+    if (info && info.part)    p.push("part=" + encodeURIComponent(info.part));
+    if (info && info.chapter) p.push("chapter=" + encodeURIComponent(info.chapter));
+    return p.join("&");
+  }
+
+  function run() {
+    var info = currentInfo();
+
+    // 1) Stamp the footer "Feedback" link with the current section.
+    var link = document.getElementById("site-feedback-link");
+    if (link) {
+      var query = qs(info);
+      if (query) {
+        var href = link.getAttribute("href").split("?")[0];
+        link.setAttribute("href", href + "?" + query);
+      }
+    }
+
+    // 2) On the Feedback page, feed the URL's part/chapter into the Tally embed.
+    var iframe = document.getElementById("tally-feedback");
+    if (iframe) {
+      var url = new URL(window.location.href);
+      var parts = [];
+      if (url.searchParams.get("part"))    parts.push("part=" + encodeURIComponent(url.searchParams.get("part")));
+      if (url.searchParams.get("chapter")) parts.push("chapter=" + encodeURIComponent(url.searchParams.get("chapter")));
+      var src = iframe.getAttribute("data-tally-src");
+      if (parts.length) src += (src.indexOf("?") > -1 ? "&" : "?") + parts.join("&");
+      iframe.setAttribute("data-tally-src", src);
+
+      var s = document.createElement("script");
+      s.src = "https://tally.so/widgets/embed.js";
+      document.body.appendChild(s);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -884,8 +992,8 @@ window.Quarto = {
 <p>Best Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/uq_calibration.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/uq_calibration.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Built with <a href="https://quarto.org/">Quarto</a></p>
 </div>

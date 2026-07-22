@@ -184,6 +184,11 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction</span></a>
   </div>
 </li>
@@ -323,7 +328,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">General considerations</span></a>
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Common misconceptions in map validation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -425,14 +430,14 @@ window.Quarto = {
 </header>
 
 
-<p>In this section, we focus on accessing EO data products. The access landscape has expanded significantly in recent years, but it is also fast-moving and not cleanly delineated: providers and platforms regularly restructure their offerings, pricing, and access policies, and the boundaries between “canonical provider”, “cloud re-distributor”, and “compute platform” are increasingly blurred. A unifying constraint across this landscape is <em>data gravity</em>: modern EO archives have grown to a scale where even freely available data is often impractical to move, and the position of compute relative to data has become a primary design factor. This is the underlying reason most large-scale EO workflows today rely on platforms that co-locate data and compute rather than directly downloading from canonical providers. Figure <a href="#fig-eo-data-access" class="quarto-xref">Figure&nbsp;<span>6.1</span></a> provides an overview of the resulting access landscape.</p>
+<p>In this section, we focus on accessing EO data products. The access landscape has expanded significantly in recent years, but it is also fast-moving and not cleanly delineated: providers and platforms regularly restructure their offerings, pricing, and access policies, and the boundaries between “canonical provider”, “cloud re-distributor”, and “compute platform” are increasingly blurred. A unifying constraint across this landscape is <em>data gravity</em>: modern EO archives have grown to a scale where even freely available data is often impractical to move, and the position of compute relative to data has become a primary design factor. This is the underlying reason most large-scale EO workflows today rely on platforms that co-locate data and compute rather than directly downloading from canonical providers. Figure <a href="#fig-eo-data-access" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> provides an overview of the resulting access landscape.</p>
 <div id="fig-eo-data-access" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-eo-data-access-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/overview.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-eo-data-access-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6.1: Overview of the EO data access landscape.
+Figure&nbsp;7.1: Overview of the EO data access landscape.
 </figcaption>
 </figure>
 </div>
@@ -441,7 +446,7 @@ Figure&nbsp;6.1: Overview of the EO data access landscape.
 <div id="tbl-eo-providers" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-eo-providers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;6.1: Overview of major Earth observation data providers. <strong>Host</strong>: cloud infrastructure where the data resides, with geographic region when documented. <strong>Online operations</strong>: whether server-side processing such as multi-scene compositing or cloud-masking is exposed through an API. <strong>Large-scale egress</strong>: feasibility of bulk archive download, ✓ = supported on the standard tier modulo cloud egress costs; <span class="math inline">\(\approx\)</span> = requires commercial or institutional arrangements beyond standard egress; × = the access API is not architecturally suited to bulk download regardless of budget. <strong>Large-scale cloud compute collocation</strong>: feasibility of running very large workloads such as deep learning inference at planetary resolution on infrastructure adjacent to the data, ✓ = the data resides on a hyperscaler (AWS, Azure, or Google Cloud Platform) offering large GPU/TPU pools in the same region; <span class="math inline">\(\approx\)</span> = compute is available on the underlying infrastructure but does not reach hyperscaler scale, or the path between data and compute is interrupted by mandatory exports. *GEE data is not directly user-accessible at the storage layer; access requires the GEE platform’s own constrained compute environment.
+Table&nbsp;7.1: Overview of major Earth observation data providers. <strong>Host</strong>: cloud infrastructure where the data resides, with geographic region when documented. <strong>Online operations</strong>: whether server-side processing such as multi-scene compositing or cloud-masking is exposed through an API. <strong>Large-scale egress</strong>: feasibility of bulk archive download, ✓ = supported on the standard tier modulo cloud egress costs; <span class="math inline">\(\approx\)</span> = requires commercial or institutional arrangements beyond standard egress; × = the access API is not architecturally suited to bulk download regardless of budget. <strong>Large-scale cloud compute collocation</strong>: feasibility of running very large workloads such as deep learning inference at planetary resolution on infrastructure adjacent to the data, ✓ = the data resides on a hyperscaler (AWS, Azure, or Google Cloud Platform) offering large GPU/TPU pools in the same region; <span class="math inline">\(\approx\)</span> = compute is available on the underlying infrastructure but does not reach hyperscaler scale, or the path between data and compute is interrupted by mandatory exports. *GEE data is not directly user-accessible at the storage layer; access requires the GEE platform’s own constrained compute environment.
 </figcaption>
 <div aria-describedby="tbl-eo-providers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -538,8 +543,8 @@ Table&nbsp;6.1: Overview of major Earth observation data providers. <strong>Host
 </figure>
 </div>
 <p>Relying on re-distribution platforms introduces several trade-offs. Since these platforms ingest data from canonical EO providers, there may be latency between acquisition and availability, and their processing pipelines may differ from those of the original providers. As an example, we provide an overview of the processing differences between the native Sentinel-1/2 data products and their GEE equivalents in <a href="./appendix_processing_pathways.html#sentinel-2">Sentinel-2 Processing</a>. Data gaps can also occur, as regularly reported by users on the MPC <a href="https://github.com/microsoft/PlanetaryComputer/issues">GitHub repository</a>.</p>
-<p>Accessing EO data therefore involves practical choices across multiple dimensions. Each platform offers distinct trade-offs in where the data is hosted, support for server-side operations, suitability for large-scale download, and feasibility of running large-scale collocated compute — we summarize them in Table <a href="#tbl-eo-providers" class="quarto-xref">Table&nbsp;<span>6.1</span></a>. Most providers have converged on STAC as a catalog standard and the S3 protocol as a download mechanism, but they differ in whether they support online operations such as compositing, in their suitability for large-scale downloads, and in whether the underlying infrastructure can host hyperscaler-class compute alongside the data.</p>
-<p>A practical pattern that follows from data gravity is to treat EO data access as a two-stage process. <em>Model development</em> typically involves modest data volumes that can be downloaded comfortably from almost any provider; here, convenience and catalog coverage dominate the choice. <em>Inference at scale</em>, on the other hand, is dominated by data movement: pulling petabyte-scale imagery from one provider into a different compute environment is rarely tractable. As a result, practitioners typically either (i) co-locate inference compute with the data, or (ii) accept the time and storage cost of moving the EO data into their compute environment. In the first case, this means inference at the largest scales is feasible only where the data lives on a hyperscaler (AWS, Azure, or GCP) with large GPU/TPU pools available in the same region, which the rightmost column of Table <a href="#tbl-eo-providers" class="quarto-xref">Table&nbsp;<span>6.1</span></a> reflects. The platform that minimizes friction for training is therefore often not the one that minimizes cost for inference. No universally optimal solution exists: the most appropriate choice depends on the scale of analysis, computational requirements, institutional constraints, and the acceptable trade-off between immediate convenience and the risk of lock-in to proprietary platforms.</p>
+<p>Accessing EO data therefore involves practical choices across multiple dimensions. Each platform offers distinct trade-offs in where the data is hosted, support for server-side operations, suitability for large-scale download, and feasibility of running large-scale collocated compute — we summarize them in Table <a href="#tbl-eo-providers" class="quarto-xref">Table&nbsp;<span>7.1</span></a>. Most providers have converged on STAC as a catalog standard and the S3 protocol as a download mechanism, but they differ in whether they support online operations such as compositing, in their suitability for large-scale downloads, and in whether the underlying infrastructure can host hyperscaler-class compute alongside the data.</p>
+<p>A practical pattern that follows from data gravity is to treat EO data access as a two-stage process. <em>Model development</em> typically involves modest data volumes that can be downloaded comfortably from almost any provider; here, convenience and catalog coverage dominate the choice. <em>Inference at scale</em>, on the other hand, is dominated by data movement: pulling petabyte-scale imagery from one provider into a different compute environment is rarely tractable. As a result, practitioners typically either (i) co-locate inference compute with the data, or (ii) accept the time and storage cost of moving the EO data into their compute environment. In the first case, this means inference at the largest scales is feasible only where the data lives on a hyperscaler (AWS, Azure, or GCP) with large GPU/TPU pools available in the same region, which the rightmost column of Table <a href="#tbl-eo-providers" class="quarto-xref">Table&nbsp;<span>7.1</span></a> reflects. The platform that minimizes friction for training is therefore often not the one that minimizes cost for inference. No universally optimal solution exists: the most appropriate choice depends on the scale of analysis, computational requirements, institutional constraints, and the acceptable trade-off between immediate convenience and the risk of lock-in to proprietary platforms.</p>
 <p>The choice of data source and access pathway establishes the starting point of the pipeline. The next section turns to the practical challenges of selecting and processing these satellite observations, to make them suitable for ML workflows and map generation.</p>
 
 
@@ -558,6 +563,108 @@ Table&nbsp;6.1: Overview of major Earth observation data providers. <strong>Host
 </section>
 
 </main> <!-- /main -->
+<script>
+// Feedback pre-fill: maps each page to its part/chapter, stamps the footer
+// "Feedback" link with those values, and (on the Feedback page) injects them
+// into the Tally embed so the two dropdowns arrive pre-selected.
+(function () {
+  // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
+  var MAP = {
+    "index.html":                        { part: "General / whole book" },
+    "howto.html":                        { part: "General / whole book" },
+    "chatbot.html":                      { part: "General / whole book" },
+    "introduction.html":                 { part: "General / whole book" },
+
+    "eo_data_landscape.html":            { part: "EO data landscape" },
+    "eo_missions.html":                  { part: "EO data landscape", chapter: "EO missions" },
+    "accessing_eo_data.html":            { part: "EO data landscape", chapter: "Accessing EO data" },
+
+    "data_selection_preprocessing.html": { part: "Data selection & preprocessing" },
+    "data_selection.html":               { part: "Data selection & preprocessing", chapter: "Data selection" },
+    "data_preprocessing.html":           { part: "Data selection & preprocessing", chapter: "Data preprocessing" },
+
+    "ml_pipeline.html":                  { part: "ML dataset & training" },
+    "ml_ready_dataset.html":             { part: "ML dataset & training", chapter: "Constructing an ML-ready dataset" },
+    "model_design_training.html":        { part: "ML dataset & training", chapter: "Model design and training" },
+
+    "uncertainty_quantification.html":   { part: "Uncertainty quantification" },
+    "uq_sources.html":                   { part: "Uncertainty quantification", chapter: "Sources of uncertainty" },
+    "uq_methods.html":                   { part: "Uncertainty quantification", chapter: "Uncertainty quantification methods" },
+    "uq_calibration.html":               { part: "Uncertainty quantification", chapter: "Assessing calibration" },
+    "uq_spatial.html":                   { part: "Uncertainty quantification", chapter: "Spatial structure of uncertainty" },
+    "uq_operationalizing.html":          { part: "Uncertainty quantification", chapter: "Operationalizing uncertainty" },
+
+    "map_production.html":               { part: "Map production & distribution" },
+    "map_generation.html":               { part: "Map production & distribution", chapter: "Map generation" },
+    "post_processing.html":              { part: "Map production & distribution", chapter: "Post-processing" },
+    "sharing.html":                      { part: "Map production & distribution", chapter: "Sharing" },
+
+    "validation.html":                   { part: "Validation" },
+    "validation_general.html":           { part: "Validation", chapter: "Common misconceptions in map validation" },
+    "validation_design_based.html":      { part: "Validation", chapter: "Design-based accuracy assessment" },
+    "validation_beyond.html":            { part: "Validation", chapter: "Validation beyond probability sampling" },
+
+    "conclusion.html":                   { part: "Conclusion" },
+    "conclusion_summary.html":           { part: "Conclusion", chapter: "Conclusion: summary" },
+    "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
+    "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
+
+    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
+    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
+    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+  };
+
+  function currentInfo() {
+    var base = (window.location.pathname.split("/").pop() || "index.html");
+    if (!base) base = "index.html";
+    return MAP[base] || null;
+  }
+
+  function qs(info) {
+    var p = [];
+    if (info && info.part)    p.push("part=" + encodeURIComponent(info.part));
+    if (info && info.chapter) p.push("chapter=" + encodeURIComponent(info.chapter));
+    return p.join("&");
+  }
+
+  function run() {
+    var info = currentInfo();
+
+    // 1) Stamp the footer "Feedback" link with the current section.
+    var link = document.getElementById("site-feedback-link");
+    if (link) {
+      var query = qs(info);
+      if (query) {
+        var href = link.getAttribute("href").split("?")[0];
+        link.setAttribute("href", href + "?" + query);
+      }
+    }
+
+    // 2) On the Feedback page, feed the URL's part/chapter into the Tally embed.
+    var iframe = document.getElementById("tally-feedback");
+    if (iframe) {
+      var url = new URL(window.location.href);
+      var parts = [];
+      if (url.searchParams.get("part"))    parts.push("part=" + encodeURIComponent(url.searchParams.get("part")));
+      if (url.searchParams.get("chapter")) parts.push("chapter=" + encodeURIComponent(url.searchParams.get("chapter")));
+      var src = iframe.getAttribute("data-tally-src");
+      if (parts.length) src += (src.indexOf("?") > -1 ? "&" : "?") + parts.join("&");
+      iframe.setAttribute("data-tally-src", src);
+
+      var s = document.createElement("script");
+      s.src = "https://tally.so/widgets/embed.js";
+      document.body.appendChild(s);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -977,8 +1084,8 @@ Table&nbsp;6.1: Overview of major Earth observation data providers. <strong>Host
 <p>Best Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/accessing_eo_data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>
+<div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/accessing_eo_data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Built with <a href="https://quarto.org/">Quarto</a></p>
 </div>

@@ -23,7 +23,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -131,6 +151,11 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -274,7 +299,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">General considerations</span></a>
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Common misconceptions in map validation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -377,10 +402,124 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Validation is between map production and map credibility. Yet, it is not a one-size-fits-all procedure and the validation protocol must be designed in relation to the intended use of the map and integrated into project planning from the outset. The choice of validation approach, metrics, and reporting standards should therefore be defined before any map is produced. This is increasingly relevant with the growing accessibility of large-scale computing infrastructure and ML methods, which have dramatically lowered the barrier to generating new maps.</p>
+<p>This section focuses on the principles and best practices of <strong>design-based map validation</strong>, which forms the foundation of current international guidelines for geospatial accuracy assessment <span class="citation" data-cites="olofsson2014good tyukavina2025practical"><a href="#ref-olofsson2014good" role="doc-biblioref">[1]</a>, <a href="#ref-tyukavina2025practical" role="doc-biblioref">[2]</a></span>. Under this framework, validation relies on reference data collected through probability sampling designs with known, non-zero inclusion probabilities, enabling statistically rigorous and unbiased estimation of map accuracy. While many of these concepts originated in land-cover validation, they remain broadly applicable across a wide range of geospatial products.</p>
+<p>The discussion applies to both categorical and continuous map products. Categorical products include multi-class land-cover maps as well as thematic single-class products such as forest extent or forest change maps. Continuous products include variables such as biomass and forest height. Although the general validation principles are shared, specific aspects of response design and accuracy assessment may differ across product types.</p>
+<p>We begin by clarifying several common misconceptions surrounding map validation, including the distinction between model evaluation, map uncertainty, map comparison, and map validation. We then present the practical workflow of design-based accuracy assessment, covering sampling design, response design and statistical analysis.</p>
+<p>Design-based accuracy assessment relies on reference data collected through probability sampling, which enables statistically rigorous and unbiased estimation of map accuracy. However, probability sampling is not feasible for all mapping applications. In cases where validation must rely on existing non-probability reference data (e.g., opportunistic field campaigns or legacy datasets), alternative validation approaches are required. These are discussed in Section <a href="./validation_beyond.html">Validation beyond probability sampling</a>, together with recommended best practices for situations in which probability-based, design-based accuracy assessment cannot be implemented.</p>
 
 
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-olofsson2014good" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">P. Olofsson, G. M. Foody, M. Herold, S. V. Stehman, C. E. Woodcock, and M. A. Wulder, <span>“<span class="nocase">Good practices for estimating area and assessing accuracy of land change</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 148, pp. 42–57, May 2014, doi: <a href="https://doi.org/10.1016/j.rse.2014.02.015">10.1016/j.rse.2014.02.015</a>.</div>
+</div>
+<div id="ref-tyukavina2025practical" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">A. Tyukavina, S. V. Stehman, A. H. Pickens, P. Potapov, and M. C. Hansen, <span>“<span class="nocase">Practical global sampling methods for estimating area and map accuracy of land cover and change</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 324, p. 114714, 2025.</div>
+</div>
+</div>
 
 </main> <!-- /main -->
+<script>
+// Feedback pre-fill: maps each page to its part/chapter, stamps the footer
+// "Feedback" link with those values, and (on the Feedback page) injects them
+// into the Tally embed so the two dropdowns arrive pre-selected.
+(function () {
+  // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
+  var MAP = {
+    "index.html":                        { part: "General / whole book" },
+    "howto.html":                        { part: "General / whole book" },
+    "chatbot.html":                      { part: "General / whole book" },
+    "introduction.html":                 { part: "General / whole book" },
+
+    "eo_data_landscape.html":            { part: "EO data landscape" },
+    "eo_missions.html":                  { part: "EO data landscape", chapter: "EO missions" },
+    "accessing_eo_data.html":            { part: "EO data landscape", chapter: "Accessing EO data" },
+
+    "data_selection_preprocessing.html": { part: "Data selection & preprocessing" },
+    "data_selection.html":               { part: "Data selection & preprocessing", chapter: "Data selection" },
+    "data_preprocessing.html":           { part: "Data selection & preprocessing", chapter: "Data preprocessing" },
+
+    "ml_pipeline.html":                  { part: "ML dataset & training" },
+    "ml_ready_dataset.html":             { part: "ML dataset & training", chapter: "Constructing an ML-ready dataset" },
+    "model_design_training.html":        { part: "ML dataset & training", chapter: "Model design and training" },
+
+    "uncertainty_quantification.html":   { part: "Uncertainty quantification" },
+    "uq_sources.html":                   { part: "Uncertainty quantification", chapter: "Sources of uncertainty" },
+    "uq_methods.html":                   { part: "Uncertainty quantification", chapter: "Uncertainty quantification methods" },
+    "uq_calibration.html":               { part: "Uncertainty quantification", chapter: "Assessing calibration" },
+    "uq_spatial.html":                   { part: "Uncertainty quantification", chapter: "Spatial structure of uncertainty" },
+    "uq_operationalizing.html":          { part: "Uncertainty quantification", chapter: "Operationalizing uncertainty" },
+
+    "map_production.html":               { part: "Map production & distribution" },
+    "map_generation.html":               { part: "Map production & distribution", chapter: "Map generation" },
+    "post_processing.html":              { part: "Map production & distribution", chapter: "Post-processing" },
+    "sharing.html":                      { part: "Map production & distribution", chapter: "Sharing" },
+
+    "validation.html":                   { part: "Validation" },
+    "validation_general.html":           { part: "Validation", chapter: "Common misconceptions in map validation" },
+    "validation_design_based.html":      { part: "Validation", chapter: "Design-based accuracy assessment" },
+    "validation_beyond.html":            { part: "Validation", chapter: "Validation beyond probability sampling" },
+
+    "conclusion.html":                   { part: "Conclusion" },
+    "conclusion_summary.html":           { part: "Conclusion", chapter: "Conclusion: summary" },
+    "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
+    "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
+
+    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
+    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
+    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+  };
+
+  function currentInfo() {
+    var base = (window.location.pathname.split("/").pop() || "index.html");
+    if (!base) base = "index.html";
+    return MAP[base] || null;
+  }
+
+  function qs(info) {
+    var p = [];
+    if (info && info.part)    p.push("part=" + encodeURIComponent(info.part));
+    if (info && info.chapter) p.push("chapter=" + encodeURIComponent(info.chapter));
+    return p.join("&");
+  }
+
+  function run() {
+    var info = currentInfo();
+
+    // 1) Stamp the footer "Feedback" link with the current section.
+    var link = document.getElementById("site-feedback-link");
+    if (link) {
+      var query = qs(info);
+      if (query) {
+        var href = link.getAttribute("href").split("?")[0];
+        link.setAttribute("href", href + "?" + query);
+      }
+    }
+
+    // 2) On the Feedback page, feed the URL's part/chapter into the Tally embed.
+    var iframe = document.getElementById("tally-feedback");
+    if (iframe) {
+      var url = new URL(window.location.href);
+      var parts = [];
+      if (url.searchParams.get("part"))    parts.push("part=" + encodeURIComponent(url.searchParams.get("part")));
+      if (url.searchParams.get("chapter")) parts.push("chapter=" + encodeURIComponent(url.searchParams.get("chapter")));
+      var src = iframe.getAttribute("data-tally-src");
+      if (parts.length) src += (src.indexOf("?") > -1 ? "&" : "?") + parts.join("&");
+      iframe.setAttribute("data-tally-src", src);
+
+      var s = document.createElement("script");
+      s.src = "https://tally.so/widgets/embed.js";
+      document.body.appendChild(s);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -788,8 +927,8 @@ ul.task-list li input[type="checkbox"] {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./validation_general.html" class="pagination-link" aria-label="General considerations">
-        <span class="nav-page-text"><span class="chapter-title">General considerations</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./validation_general.html" class="pagination-link" aria-label="Common misconceptions in map validation">
+        <span class="nav-page-text"><span class="chapter-title">Common misconceptions in map validation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -800,8 +939,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Best Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/validation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>
+<div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/validation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Built with <a href="https://quarto.org/">Quarto</a></p>
 </div>

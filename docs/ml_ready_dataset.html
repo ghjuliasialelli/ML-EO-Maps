@@ -184,6 +184,11 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction</span></a>
   </div>
 </li>
@@ -323,7 +328,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">General considerations</span></a>
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Common misconceptions in map validation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -460,7 +465,7 @@ window.Quarto = {
 <div id="tbl-data-formats" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-formats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;9.1: Storage layout and practical properties of data formats relevant for AI4EO datasets.
+Table&nbsp;10.1: Storage layout and practical properties of data formats relevant for AI4EO datasets.
 </figcaption>
 <div aria-describedby="tbl-data-formats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -482,27 +487,34 @@ Table&nbsp;9.1: Storage layout and practical properties of data formats relevant
 </thead>
 <tbody>
 <tr class="odd">
+<td>HDF5</td>
+<td>Single binary container with groups, datasets, metadata, and internal chunk indices</td>
+<td>Heterogeneous N dimensional scientific arrays</td>
+<td>Contiguous offsets or chunk index, performance depends on chunk shape</td>
+<td>Optional, domain specific conventions required</td>
+</tr>
+<tr class="even">
 <td>NetCDF4</td>
 <td>NetCDF data model on an HDF5 backend</td>
 <td>N dimensional variables with named dimensions, attributes, and groups</td>
 <td>HDF5 chunking through the netCDF API</td>
 <td>Usually via CF conventions</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>GeoTIFF</td>
 <td>TIFF image container extended with GeoTIFF keys</td>
 <td>Regular gridded raster imagery, usually 2D with bands</td>
 <td>Strips or tiles, efficient spatial access requires tiling</td>
 <td>Built in through GeoTIFF tags and keys</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>COG</td>
 <td>GeoTIFF organised for partial reads and overviews</td>
 <td>Cloud distributed geospatial rasters and image scenes</td>
 <td>Tile offsets and range requests, overviews reduce full scene reads</td>
 <td>Built in through GeoTIFF keys</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Zarr</td>
 <td>Key value hierarchy of metadata documents and encoded chunks</td>
 <td>Chunked N dimensional arrays for cloud or distributed processing</td>
@@ -521,14 +533,14 @@ Table&nbsp;9.1: Storage layout and practical properties of data formats relevant
 </section>
 <section id="sec-dataset-splits" class="level2">
 <h2 class="anchored" data-anchor-id="sec-dataset-splits">Dataset splits</h2>
-<p>When evaluating the performance of a ML model, we want to avoid over-confident results. A conventional uniformly at random assignment of data samples to training and test sets can bias the evaluation if labels are spatially auto-correlated and clustered <span class="citation" data-cites="rolf2024mission"><a href="#ref-rolf2024mission" role="doc-biblioref">[14]</a></span>. A widely spread approach to tackle spatial autocorrelation is to perform block cross-validation, which <span class="citation" data-cites="Roberts2017"><a href="#ref-Roberts2017" role="doc-biblioref">[15]</a></span> recommends using “wherever dependence structures exist in a dataset, even if no correlation structure is visible in the fitted model residuals, or if the fitted models account for such correlations”. Spatial <span class="math inline">\(K\)</span>-fold block cross-validation first divides the area into non-overlapping spatial blocks of a certain size, before assigning each block to one of <span class="math inline">\(K\)</span> folds. Model training and evaluation are then performed using the leave one-out method, where samples from a single fold are set aside for model evaluation, while samples from the remaining <span class="math inline">\(K-1\)</span> folds are used for model training, and the process is repeated for each fold, as in <span class="citation" data-cites="Mosig2026 Lusk_2026"><a href="#ref-Mosig2026" role="doc-biblioref">[16]</a>, <a href="#ref-Lusk_2026" role="doc-biblioref">[17]</a></span>. Alternatively, one fold can be assigned for model evaluation, one fold for validation, and the <span class="math inline">\(K-2\)</span> others for training, as in <span class="citation" data-cites="garnot2021panoptic"><a href="#ref-garnot2021panoptic" role="doc-biblioref">[18]</a></span>. Results are then reported across the concatenated test folds. In order to avoid cross-fold contamination, a good practice consists in enforcing spatial buffers between blocks, as in <span class="citation" data-cites="garnot2021panoptic"><a href="#ref-garnot2021panoptic" role="doc-biblioref">[18]</a></span>. Buffers and block size address the same underlying issue and are partially substitutable: sufficiently large blocks reduce edge leakage to negligible levels without explicit buffers <span class="citation" data-cites="Roberts2017"><a href="#ref-Roberts2017" role="doc-biblioref">[15]</a></span>, while buffers are most useful when block size is constrained by study extent or sample distribution. We illustrate those different approaches in Figure <a href="#fig-splits" class="quarto-xref">Figure&nbsp;<span>9.1</span></a>. While spatial block cross-validation provides a reliable assessment of model generalizability, most works perform a more limited spatial block validation equivalent to setting <span class="math inline">\(K=1\)</span>, in which blocks are partitioned once and randomly assigned to train, validation, and test sets <span class="citation" data-cites="Neumann_2025 herzog2025olmoearthstable kerner2025fields pauls2024estimating"><a href="#ref-Neumann_2025" role="doc-biblioref">[19]</a>, <a href="#ref-herzog2025olmoearthstable" role="doc-biblioref">[20]</a>, <a href="#ref-kerner2025fields" role="doc-biblioref">[21]</a>, <a href="#ref-pauls2024estimating" role="doc-biblioref">[22]</a></span>. The definition of a block varies across works. Some impose a regular grid (<span class="citation" data-cites="Mosig2026"><a href="#ref-Mosig2026" role="doc-biblioref">[16]</a></span> grid the Earth into non-overlapping blocks of 50km in equal area projection) while others adopt the geographical unit at which the data is delivered, such as Sentinel-2 tiles <span class="citation" data-cites="lang2023canopyheight"><a href="#ref-lang2023canopyheight" role="doc-biblioref">[23]</a></span> or Planet quads <span class="citation" data-cites="herzog2025olmoearthstable glazer2025tempo"><a href="#ref-herzog2025olmoearthstable" role="doc-biblioref">[20]</a>, <a href="#ref-glazer2025tempo" role="doc-biblioref">[24]</a></span>. <span class="citation" data-cites="Lusk_2026"><a href="#ref-Lusk_2026" role="doc-biblioref">[17]</a></span> take a more principled approach, determining the spatial autocorrelation via semivariograms at a <span class="math inline">\(1\text{km}^2\)</span> resolution and defining hexagonal blocks accordingly. The appropriate block size depends on the spatial scale of residual autocorrelation: blocks should be substantially larger than the distance at which model residuals become uncorrelated, since smaller blocks leave train and test samples near boundaries effectively dependent <span class="citation" data-cites="Roberts2017"><a href="#ref-Roberts2017" role="doc-biblioref">[15]</a></span>. We elaborate on various gridding choices and their implications in the next section.</p>
+<p>When evaluating the performance of a ML model, we want to avoid over-confident results. A conventional uniformly at random assignment of data samples to training and test sets can bias the evaluation if labels are spatially auto-correlated and clustered <span class="citation" data-cites="rolf2024mission"><a href="#ref-rolf2024mission" role="doc-biblioref">[14]</a></span>. A widely spread approach to tackle spatial autocorrelation is to perform block cross-validation, which <span class="citation" data-cites="Roberts2017"><a href="#ref-Roberts2017" role="doc-biblioref">[15]</a></span> recommends using “wherever dependence structures exist in a dataset, even if no correlation structure is visible in the fitted model residuals, or if the fitted models account for such correlations”. Spatial <span class="math inline">\(K\)</span>-fold block cross-validation first divides the area into non-overlapping spatial blocks of a certain size, before assigning each block to one of <span class="math inline">\(K\)</span> folds. Model training and evaluation are then performed using the leave one-out method, where samples from a single fold are set aside for model evaluation, while samples from the remaining <span class="math inline">\(K-1\)</span> folds are used for model training, and the process is repeated for each fold, as in <span class="citation" data-cites="Mosig2026 Lusk_2026"><a href="#ref-Mosig2026" role="doc-biblioref">[16]</a>, <a href="#ref-Lusk_2026" role="doc-biblioref">[17]</a></span>. Alternatively, one fold can be assigned for model evaluation, one fold for validation, and the <span class="math inline">\(K-2\)</span> others for training, as in <span class="citation" data-cites="garnot2021panoptic"><a href="#ref-garnot2021panoptic" role="doc-biblioref">[18]</a></span>. Results are then reported across the concatenated test folds. In order to avoid cross-fold contamination, a good practice consists in enforcing spatial buffers between blocks, as in <span class="citation" data-cites="garnot2021panoptic"><a href="#ref-garnot2021panoptic" role="doc-biblioref">[18]</a></span>. Buffers and block size address the same underlying issue and are partially substitutable: sufficiently large blocks reduce edge leakage to negligible levels without explicit buffers <span class="citation" data-cites="Roberts2017"><a href="#ref-Roberts2017" role="doc-biblioref">[15]</a></span>, while buffers are most useful when block size is constrained by study extent or sample distribution. We illustrate those different approaches in Figure <a href="#fig-splits" class="quarto-xref">Figure&nbsp;<span>10.1</span></a>. While spatial block cross-validation provides a reliable assessment of model generalizability, most works perform a more limited spatial block validation equivalent to setting <span class="math inline">\(K=1\)</span>, in which blocks are partitioned once and randomly assigned to train, validation, and test sets <span class="citation" data-cites="Neumann_2025 herzog2025olmoearthstable kerner2025fields pauls2024estimating"><a href="#ref-Neumann_2025" role="doc-biblioref">[19]</a>, <a href="#ref-herzog2025olmoearthstable" role="doc-biblioref">[20]</a>, <a href="#ref-kerner2025fields" role="doc-biblioref">[21]</a>, <a href="#ref-pauls2024estimating" role="doc-biblioref">[22]</a></span>. The definition of a block varies across works. Some impose a regular grid (<span class="citation" data-cites="Mosig2026"><a href="#ref-Mosig2026" role="doc-biblioref">[16]</a></span> grid the Earth into non-overlapping blocks of 50km in equal area projection) while others adopt the geographical unit at which the data is delivered, such as Sentinel-2 tiles <span class="citation" data-cites="lang2023canopyheight"><a href="#ref-lang2023canopyheight" role="doc-biblioref">[23]</a></span> or Planet quads <span class="citation" data-cites="herzog2025olmoearthstable glazer2025tempo"><a href="#ref-herzog2025olmoearthstable" role="doc-biblioref">[20]</a>, <a href="#ref-glazer2025tempo" role="doc-biblioref">[24]</a></span>. <span class="citation" data-cites="Lusk_2026"><a href="#ref-Lusk_2026" role="doc-biblioref">[17]</a></span> take a more principled approach, determining the spatial autocorrelation via semivariograms at a <span class="math inline">\(1\text{km}^2\)</span> resolution and defining hexagonal blocks accordingly. The appropriate block size depends on the spatial scale of residual autocorrelation: blocks should be substantially larger than the distance at which model residuals become uncorrelated, since smaller blocks leave train and test samples near boundaries effectively dependent <span class="citation" data-cites="Roberts2017"><a href="#ref-Roberts2017" role="doc-biblioref">[15]</a></span>. We elaborate on various gridding choices and their implications in the next section.</p>
 <div id="fig-splits" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-splits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/splits.png" id="fig-splits" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-splits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9.1
+Figure&nbsp;10.1
 </figcaption>
 </figure>
 </div>
@@ -538,11 +550,11 @@ Figure&nbsp;9.1
 </section>
 <section id="sec-grid" class="level2">
 <h2 class="anchored" data-anchor-id="sec-grid">Spatial gridding</h2>
-<p>A grid defines the spatial index over which data is catalogued, sampled, and split. Table <a href="#tbl-grid-comparison" class="quarto-xref">Table&nbsp;<span>9.2</span></a> compares candidate grids across conformality, global continuity (i.e.&nbsp;no seams or inter-zone overlaps) and whether they are area-preserving. A grid is <em>equal-area</em> (or area-preserving) if every cell (or pixel) represents the same ground area, and <em>conformal</em> if it preserves local angles and shapes (so that a square pixel corresponds to a square patch on the ground). We group candidate grids into four families, which we now describe.</p>
+<p>A grid defines the spatial index over which data is catalogued, sampled, and split. Table <a href="#tbl-grid-comparison" class="quarto-xref">Table&nbsp;<span>10.2</span></a> compares candidate grids across conformality, global continuity (i.e.&nbsp;no seams or inter-zone overlaps) and whether they are area-preserving. A grid is <em>equal-area</em> (or area-preserving) if every cell (or pixel) represents the same ground area, and <em>conformal</em> if it preserves local angles and shapes (so that a square pixel corresponds to a square patch on the ground). We group candidate grids into four families, which we now describe.</p>
 <div id="tbl-grid-comparison" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-grid-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;9.2: Comparison of candidate grids for global EO dataset construction. <em>Globally continuous</em> indicates that the grid tiles the entire sphere with each point assigned to a uniquely defined cell and well-defined adjacency across all cell boundaries. <span class="math inline">\(\approx\)</span> &nbsp;indicates that the property holds approximately but not exactly. <sup>📍</sup> The property holds locally within a single UTM zone, not globally. <span class="math inline">\(^a\)</span> Clips at <span class="math inline">\(\pm85\degree\)</span> latitude. <span class="math inline">\(^b\)</span> Continental boundaries have 50 km overlap. <span class="math inline">\(^c\)</span> Via implicit Voronoi tessellation of sample points. <span class="math inline">\(^d\)</span> Point-based grid; projection not prescribed. <sup>e</sup> Grid cells do not align cleanly across the antimeridian.
+Table&nbsp;10.2: Comparison of candidate grids for global EO dataset construction. <em>Globally continuous</em> indicates that the grid tiles the entire sphere with each point assigned to a uniquely defined cell and well-defined adjacency across all cell boundaries. <span class="math inline">\(\approx\)</span> &nbsp;indicates that the property holds approximately but not exactly. <sup>📍</sup> The property holds locally within a single UTM zone, not globally. <span class="math inline">\(^a\)</span> Clips at <span class="math inline">\(\pm85\degree\)</span> latitude. <span class="math inline">\(^b\)</span> Continental boundaries have 50 km overlap. <span class="math inline">\(^c\)</span> Via implicit Voronoi tessellation of sample points. <span class="math inline">\(^d\)</span> Point-based grid; projection not prescribed. <sup>e</sup> Grid cells do not align cleanly across the antimeridian.
 </figcaption>
 <div aria-describedby="tbl-grid-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -772,6 +784,108 @@ Table&nbsp;9.2: Comparison of candidate grids for global EO dataset construction
 </section>
 
 </main> <!-- /main -->
+<script>
+// Feedback pre-fill: maps each page to its part/chapter, stamps the footer
+// "Feedback" link with those values, and (on the Feedback page) injects them
+// into the Tally embed so the two dropdowns arrive pre-selected.
+(function () {
+  // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
+  var MAP = {
+    "index.html":                        { part: "General / whole book" },
+    "howto.html":                        { part: "General / whole book" },
+    "chatbot.html":                      { part: "General / whole book" },
+    "introduction.html":                 { part: "General / whole book" },
+
+    "eo_data_landscape.html":            { part: "EO data landscape" },
+    "eo_missions.html":                  { part: "EO data landscape", chapter: "EO missions" },
+    "accessing_eo_data.html":            { part: "EO data landscape", chapter: "Accessing EO data" },
+
+    "data_selection_preprocessing.html": { part: "Data selection & preprocessing" },
+    "data_selection.html":               { part: "Data selection & preprocessing", chapter: "Data selection" },
+    "data_preprocessing.html":           { part: "Data selection & preprocessing", chapter: "Data preprocessing" },
+
+    "ml_pipeline.html":                  { part: "ML dataset & training" },
+    "ml_ready_dataset.html":             { part: "ML dataset & training", chapter: "Constructing an ML-ready dataset" },
+    "model_design_training.html":        { part: "ML dataset & training", chapter: "Model design and training" },
+
+    "uncertainty_quantification.html":   { part: "Uncertainty quantification" },
+    "uq_sources.html":                   { part: "Uncertainty quantification", chapter: "Sources of uncertainty" },
+    "uq_methods.html":                   { part: "Uncertainty quantification", chapter: "Uncertainty quantification methods" },
+    "uq_calibration.html":               { part: "Uncertainty quantification", chapter: "Assessing calibration" },
+    "uq_spatial.html":                   { part: "Uncertainty quantification", chapter: "Spatial structure of uncertainty" },
+    "uq_operationalizing.html":          { part: "Uncertainty quantification", chapter: "Operationalizing uncertainty" },
+
+    "map_production.html":               { part: "Map production & distribution" },
+    "map_generation.html":               { part: "Map production & distribution", chapter: "Map generation" },
+    "post_processing.html":              { part: "Map production & distribution", chapter: "Post-processing" },
+    "sharing.html":                      { part: "Map production & distribution", chapter: "Sharing" },
+
+    "validation.html":                   { part: "Validation" },
+    "validation_general.html":           { part: "Validation", chapter: "Common misconceptions in map validation" },
+    "validation_design_based.html":      { part: "Validation", chapter: "Design-based accuracy assessment" },
+    "validation_beyond.html":            { part: "Validation", chapter: "Validation beyond probability sampling" },
+
+    "conclusion.html":                   { part: "Conclusion" },
+    "conclusion_summary.html":           { part: "Conclusion", chapter: "Conclusion: summary" },
+    "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
+    "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
+
+    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
+    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
+    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+  };
+
+  function currentInfo() {
+    var base = (window.location.pathname.split("/").pop() || "index.html");
+    if (!base) base = "index.html";
+    return MAP[base] || null;
+  }
+
+  function qs(info) {
+    var p = [];
+    if (info && info.part)    p.push("part=" + encodeURIComponent(info.part));
+    if (info && info.chapter) p.push("chapter=" + encodeURIComponent(info.chapter));
+    return p.join("&");
+  }
+
+  function run() {
+    var info = currentInfo();
+
+    // 1) Stamp the footer "Feedback" link with the current section.
+    var link = document.getElementById("site-feedback-link");
+    if (link) {
+      var query = qs(info);
+      if (query) {
+        var href = link.getAttribute("href").split("?")[0];
+        link.setAttribute("href", href + "?" + query);
+      }
+    }
+
+    // 2) On the Feedback page, feed the URL's part/chapter into the Tally embed.
+    var iframe = document.getElementById("tally-feedback");
+    if (iframe) {
+      var url = new URL(window.location.href);
+      var parts = [];
+      if (url.searchParams.get("part"))    parts.push("part=" + encodeURIComponent(url.searchParams.get("part")));
+      if (url.searchParams.get("chapter")) parts.push("chapter=" + encodeURIComponent(url.searchParams.get("chapter")));
+      var src = iframe.getAttribute("data-tally-src");
+      if (parts.length) src += (src.indexOf("?") > -1 ? "&" : "?") + parts.join("&");
+      iframe.setAttribute("data-tally-src", src);
+
+      var s = document.createElement("script");
+      s.src = "https://tally.so/widgets/embed.js";
+      document.body.appendChild(s);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -1191,8 +1305,8 @@ Table&nbsp;9.2: Comparison of candidate grids for global EO dataset construction
 <p>Best Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/ml_ready_dataset.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/ml_ready_dataset.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Built with <a href="https://quarto.org/">Quarto</a></p>
 </div>

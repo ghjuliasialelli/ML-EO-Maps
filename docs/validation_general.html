@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>General considerations – From Machine Learning to Large-Scale EO Products</title>
+<title>Common misconceptions in map validation – From Machine Learning to Large-Scale EO Products</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -105,7 +105,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./validation.html">Validation</a></li><li class="breadcrumb-item"><a href="./validation_general.html"><span class="chapter-title">General considerations</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./validation.html">Validation</a></li><li class="breadcrumb-item"><a href="./validation_general.html"><span class="chapter-title">Common misconceptions in map validation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -151,6 +151,11 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -294,7 +299,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./validation_general.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">General considerations</span></a>
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Common misconceptions in map validation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -371,21 +376,15 @@ div.csl-indent {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#scope" id="toc-scope" class="nav-link active" data-scroll-target="#scope">Scope</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/validation_general.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./validation.html">Validation</a></li><li class="breadcrumb-item"><a href="./validation_general.html"><span class="chapter-title">General considerations</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./validation.html">Validation</a></li><li class="breadcrumb-item"><a href="./validation_general.html"><span class="chapter-title">Common misconceptions in map validation</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">General considerations</span></h1>
+<h1 class="title"><span class="chapter-title">Common misconceptions in map validation</span></h1>
 </div>
 
 
@@ -402,39 +401,136 @@ div.csl-indent {
 </header>
 
 
-<section id="scope" class="level2">
-<h2 class="anchored" data-anchor-id="scope">Scope</h2>
-<p>This section primarily builds on established land-cover validation frameworks and good-practice recommendations for design-based inference <span class="citation" data-cites="olofsson2014good tyukavina2025practical"><a href="#ref-olofsson2014good" role="doc-biblioref">[1]</a>, <a href="#ref-tyukavina2025practical" role="doc-biblioref">[2]</a></span>. The central principle is that reference data used for validation should ideally be derived from a probability sampling design with known, non-zero inclusion probabilities, enabling statistically rigorous and unbiased accuracy assessment. While many of these concepts originated in land-cover validation, they remain broadly applicable across a wide range of geospatial products.</p>
-<p>The discussion covers both categorical and continuous map products. Categorical products include multi-class land-cover maps as well as thematic single-class products such as forest extent or forest change maps. Continuous products include variables such as biomass and forest height. Although the general validation principles are shared, specific aspects of response design and accuracy assessment may differ across product types.</p>
-<p>Not all mapping applications lend themselves to probability sampling, however. In cases where validation must rely on existing non-probability data sources (e.g., opportunistic field campaigns), alternative approaches are necessary. We discuss these in Section <a href="./validation_beyond.html">Validation Beyond Probability Sampling</a>, along with recommended best practices for situations where design-based inference (based on probability sampling) is not feasible. ## Common sources of confusion Despite the central role of validation in establishing the scientific credibility of geospatial products, accuracy assessment methodology is frequently under-reported, and reference datasets are rarely made publicly available <span class="citation" data-cites="stehman2019key foody2002status"><a href="#ref-stehman2019key" role="doc-biblioref">[3]</a>, <a href="#ref-foody2002status" role="doc-biblioref">[4]</a></span>. Several recurring sources of confusion contribute to this problem. The first is the conflation of algorithm-derived uncertainty with map accuracy. Metrics produced by ensemble variance, posterior probabilities, or model confidence scores quantify internal model uncertainty, not agreement with ground truth. These measures reflect what the model “thinks” about its own predictions and should not be interpreted as accuracy estimates <span class="citation" data-cites="lcgoodpractices"><a href="#ref-lcgoodpractices" role="doc-biblioref">[5]</a></span>. The second is the conflation of model evaluation with map validation. In many studies, standard ML practices (such as evaluating performance on a held-out test set) are presented as evidence of map quality. Model evaluation is indeed an important component of map development, as the final map is generated through spatial application of the model across a large geographic domain. Consequently, model performance and map quality are inherently related. However, they are not equivalent. Model evaluation primarily measures how well the model generalizes to a held-out test dataset, whereas map validation concerns the quality of the final spatial product across the full mapped domain. A held-out test set is typically not a probability sample of the map and may not represent the full range of landscapes, class distributions, and edge cases encountered in the final product. Even when the training sample is itself a probability sample and a portion is set aside for evaluation, this is generally not recommended: biases and errors present in the training data may transfer to the reference data <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[2]</a></span>. More broadly, when map and reference data originate from the same source or interpretation process, their errors tend to be correlated, and correlated errors inflate quality estimates, while independent errors deflate them <span class="citation" data-cites="foody2010assessing"><a href="#ref-foody2010assessing" role="doc-biblioref">[6]</a></span>. For these reasons, strong test-set performance does not guarantee, and cannot substitute for, an independent assessment of map quality. The third is the assumption that comparison against another existing map product constitutes validation. In principle, validation should rely on reference data of higher quality than the product being evaluated, such as field observations or carefully interpreted high-resolution imagery. Existing map products, however, are often themselves the result of inference procedures, including machine learning models or rule-based gridded approaches, and therefore contain their own uncertainties and biases. While map-to-map comparisons can provide valuable qualitative insights and help identify systematic differences between products <span class="citation" data-cites="strahler2006global"><a href="#ref-strahler2006global" role="doc-biblioref">[7]</a></span>, they should not be interpreted as ground truth validation. What these comparisons measure is inter-product consistency, not map quality. They are more accurately described as consistency checks and should be reported as such.</p>
+<p>Despite the central role of validation in establishing the scientific credibility of geospatial products, accuracy assessment methodology is frequently under-reported, and reference datasets are rarely made publicly available <span class="citation" data-cites="stehman2019key foody2002status"><a href="#ref-stehman2019key" role="doc-biblioref">[1]</a>, <a href="#ref-foody2002status" role="doc-biblioref">[2]</a></span>. Four concepts are frequently conflated: <strong>model evaluation</strong>, <strong>algorithm-derived uncertainty</strong>, <strong>map-to-map comparison</strong>, and <strong>map validation</strong>. While the first three provide valuable information about model performance or product consistency, they do not constitute rigorous validation of the final map product. In this section, we focus specifically on map validation, namely the independent assessment of map quality using reference data, and clarify how it differs from these related but distinct concepts.</p>
+<p><strong>Model evaluation.</strong> Model evaluation is often confused with map validation. In many studies, standard ML practices (such as evaluating performance on a held-out test set) are presented as evidence of map quality. Model evaluation is indeed an important component of map development, as the final map is generated through spatial application of the model across a large geographic domain. Consequently, model performance and map quality are inherently related. However, they are not equivalent. Model evaluation primarily measures how well the model generalizes to a held-out test dataset, whereas map validation concerns the quality of the final spatial product across the full mapped domain. A held-out test set is typically not a probability sample of the map and may not represent the full range of landscapes, class distributions, and edge cases encountered in the final product. Even when the training sample is itself a probability sample and a portion is set aside for evaluation, this is generally not recommended: biases and errors present in the training data may transfer to the reference data <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[3]</a></span>. More broadly, when map and validation data originate from the same source or interpretation process, their errors tend to be correlated, and correlated errors inflate quality estimates, while independent errors deflate them <span class="citation" data-cites="foody2010assessing"><a href="#ref-foody2010assessing" role="doc-biblioref">[4]</a></span>. For these reasons, strong test-set performance of the model does not guarantee, and cannot substitute for, an independent assessment of map quality.</p>
+<p><strong>Algorithm-derived uncertainty.</strong> Metrics produced by ensemble variance, posterior probabilities, or model confidence scores quantify internal model uncertainty, not agreement with ground truth. These measures reflect what the model “thinks” about its own predictions and should not be interpreted as accuracy estimates <span class="citation" data-cites="lcgoodpractices"><a href="#ref-lcgoodpractices" role="doc-biblioref">[5]</a></span>.</p>
+<p><strong>Map comparison.</strong> Comparison against an existing map product is another practice that is frequently mistaken for validation. In principle, validation should rely on reference data of higher quality than the product being evaluated, such as field observations or carefully interpreted high-resolution imagery. Existing map products, however, are often the result of inference procedures, including machine learning models or rule-based gridded approaches, and therefore contain their own uncertainties and biases. While map-to-map comparisons can provide valuable qualitative insights and help identify systematic differences between products <span class="citation" data-cites="strahler2006global"><a href="#ref-strahler2006global" role="doc-biblioref">[6]</a></span>, they should not be interpreted as ground truth validation. What these comparisons measure is inter-product consistency, not map quality. They are more accurately described as consistency checks and should be reported as such.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
-<div id="ref-olofsson2014good" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">P. Olofsson, G. M. Foody, M. Herold, S. V. Stehman, C. E. Woodcock, and M. A. Wulder, <span>“<span class="nocase">Good practices for estimating area and assessing accuracy of land change</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 148, pp. 42–57, May 2014, doi: <a href="https://doi.org/10.1016/j.rse.2014.02.015">10.1016/j.rse.2014.02.015</a>.</div>
-</div>
-<div id="ref-tyukavina2025practical" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">A. Tyukavina, S. V. Stehman, A. H. Pickens, P. Potapov, and M. C. Hansen, <span>“<span class="nocase">Practical global sampling methods for estimating area and map accuracy of land cover and change</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 324, p. 114714, 2025.</div>
-</div>
 <div id="ref-stehman2019key" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">S. V. Stehman and G. M. Foody, <span>“<span class="nocase">Key issues in rigorous accuracy assessment of land cover products</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 231, p. 111199, 2019, doi: <a href="https://doi.org/10.1016/j.rse.2019.05.018">10.1016/j.rse.2019.05.018</a>.</div>
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">S. V. Stehman and G. M. Foody, <span>“<span class="nocase">Key issues in rigorous accuracy assessment of land cover products</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 231, p. 111199, 2019, doi: <a href="https://doi.org/10.1016/j.rse.2019.05.018">10.1016/j.rse.2019.05.018</a>.</div>
 </div>
 <div id="ref-foody2002status" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">G. M. Foody, <span>“<span class="nocase">Status of land cover classification accuracy assessment</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 80, no. 1, pp. 185–201, Apr. 2002, doi: <a href="https://doi.org/10.1016/s0034-4257(01)00295-4">10.1016/s0034-4257(01)00295-4</a>.</div>
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">G. M. Foody, <span>“<span class="nocase">Status of land cover classification accuracy assessment</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 80, no. 1, pp. 185–201, Apr. 2002, doi: <a href="https://doi.org/10.1016/s0034-4257(01)00295-4">10.1016/s0034-4257(01)00295-4</a>.</div>
+</div>
+<div id="ref-tyukavina2025practical" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">A. Tyukavina, S. V. Stehman, A. H. Pickens, P. Potapov, and M. C. Hansen, <span>“<span class="nocase">Practical global sampling methods for estimating area and map accuracy of land cover and change</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 324, p. 114714, 2025.</div>
+</div>
+<div id="ref-foody2010assessing" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">G. M. Foody, <span>“<span class="nocase">Assessing the accuracy of land cover change with imperfect ground reference data</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 114, no. 10, pp. 2271–2285, Oct. 2010, doi: <a href="https://doi.org/10.1016/j.rse.2010.05.003">10.1016/j.rse.2010.05.003</a>.</div>
 </div>
 <div id="ref-lcgoodpractices" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[5] </div><div class="csl-right-inline">A. Tyukavina <em>et al.</em>, <em><span class="nocase">Land Cover and Change Map Accuracy Assessment and Area Estimation Good Practices Protocol</span></em>. 2025. doi: <a href="https://doi.org/10.5067/doc/ceoswgcv/lpv/lc.001">10.5067/doc/ceoswgcv/lpv/lc.001</a>.</div>
 </div>
-<div id="ref-foody2010assessing" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">G. M. Foody, <span>“<span class="nocase">Assessing the accuracy of land cover change with imperfect ground reference data</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 114, no. 10, pp. 2271–2285, Oct. 2010, doi: <a href="https://doi.org/10.1016/j.rse.2010.05.003">10.1016/j.rse.2010.05.003</a>.</div>
-</div>
 <div id="ref-strahler2006global" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[7] </div><div class="csl-right-inline">A. H. Strahler <em>et al.</em>, <span>“<span class="nocase">Global Land Cover Validation: Recommendations for Evaluation and Accuracy Assessment of Global Land Cover Maps</span>,”</span> European Commission, Joint Research Centre, Institute for Environment; Sustainability, Ispra, Italy, GOFC-GOLD Report No. 25, 2006.</div>
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">A. H. Strahler <em>et al.</em>, <span>“<span class="nocase">Global Land Cover Validation: Recommendations for Evaluation and Accuracy Assessment of Global Land Cover Maps</span>,”</span> European Commission, Joint Research Centre, Institute for Environment; Sustainability, Ispra, Italy, GOFC-GOLD Report No. 25, 2006.</div>
 </div>
 </div>
-</section>
 
 </main> <!-- /main -->
+<script>
+// Feedback pre-fill: maps each page to its part/chapter, stamps the footer
+// "Feedback" link with those values, and (on the Feedback page) injects them
+// into the Tally embed so the two dropdowns arrive pre-selected.
+(function () {
+  // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
+  var MAP = {
+    "index.html":                        { part: "General / whole book" },
+    "howto.html":                        { part: "General / whole book" },
+    "chatbot.html":                      { part: "General / whole book" },
+    "introduction.html":                 { part: "General / whole book" },
+
+    "eo_data_landscape.html":            { part: "EO data landscape" },
+    "eo_missions.html":                  { part: "EO data landscape", chapter: "EO missions" },
+    "accessing_eo_data.html":            { part: "EO data landscape", chapter: "Accessing EO data" },
+
+    "data_selection_preprocessing.html": { part: "Data selection & preprocessing" },
+    "data_selection.html":               { part: "Data selection & preprocessing", chapter: "Data selection" },
+    "data_preprocessing.html":           { part: "Data selection & preprocessing", chapter: "Data preprocessing" },
+
+    "ml_pipeline.html":                  { part: "ML dataset & training" },
+    "ml_ready_dataset.html":             { part: "ML dataset & training", chapter: "Constructing an ML-ready dataset" },
+    "model_design_training.html":        { part: "ML dataset & training", chapter: "Model design and training" },
+
+    "uncertainty_quantification.html":   { part: "Uncertainty quantification" },
+    "uq_sources.html":                   { part: "Uncertainty quantification", chapter: "Sources of uncertainty" },
+    "uq_methods.html":                   { part: "Uncertainty quantification", chapter: "Uncertainty quantification methods" },
+    "uq_calibration.html":               { part: "Uncertainty quantification", chapter: "Assessing calibration" },
+    "uq_spatial.html":                   { part: "Uncertainty quantification", chapter: "Spatial structure of uncertainty" },
+    "uq_operationalizing.html":          { part: "Uncertainty quantification", chapter: "Operationalizing uncertainty" },
+
+    "map_production.html":               { part: "Map production & distribution" },
+    "map_generation.html":               { part: "Map production & distribution", chapter: "Map generation" },
+    "post_processing.html":              { part: "Map production & distribution", chapter: "Post-processing" },
+    "sharing.html":                      { part: "Map production & distribution", chapter: "Sharing" },
+
+    "validation.html":                   { part: "Validation" },
+    "validation_general.html":           { part: "Validation", chapter: "Common misconceptions in map validation" },
+    "validation_design_based.html":      { part: "Validation", chapter: "Design-based accuracy assessment" },
+    "validation_beyond.html":            { part: "Validation", chapter: "Validation beyond probability sampling" },
+
+    "conclusion.html":                   { part: "Conclusion" },
+    "conclusion_summary.html":           { part: "Conclusion", chapter: "Conclusion: summary" },
+    "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
+    "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
+
+    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
+    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
+    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+  };
+
+  function currentInfo() {
+    var base = (window.location.pathname.split("/").pop() || "index.html");
+    if (!base) base = "index.html";
+    return MAP[base] || null;
+  }
+
+  function qs(info) {
+    var p = [];
+    if (info && info.part)    p.push("part=" + encodeURIComponent(info.part));
+    if (info && info.chapter) p.push("chapter=" + encodeURIComponent(info.chapter));
+    return p.join("&");
+  }
+
+  function run() {
+    var info = currentInfo();
+
+    // 1) Stamp the footer "Feedback" link with the current section.
+    var link = document.getElementById("site-feedback-link");
+    if (link) {
+      var query = qs(info);
+      if (query) {
+        var href = link.getAttribute("href").split("?")[0];
+        link.setAttribute("href", href + "?" + query);
+      }
+    }
+
+    // 2) On the Feedback page, feed the URL's part/chapter into the Tally embed.
+    var iframe = document.getElementById("tally-feedback");
+    if (iframe) {
+      var url = new URL(window.location.href);
+      var parts = [];
+      if (url.searchParams.get("part"))    parts.push("part=" + encodeURIComponent(url.searchParams.get("part")));
+      if (url.searchParams.get("chapter")) parts.push("chapter=" + encodeURIComponent(url.searchParams.get("chapter")));
+      var src = iframe.getAttribute("data-tally-src");
+      if (parts.length) src += (src.indexOf("?") > -1 ? "&" : "?") + parts.join("&");
+      iframe.setAttribute("data-tally-src", src);
+
+      var s = document.createElement("script");
+      s.src = "https://tally.so/widgets/embed.js";
+      document.body.appendChild(s);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -854,8 +950,8 @@ div.csl-indent {
 <p>Best Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/validation_general.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>
+<div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/validation_general.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Built with <a href="https://quarto.org/">Quarto</a></p>
 </div>

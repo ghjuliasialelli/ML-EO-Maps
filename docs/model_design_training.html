@@ -155,6 +155,11 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction</span></a>
   </div>
 </li>
@@ -294,7 +299,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">General considerations</span></a>
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Common misconceptions in map validation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -420,7 +425,7 @@ div.csl-indent {
 </section>
 <section id="data-augmentation" class="level3">
 <h3 class="anchored" data-anchor-id="data-augmentation">Data augmentation</h3>
-<p>In the SatML field, less attention is brought to data augmentation than in the general ML field. This is partly due to the fact that ”augmentation techniques designed for natural images should not be applied to satellite imagery without careful consideration” <span class="citation" data-cites="Hopkins2025"><a href="#ref-Hopkins2025" role="doc-biblioref">[24]</a></span>. Their findings suggest that while standard natural image techniques (particularly color-based augmentations) do not translate effectively to the satellite domain, geometric operations remain a beneficial approach. Furthermore, <span class="citation" data-cites="muhawenayo2026pruepracticalrecipefield"><a href="#ref-muhawenayo2026pruepracticalrecipefield" role="doc-biblioref">[25]</a></span> have identified that without specific data augmentation techniques to make them resilient, ML models often lack the necessary robustness to handle domain shifts (e.g., in terms of brightness) which can lead to decreased performance and visual artifacts. Various data augmentation techniques have been established in the literature to improve model generalization. Beyond standard geometric transformations—such as rotations, flips, and random cropping <span class="citation" data-cites="Brown_2022 glazer2025tempo microsoft2024renewables Liu_2023"><a href="#ref-Liu_2023" role="doc-biblioref">[6]</a>, <a href="#ref-glazer2025tempo" role="doc-biblioref">[7]</a>, <a href="#ref-Brown_2022" role="doc-biblioref">[26]</a>, <a href="#ref-microsoft2024renewables" role="doc-biblioref">[27]</a></span>—recent research has introduced domain-specific augmentations tailored to EO data. To enhance spectral robustness, noise is frequently added to Sentinel-2 surface reflectance values <span class="citation" data-cites="Mosig2026 Brown_2022"><a href="#ref-Mosig2026" role="doc-biblioref">[18]</a>, <a href="#ref-Brown_2022" role="doc-biblioref">[26]</a></span>, while <span class="citation" data-cites="muhawenayo2026pruepracticalrecipefield"><a href="#ref-muhawenayo2026pruepracticalrecipefield" role="doc-biblioref">[25]</a></span> advocate for varying Sentinel-2 processing strategies to mitigate sensitivity to shifting processing conventions. For models incorporating spatial metadata, <span class="citation" data-cites="Van_Tricht_2023"><a href="#ref-Van_Tricht_2023" role="doc-biblioref">[28]</a></span> apply random perturbations to latitude and longitude coordinates. Furthermore, temporal augmentations, such as dropping timesteps, are utilized to simulate cloud-induced data gaps <span class="citation" data-cites="Mosig2026"><a href="#ref-Mosig2026" role="doc-biblioref">[18]</a></span> or missing modalities. Finally, several approaches specifically target sensor-induced artifacts to ensure resilience during inference; these include simulating narrow no-data seams in Sentinel-1 GRD mosaics <span class="citation" data-cites="brown2025alphaearthfoundations"><a href="#ref-brown2025alphaearthfoundations" role="doc-biblioref">[29]</a></span>, as well as modeling swath boundaries, misregistration, and detector failures <span class="citation" data-cites="zupanc2017improving"><a href="#ref-zupanc2017improving" role="doc-biblioref">[30]</a></span>.</p>
+<p>In the SatML field, less attention is brought to data augmentation than in the general ML field. This is partly due to the fact that ”augmentation techniques designed for natural images should not be applied to satellite imagery without careful consideration” <span class="citation" data-cites="Hopkins2025"><a href="#ref-Hopkins2025" role="doc-biblioref">[24]</a></span>. Their findings suggest that while standard natural image techniques (particularly color-based augmentations) do not translate effectively to the satellite domain, geometric operations remain a beneficial approach. Furthermore, <span class="citation" data-cites="muhawenayo2026pruepracticalrecipefield"><a href="#ref-muhawenayo2026pruepracticalrecipefield" role="doc-biblioref">[25]</a></span> have identified that without specific data augmentation techniques to make them resilient, ML models often lack the necessary robustness to handle domain shifts (e.g., in terms of brightness) which can lead to decreased performance and visual artifacts. Various data augmentation techniques have been established in the literature to improve model generalization. Beyond standard geometric transformations—such as rotations, flips, and random cropping <span class="citation" data-cites="Brown_2022 glazer2025tempo microsoft2024renewables Liu_2023"><a href="#ref-Liu_2023" role="doc-biblioref">[6]</a>, <a href="#ref-glazer2025tempo" role="doc-biblioref">[7]</a>, <a href="#ref-Brown_2022" role="doc-biblioref">[26]</a>, <a href="#ref-microsoft2024renewables" role="doc-biblioref">[27]</a></span>—recent research has introduced domain-specific augmentations tailored to EO data. To enhance spectral robustness, noise is frequently added to Sentinel-2 surface reflectance values <span class="citation" data-cites="Mosig2026 Brown_2022"><a href="#ref-Mosig2026" role="doc-biblioref">[18]</a>, <a href="#ref-Brown_2022" role="doc-biblioref">[26]</a></span>, while <span class="citation" data-cites="muhawenayo2026pruepracticalrecipefield"><a href="#ref-muhawenayo2026pruepracticalrecipefield" role="doc-biblioref">[25]</a></span> advocate for varying Sentinel-2 processing strategies to mitigate sensitivity to shifting processing conventions. For models incorporating spatial metadata, <span class="citation" data-cites="Van_Tricht_2023"><a href="#ref-Van_Tricht_2023" role="doc-biblioref">[28]</a></span> apply random perturbations to latitude and longitude coordinates. Furthermore, temporal augmentations, such as dropping timesteps, are utilized to simulate cloud-induced data gaps <span class="citation" data-cites="Mosig2026"><a href="#ref-Mosig2026" role="doc-biblioref">[18]</a></span> or missing modalities. Finally, several approaches specifically target sensor-induced artifacts to ensure resilience during inference; these include simulating narrow no-data seams in Sentinel-1 GRD mosaics <span class="citation" data-cites="brown2025alphaearthfoundations"><a href="#ref-brown2025alphaearthfoundations" role="doc-biblioref">[29]</a></span>, as well as modeling swath boundaries, misregistration, and detector failures <span class="citation" data-cites="Pasquarella2023"><a href="#ref-Pasquarella2023" role="doc-biblioref">[30]</a></span>.</p>
 <p>A model trained with the practices described above will produce a prediction for every pixel on Earth. However, a prediction should come with a measure of its confidence. The model cannot perform equally well everywhere: it will be more reliable in regions well-represented in the training data than in under-sampled biomes, more confident under clear-sky conditions than under persistent cloud cover, and more accurate for common classes than for rare ones. Characterizing where and how much to trust the predictions is the subject of the next section, which surveys ML uncertainty quantification methods and argues that uncertainty is not a supplementary layer to be added as an afterthought, but a necessary component of any credible map product.</p>
 
 
@@ -512,13 +517,115 @@ div.csl-indent {
 <div id="ref-brown2025alphaearthfoundations" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[29] </div><div class="csl-right-inline">C. F. Brown <em>et al.</em>, <span>“<span class="nocase">AlphaEarth Foundations: An embedding field model for accurate and efficient global mapping from sparse label data</span>,”</span> <em>arXiv preprint arXiv:2507.22291</em>, 2025, Available: <a href="https://arxiv.org/abs/2507.22291">https://arxiv.org/abs/2507.22291</a></div>
 </div>
-<div id="ref-zupanc2017improving" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[30] </div><div class="csl-right-inline">A. Zupanc, <span>“<span class="nocase">Improving Cloud Detection with Machine Learning</span>.”</span> Sentinel Hub Blog, Dec. 2017. Available: <a href="https://medium.com/sentinel-hub/improving-cloud-detection-with-machine-learning-c09dc5d7cf13">https://medium.com/sentinel-hub/improving-cloud-detection-with-machine-learning-c09dc5d7cf13</a></div>
+<div id="ref-Pasquarella2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[30] </div><div class="csl-right-inline">V. J. Pasquarella, C. F. Brown, W. Czerwinski, and W. J. Rucklidge, <span>“<span class="nocase">Comprehensive quality assessment of optical satellite imagery using weakly supervised video learning</span>,”</span> in <em>2023 IEEE/CVF conference on computer vision and pattern recognition workshops (CVPRW)</em>, IEEE, 2023, pp. 2125–2135. doi: <a href="https://doi.org/10.1109/cvprw59228.2023.00206">10.1109/cvprw59228.2023.00206</a>.</div>
 </div>
 </div>
 </section>
 
 </main> <!-- /main -->
+<script>
+// Feedback pre-fill: maps each page to its part/chapter, stamps the footer
+// "Feedback" link with those values, and (on the Feedback page) injects them
+// into the Tally embed so the two dropdowns arrive pre-selected.
+(function () {
+  // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
+  var MAP = {
+    "index.html":                        { part: "General / whole book" },
+    "howto.html":                        { part: "General / whole book" },
+    "chatbot.html":                      { part: "General / whole book" },
+    "introduction.html":                 { part: "General / whole book" },
+
+    "eo_data_landscape.html":            { part: "EO data landscape" },
+    "eo_missions.html":                  { part: "EO data landscape", chapter: "EO missions" },
+    "accessing_eo_data.html":            { part: "EO data landscape", chapter: "Accessing EO data" },
+
+    "data_selection_preprocessing.html": { part: "Data selection & preprocessing" },
+    "data_selection.html":               { part: "Data selection & preprocessing", chapter: "Data selection" },
+    "data_preprocessing.html":           { part: "Data selection & preprocessing", chapter: "Data preprocessing" },
+
+    "ml_pipeline.html":                  { part: "ML dataset & training" },
+    "ml_ready_dataset.html":             { part: "ML dataset & training", chapter: "Constructing an ML-ready dataset" },
+    "model_design_training.html":        { part: "ML dataset & training", chapter: "Model design and training" },
+
+    "uncertainty_quantification.html":   { part: "Uncertainty quantification" },
+    "uq_sources.html":                   { part: "Uncertainty quantification", chapter: "Sources of uncertainty" },
+    "uq_methods.html":                   { part: "Uncertainty quantification", chapter: "Uncertainty quantification methods" },
+    "uq_calibration.html":               { part: "Uncertainty quantification", chapter: "Assessing calibration" },
+    "uq_spatial.html":                   { part: "Uncertainty quantification", chapter: "Spatial structure of uncertainty" },
+    "uq_operationalizing.html":          { part: "Uncertainty quantification", chapter: "Operationalizing uncertainty" },
+
+    "map_production.html":               { part: "Map production & distribution" },
+    "map_generation.html":               { part: "Map production & distribution", chapter: "Map generation" },
+    "post_processing.html":              { part: "Map production & distribution", chapter: "Post-processing" },
+    "sharing.html":                      { part: "Map production & distribution", chapter: "Sharing" },
+
+    "validation.html":                   { part: "Validation" },
+    "validation_general.html":           { part: "Validation", chapter: "Common misconceptions in map validation" },
+    "validation_design_based.html":      { part: "Validation", chapter: "Design-based accuracy assessment" },
+    "validation_beyond.html":            { part: "Validation", chapter: "Validation beyond probability sampling" },
+
+    "conclusion.html":                   { part: "Conclusion" },
+    "conclusion_summary.html":           { part: "Conclusion", chapter: "Conclusion: summary" },
+    "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
+    "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
+
+    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
+    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
+    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+  };
+
+  function currentInfo() {
+    var base = (window.location.pathname.split("/").pop() || "index.html");
+    if (!base) base = "index.html";
+    return MAP[base] || null;
+  }
+
+  function qs(info) {
+    var p = [];
+    if (info && info.part)    p.push("part=" + encodeURIComponent(info.part));
+    if (info && info.chapter) p.push("chapter=" + encodeURIComponent(info.chapter));
+    return p.join("&");
+  }
+
+  function run() {
+    var info = currentInfo();
+
+    // 1) Stamp the footer "Feedback" link with the current section.
+    var link = document.getElementById("site-feedback-link");
+    if (link) {
+      var query = qs(info);
+      if (query) {
+        var href = link.getAttribute("href").split("?")[0];
+        link.setAttribute("href", href + "?" + query);
+      }
+    }
+
+    // 2) On the Feedback page, feed the URL's part/chapter into the Tally embed.
+    var iframe = document.getElementById("tally-feedback");
+    if (iframe) {
+      var url = new URL(window.location.href);
+      var parts = [];
+      if (url.searchParams.get("part"))    parts.push("part=" + encodeURIComponent(url.searchParams.get("part")));
+      if (url.searchParams.get("chapter")) parts.push("chapter=" + encodeURIComponent(url.searchParams.get("chapter")));
+      var src = iframe.getAttribute("data-tally-src");
+      if (parts.length) src += (src.indexOf("?") > -1 ? "&" : "?") + parts.join("&");
+      iframe.setAttribute("data-tally-src", src);
+
+      var s = document.createElement("script");
+      s.src = "https://tally.so/widgets/embed.js";
+      document.body.appendChild(s);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -938,8 +1045,8 @@ div.csl-indent {
 <p>Best Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/model_design_training.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/model_design_training.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Built with <a href="https://quarto.org/">Quarto</a></p>
 </div>

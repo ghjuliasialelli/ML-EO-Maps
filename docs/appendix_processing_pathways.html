@@ -184,6 +184,11 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction</span></a>
   </div>
 </li>
@@ -323,7 +328,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">General considerations</span></a>
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Common misconceptions in map validation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -406,9 +411,9 @@ window.Quarto = {
    
   <ul>
   <li><a href="#sec-s2-pathways" id="toc-sec-s2-pathways" class="nav-link active" data-scroll-target="#sec-s2-pathways">Sentinel-2</a></li>
-  <li><a href="#sentinel-1" id="toc-sentinel-1" class="nav-link" data-scroll-target="#sentinel-1">Sentinel-1</a>
+  <li><a href="#sec-s1-pathways" id="toc-sec-s1-pathways" class="nav-link" data-scroll-target="#sec-s1-pathways">Sentinel-1</a>
   <ul class="collapse">
-  <li><a href="#sec-s1-pathways" id="toc-sec-s1-pathways" class="nav-link" data-scroll-target="#sec-s1-pathways">Sentinel-1</a></li>
+  <li><a href="#sentinel-1-rtc" id="toc-sentinel-1-rtc" class="nav-link" data-scroll-target="#sentinel-1-rtc">Sentinel-1 RTC</a></li>
   </ul></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
   </ul>
@@ -461,16 +466,21 @@ Table&nbsp;B.1: Processing differences between native Sentinel-2 products on CDS
 </thead>
 <tbody>
 <tr class="odd">
+<td>Radiometric offset (post PB 04.00)</td>
+<td><span class="math inline">\(+1000\)</span> DN baked in</td>
+<td>Subtracted in <code>HARMONIZED</code> collections; passed through unchanged in non-harmonized collections</td>
+</tr>
+<tr class="even">
 <td>Atmospheric correction</td>
 <td>Sen2Cor</td>
 <td>Same (ingested from CDSE)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Processing baseline currency</td>
 <td>Authoritative; updated on ESA’s schedule</td>
 <td>May lag CDSE during reprocessing campaigns</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>QA60 cloud mask</td>
 <td>Discontinued by ESA after Feb 2022</td>
 <td>Reconstructed from classification data starting Feb 2024</td>
@@ -483,8 +493,8 @@ Table&nbsp;B.1: Processing differences between native Sentinel-2 products on CDS
 <p>The most consequential subtlety beyond the table is the <em>timing of baseline reprocessing</em>. CDSE has carried out a Collection-1 reprocessing campaign in stages. Phase 1 brought all data through the end of 2021 to baseline 05.00 (which uses the 30 m Copernicus DEM in place of the older 90 m one) and harmonizes radiometry between Sentinel-2A and Sentinel-2B. Phase 2 reprocessed January 2022 through December 2023 to baseline 05.10. Baseline 05.11 (July 2024) introduced further refinements to geometric registration, cloud screening (with parallax handling), and snow/ice detection, and renamed the SCL class <code>DARK_FEATURES</code> to <code>CAST_SHADOW</code>. Because GEE ingests from CDSE, it inherits these improvements but with a refresh lag whose duration depends on the granule volume. During such windows, CDSE and GEE may serve different baseline versions of the same granule.</p>
 <p>The <em>QA60 reconstruction</em> introduced by GEE in February 2024 is similarly worth flagging. ESA discontinued the legacy polygon-based cloud mask after February 2022, leaving a two-year gap in QA60 availability on GEE. The reconstructed band, derived from classification outputs, is intended to preserve backward compatibility with pipelines that depend on QA60 but is not part of the native CDSE distribution and should not be assumed to be bit-identical to pre-2022 QA60 values.</p>
 </section>
-<section id="sentinel-1" class="level2">
-<h2 class="anchored" data-anchor-id="sentinel-1">Sentinel-1</h2>
+<section id="sec-s1-pathways" class="level2">
+<h2 class="anchored" data-anchor-id="sec-s1-pathways">Sentinel-1</h2>
 <p>For Sentinel-1, the differences are more substantial because GEE applies a full preprocessing chain (thermal noise removal, data calibration, multi-looking and range-doppler terrain correction) rather than redistributing the GRD product, and the three CDSE pathways themselves expose different defaults and degrees of configurability. Table <a href="#tbl-s1-pathways" class="quarto-xref">Table&nbsp;<span>B.2</span></a> summarizes the four options side by side.</p>
 <div id="tbl-s1-pathways" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -511,48 +521,55 @@ Table&nbsp;B.2: Sentinel-1 GRD processing options across CDSE access pathways an
 </thead>
 <tbody>
 <tr class="odd">
+<td>Backscatter convention</td>
+<td>User choice (<span class="math inline">\(\beta^0/\sigma^0/\gamma^0\)</span>)</td>
+<td>Configurable (default <span class="math inline">\(\gamma^0\)</span> ellipsoid)</td>
+<td><span class="math inline">\(\sigma^0\)</span> ellipsoid (fixed)</td>
+<td><span class="math inline">\(\sigma^0\)</span> only</td>
+</tr>
+<tr class="even">
 <td>Thermal noise removal</td>
 <td><span class="math inline">\(\times\)</span></td>
 <td>✓</td>
 <td>✓</td>
 <td>✓</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Speckle filtering</td>
 <td><span class="math inline">\(\times\)</span></td>
 <td>Configurable</td>
 <td><span class="math inline">\(\times\)</span></td>
 <td><span class="math inline">\(\times\)</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Orthorectification</td>
 <td><span class="math inline">\(\times\)</span></td>
 <td>Configurable, with Range–Doppler terrain correction</td>
 <td>✓</td>
 <td>✓</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>DEM for orthorectification</td>
 <td>User choice</td>
 <td>Copernicus 10 m / 30 m / 90 m, or Mapzen (regional defaults differ)</td>
 <td>Copernicus 30 m</td>
 <td>SRTM 30 m, with ASTER fallback above <span class="math inline">\(\pm 60^\circ\)</span> latitude</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Radiometric terrain correction</td>
 <td><span class="math inline">\(\times\)</span></td>
 <td>Available via <code>gamma0_terrain</code> + orthorectification</td>
 <td><span class="math inline">\(\times\)</span></td>
 <td><span class="math inline">\(\times\)</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Output units</td>
 <td>DN</td>
 <td>Linear power; dB via evalscript</td>
 <td>Linear power</td>
 <td>dB (<code>S1_GRD</code>) or linear power (<code>S1_GRD_FLOAT</code>)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>SLC products</td>
 <td>✓</td>
 <td><span class="math inline">\(\times\)</span></td>
@@ -567,9 +584,9 @@ Table&nbsp;B.2: Sentinel-1 GRD processing options across CDSE access pathways an
 <p>Several details in Table <a href="#tbl-s1-pathways" class="quarto-xref">Table&nbsp;<span>B.2</span></a> have downstream consequences worth flagging. The default backscatter coefficient on Sentinel Hub is <span class="math inline">\(\gamma^0\)</span> ellipsoid, which contrasts with both the openEO default (<span class="math inline">\(\sigma^0\)</span> ellipsoid) and GEE’s <span class="math inline">\(\sigma^0\)</span>-only output. Radiometric terrain correction on Sentinel Hub is not selected by a single flag: it requires setting <code>backCoeff</code> to <code>gamma0_terrain</code> <em>and</em> enabling orthorectification, with users selecting <code>gamma0_ellipsoid</code> alone obtaining only the ellipsoid-referenced coefficient. The DEM defaults on Sentinel Hub also differ between deployment regions (Copernicus 30 m in EU-Central-1, Mapzen in US-West-2), so reproducibility across deployments requires setting <code>demInstance</code> explicitly.</p>
 <p>The DEM choice is also where the most significant divergence between Sentinel Hub and GEE arises. GEE uses SRTM 30 m, with an ASTER fallback above <span class="math inline">\(\pm 60^\circ\)</span> latitude, while Sentinel Hub recommends the Copernicus DEM. The resulting geometric and radiometric differences are typically small over flat terrain but can become significant in regions with strong relief, especially when collocating Sentinel-1 with optical imagery.</p>
 <p>Speckle filtering is not applied by default on any pathway: it is left to the user. GEE provides only GRD-level data, so any workflow requiring phase information for interferometry must use CDSE direct download (or another canonical provider such as ASF), as SLC products are not available through Sentinel Hub, openEO, or GEE.</p>
-<section id="sec-s1-pathways" class="level3">
-<h3 class="anchored" data-anchor-id="sec-s1-pathways">Sentinel-1</h3>
-<p>RTC CDSE also distributes a Sentinel-1 Radiometric Terrain Corrected (RTC) backscatter product, processed from GRD inputs and compliant with the CEOS Analysis Ready Data for Land (CARD4L) specifications for Normalized Radar Backscatter (NRB). RTC products are orthorectified using the Copernicus DEM and delivered without speckle filtering. The NRB standard — which combines range–Doppler geocoding with radiometric terrain correction — is increasingly adopted across providers and may eventually supersede GRD as the default Sentinel-1 distribution format for analysis-ready use cases.</p>
+<section id="sentinel-1-rtc" class="level3">
+<h3 class="anchored" data-anchor-id="sentinel-1-rtc">Sentinel-1 RTC</h3>
+<p>CDSE also distributes a Sentinel-1 Radiometric Terrain Corrected (RTC) backscatter product, processed from GRD inputs and compliant with the CEOS Analysis Ready Data for Land (CARD4L) specifications for Normalized Radar Backscatter (NRB). RTC products are orthorectified using the Copernicus DEM and delivered without speckle filtering. The NRB standard — which combines range–Doppler geocoding with radiometric terrain correction — is increasingly adopted across providers and may eventually supersede GRD as the default Sentinel-1 distribution format for analysis-ready use cases.</p>
 </section>
 </section>
 <section id="further-reading" class="level2">
@@ -597,6 +614,108 @@ Table&nbsp;B.2: Sentinel-1 GRD processing options across CDSE access pathways an
 </section>
 
 </main> <!-- /main -->
+<script>
+// Feedback pre-fill: maps each page to its part/chapter, stamps the footer
+// "Feedback" link with those values, and (on the Feedback page) injects them
+// into the Tally embed so the two dropdowns arrive pre-selected.
+(function () {
+  // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
+  var MAP = {
+    "index.html":                        { part: "General / whole book" },
+    "howto.html":                        { part: "General / whole book" },
+    "chatbot.html":                      { part: "General / whole book" },
+    "introduction.html":                 { part: "General / whole book" },
+
+    "eo_data_landscape.html":            { part: "EO data landscape" },
+    "eo_missions.html":                  { part: "EO data landscape", chapter: "EO missions" },
+    "accessing_eo_data.html":            { part: "EO data landscape", chapter: "Accessing EO data" },
+
+    "data_selection_preprocessing.html": { part: "Data selection & preprocessing" },
+    "data_selection.html":               { part: "Data selection & preprocessing", chapter: "Data selection" },
+    "data_preprocessing.html":           { part: "Data selection & preprocessing", chapter: "Data preprocessing" },
+
+    "ml_pipeline.html":                  { part: "ML dataset & training" },
+    "ml_ready_dataset.html":             { part: "ML dataset & training", chapter: "Constructing an ML-ready dataset" },
+    "model_design_training.html":        { part: "ML dataset & training", chapter: "Model design and training" },
+
+    "uncertainty_quantification.html":   { part: "Uncertainty quantification" },
+    "uq_sources.html":                   { part: "Uncertainty quantification", chapter: "Sources of uncertainty" },
+    "uq_methods.html":                   { part: "Uncertainty quantification", chapter: "Uncertainty quantification methods" },
+    "uq_calibration.html":               { part: "Uncertainty quantification", chapter: "Assessing calibration" },
+    "uq_spatial.html":                   { part: "Uncertainty quantification", chapter: "Spatial structure of uncertainty" },
+    "uq_operationalizing.html":          { part: "Uncertainty quantification", chapter: "Operationalizing uncertainty" },
+
+    "map_production.html":               { part: "Map production & distribution" },
+    "map_generation.html":               { part: "Map production & distribution", chapter: "Map generation" },
+    "post_processing.html":              { part: "Map production & distribution", chapter: "Post-processing" },
+    "sharing.html":                      { part: "Map production & distribution", chapter: "Sharing" },
+
+    "validation.html":                   { part: "Validation" },
+    "validation_general.html":           { part: "Validation", chapter: "Common misconceptions in map validation" },
+    "validation_design_based.html":      { part: "Validation", chapter: "Design-based accuracy assessment" },
+    "validation_beyond.html":            { part: "Validation", chapter: "Validation beyond probability sampling" },
+
+    "conclusion.html":                   { part: "Conclusion" },
+    "conclusion_summary.html":           { part: "Conclusion", chapter: "Conclusion: summary" },
+    "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
+    "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
+
+    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
+    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
+    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+  };
+
+  function currentInfo() {
+    var base = (window.location.pathname.split("/").pop() || "index.html");
+    if (!base) base = "index.html";
+    return MAP[base] || null;
+  }
+
+  function qs(info) {
+    var p = [];
+    if (info && info.part)    p.push("part=" + encodeURIComponent(info.part));
+    if (info && info.chapter) p.push("chapter=" + encodeURIComponent(info.chapter));
+    return p.join("&");
+  }
+
+  function run() {
+    var info = currentInfo();
+
+    // 1) Stamp the footer "Feedback" link with the current section.
+    var link = document.getElementById("site-feedback-link");
+    if (link) {
+      var query = qs(info);
+      if (query) {
+        var href = link.getAttribute("href").split("?")[0];
+        link.setAttribute("href", href + "?" + query);
+      }
+    }
+
+    // 2) On the Feedback page, feed the URL's part/chapter into the Tally embed.
+    var iframe = document.getElementById("tally-feedback");
+    if (iframe) {
+      var url = new URL(window.location.href);
+      var parts = [];
+      if (url.searchParams.get("part"))    parts.push("part=" + encodeURIComponent(url.searchParams.get("part")));
+      if (url.searchParams.get("chapter")) parts.push("chapter=" + encodeURIComponent(url.searchParams.get("chapter")));
+      var src = iframe.getAttribute("data-tally-src");
+      if (parts.length) src += (src.indexOf("?") > -1 ? "&" : "?") + parts.join("&");
+      iframe.setAttribute("data-tally-src", src);
+
+      var s = document.createElement("script");
+      s.src = "https://tally.so/widgets/embed.js";
+      document.body.appendChild(s);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -1016,8 +1135,8 @@ Table&nbsp;B.2: Sentinel-1 GRD processing options across CDSE access pathways an
 <p>Best Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/appendix_processing_pathways.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/appendix_processing_pathways.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Built with <a href="https://quarto.org/">Quarto</a></p>
 </div>

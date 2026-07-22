@@ -10,6 +10,8 @@ book:
   page-footer:
     left: |
       Best Practices for EO Maps
+    center: |
+      [Feedback](feedback.html){#site-feedback-link}
     right: |
       Built with [Quarto](https://quarto.org/)
 
@@ -24,6 +26,7 @@ book:
     #- about.qmd
     - howto.qmd
     - chatbot.qmd
+    - feedback.qmd
     - introduction.qmd
     - part: eo_data_landscape.qmd
       chapters:
@@ -74,6 +77,7 @@ format:
     callout-appearance: simple
     toc: true
     number-sections: false
+    include-after-body: includes/feedback-prefill.html
 
 bibliography: references.bib
 csl: ieee.csl

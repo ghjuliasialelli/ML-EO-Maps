@@ -18,6 +18,7 @@ The second pattern stores arrays as independently addressable chunks in a key va
 
 **Format** | **Storage model** | **Typical payload** | **Random access mechanism** | **Geospatial metadata** |
 | --- | --- | --- | --- | --- |
+| HDF5 | Single binary container with groups, datasets, metadata, and internal chunk indices | Heterogeneous N dimensional scientific arrays | Contiguous offsets or chunk index, performance depends on chunk shape | Optional, domain specific conventions required |
 | NetCDF4 | NetCDF data model on an HDF5 backend | N dimensional variables with named dimensions, attributes, and groups | HDF5 chunking through the netCDF API | Usually via CF conventions |
 | GeoTIFF | TIFF image container extended with GeoTIFF keys | Regular gridded raster imagery, usually 2D with bands | Strips or tiles, efficient spatial access requires tiling | Built in through GeoTIFF tags and keys |
 | COG | GeoTIFF organised for partial reads and overviews | Cloud distributed geospatial rasters and image scenes | Tile offsets and range requests, overviews reduce full scene reads | Built in through GeoTIFF keys |

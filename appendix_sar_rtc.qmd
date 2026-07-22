@@ -11,7 +11,9 @@ SAR backscatter is recorded in phase, used to determine the distance to a target
 
 ![Normalization areas for SAR backscatter.](images/backscatter.png){#fig-backscatter}
 
-The conventional backscatter coefficient $\sigma^0_E$ normalizes by the ground-range area $A_{\sigma}$, giving $\sigma^0_E = \beta^0 \cdot \sin\theta_E$, where $\theta_E$ is the incidence angle with respect to the ellipsoid. The $\gamma^0_E$ convention divides by the area perpendicular to the line of sight $A_\gamma$, giving $\gamma^0_E = \beta^0 \cdot \tan\theta_E$. Note that a model of the Earth is required to gain knowledge of the incident angle $\theta_E$ to calculate $\sigma^0$ or $\gamma^0$.
+### Ellipsoid-referenced conventions
+
+Two conventions normalize $\beta^0$ by an area defined under a flat-ellipsoid assumption. The $\sigma^0_E$ convention divides by the ground-projected area $A_\sigma$, giving $\sigma^0_E = \beta^0 \cdot \frac{A_{\beta}}{A_{\sigma}} = \beta^0 \cdot \sin\theta_E$, where $\theta_E$ is the incidence angle with respect to the ellipsoid. The $\gamma^0_E$ convention divides by the area perpendicular to the line of sight $A_\gamma$, giving $\gamma^0_E = \beta^0 \cdot \tan\theta_E$. Note that a model of the Earth is required to gain knowledge of the incident angle $\theta_E$ to calculate $\sigma^0$ or $\gamma^0$.
 
 ### The problem with the ellipsoid assumption
 

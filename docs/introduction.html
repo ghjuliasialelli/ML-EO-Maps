@@ -54,7 +54,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./eo_data_landscape.html" rel="next">
-<link href="./chatbot.html" rel="prev">
+<link href="./feedback.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -151,6 +151,11 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -294,7 +299,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">General considerations</span></a>
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Common misconceptions in map validation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -397,14 +402,14 @@ div.csl-indent {
 
 
 <p>The past decade has seen a rapid expansion in the production of large-scale geospatial products derived from Earth observation (EO) data using machine learning (ML). A growing range of global products is now routinely generated at resolutions that would have been unthinkable a few years ago, including maps of building footprints <span class="citation" data-cites="glazer2025tempo"><a href="#ref-glazer2025tempo" role="doc-biblioref">[1]</a></span>, land cover <span class="citation" data-cites="Brown_2022"><a href="#ref-Brown_2022" role="doc-biblioref">[2]</a></span>, canopy height <span class="citation" data-cites="lang2023canopyheight Tolan2024"><a href="#ref-lang2023canopyheight" role="doc-biblioref">[3]</a>, <a href="#ref-Tolan2024" role="doc-biblioref">[4]</a></span>, renewable energy installations <span class="citation" data-cites="microsoft2024renewables"><a href="#ref-microsoft2024renewables" role="doc-biblioref">[5]</a></span> and flood inundation <span class="citation" data-cites="Misra2025"><a href="#ref-Misra2025" role="doc-biblioref">[6]</a></span>. This represents a substantial shift from the traditional EO toolkit of spectral indices, radiative transfer (or other physical) models, spectral unmixing, and classical ML pipelines built on hand-crafted features, which historically delivered maps as collections of locally calibrated models tuned to specific regions, sensors, or biomes. ML has shifted this paradigm toward single, globally generalizing models trained on heterogeneous data, promising consistent worldwide products but also introducing challenges with no clear analogue in the traditional workflow. Scaled inference, for instance, now demands engineering skills (distributed compute, efficient I/O, cloud-native data formats) that the traditional EO scientist rarely needed. At the same time, the apparent ease with which such maps seem to be produced hides the depth of the underlying pipeline, and the lowered barrier to entry has enabled a proliferation of map products released without adequate validation.</p>
-<p>When considering the full workflow for a global map, every stage of the process (from data acquisition and preprocessing, through model design and training, to inference, uncertainty quantification, validation, and dissemination) presents domain-specific challenges that have no direct equivalent in conventional computer vision. These challenges are tightly coupled: preprocessing decisions propagate into the training signal, the training signal shapes the uncertainty landscape, and uncharacterised uncertainty undermines downstream validation and decision-making. This paper is addressed to a broad audience of researchers and practitioners, from those just entering the EO domain to seasoned ML experts looking to build ML-ready EO datasets or generate large-scale maps. It presents an end-to-end account of the best practices, challenges, and common pitfalls that span the entire pipeline from raw satellite data to a published, validated map product. We organize the discussion around six interconnected themes, summarized in Figure <a href="#fig-overview" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>, which trace the pipeline from the EO data landscape and preprocessing, through ML-specific stages of dataset construction, model design, and training, to uncertainty quantification, map generation, dissemination, and validation. Choices made at each stage carry consequences for all subsequent ones, and awareness of these dependencies is one of the factors that separate a technically sound map from a misleading one.</p>
+<p>When considering the full workflow for a global map, every stage of the process (from data acquisition and preprocessing, through model design and training, to inference, uncertainty quantification, validation, and dissemination) presents domain-specific challenges that have no direct equivalent in conventional computer vision. These challenges are tightly coupled: preprocessing decisions propagate into the training signal, the training signal shapes the uncertainty landscape, and uncharacterised uncertainty undermines downstream validation and decision-making. This paper is addressed to a broad audience of researchers and practitioners, from those just entering the EO domain to seasoned ML experts looking to build ML-ready EO datasets or generate large-scale maps. It presents an end-to-end account of the best practices, challenges, and common pitfalls that span the entire pipeline from raw satellite data to a published, validated map product. We organize the discussion around six interconnected themes, summarized in Figure <a href="#fig-overview" class="quarto-xref">Figure&nbsp;<span>5.1</span></a>, which trace the pipeline from the EO data landscape and preprocessing, through ML-specific stages of dataset construction, model design, and training, to uncertainty quantification, map generation, dissemination, and validation. Choices made at each stage carry consequences for all subsequent ones, and awareness of these dependencies is one of the factors that separate a technically sound map from a misleading one.</p>
 <div id="fig-overview" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/overview.png" id="fig-overview" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.1
+Figure&nbsp;5.1
 </figcaption>
 </figure>
 </div>
@@ -432,6 +437,108 @@ Figure&nbsp;4.1
 </div>
 
 </main> <!-- /main -->
+<script>
+// Feedback pre-fill: maps each page to its part/chapter, stamps the footer
+// "Feedback" link with those values, and (on the Feedback page) injects them
+// into the Tally embed so the two dropdowns arrive pre-selected.
+(function () {
+  // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
+  var MAP = {
+    "index.html":                        { part: "General / whole book" },
+    "howto.html":                        { part: "General / whole book" },
+    "chatbot.html":                      { part: "General / whole book" },
+    "introduction.html":                 { part: "General / whole book" },
+
+    "eo_data_landscape.html":            { part: "EO data landscape" },
+    "eo_missions.html":                  { part: "EO data landscape", chapter: "EO missions" },
+    "accessing_eo_data.html":            { part: "EO data landscape", chapter: "Accessing EO data" },
+
+    "data_selection_preprocessing.html": { part: "Data selection & preprocessing" },
+    "data_selection.html":               { part: "Data selection & preprocessing", chapter: "Data selection" },
+    "data_preprocessing.html":           { part: "Data selection & preprocessing", chapter: "Data preprocessing" },
+
+    "ml_pipeline.html":                  { part: "ML dataset & training" },
+    "ml_ready_dataset.html":             { part: "ML dataset & training", chapter: "Constructing an ML-ready dataset" },
+    "model_design_training.html":        { part: "ML dataset & training", chapter: "Model design and training" },
+
+    "uncertainty_quantification.html":   { part: "Uncertainty quantification" },
+    "uq_sources.html":                   { part: "Uncertainty quantification", chapter: "Sources of uncertainty" },
+    "uq_methods.html":                   { part: "Uncertainty quantification", chapter: "Uncertainty quantification methods" },
+    "uq_calibration.html":               { part: "Uncertainty quantification", chapter: "Assessing calibration" },
+    "uq_spatial.html":                   { part: "Uncertainty quantification", chapter: "Spatial structure of uncertainty" },
+    "uq_operationalizing.html":          { part: "Uncertainty quantification", chapter: "Operationalizing uncertainty" },
+
+    "map_production.html":               { part: "Map production & distribution" },
+    "map_generation.html":               { part: "Map production & distribution", chapter: "Map generation" },
+    "post_processing.html":              { part: "Map production & distribution", chapter: "Post-processing" },
+    "sharing.html":                      { part: "Map production & distribution", chapter: "Sharing" },
+
+    "validation.html":                   { part: "Validation" },
+    "validation_general.html":           { part: "Validation", chapter: "Common misconceptions in map validation" },
+    "validation_design_based.html":      { part: "Validation", chapter: "Design-based accuracy assessment" },
+    "validation_beyond.html":            { part: "Validation", chapter: "Validation beyond probability sampling" },
+
+    "conclusion.html":                   { part: "Conclusion" },
+    "conclusion_summary.html":           { part: "Conclusion", chapter: "Conclusion: summary" },
+    "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
+    "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
+
+    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
+    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
+    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+  };
+
+  function currentInfo() {
+    var base = (window.location.pathname.split("/").pop() || "index.html");
+    if (!base) base = "index.html";
+    return MAP[base] || null;
+  }
+
+  function qs(info) {
+    var p = [];
+    if (info && info.part)    p.push("part=" + encodeURIComponent(info.part));
+    if (info && info.chapter) p.push("chapter=" + encodeURIComponent(info.chapter));
+    return p.join("&");
+  }
+
+  function run() {
+    var info = currentInfo();
+
+    // 1) Stamp the footer "Feedback" link with the current section.
+    var link = document.getElementById("site-feedback-link");
+    if (link) {
+      var query = qs(info);
+      if (query) {
+        var href = link.getAttribute("href").split("?")[0];
+        link.setAttribute("href", href + "?" + query);
+      }
+    }
+
+    // 2) On the Feedback page, feed the URL's part/chapter into the Tally embed.
+    var iframe = document.getElementById("tally-feedback");
+    if (iframe) {
+      var url = new URL(window.location.href);
+      var parts = [];
+      if (url.searchParams.get("part"))    parts.push("part=" + encodeURIComponent(url.searchParams.get("part")));
+      if (url.searchParams.get("chapter")) parts.push("chapter=" + encodeURIComponent(url.searchParams.get("chapter")));
+      var src = iframe.getAttribute("data-tally-src");
+      if (parts.length) src += (src.indexOf("?") > -1 ? "&" : "?") + parts.join("&");
+      iframe.setAttribute("data-tally-src", src);
+
+      var s = document.createElement("script");
+      s.src = "https://tally.so/widgets/embed.js";
+      document.body.appendChild(s);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -834,8 +941,8 @@ Figure&nbsp;4.1
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./chatbot.html" class="pagination-link" aria-label="Chatbot">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chatbot</span></span>
+      <a href="./feedback.html" class="pagination-link" aria-label="Feedback">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Feedback</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -851,8 +958,8 @@ Figure&nbsp;4.1
 <p>Best Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/introduction.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>
+<div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/introduction.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Built with <a href="https://quarto.org/">Quarto</a></p>
 </div>

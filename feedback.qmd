@@ -1,0 +1,21 @@
+---
+title: "Feedback"
+---
+
+Spotted an error, found something unclear, or have a suggestion? Let us know below — every note helps improve the book. If you reached this page from a chapter, the section is pre-selected for you; adjust it if needed. Leaving your email is optional; do so only if you'd like a reply.
+
+<!-- Tally form PdWGQQ. The part/chapter pre-fill params are appended
+     automatically by includes/feedback-prefill.html. -->
+
+<iframe
+  id="tally-feedback"
+  data-tally-src="https://tally.so/embed/PdWGQQ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+  loading="lazy"
+  width="100%"
+  height="500"
+  frameborder="0"
+  marginheight="0"
+  marginwidth="0"
+  title="Feedback form"
+  style="border:none; border-radius: 8px;">
+</iframe>

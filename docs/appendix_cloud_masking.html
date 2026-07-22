@@ -183,6 +183,11 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction</span></a>
   </div>
 </li>
@@ -322,7 +327,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">General considerations</span></a>
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Common misconceptions in map validation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -449,37 +454,43 @@ Table&nbsp;D.1: Cloud and cloud-shadow masking methods for Sentinel-2 data. <spa
 </thead>
 <tbody>
 <tr class="odd">
-<td>Fmask <span class="citation" data-cites="QIU2019111205"><a href="#ref-QIU2019111205" role="doc-biblioref">[1]</a></span></td>
+<td>SCL <span class="citation" data-cites="louis2016sentinel"><a href="#ref-louis2016sentinel" role="doc-biblioref">[1]</a></span></td>
+<td>Rule-based</td>
+<td>Multi-class label</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>Fmask <span class="citation" data-cites="QIU2019111205"><a href="#ref-QIU2019111205" role="doc-biblioref">[2]</a></span></td>
 <td>Physics-based and ML</td>
 <td>Multi-class label</td>
 <td><span class="math inline">\(\times\)</span></td>
 </tr>
-<tr class="even">
-<td>Cloud Score+ <span class="citation" data-cites="Pasquarella2023"><a href="#ref-Pasquarella2023" role="doc-biblioref">[2]</a></span></td>
+<tr class="odd">
+<td>Cloud Score+ <span class="citation" data-cites="Pasquarella2023"><a href="#ref-Pasquarella2023" role="doc-biblioref">[3]</a></span></td>
 <td>Deep learning</td>
 <td>Continuous probability</td>
 <td>✓<span class="math inline">\(^*\)</span></td>
 </tr>
-<tr class="odd">
-<td>s2cloudless <span class="citation" data-cites="zupanc2017improving"><a href="#ref-zupanc2017improving" role="doc-biblioref">[3]</a></span></td>
+<tr class="even">
+<td>s2cloudless <span class="citation" data-cites="zupanc2017improving"><a href="#ref-zupanc2017improving" role="doc-biblioref">[4]</a></span></td>
 <td>ML</td>
 <td>Continuous probability</td>
 <td>✓<span class="math inline">\(^{\dagger}\)</span></td>
 </tr>
+<tr class="odd">
+<td>KappaMask <span class="citation" data-cites="Domnich2021"><a href="#ref-Domnich2021" role="doc-biblioref">[5]</a></span></td>
+<td>Deep learning</td>
+<td>Multi-class label</td>
+<td><span class="math inline">\(\times\)</span></td>
+</tr>
 <tr class="even">
-<td>KappaMask <span class="citation" data-cites="Domnich2021"><a href="#ref-Domnich2021" role="doc-biblioref">[4]</a></span></td>
+<td>CloudSen12 <span class="citation" data-cites="Aybar2022"><a href="#ref-Aybar2022" role="doc-biblioref">[6]</a></span></td>
 <td>Deep learning</td>
 <td>Multi-class label</td>
 <td><span class="math inline">\(\times\)</span></td>
 </tr>
 <tr class="odd">
-<td>CloudSen12 <span class="citation" data-cites="Aybar2022"><a href="#ref-Aybar2022" role="doc-biblioref">[5]</a></span></td>
-<td>Deep learning</td>
-<td>Multi-class label</td>
-<td><span class="math inline">\(\times\)</span></td>
-</tr>
-<tr class="even">
-<td>OmniCloudMask <span class="citation" data-cites="Wright2025"><a href="#ref-Wright2025" role="doc-biblioref">[6]</a></span></td>
+<td>OmniCloudMask <span class="citation" data-cites="Wright2025"><a href="#ref-Wright2025" role="doc-biblioref">[7]</a></span></td>
 <td>Deep learning</td>
 <td>Multi-class label</td>
 <td><span class="math inline">\(\times\)</span></td>
@@ -490,33 +501,138 @@ Table&nbsp;D.1: Cloud and cloud-shadow masking methods for Sentinel-2 data. <spa
 </figure>
 </div>
 <p>A few practical considerations are worth highlighting. The SCL layer is the path of least resistance: it ships with every L2A product, requires no additional compute, and is sufficient for the dominant use case of cleaning cloudy pixels before median compositing. Its known weaknesses — conservative cirrus detection, missed cloud edges, occasional confusion between bright surfaces and clouds — become problematic when working with single scenes or when the application is sensitive to false negatives in cloud detection. Fmask, originally developed for Landsat, offers a more physics-informed and well-validated alternative, but is slower than SCL and must be run separately. s2cloudless occupies the opposite end of the efficiency spectrum: it is lightweight, fast on CPU, and widely used in operational pipelines.</p>
-<p>Cloud Score+ <span class="citation" data-cites="Pasquarella2023"><a href="#ref-Pasquarella2023" role="doc-biblioref">[2]</a></span> occupies an unusual position because of its continuous output. Rather than committing to a binary mask, it returns a per-pixel quality score that the downstream user can threshold according to the sensitivity of the application. This is convenient when the same archive must serve multiple workflows with different tolerances. The principal limitation is operational: Cloud Score+ is exposed natively only through Google Earth Engine, so workflows running outside that ecosystem cannot use it directly. CloudSen12, trained on hand-labeled patches stratified across biomes, and OmniCloudMask address the same need with self-hostable models at the cost of having to run inference oneself.</p>
-<p>The deep learning methods (KappaMask, CloudSen12, OmniCloudMask) generally outperform the rule-based and classical-ML alternatives on hand-labeled benchmarks, but the magnitude of the gain depends on the region, the scene composition, and the specific failure modes the benchmark is designed to expose. <span class="citation" data-cites="Wright2025"><a href="#ref-Wright2025" role="doc-biblioref">[6]</a></span> report computational efficiency for OmniCloudMask against several alternatives on an NVIDIA RTX 4090, providing a useful reference point for relative throughput on consumer-grade hardware. Whether the accuracy gain justifies the additional compute and infrastructure complexity is a judgment that should be made against the requirements of the specific mapping task: for global-scale composite-based workflows, the marginal benefit over SCL is often modest; for single-scene applications or studies in cloud-prone regions such as the humid tropics, it can be decisive.</p>
+<p>Cloud Score+ <span class="citation" data-cites="Pasquarella2023"><a href="#ref-Pasquarella2023" role="doc-biblioref">[3]</a></span> occupies an unusual position because of its continuous output. Rather than committing to a binary mask, it returns a per-pixel quality score that the downstream user can threshold according to the sensitivity of the application. This is convenient when the same archive must serve multiple workflows with different tolerances. The principal limitation is operational: Cloud Score+ is exposed natively only through Google Earth Engine, so workflows running outside that ecosystem cannot use it directly. CloudSen12, trained on hand-labeled patches stratified across biomes, and OmniCloudMask address the same need with self-hostable models at the cost of having to run inference oneself.</p>
+<p>The deep learning methods (KappaMask, CloudSen12, OmniCloudMask) generally outperform the rule-based and classical-ML alternatives on hand-labeled benchmarks, but the magnitude of the gain depends on the region, the scene composition, and the specific failure modes the benchmark is designed to expose. <span class="citation" data-cites="Wright2025"><a href="#ref-Wright2025" role="doc-biblioref">[7]</a></span> report computational efficiency for OmniCloudMask against several alternatives on an NVIDIA RTX 4090, providing a useful reference point for relative throughput on consumer-grade hardware. Whether the accuracy gain justifies the additional compute and infrastructure complexity is a judgment that should be made against the requirements of the specific mapping task: for global-scale composite-based workflows, the marginal benefit over SCL is often modest; for single-scene applications or studies in cloud-prone regions such as the humid tropics, it can be decisive.</p>
 <p>Finally, none of these methods is sensor-agnostic by default with the exception of OmniCloudMask. Methods originally developed for Sentinel-2 can be retrained on other optical sensors, but doing so requires either a labeled dataset for the target sensor or a sufficiently large labeled Sentinel-2 dataset together with a domain adaptation strategy. Practitioners working across multiple optical missions should weigh this carefully, as the cost of maintaining one cloud-masking pipeline per sensor can rapidly exceed the cost of the inference itself.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-louis2016sentinel" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">J. Louis <em>et al.</em>, <span>“<span class="nocase">Sentinel-2 SEN2COR: L2A Processor for Users;(Special Publication) ESA SP-740</span>.”</span> European Space Agency: Prague, Czech Repubic, 2016.</div>
+</div>
 <div id="ref-QIU2019111205" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">S. Qiu, Z. Zhu, and B. He, <span>“<span class="nocase">Fmask 4.0: Improved cloud and cloud shadow detection in Landsats 4–8 and Sentinel-2 imagery</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 231, p. 111205, 2019, doi: <a href="https://doi.org/10.1016/j.rse.2019.05.024">10.1016/j.rse.2019.05.024</a>.</div>
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">S. Qiu, Z. Zhu, and B. He, <span>“<span class="nocase">Fmask 4.0: Improved cloud and cloud shadow detection in Landsats 4–8 and Sentinel-2 imagery</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 231, p. 111205, 2019, doi: <a href="https://doi.org/10.1016/j.rse.2019.05.024">10.1016/j.rse.2019.05.024</a>.</div>
 </div>
 <div id="ref-Pasquarella2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">V. J. Pasquarella, C. F. Brown, W. Czerwinski, and W. J. Rucklidge, <span>“<span class="nocase">Comprehensive quality assessment of optical satellite imagery using weakly supervised video learning</span>,”</span> in <em>2023 IEEE/CVF conference on computer vision and pattern recognition workshops (CVPRW)</em>, IEEE, 2023, pp. 2125–2135. doi: <a href="https://doi.org/10.1109/cvprw59228.2023.00206">10.1109/cvprw59228.2023.00206</a>.</div>
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">V. J. Pasquarella, C. F. Brown, W. Czerwinski, and W. J. Rucklidge, <span>“<span class="nocase">Comprehensive quality assessment of optical satellite imagery using weakly supervised video learning</span>,”</span> in <em>2023 IEEE/CVF conference on computer vision and pattern recognition workshops (CVPRW)</em>, IEEE, 2023, pp. 2125–2135. doi: <a href="https://doi.org/10.1109/cvprw59228.2023.00206">10.1109/cvprw59228.2023.00206</a>.</div>
 </div>
 <div id="ref-zupanc2017improving" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">A. Zupanc, <span>“<span class="nocase">Improving Cloud Detection with Machine Learning</span>.”</span> Sentinel Hub Blog, Dec. 2017. Available: <a href="https://medium.com/sentinel-hub/improving-cloud-detection-with-machine-learning-c09dc5d7cf13">https://medium.com/sentinel-hub/improving-cloud-detection-with-machine-learning-c09dc5d7cf13</a></div>
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">A. Zupanc, <span>“<span class="nocase">Improving Cloud Detection with Machine Learning</span>.”</span> Sentinel Hub Blog, Dec. 2017. Available: <a href="https://medium.com/sentinel-hub/improving-cloud-detection-with-machine-learning-c09dc5d7cf13">https://medium.com/sentinel-hub/improving-cloud-detection-with-machine-learning-c09dc5d7cf13</a></div>
 </div>
 <div id="ref-Domnich2021" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">M. Domnich <em>et al.</em>, <span>“<span class="nocase">KappaMask: AI-Based Cloudmask Processor for Sentinel-2</span>,”</span> <em>Remote Sensing</em>, vol. 13, no. 20, p. 4100, Oct. 2021, doi: <a href="https://doi.org/10.3390/rs13204100">10.3390/rs13204100</a>.</div>
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">M. Domnich <em>et al.</em>, <span>“<span class="nocase">KappaMask: AI-Based Cloudmask Processor for Sentinel-2</span>,”</span> <em>Remote Sensing</em>, vol. 13, no. 20, p. 4100, Oct. 2021, doi: <a href="https://doi.org/10.3390/rs13204100">10.3390/rs13204100</a>.</div>
 </div>
 <div id="ref-Aybar2022" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">C. Aybar <em>et al.</em>, <span>“<span class="nocase">CloudSEN12, a global dataset for semantic understanding of cloud and cloud shadow in Sentinel-2</span>,”</span> <em>Scientific Data</em>, vol. 9, no. 1, Dec. 2022, doi: <a href="https://doi.org/10.1038/s41597-022-01878-2">10.1038/s41597-022-01878-2</a>.</div>
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">C. Aybar <em>et al.</em>, <span>“<span class="nocase">CloudSEN12, a global dataset for semantic understanding of cloud and cloud shadow in Sentinel-2</span>,”</span> <em>Scientific Data</em>, vol. 9, no. 1, Dec. 2022, doi: <a href="https://doi.org/10.1038/s41597-022-01878-2">10.1038/s41597-022-01878-2</a>.</div>
 </div>
 <div id="ref-Wright2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">N. Wright, J. M. A. Duncan, J. N. Callow, S. E. Thompson, and R. J. George, <span>“<span class="nocase">Training sensor-agnostic deep learning models for remote sensing: Achieving state-of-the-art cloud and cloud shadow identification with OmniCloudMask</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 322, p. 114694, May 2025, doi: <a href="https://doi.org/10.1016/j.rse.2025.114694">10.1016/j.rse.2025.114694</a>.</div>
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">N. Wright, J. M. A. Duncan, J. N. Callow, S. E. Thompson, and R. J. George, <span>“<span class="nocase">Training sensor-agnostic deep learning models for remote sensing: Achieving state-of-the-art cloud and cloud shadow identification with OmniCloudMask</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 322, p. 114694, May 2025, doi: <a href="https://doi.org/10.1016/j.rse.2025.114694">10.1016/j.rse.2025.114694</a>.</div>
 </div>
 </div>
 
 </main> <!-- /main -->
+<script>
+// Feedback pre-fill: maps each page to its part/chapter, stamps the footer
+// "Feedback" link with those values, and (on the Feedback page) injects them
+// into the Tally embed so the two dropdowns arrive pre-selected.
+(function () {
+  // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
+  var MAP = {
+    "index.html":                        { part: "General / whole book" },
+    "howto.html":                        { part: "General / whole book" },
+    "chatbot.html":                      { part: "General / whole book" },
+    "introduction.html":                 { part: "General / whole book" },
+
+    "eo_data_landscape.html":            { part: "EO data landscape" },
+    "eo_missions.html":                  { part: "EO data landscape", chapter: "EO missions" },
+    "accessing_eo_data.html":            { part: "EO data landscape", chapter: "Accessing EO data" },
+
+    "data_selection_preprocessing.html": { part: "Data selection & preprocessing" },
+    "data_selection.html":               { part: "Data selection & preprocessing", chapter: "Data selection" },
+    "data_preprocessing.html":           { part: "Data selection & preprocessing", chapter: "Data preprocessing" },
+
+    "ml_pipeline.html":                  { part: "ML dataset & training" },
+    "ml_ready_dataset.html":             { part: "ML dataset & training", chapter: "Constructing an ML-ready dataset" },
+    "model_design_training.html":        { part: "ML dataset & training", chapter: "Model design and training" },
+
+    "uncertainty_quantification.html":   { part: "Uncertainty quantification" },
+    "uq_sources.html":                   { part: "Uncertainty quantification", chapter: "Sources of uncertainty" },
+    "uq_methods.html":                   { part: "Uncertainty quantification", chapter: "Uncertainty quantification methods" },
+    "uq_calibration.html":               { part: "Uncertainty quantification", chapter: "Assessing calibration" },
+    "uq_spatial.html":                   { part: "Uncertainty quantification", chapter: "Spatial structure of uncertainty" },
+    "uq_operationalizing.html":          { part: "Uncertainty quantification", chapter: "Operationalizing uncertainty" },
+
+    "map_production.html":               { part: "Map production & distribution" },
+    "map_generation.html":               { part: "Map production & distribution", chapter: "Map generation" },
+    "post_processing.html":              { part: "Map production & distribution", chapter: "Post-processing" },
+    "sharing.html":                      { part: "Map production & distribution", chapter: "Sharing" },
+
+    "validation.html":                   { part: "Validation" },
+    "validation_general.html":           { part: "Validation", chapter: "Common misconceptions in map validation" },
+    "validation_design_based.html":      { part: "Validation", chapter: "Design-based accuracy assessment" },
+    "validation_beyond.html":            { part: "Validation", chapter: "Validation beyond probability sampling" },
+
+    "conclusion.html":                   { part: "Conclusion" },
+    "conclusion_summary.html":           { part: "Conclusion", chapter: "Conclusion: summary" },
+    "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
+    "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
+
+    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
+    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
+    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+  };
+
+  function currentInfo() {
+    var base = (window.location.pathname.split("/").pop() || "index.html");
+    if (!base) base = "index.html";
+    return MAP[base] || null;
+  }
+
+  function qs(info) {
+    var p = [];
+    if (info && info.part)    p.push("part=" + encodeURIComponent(info.part));
+    if (info && info.chapter) p.push("chapter=" + encodeURIComponent(info.chapter));
+    return p.join("&");
+  }
+
+  function run() {
+    var info = currentInfo();
+
+    // 1) Stamp the footer "Feedback" link with the current section.
+    var link = document.getElementById("site-feedback-link");
+    if (link) {
+      var query = qs(info);
+      if (query) {
+        var href = link.getAttribute("href").split("?")[0];
+        link.setAttribute("href", href + "?" + query);
+      }
+    }
+
+    // 2) On the Feedback page, feed the URL's part/chapter into the Tally embed.
+    var iframe = document.getElementById("tally-feedback");
+    if (iframe) {
+      var url = new URL(window.location.href);
+      var parts = [];
+      if (url.searchParams.get("part"))    parts.push("part=" + encodeURIComponent(url.searchParams.get("part")));
+      if (url.searchParams.get("chapter")) parts.push("chapter=" + encodeURIComponent(url.searchParams.get("chapter")));
+      var src = iframe.getAttribute("data-tally-src");
+      if (parts.length) src += (src.indexOf("?") > -1 ? "&" : "?") + parts.join("&");
+      iframe.setAttribute("data-tally-src", src);
+
+      var s = document.createElement("script");
+      s.src = "https://tally.so/widgets/embed.js";
+      document.body.appendChild(s);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -933,8 +1049,8 @@ Table&nbsp;D.1: Cloud and cloud-shadow masking methods for Sentinel-2 data. <spa
 <p>Best Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/appendix_cloud_masking.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>
+<div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/appendix_cloud_masking.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Built with <a href="https://quarto.org/">Quarto</a></p>
 </div>

@@ -184,6 +184,11 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction</span></a>
   </div>
 </li>
@@ -323,7 +328,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">General considerations</span></a>
+  <a href="./validation_general.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Common misconceptions in map validation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -442,11 +447,11 @@ window.Quarto = {
 </header>
 
 
-<p>We organize UQ methods along two axes by whether uncertainty is intrinsic to the model (produced during training) or applied post hoc, and what type of uncertainty each method captures. Table <a href="#tbl-uq-methods" class="quarto-xref">Table&nbsp;<span>12.1</span></a> provides a summary and we discuss each family below. The methods below represent different points on the tradeoff between statistical rigor and computational feasibility, and no existing method occupies the ideal corner of that space.</p>
+<p>We organize UQ methods along two axes by whether uncertainty is intrinsic to the model (produced during training) or applied post hoc, and what type of uncertainty each method captures. Table <a href="#tbl-uq-methods" class="quarto-xref">Table&nbsp;<span>13.1</span></a> provides a summary and we discuss each family below. The methods below represent different points on the tradeoff between statistical rigor and computational feasibility, and no existing method occupies the ideal corner of that space.</p>
 <div id="tbl-uq-methods" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-uq-methods-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;12.1: Overview of uncertainty quantification methods for large-scale EO maps. Inference overhead is relative to a single forward pass. “Calibrated” indicates whether the method produces well-calibrated intervals by theoretical construction (✓), requires post-hoc calibration (<span class="math inline">\(\sim\)</span>), or provides no calibration guarantee (<span class="math inline">\(\times\)</span>).
+Table&nbsp;13.1: Overview of uncertainty quantification methods for large-scale EO maps. Inference overhead is relative to a single forward pass. “Calibrated” indicates whether the method produces well-calibrated intervals by theoretical construction (✓), requires post-hoc calibration (<span class="math inline">\(\sim\)</span>), or provides no calibration guarantee (<span class="math inline">\(\times\)</span>).
 </figcaption>
 <div aria-describedby="tbl-uq-methods-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -468,62 +473,69 @@ Table&nbsp;12.1: Overview of uncertainty quantification methods for large-scale 
 </thead>
 <tbody>
 <tr class="odd">
+<td>Gaussian Processes</td>
+<td>Both</td>
+<td><span class="math inline">\(O(n^3)\)</span></td>
+<td>Kernel misspecification or non-stationarity</td>
+<td>✓<span class="math inline">\(^*\)</span></td>
+</tr>
+<tr class="even">
 <td>Heteroskedastic NN</td>
 <td>Aleatoric</td>
 <td><span class="math inline">\(1\times\)</span></td>
 <td>Blind to epistemic; weak variance signal</td>
 <td><span class="math inline">\(\times\)</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Distributional regression</td>
 <td>Aleatoric</td>
 <td><span class="math inline">\(1\times\)</span></td>
 <td>Distribution family misspecification</td>
 <td><span class="math inline">\(\times\)</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Neural Processes</td>
 <td>Both</td>
 <td><span class="math inline">\(1\times\)</span></td>
 <td>VI approximation error</td>
 <td><span class="math inline">\(\sim\)</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Deep Ensembles</td>
 <td>Epistemic</td>
 <td><span class="math inline">\(N\times\)</span></td>
 <td>Correlated members from data</td>
 <td><span class="math inline">\(\times\)</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>MC Dropout</td>
 <td>Epistemic</td>
 <td><span class="math inline">\(K\times\)</span></td>
 <td>Systematic underestimation</td>
 <td><span class="math inline">\(\times\)</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Cheap ensembles<span class="math inline">\(^\dagger\)</span></td>
 <td>Epistemic</td>
 <td><span class="math inline">\(1.2\)</span>–<span class="math inline">\(2\times\)</span></td>
 <td>Same as ensembles, reduced</td>
 <td><span class="math inline">\(\times\)</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Quantile Regression</td>
 <td>Aleatoric</td>
 <td><span class="math inline">\(1\)</span>–<span class="math inline">\(Q\times\)</span></td>
 <td>No calibration guarantee; crossing</td>
 <td><span class="math inline">\(\times\)</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Conformal Prediction</td>
 <td>Marginal</td>
 <td><span class="math inline">\(1\times\)</span></td>
 <td>Only marginal coverage; exchangeability</td>
 <td>✓<span class="math inline">\(^\ddagger\)</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>CQR</td>
 <td>Both<span class="math inline">\(^\S\)</span></td>
 <td><span class="math inline">\(1\times\)</span></td>
@@ -567,7 +579,7 @@ Table&nbsp;12.1: Overview of uncertainty quantification methods for large-scale 
 <section id="quantile-regression" class="level3">
 <h3 class="anchored" data-anchor-id="quantile-regression">Quantile Regression</h3>
 <p>Rather than deriving prediction intervals from a point-estimate model, quantile regression directly targets conditional quantiles by optimizing a pinball (check) loss <span class="citation" data-cites="koenker1978regression"><a href="#ref-koenker1978regression" role="doc-biblioref">[25]</a></span>. One can train separate models for the <span class="math inline">\(\tau\)</span>-th and <span class="math inline">\((1-\tau)\)</span>-th quantiles, or use a single model with multiple quantile heads, to obtain prediction intervals at any nominal level. Quantile Random Forests <span class="citation" data-cites="meinshausen2006quantile"><a href="#ref-meinshausen2006quantile" role="doc-biblioref">[14]</a></span> retain the full distribution of training samples at leaf nodes to estimate conditional quantiles non-parametrically.</p>
-<p>The appeal is directness as the model is optimized for the quantity of interest (interval bounds) rather than deriving intervals from variance estimates. The limitation is that there is no guarantee the resulting intervals are calibrated. A model trained for the 5th and 95th percentiles may achieve empirical coverage far from 90</p>
+<p>The appeal is directness as the model is optimized for the quantity of interest (interval bounds) rather than deriving intervals from variance estimates. The limitation is that there is no guarantee the resulting intervals are calibrated. A model trained for the 5th and 95th percentiles may achieve empirical coverage far from 90%. Quantile crossing (the upper bound falling below the lower bound) can also occur, though isotonic regression or architectural constraints can mitigate this.</p>
 </section>
 <section id="conformal-prediction" class="level3">
 <h3 class="anchored" data-anchor-id="conformal-prediction">Conformal Prediction</h3>
@@ -692,6 +704,108 @@ Table&nbsp;12.1: Overview of uncertainty quantification methods for large-scale 
 </section>
 
 </main> <!-- /main -->
+<script>
+// Feedback pre-fill: maps each page to its part/chapter, stamps the footer
+// "Feedback" link with those values, and (on the Feedback page) injects them
+// into the Tally embed so the two dropdowns arrive pre-selected.
+(function () {
+  // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
+  var MAP = {
+    "index.html":                        { part: "General / whole book" },
+    "howto.html":                        { part: "General / whole book" },
+    "chatbot.html":                      { part: "General / whole book" },
+    "introduction.html":                 { part: "General / whole book" },
+
+    "eo_data_landscape.html":            { part: "EO data landscape" },
+    "eo_missions.html":                  { part: "EO data landscape", chapter: "EO missions" },
+    "accessing_eo_data.html":            { part: "EO data landscape", chapter: "Accessing EO data" },
+
+    "data_selection_preprocessing.html": { part: "Data selection & preprocessing" },
+    "data_selection.html":               { part: "Data selection & preprocessing", chapter: "Data selection" },
+    "data_preprocessing.html":           { part: "Data selection & preprocessing", chapter: "Data preprocessing" },
+
+    "ml_pipeline.html":                  { part: "ML dataset & training" },
+    "ml_ready_dataset.html":             { part: "ML dataset & training", chapter: "Constructing an ML-ready dataset" },
+    "model_design_training.html":        { part: "ML dataset & training", chapter: "Model design and training" },
+
+    "uncertainty_quantification.html":   { part: "Uncertainty quantification" },
+    "uq_sources.html":                   { part: "Uncertainty quantification", chapter: "Sources of uncertainty" },
+    "uq_methods.html":                   { part: "Uncertainty quantification", chapter: "Uncertainty quantification methods" },
+    "uq_calibration.html":               { part: "Uncertainty quantification", chapter: "Assessing calibration" },
+    "uq_spatial.html":                   { part: "Uncertainty quantification", chapter: "Spatial structure of uncertainty" },
+    "uq_operationalizing.html":          { part: "Uncertainty quantification", chapter: "Operationalizing uncertainty" },
+
+    "map_production.html":               { part: "Map production & distribution" },
+    "map_generation.html":               { part: "Map production & distribution", chapter: "Map generation" },
+    "post_processing.html":              { part: "Map production & distribution", chapter: "Post-processing" },
+    "sharing.html":                      { part: "Map production & distribution", chapter: "Sharing" },
+
+    "validation.html":                   { part: "Validation" },
+    "validation_general.html":           { part: "Validation", chapter: "Common misconceptions in map validation" },
+    "validation_design_based.html":      { part: "Validation", chapter: "Design-based accuracy assessment" },
+    "validation_beyond.html":            { part: "Validation", chapter: "Validation beyond probability sampling" },
+
+    "conclusion.html":                   { part: "Conclusion" },
+    "conclusion_summary.html":           { part: "Conclusion", chapter: "Conclusion: summary" },
+    "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
+    "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
+
+    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
+    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
+    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+  };
+
+  function currentInfo() {
+    var base = (window.location.pathname.split("/").pop() || "index.html");
+    if (!base) base = "index.html";
+    return MAP[base] || null;
+  }
+
+  function qs(info) {
+    var p = [];
+    if (info && info.part)    p.push("part=" + encodeURIComponent(info.part));
+    if (info && info.chapter) p.push("chapter=" + encodeURIComponent(info.chapter));
+    return p.join("&");
+  }
+
+  function run() {
+    var info = currentInfo();
+
+    // 1) Stamp the footer "Feedback" link with the current section.
+    var link = document.getElementById("site-feedback-link");
+    if (link) {
+      var query = qs(info);
+      if (query) {
+        var href = link.getAttribute("href").split("?")[0];
+        link.setAttribute("href", href + "?" + query);
+      }
+    }
+
+    // 2) On the Feedback page, feed the URL's part/chapter into the Tally embed.
+    var iframe = document.getElementById("tally-feedback");
+    if (iframe) {
+      var url = new URL(window.location.href);
+      var parts = [];
+      if (url.searchParams.get("part"))    parts.push("part=" + encodeURIComponent(url.searchParams.get("part")));
+      if (url.searchParams.get("chapter")) parts.push("chapter=" + encodeURIComponent(url.searchParams.get("chapter")));
+      var src = iframe.getAttribute("data-tally-src");
+      if (parts.length) src += (src.indexOf("?") > -1 ? "&" : "?") + parts.join("&");
+      iframe.setAttribute("data-tally-src", src);
+
+      var s = document.createElement("script");
+      s.src = "https://tally.so/widgets/embed.js";
+      document.body.appendChild(s);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -1111,8 +1225,8 @@ Table&nbsp;12.1: Overview of uncertainty quantification methods for large-scale 
 <p>Best Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/uq_methods.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/uq_methods.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Built with <a href="https://quarto.org/">Quarto</a></p>
 </div>

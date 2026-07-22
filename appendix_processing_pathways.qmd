@@ -11,6 +11,7 @@ For Sentinel-2, the differences between CDSE and GEE are summarized in Table @tb
 
 **Aspect** | **CDSE (native)** | **GEE** |
 | --- | --- | --- |
+| Radiometric offset (post PB 04.00) | $+1000$ DN baked in | Subtracted in `HARMONIZED` collections; passed through unchanged in non-harmonized collections |
 | Atmospheric correction | Sen2Cor | Same (ingested from CDSE) |
 | Processing baseline currency | Authoritative; updated on ESA's schedule | May lag CDSE during reprocessing campaigns |
 | QA60 cloud mask | Discontinued by ESA after Feb 2022 | Reconstructed from classification data starting Feb 2024 |
@@ -21,12 +22,13 @@ The most consequential subtlety beyond the table is the *timing of baseline repr
 
 The *QA60 reconstruction* introduced by GEE in February 2024 is similarly worth flagging. ESA discontinued the legacy polygon-based cloud mask after February 2022, leaving a two-year gap in QA60 availability on GEE. The reconstructed band, derived from classification outputs, is intended to preserve backward compatibility with pipelines that depend on QA60 but is not part of the native CDSE distribution and should not be assumed to be bit-identical to pre-2022 QA60 values.
 
-## Sentinel-1
+## Sentinel-1 {#sec-s1-pathways}
 
 For Sentinel-1, the differences are more substantial because GEE applies a full preprocessing chain (thermal noise removal, data calibration, multi-looking and range-doppler terrain correction) rather than redistributing the GRD product, and the three CDSE pathways themselves expose different defaults and degrees of configurability. Table @tbl-s1-pathways summarizes the four options side by side.
 
 | **Step** | **CDSE (OData)** | **CDSE (Sentinel Hub)** | **CDSE (openEO)** | **Google Earth Engine** |
 | --- | --- | --- | --- | --- |
+| Backscatter convention | User choice ($\beta^0/\sigma^0/\gamma^0$) | Configurable (default $\gamma^0$ ellipsoid) | $\sigma^0$ ellipsoid (fixed) | $\sigma^0$ only |
 | Thermal noise removal | $\times$ | ✓ | ✓ | ✓ |
 | Speckle filtering | $\times$ | Configurable | $\times$ | $\times$ |
 | Orthorectification | $\times$ | Configurable, with Range--Doppler terrain correction | ✓ | ✓ |
@@ -43,9 +45,9 @@ The DEM choice is also where the most significant divergence between Sentinel Hu
 
 Speckle filtering is not applied by default on any pathway: it is left to the user. GEE provides only GRD-level data, so any workflow requiring phase information for interferometry must use CDSE direct download (or another canonical provider such as ASF), as SLC products are not available through Sentinel Hub, openEO, or GEE.
 
-### Sentinel-1 {#sec-s1-pathways}
+### Sentinel-1 RTC
 
-RTC CDSE also distributes a Sentinel-1 Radiometric Terrain Corrected (RTC) backscatter product, processed from GRD inputs and compliant with the CEOS Analysis Ready Data for Land (CARD4L) specifications for Normalized Radar Backscatter (NRB). RTC products are orthorectified using the Copernicus DEM and delivered without speckle filtering. The NRB standard --- which combines range--Doppler geocoding with radiometric terrain correction --- is increasingly adopted across providers and may eventually supersede GRD as the default Sentinel-1 distribution format for analysis-ready use cases.
+CDSE also distributes a Sentinel-1 Radiometric Terrain Corrected (RTC) backscatter product, processed from GRD inputs and compliant with the CEOS Analysis Ready Data for Land (CARD4L) specifications for Normalized Radar Backscatter (NRB). RTC products are orthorectified using the Copernicus DEM and delivered without speckle filtering. The NRB standard --- which combines range--Doppler geocoding with radiometric terrain correction --- is increasingly adopted across providers and may eventually supersede GRD as the default Sentinel-1 distribution format for analysis-ready use cases.
 
 ## Further reading
 

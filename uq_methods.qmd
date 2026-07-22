@@ -7,6 +7,7 @@ We organize UQ methods along two axes by whether uncertainty is intrinsic to the
 
 **Method** | **Captures** | **Overhead** | **EO failure modes** | **Calibrated?** |
 | --- | --- | --- | --- | --- |
+| Gaussian Processes | Both | $O(n^3)$ | Kernel misspecification or non-stationarity | ✓$^*$ |
 | Heteroskedastic NN | Aleatoric | $1\times$ | Blind to epistemic; weak variance signal | $\times$ |
 | Distributional regression | Aleatoric | $1\times$ | Distribution family misspecification | $\times$ |
 | Neural Processes | Both | $1\times$ | VI approximation error | $\sim$ |
@@ -59,7 +60,7 @@ A complementary direction is multi-model ensembling at the foundation model leve
 
 Rather than deriving prediction intervals from a point-estimate model, quantile regression directly targets conditional quantiles by optimizing a pinball (check) loss [@koenker1978regression]. One can train separate models for the $\tau$-th and $(1-\tau)$-th quantiles, or use a single model with multiple quantile heads, to obtain prediction intervals at any nominal level. Quantile Random Forests [@meinshausen2006quantile] retain the full distribution of training samples at leaf nodes to estimate conditional quantiles non-parametrically.
 
-The appeal is directness as the model is optimized for the quantity of interest (interval bounds) rather than deriving intervals from variance estimates. The limitation is that there is no guarantee the resulting intervals are calibrated. A model trained for the 5th and 95th percentiles may achieve empirical coverage far from 90
+The appeal is directness as the model is optimized for the quantity of interest (interval bounds) rather than deriving intervals from variance estimates. The limitation is that there is no guarantee the resulting intervals are calibrated. A model trained for the 5th and 95th percentiles may achieve empirical coverage far from 90%. Quantile crossing (the upper bound falling below the lower bound) can also occur, though isotonic regression or architectural constraints can mitigate this.
 
 ### Conformal Prediction
 

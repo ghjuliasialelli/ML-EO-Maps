@@ -5,7 +5,9 @@ title: "Assessing calibration"
 
 The preceding methods differ not only in cost but in whether they produce calibrated uncertainty, which raises the question of how to verify calibration in the first place. Reporting uncertainty without verifying its calibration is akin to reporting accuracy without a test set. We recommend a minimal set of diagnostics that should accompany maps with per-pixel uncertainty:
 
-### Coverage and Reliability Do the $1\sigma$ ($\approx$68
+### Coverage and Reliability
+
+Do the $1\sigma$ ($\approx$68%) prediction intervals contain 68% of held-out observations, and the $2\sigma$ ($\approx$95%) intervals contain 95%? Coverage above the nominal level indicates underconfident (conservative) intervals and coverage below indicates overconfidence. Plot observed coverage against nominal coverage for a range of probability levels (e.g., 10% through 90%). A well-calibrated model lies on the diagonal. This generalises the coverage check to all levels simultaneously and is the regression analogue of the classification reliability diagram [@kuleshov2018accurate].
 
 ### Standardized residuals
 
