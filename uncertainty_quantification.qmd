@@ -1,5 +1,4 @@
 ---
-id: sec-uq
 title: "Uncertainty quantification"
 ---
 

@@ -1,5 +1,4 @@
 ---
-id: sec-uq-spatial
 title: "Spatial structure of uncertainty"
 ---
 

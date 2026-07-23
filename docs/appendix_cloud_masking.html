@@ -168,27 +168,32 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -394,7 +399,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -435,7 +440,7 @@ window.Quarto = {
 
 
 <p>Cloud and cloud-shadow detection is the single most consequential preprocessing step for any Sentinel-2 workflow that operates on individual scenes rather than aggregated composites. The choice of method involves a trade-off along three axes: detection quality (does it correctly flag thin cirrus, cloud edges, and cast shadows?), computational cost (can it run at archive scale on available infrastructure?), and operational availability (is it pre-computed and shipped with the product, or must it be run separately?). No single method dominates on all three axes, and the appropriate choice depends on the use case: a global mapping pipeline running monthly composites has different requirements from a single-scene change-detection workflow where every false negative becomes a visible artifact.</p>
-<p>Table <a href="#tbl-s2-cloud-masking" class="quarto-xref">Table&nbsp;<span>D.1</span></a> compares the methods in current use. We distinguish the algorithmic family (rule-based, classical ML, or deep learning), the form of the output (binary mask versus continuous quality score), and the practical considerations that govern whether a given method is realistic to deploy at scale.</p>
+<p><a href="#tbl-s2-cloud-masking" class="quarto-xref">Table&nbsp;<span>D.1</span></a> compares the methods in current use. We distinguish the algorithmic family (rule-based, classical ML, or deep learning), the form of the output (binary mask versus continuous quality score), and the practical considerations that govern whether a given method is realistic to deploy at scale.</p>
 <div id="tbl-s2-cloud-masking" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s2-cloud-masking-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -468,7 +473,7 @@ Table&nbsp;D.1: Cloud and cloud-shadow masking methods for Sentinel-2 data. <spa
 <td>Fmask <span class="citation" data-cites="QIU2019111205"><a href="#ref-QIU2019111205" role="doc-biblioref">[2]</a></span></td>
 <td>Physics-based and ML</td>
 <td>Multi-class label</td>
-<td><span class="math inline">\(\times\)</span></td>
+<td>×</td>
 </tr>
 <tr class="odd">
 <td>Cloud Score+ <span class="citation" data-cites="Pasquarella2023"><a href="#ref-Pasquarella2023" role="doc-biblioref">[3]</a></span></td>
@@ -486,19 +491,19 @@ Table&nbsp;D.1: Cloud and cloud-shadow masking methods for Sentinel-2 data. <spa
 <td>KappaMask <span class="citation" data-cites="Domnich2021"><a href="#ref-Domnich2021" role="doc-biblioref">[5]</a></span></td>
 <td>Deep learning</td>
 <td>Multi-class label</td>
-<td><span class="math inline">\(\times\)</span></td>
+<td>×</td>
 </tr>
 <tr class="even">
 <td>CloudSen12 <span class="citation" data-cites="Aybar2022"><a href="#ref-Aybar2022" role="doc-biblioref">[6]</a></span></td>
 <td>Deep learning</td>
 <td>Multi-class label</td>
-<td><span class="math inline">\(\times\)</span></td>
+<td>×</td>
 </tr>
 <tr class="odd">
 <td>OmniCloudMask <span class="citation" data-cites="Wright2025"><a href="#ref-Wright2025" role="doc-biblioref">[7]</a></span></td>
 <td>Deep learning</td>
 <td>Multi-class label</td>
-<td><span class="math inline">\(\times\)</span></td>
+<td>×</td>
 </tr>
 </tbody>
 </table>
@@ -544,8 +549,10 @@ Table&nbsp;D.1: Cloud and cloud-shadow masking methods for Sentinel-2 data. <spa
   // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
   var MAP = {
     "index.html":                        { part: "General / whole book" },
+    "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
+    "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
 
     "eo_data_landscape.html":            { part: "EO data landscape" },
@@ -1040,8 +1047,8 @@ Table&nbsp;D.1: Cloud and cloud-shadow masking methods for Sentinel-2 data. <spa
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./appendix_sar_rtc.html" class="pagination-link" aria-label="Radiometric Calibration and Terrain Correction of SAR data">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></span>
+      <a href="./appendix_sar_rtc.html" class="pagination-link" aria-label="Radiometric calibration and terrain correction of SAR data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

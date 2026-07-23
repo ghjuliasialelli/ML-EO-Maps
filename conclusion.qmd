@@ -1,4 +1,5 @@
 ---
-id: sec-conclusion
 title: "Conclusion"
 ---
+
+This final part draws the threads of the book together. [Summary](conclusion_summary.qmd) distills the central lessons of each pipeline stage into actionable recommendations, from data access and preprocessing through model training, uncertainty quantification, map production, and validation. [Looking forward](conclusion_forward.qmd) turns to the structural challenges that will shape the field in the coming years, highlighting six directions we consider both urgent and tractable. Finally, [Limitations](conclusion_limitations.qmd) reflects on the scope and blind spots of the present work.

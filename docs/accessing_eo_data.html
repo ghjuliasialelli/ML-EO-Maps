@@ -169,27 +169,32 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -395,7 +400,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -435,23 +440,18 @@ window.Quarto = {
 </header>
 
 
-<p>In this section, we focus on accessing EO data products. The access landscape has expanded significantly in recent years, but it is also fast-moving and not cleanly delineated: providers and platforms regularly restructure their offerings, pricing, and access policies, and the boundaries between “canonical provider”, “cloud re-distributor”, and “compute platform” are increasingly blurred. A unifying constraint across this landscape is <em>data gravity</em>: modern EO archives have grown to a scale where even freely available data is often impractical to move, and the position of compute relative to data has become a primary design factor. This is the underlying reason most large-scale EO workflows today rely on platforms that co-locate data and compute rather than directly downloading from canonical providers. Figure <a href="#fig-eo-data-access" class="quarto-xref">Figure&nbsp;<span>8.1</span></a> provides an overview of the resulting access landscape.</p>
-<div id="fig-eo-data-access" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-eo-data-access-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/overview.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-eo-data-access-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.1: Overview of the EO data access landscape.
-</figcaption>
-</figure>
-</div>
+<p>In this section, we focus on accessing EO data products. The access landscape has expanded significantly in recent years, but it is also fast-moving and not cleanly delineated: providers and platforms regularly restructure their offerings, pricing, and access policies, and the boundaries between “canonical provider”, “cloud re-distributor”, and “compute platform” are increasingly blurred. A unifying constraint across this landscape is <em>data gravity</em>: modern EO archives have grown to a scale where even freely available data is often impractical to move, and the position of compute relative to data has become a primary design factor. This is the underlying reason most large-scale EO workflows today rely on platforms that co-locate data and compute rather than directly downloading from canonical providers.</p>
+<!-- TODO: create a dedicated EO-data-access-landscape figure. The previous version
+of this page showed images/overview.png (the pipeline overview diagram) here with an
+"access landscape" caption, which did not match the image. Restore once the figure exists:
+@fig-eo-data-access provides an overview of the resulting access landscape.
+![Overview of the EO data access landscape.](images/eo-data-access.png){#fig-eo-data-access} -->
 <p><strong>Canonical EO data providers</strong> maintain authoritative archives of specific satellite missions and datasets. The Copernicus Data Space Ecosystem (CDSE) serves as the primary distribution point for Sentinel missions and related European products. The United States Geological Survey (USGS) provides access to Landsat observations. NASA Earthdata hosts MODIS, GEDI, ICESat-2, and other NASA Earth science products. The European Organisation for the Exploitation of Meteorological Satellites (EUMETSAT) distributes data from MSG, MTG, Sentinel-3, Sentinel-6, and related systems. Additional canonical providers include the JAXA Earth Observation Center for ALOS PALSAR, DLR Geoservice for TanDEM-X, and various other agencies maintaining specialized datasets on dedicated platforms.</p>
-<p><strong>Re-distribution platforms</strong> have emerged to simplify this access, though their roles vary considerably. Google Earth Engine (GEE) <span class="citation" data-cites="gorelick2017google"><a href="#ref-gorelick2017google" role="doc-biblioref">[1]</a></span> is best understood as a compute ecosystem with co-located data rather than a pure data provider. Access is primarily through server-side operations and the platform is highly effective for tasks that exploit this paradigm, including extracting moderate-scale ML training datasets, a common use in the community. However, large-scale data extraction is not what GEE is built for, and users quickly run into export quotas and rate limits. Furthermore, non-commercial quota tiers<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> were recently introduced. Microsoft Planetary Computer (MPC), by contrast, is essentially a data access layer: a STAC catalog of cloud-hosted Cloud-Optimized GeoTIFFs (COGs) in Azure Blob Storage, with no built-in server-side processing since the retirement of its free compute environment in mid-2024<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Amazon Web Services (AWS) Simple Storage Service (S3) hosts both free buckets (straightforward access) and requester-pays buckets (imposing transfer costs on the user) containing EO data. Additional platforms include Source Cooperative, SentinelHub, Google Cloud Storage public datasets, and CloudFerro<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
+<p><strong>Re-distribution platforms</strong> have emerged to simplify this access, though their roles vary considerably. Google Earth Engine (GEE) <span class="citation" data-cites="gorelick2017google"><a href="#ref-gorelick2017google" role="doc-biblioref">[1]</a></span> is best understood as a compute ecosystem with co-located data rather than a pure data provider. Access is primarily through server-side operations and the platform is highly effective for tasks that exploit this paradigm, including extracting moderate-scale ML training datasets, a common use in the community. However, large-scale data extraction is not what GEE is built for, and users quickly run into export quotas and rate limits. Furthermore, non-commercial quota tiers<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> were recently introduced. Microsoft Planetary Computer (MPC), by contrast, is essentially a data access layer: a STAC catalog of cloud-hosted Cloud-Optimized GeoTIFFs (COGs) in Azure Blob Storage, with no built-in server-side processing since the retirement of its free compute environment in mid-2024<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Amazon Web Services (AWS) Simple Storage Service (S3) hosts both free buckets (straightforward access) and requester-pays buckets (imposing transfer costs on the user) containing EO data. Additional platforms include Source Cooperative, SentinelHub, Google Cloud Storage public datasets, and CloudFerro<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
 <div id="tbl-eo-providers" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-eo-providers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;8.1: Overview of major Earth observation data providers. <strong>Host</strong>: cloud infrastructure where the data resides, with geographic region when documented. <strong>Online operations</strong>: whether server-side processing such as multi-scene compositing or cloud-masking is exposed through an API. <strong>Large-scale egress</strong>: feasibility of bulk archive download, ✓ = supported on the standard tier modulo cloud egress costs; <span class="math inline">\(\approx\)</span> = requires commercial or institutional arrangements beyond standard egress; × = the access API is not architecturally suited to bulk download regardless of budget. <strong>Large-scale cloud compute collocation</strong>: feasibility of running very large workloads such as deep learning inference at planetary resolution on infrastructure adjacent to the data, ✓ = the data resides on a hyperscaler (AWS, Azure, or Google Cloud Platform) offering large GPU/TPU pools in the same region; <span class="math inline">\(\approx\)</span> = compute is available on the underlying infrastructure but does not reach hyperscaler scale, or the path between data and compute is interrupted by mandatory exports. *GEE data is not directly user-accessible at the storage layer; access requires the GEE platform’s own constrained compute environment.
+Table&nbsp;3.1: Overview of major Earth observation data providers. <strong>Host</strong>: cloud infrastructure where the data resides, with geographic region when documented. <strong>Online operations</strong>: whether server-side processing such as multi-scene compositing or cloud-masking is exposed through an API. <strong>Large-scale egress</strong>: feasibility of bulk archive download, ✓ = supported on the standard tier modulo cloud egress costs; <span class="math inline">\(\approx\)</span> = requires commercial or institutional arrangements beyond standard egress; × = the access API is not architecturally suited to bulk download regardless of budget. <strong>Large-scale cloud compute collocation</strong>: feasibility of running very large workloads such as deep learning inference at planetary resolution on infrastructure adjacent to the data, ✓ = the data resides on a hyperscaler (AWS, Azure, or Google Cloud Platform) offering large GPU/TPU pools in the same region; <span class="math inline">\(\approx\)</span> = compute is available on the underlying infrastructure but does not reach hyperscaler scale, or the path between data and compute is interrupted by mandatory exports. <sup>*</sup>GEE data is not directly user-accessible at the storage layer; access requires the GEE platform’s own constrained compute environment.
 </figcaption>
 <div aria-describedby="tbl-eo-providers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -502,7 +502,7 @@ Table&nbsp;8.1: Overview of major Earth observation data providers. <strong>Host
 </tr>
 <tr class="even">
 <td><a href="https://developers.google.com/earth-engine/datasets/catalog">Google Earth Engine</a></td>
-<td>Google Cloud Storage*</td>
+<td>Google Cloud Storage<sup>*</sup></td>
 <td>✓</td>
 <td>×</td>
 <td><span class="math inline">\(\approx\)</span></td>
@@ -547,9 +547,9 @@ Table&nbsp;8.1: Overview of major Earth observation data providers. <strong>Host
 </div>
 </figure>
 </div>
-<p>Relying on re-distribution platforms introduces several trade-offs. Since these platforms ingest data from canonical EO providers, there may be latency between acquisition and availability, and their processing pipelines may differ from those of the original providers. As an example, we provide an overview of the processing differences between the native Sentinel-1/2 data products and their GEE equivalents in <a href="./appendix_processing_pathways.html#sentinel-2">Sentinel-2 Processing</a>. Data gaps can also occur, as regularly reported by users on the MPC <a href="https://github.com/microsoft/PlanetaryComputer/issues">GitHub repository</a>.</p>
-<p>Accessing EO data therefore involves practical choices across multiple dimensions. Each platform offers distinct trade-offs in where the data is hosted, support for server-side operations, suitability for large-scale download, and feasibility of running large-scale collocated compute — we summarize them in Table <a href="#tbl-eo-providers" class="quarto-xref">Table&nbsp;<span>8.1</span></a>. Most providers have converged on STAC as a catalog standard and the S3 protocol as a download mechanism, but they differ in whether they support online operations such as compositing, in their suitability for large-scale downloads, and in whether the underlying infrastructure can host hyperscaler-class compute alongside the data.</p>
-<p>A practical pattern that follows from data gravity is to treat EO data access as a two-stage process. <em>Model development</em> typically involves modest data volumes that can be downloaded comfortably from almost any provider; here, convenience and catalog coverage dominate the choice. <em>Inference at scale</em>, on the other hand, is dominated by data movement: pulling petabyte-scale imagery from one provider into a different compute environment is rarely tractable. As a result, practitioners typically either (i) co-locate inference compute with the data, or (ii) accept the time and storage cost of moving the EO data into their compute environment. In the first case, this means inference at the largest scales is feasible only where the data lives on a hyperscaler (AWS, Azure, or GCP) with large GPU/TPU pools available in the same region, which the rightmost column of Table <a href="#tbl-eo-providers" class="quarto-xref">Table&nbsp;<span>8.1</span></a> reflects. The platform that minimizes friction for training is therefore often not the one that minimizes cost for inference. No universally optimal solution exists: the most appropriate choice depends on the scale of analysis, computational requirements, institutional constraints, and the acceptable trade-off between immediate convenience and the risk of lock-in to proprietary platforms.</p>
+<p>Relying on re-distribution platforms introduces several trade-offs. Since these platforms ingest data from canonical EO providers, there may be latency between acquisition and availability, and their processing pipelines may differ from those of the original providers. As an example, we provide an overview of the processing differences between the native Sentinel-1/2 data products and their GEE equivalents in <a href="./appendix_processing_pathways.html#sec-s2-pathways">Sentinel-2 Processing</a>. Data gaps can also occur, as regularly reported by users on the MPC <a href="https://github.com/microsoft/PlanetaryComputer/issues">GitHub repository</a>.</p>
+<p>Accessing EO data therefore involves practical choices across multiple dimensions. Each platform offers distinct trade-offs in where the data is hosted, support for server-side operations, suitability for large-scale download, and feasibility of running large-scale collocated compute — we summarize them in <a href="#tbl-eo-providers" class="quarto-xref">Table&nbsp;<span>3.1</span></a>. Most providers have converged on STAC as a catalog standard and the S3 protocol as a download mechanism, but they differ in whether they support online operations such as compositing, in their suitability for large-scale downloads, and in whether the underlying infrastructure can host hyperscaler-class compute alongside the data.</p>
+<p>A practical pattern that follows from data gravity is to treat EO data access as a two-stage process. <em>Model development</em> typically involves modest data volumes that can be downloaded comfortably from almost any provider; here, convenience and catalog coverage dominate the choice. <em>Inference at scale</em>, on the other hand, is dominated by data movement: pulling petabyte-scale imagery from one provider into a different compute environment is rarely tractable. As a result, practitioners typically either (i) co-locate inference compute with the data, or (ii) accept the time and storage cost of moving the EO data into their compute environment. In the first case, this means inference at the largest scales is feasible only where the data lives on a hyperscaler (AWS, Azure, or GCP) with large GPU/TPU pools available in the same region, which the rightmost column of <a href="#tbl-eo-providers" class="quarto-xref">Table&nbsp;<span>3.1</span></a> reflects. The platform that minimizes friction for training is therefore often not the one that minimizes cost for inference. No universally optimal solution exists: the most appropriate choice depends on the scale of analysis, computational requirements, institutional constraints, and the acceptable trade-off between immediate convenience and the risk of lock-in to proprietary platforms.</p>
 <p>The choice of data source and access pathway establishes the starting point of the pipeline. The next section turns to the practical challenges of selecting and processing these satellite observations, to make them suitable for ML workflows and map generation.</p>
 
 
@@ -562,7 +562,7 @@ Table&nbsp;8.1: Overview of major Earth observation data providers. <strong>Host
 <hr>
 <ol>
 <li id="fn1"><p><a href="https://perma.cc/2Q5W-2RUN" class="uri">https://perma.cc/2Q5W-2RUN</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p><a href="https://github.com/microsoft/PlanetaryComputer/discussions/347" class="uri">https://github.com/microsoft/PlanetaryComputer/discussions/347</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://github.com/microsoft/PlanetaryComputer/discussions/347" class="uri">https://github.com/microsoft/PlanetaryComputer/discussions/347</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>CloudFerro also acts as a canonical EO data provider, as the CDSE cloud provider.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
@@ -576,8 +576,10 @@ Table&nbsp;8.1: Overview of major Earth observation data providers. <strong>Host
   // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
   var MAP = {
     "index.html":                        { part: "General / whole book" },
+    "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
+    "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
 
     "eo_data_landscape.html":            { part: "EO data landscape" },

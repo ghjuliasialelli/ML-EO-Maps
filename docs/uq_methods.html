@@ -169,27 +169,32 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -395,7 +400,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -452,11 +457,11 @@ window.Quarto = {
 </header>
 
 
-<p>We organize UQ methods along two axes by whether uncertainty is intrinsic to the model (produced during training) or applied post hoc, and what type of uncertainty each method captures. Table <a href="#tbl-uq-methods" class="quarto-xref">Table&nbsp;<span>14.1</span></a> provides a summary and we discuss each family below. The methods below represent different points on the tradeoff between statistical rigor and computational feasibility, and no existing method occupies the ideal corner of that space.</p>
+<p>We organize UQ methods along two axes by whether uncertainty is intrinsic to the model (produced during training) or applied post hoc, and what type of uncertainty each method captures. <a href="#tbl-uq-methods" class="quarto-xref">Table&nbsp;<span>9.1</span></a> provides a summary and we discuss each family below. The methods below represent different points on the tradeoff between statistical rigor and computational feasibility, and no existing method occupies the ideal corner of that space.</p>
 <div id="tbl-uq-methods" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-uq-methods-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;14.1: Overview of uncertainty quantification methods for large-scale EO maps. Inference overhead is relative to a single forward pass. “Calibrated” indicates whether the method produces well-calibrated intervals by theoretical construction (✓), requires post-hoc calibration (<span class="math inline">\(\sim\)</span>), or provides no calibration guarantee (<span class="math inline">\(\times\)</span>).
+Table&nbsp;9.1: Overview of uncertainty quantification methods for large-scale EO maps. Inference overhead is relative to a single forward pass. “Calibrated” indicates whether the method produces well-calibrated intervals by theoretical construction (✓), requires post-hoc calibration (<span class="math inline">\(\sim\)</span>), or provides no calibration guarantee (×). <span class="math inline">\(^*\)</span> Only under a well-specified kernel. <span class="math inline">\(^\dagger\)</span> Snapshot ensembles, SWA/SWAG, BatchEnsemble, FiLM-Ensemble. <span class="math inline">\(^\ddagger\)</span> Marginal coverage only, not conditional. <span class="math inline">\(^\S\)</span> Via the adaptivity of the base quantile model.
 </figcaption>
 <div aria-describedby="tbl-uq-methods-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -489,14 +494,14 @@ Table&nbsp;14.1: Overview of uncertainty quantification methods for large-scale 
 <td>Aleatoric</td>
 <td><span class="math inline">\(1\times\)</span></td>
 <td>Blind to epistemic; weak variance signal</td>
-<td><span class="math inline">\(\times\)</span></td>
+<td>×</td>
 </tr>
 <tr class="odd">
 <td>Distributional regression</td>
 <td>Aleatoric</td>
 <td><span class="math inline">\(1\times\)</span></td>
 <td>Distribution family misspecification</td>
-<td><span class="math inline">\(\times\)</span></td>
+<td>×</td>
 </tr>
 <tr class="even">
 <td>Neural Processes</td>
@@ -510,28 +515,28 @@ Table&nbsp;14.1: Overview of uncertainty quantification methods for large-scale 
 <td>Epistemic</td>
 <td><span class="math inline">\(N\times\)</span></td>
 <td>Correlated members from data</td>
-<td><span class="math inline">\(\times\)</span></td>
+<td>×</td>
 </tr>
 <tr class="even">
 <td>MC Dropout</td>
 <td>Epistemic</td>
 <td><span class="math inline">\(K\times\)</span></td>
 <td>Systematic underestimation</td>
-<td><span class="math inline">\(\times\)</span></td>
+<td>×</td>
 </tr>
 <tr class="odd">
 <td>Cheap ensembles<span class="math inline">\(^\dagger\)</span></td>
 <td>Epistemic</td>
 <td><span class="math inline">\(1.2\)</span>–<span class="math inline">\(2\times\)</span></td>
 <td>Same as ensembles, reduced</td>
-<td><span class="math inline">\(\times\)</span></td>
+<td>×</td>
 </tr>
 <tr class="even">
 <td>Quantile Regression</td>
 <td>Aleatoric</td>
 <td><span class="math inline">\(1\)</span>–<span class="math inline">\(Q\times\)</span></td>
 <td>No calibration guarantee; crossing</td>
-<td><span class="math inline">\(\times\)</span></td>
+<td>×</td>
 </tr>
 <tr class="odd">
 <td>Conformal Prediction</td>
@@ -717,8 +722,10 @@ Table&nbsp;14.1: Overview of uncertainty quantification methods for large-scale 
   // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
   var MAP = {
     "index.html":                        { part: "General / whole book" },
+    "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
+    "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
 
     "eo_data_landscape.html":            { part: "EO data landscape" },

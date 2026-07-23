@@ -1,9 +1,8 @@
 ---
-id: sec-validation
 title: "Validation"
 ---
 
-Validation is between map production and map credibility. Yet, it is not a one-size-fits-all procedure and the validation protocol must be designed in relation to the intended use of the map and integrated into project planning from the outset. The choice of validation approach, metrics, and reporting standards should therefore be defined before any map is produced. This is increasingly relevant with the growing accessibility of large-scale computing infrastructure and ML methods, which have dramatically lowered the barrier to generating new maps.
+Validation is the bridge between map production and map credibility. Yet, it is not a one-size-fits-all procedure and the validation protocol must be designed in relation to the intended use of the map and integrated into project planning from the outset. The choice of validation approach, metrics, and reporting standards should therefore be defined before any map is produced. This is increasingly relevant with the growing accessibility of large-scale computing infrastructure and ML methods, which have dramatically lowered the barrier to generating new maps.
 
 This section focuses on the principles and best practices of **design-based map validation**, which forms the foundation of current international guidelines for geospatial accuracy assessment [@olofsson2014good; @tyukavina2025practical]. Under this framework, validation relies on reference data collected through probability sampling designs with known, non-zero inclusion probabilities, enabling statistically rigorous and unbiased estimation of map accuracy. While many of these concepts originated in land-cover validation, they remain broadly applicable across a wide range of geospatial products.
 

@@ -1,24 +1,23 @@
 ---
-id: sec-uq-methods
 title: "Uncertainty quantification methods"
 ---
 
-We organize UQ methods along two axes by whether uncertainty is intrinsic to the model (produced during training) or applied post hoc, and what type of uncertainty each method captures. Table @tbl-uq-methods provides a summary and we discuss each family below. The methods below represent different points on the tradeoff between statistical rigor and computational feasibility, and no existing method occupies the ideal corner of that space.
+We organize UQ methods along two axes by whether uncertainty is intrinsic to the model (produced during training) or applied post hoc, and what type of uncertainty each method captures. @tbl-uq-methods provides a summary and we discuss each family below. The methods below represent different points on the tradeoff between statistical rigor and computational feasibility, and no existing method occupies the ideal corner of that space.
 
-**Method** | **Captures** | **Overhead** | **EO failure modes** | **Calibrated?** |
+| **Method** | **Captures** | **Overhead** | **EO failure modes** | **Calibrated?** |
 | --- | --- | --- | --- | --- |
 | Gaussian Processes | Both | $O(n^3)$ | Kernel misspecification or non-stationarity | ✓$^*$ |
-| Heteroskedastic NN | Aleatoric | $1\times$ | Blind to epistemic; weak variance signal | $\times$ |
-| Distributional regression | Aleatoric | $1\times$ | Distribution family misspecification | $\times$ |
+| Heteroskedastic NN | Aleatoric | $1\times$ | Blind to epistemic; weak variance signal | × |
+| Distributional regression | Aleatoric | $1\times$ | Distribution family misspecification | × |
 | Neural Processes | Both | $1\times$ | VI approximation error | $\sim$ |
-| Deep Ensembles | Epistemic | $N\times$ | Correlated members from data | $\times$ |
-| MC Dropout | Epistemic | $K\times$ | Systematic underestimation | $\times$ |
-| Cheap ensembles$^\dagger$ | Epistemic | $1.2$--$2\times$ | Same as ensembles, reduced | $\times$ |
-| Quantile Regression | Aleatoric | $1$--$Q\times$ | No calibration guarantee; crossing | $\times$ |
+| Deep Ensembles | Epistemic | $N\times$ | Correlated members from data | × |
+| MC Dropout | Epistemic | $K\times$ | Systematic underestimation | × |
+| Cheap ensembles$^\dagger$ | Epistemic | $1.2$--$2\times$ | Same as ensembles, reduced | × |
+| Quantile Regression | Aleatoric | $1$--$Q\times$ | No calibration guarantee; crossing | × |
 | Conformal Prediction | Marginal | $1\times$ | Only marginal coverage; exchangeability | ✓$^\ddagger$ |
 | CQR | Both$^\S$ | $1\times$ | Marginal not conditional coverage | ✓$^\ddagger$ |
 
-: Overview of uncertainty quantification methods for large-scale EO maps. Inference overhead is relative to a single forward pass. "Calibrated" indicates whether the method produces well-calibrated intervals by theoretical construction (✓), requires post-hoc calibration ($\sim$), or provides no calibration guarantee ($\times$). {#tbl-uq-methods}
+: Overview of uncertainty quantification methods for large-scale EO maps. Inference overhead is relative to a single forward pass. "Calibrated" indicates whether the method produces well-calibrated intervals by theoretical construction (✓), requires post-hoc calibration ($\sim$), or provides no calibration guarantee (×). $^*$ Only under a well-specified kernel. $^\dagger$ Snapshot ensembles, SWA/SWAG, BatchEnsemble, FiLM-Ensemble. $^\ddagger$ Marginal coverage only, not conditional. $^\S$ Via the adaptivity of the base quantile model. {#tbl-uq-methods}
 
 ## Intrinsic methods
 

@@ -169,27 +169,32 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -395,7 +400,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -451,8 +456,8 @@ window.Quarto = {
 </section>
 <section id="distribution-unit" class="level2">
 <h2 class="anchored" data-anchor-id="distribution-unit">Distribution unit</h2>
-<p>The dissemination of global predictions also requires a choice of distribution unit. A common approach is to partition the Earth into regular tiles—for instance, the ESA WorldCover <span class="citation" data-cites="esa2021worldcover"><a href="#ref-esa2021worldcover" role="doc-biblioref">[2]</a></span> and global canopy height <span class="citation" data-cites="lang2023canopyheight"><a href="#ref-lang2023canopyheight" role="doc-biblioref">[3]</a></span> products are distributed in 3$<span class="math inline">\(3\degree\ tiles, while the Tropical Moist Forests dataset [@Vancutsem_2021] uses 10\degree\)</span>$10&nbsp;tiles. Tiles are ideally encoded as Cloud Optimized GeoTIFFs (COGs), which support partial reads via HTTP range requests, allowing clients to retrieve only the spatial extent or resolution level they need. Discovery and access can be further streamlined by publishing the tile collection as a SpatioTemporal Asset Catalog (STAC), which provides a standardized, queryable index of assets along with their spatial extents, timestamps, and associated metadata. Providing tile geometries as a separate vector file is equally valuable, as it enables users to programmatically identify which tiles intersect a given area of interest.</p>
-<p>An alternative to tile-based distribution is to expose the predictions as a global mosaic in a chunked array format such as Zarr, as done by <span class="citation" data-cites="brown2025alphaearthfoundations"><a href="#ref-brown2025alphaearthfoundations" role="doc-biblioref">[4]</a></span>. The two approaches involve a fundamental trade-off: tile-based distribution is simpler to host and share, but cross-tile queries require mosaicking on the user’s end; a global mosaic presents the data as a single continuous layer with seamless spatial queries, but demands more sophisticated infrastructure and greater reliance on network access at query time.</p>
+<p>The dissemination of global predictions also requires a choice of distribution unit. A common approach is to partition the Earth into regular tiles—for instance, the ESA WorldCover <span class="citation" data-cites="esa2021worldcover"><a href="#ref-esa2021worldcover" role="doc-biblioref">[2]</a></span> and global canopy height <span class="citation" data-cites="lang2023canopyheight"><a href="#ref-lang2023canopyheight" role="doc-biblioref">[3]</a></span> products are distributed in 3°×3° tiles, while the Tropical Moist Forests dataset <span class="citation" data-cites="Vancutsem_2021"><a href="#ref-Vancutsem_2021" role="doc-biblioref">[4]</a></span> uses 10°×10° tiles. Tiles are ideally encoded as Cloud Optimized GeoTIFFs (COGs), which support partial reads via HTTP range requests, allowing clients to retrieve only the spatial extent or resolution level they need. Discovery and access can be further streamlined by publishing the tile collection as a SpatioTemporal Asset Catalog (STAC), which provides a standardized, queryable index of assets along with their spatial extents, timestamps, and associated metadata. Providing tile geometries as a separate vector file is equally valuable, as it enables users to programmatically identify which tiles intersect a given area of interest.</p>
+<p>An alternative to tile-based distribution is to expose the predictions as a global mosaic in a chunked array format such as Zarr, as done by Brown et al. <span class="citation" data-cites="brown2025alphaearthfoundations"><a href="#ref-brown2025alphaearthfoundations" role="doc-biblioref">[5]</a></span>. The two approaches involve a fundamental trade-off: tile-based distribution is simpler to host and share, but cross-tile queries require mosaicking on the user’s end; a global mosaic presents the data as a single continuous layer with seamless spatial queries, but demands more sophisticated infrastructure and greater reliance on network access at query time.</p>
 <p>For products that include vector outputs (e.g., from polygonization), cloud-native formats such as GeoParquet for efficient columnar storage, PMTiles for web-based visualization, and FlatGeobuf for streaming and spatial filtering over HTTP offer lightweight, interoperable alternatives to traditional shapefiles.</p>
 <p>Regardless of the distribution format, aggregating predictions into a common spatial framework generally requires reprojecting data from its native coordinate reference system. For tile-based distribution, this arises when tiles span multiple UTM zones and data from adjacent zones must be merged. For global mosaics stored in a single CRS, reprojection is unavoidable for all data not originally in that system. In both cases, resampling introduces artifacts whose severity depends on the interpolation method and on the geometric distortion between the source and target projections.</p>
 </section>
@@ -477,8 +482,11 @@ window.Quarto = {
 <div id="ref-lang2023canopyheight" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[3] </div><div class="csl-right-inline">N. Lang, W. Jetz, K. Schindler, and J. D. Wegner, <span>“<span class="nocase">A High-Resolution Canopy Height Model of the Earth</span>,”</span> <em>Nature Ecology &amp; Evolution</em>, vol. 7, pp. 1778–1789, 2023, doi: <a href="https://doi.org/10.1038/s41559-023-02206-6">10.1038/s41559-023-02206-6</a>.</div>
 </div>
+<div id="ref-Vancutsem_2021" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">C. Vancutsem <em>et al.</em>, <span>“<span class="nocase">Long-term (1990–2019) monitoring of forest cover changes in the humid tropics</span>,”</span> <em>Science Advances</em>, vol. 7, no. 10, Mar. 2021, doi: <a href="https://doi.org/10.1126/sciadv.abe1603">10.1126/sciadv.abe1603</a>.</div>
+</div>
 <div id="ref-brown2025alphaearthfoundations" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">C. F. Brown <em>et al.</em>, <span>“<span class="nocase">AlphaEarth Foundations: An embedding field model for accurate and efficient global mapping from sparse label data</span>,”</span> <em>arXiv preprint arXiv:2507.22291</em>, 2025, Available: <a href="https://arxiv.org/abs/2507.22291">https://arxiv.org/abs/2507.22291</a></div>
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">C. F. Brown <em>et al.</em>, <span>“<span class="nocase">AlphaEarth Foundations: An embedding field model for accurate and efficient global mapping from sparse label data</span>,”</span> <em>arXiv preprint arXiv:2507.22291</em>, 2025, Available: <a href="https://arxiv.org/abs/2507.22291">https://arxiv.org/abs/2507.22291</a></div>
 </div>
 </div>
 </section>
@@ -492,8 +500,10 @@ window.Quarto = {
   // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
   var MAP = {
     "index.html":                        { part: "General / whole book" },
+    "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
+    "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
 
     "eo_data_landscape.html":            { part: "EO data landscape" },

@@ -140,27 +140,32 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -366,7 +371,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -407,12 +412,12 @@ div.csl-indent {
 
 
 <p>The preceding sections describe the recommended framework for map validation based on probability sampling and design-based accuracy assessment. In practice, however, this framework is not always feasible. Large-area mapping projects may lack purpose-designed probability samples, existing reference data may have been collected for different objectives, or certain products (particularly continuous-field variables) may require specialized validation strategies. In these situations, validation typically relies on one or more of three approaches: <strong>alternative inferential frameworks</strong>, <strong>existing reference datasets</strong>, and <strong>product-specific validation protocols</strong>. Although these approaches provide valuable evidence of map quality, they generally do not provide the same statistical guarantees as design-based accuracy assessment.</p>
-<p><strong>Alternative inferential framework.</strong> One alternative is to replace the design-based framework with model-based inference. Whereas design-based inference derives its validity from the randomness of the sampling process, model-based inference relies on a statistical model that describes how map errors relate to predictors such as landscape characteristics or data availability. This enables the use of non-probability reference data, such as opportunistic field plots or spatially sparse inventories, by extrapolating accuracy estimates to unsampled locations through the model <span class="citation" data-cites="stehman2019key"><a href="#ref-stehman2019key" role="doc-biblioref">[1]</a></span>. The trade-off is that validity depends entirely on whether the assumed model is correct, which may be difficult to verify. Consequently, model-based inference has seen only limited adoption in operational map accuracy assessment <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[2]</a></span>.</p>
+<p><strong>Alternative inferential frameworks.</strong> One alternative is to replace the design-based framework with model-based inference. Whereas design-based inference derives its validity from the randomness of the sampling process, model-based inference relies on a statistical model that describes how map errors relate to predictors such as landscape characteristics or data availability. This enables the use of non-probability reference data, such as opportunistic field plots or spatially sparse inventories, by extrapolating accuracy estimates to unsampled locations through the model <span class="citation" data-cites="stehman2019key"><a href="#ref-stehman2019key" role="doc-biblioref">[1]</a></span>. The trade-off is that validity depends entirely on whether the assumed model is correct, which may be difficult to verify. Consequently, model-based inference has seen only limited adoption in operational map accuracy assessment <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[2]</a></span>.</p>
 <p><strong>Existing reference datasets.</strong> In practice, validation more commonly relies on existing reference datasets than on model-based inference. National Forest Inventories (NFIs) represent a valuable source of high-quality, field-verified reference data. When the inventory sampling design aligns with the target population and class definitions of the mapped product, for example, national land cover assessments using compatible forest definitions, NFI data can support probability-sampling-based validation. However, in practice, NFIs are also used to assess products with different thematic definitions, spatial extents, or target classes, such as global land cover products. In these situations, the original sampling design may no longer correspond to the validation objective, and the resulting assessment should be interpreted with appropriate caution.</p>
 <p>In addition, NFI data are typically not openly accessible and often require formal collaboration for use in validation, particularly when applied to global products. Nevertheless, when appropriately matched to the validation objective and sampling framework, NFI-based assessments provide valuable and independent evidence of map quality and remain among the most reliable sources of reference data currently available.</p>
 <p><strong>Product-specific validation protocols.</strong> Some geospatial products require dedicated validation protocols that extend beyond the general recommendations described above. Biomass mapping provides a representative example. The CEOS WGCV Land Product Validation subgroup has developed dedicated protocols that address the particular challenges of validating continuous-field products, including the use of plot-level field measurements, allometric uncertainty, and spatial scaling from plot to pixel <span class="citation" data-cites="ceos_biomass_protocol"><a href="#ref-ceos_biomass_protocol" role="doc-biblioref">[3]</a></span>. These protocols recommend combining field inventory data with airborne LiDAR transects to bridge the scale gap between ground plots and satellite-derived estimates. Even under such protocols, however, spatial coverage remains fundamentally limited, and the resulting accuracy characterization applies only to the sampled regions.</p>
 <p>Regardless of the validation strategy adopted, the principles of transparency and rigorous reporting remain unchanged. Reference data sources and their limitations should be clearly documented, the distinction between verification and validation should be made explicit, and results should be interpreted as indicative rather than as unbiased estimates of map accuracy.</p>
-<p>The preceding sections have traced the full arc of the EO mapping pipeline, from the processing of satellite observations through to a validated, disseminated product. At each stage, we have highlighted choices that are easy to get wrong and hard to diagnose after the fact — from the silent differences between data providers, through the spatial structure of training splits, to the gap between algorithm-derived uncertainty and genuine accuracy assessment. We conclude by summarising the key recommendations that emerge from this analysis, examining the structural and institutional challenges that the community must confront as ML-based mapping matures from a research activity into an operational capability, and acknowledging the limitations of the present work.</p>
+<p>The preceding sections have traced the full arc of the EO mapping pipeline, from the processing of satellite observations through to a validated, disseminated product. At each stage, we have highlighted choices that are easy to get wrong and hard to diagnose after the fact—from the silent differences between data providers, through the spatial structure of training splits, to the gap between algorithm-derived uncertainty and genuine accuracy assessment. We conclude by summarizing the key recommendations that emerge from this analysis, examining the structural and institutional challenges that the community must confront as ML-based mapping matures from a research activity into an operational capability, and acknowledging the limitations of the present work.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -436,8 +441,10 @@ div.csl-indent {
   // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
   var MAP = {
     "index.html":                        { part: "General / whole book" },
+    "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
+    "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
 
     "eo_data_landscape.html":            { part: "EO data landscape" },

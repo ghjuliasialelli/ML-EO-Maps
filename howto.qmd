@@ -1,6 +1,4 @@
----
-title: "How to Use This Book"
----
+# How to Use This Book {.unnumbered}
 
 ## Overview {.unnumbered}
 
@@ -22,14 +20,14 @@ The book is divided into the following parts:
 
 **Validation** distinguishes model evaluation from map validation and presents design-based accuracy assessment and complementary validation approaches.
 
+<!-- TODO: Add a How to Cite section (heading commented out until there is content):
 ## How to Cite {.unnumbered}
-
-<!-- TODO: Add citation information here. -->
+-->
 
 ## Contributing {.unnumbered}
 
-This book is hosted on [GitHub](https://github.com/ghjuliasialelli/ML-EO-Maps). Contributions, corrections, and suggestions are welcome via pull requests or issues.
+This book is hosted on [GitHub](https://github.com/ghjuliasialelli/ml-eo-maps). Contributions, corrections, and suggestions are welcome via pull requests or issues.
 
+<!-- TODO: Add a License section once a license is chosen (e.g., CC BY 4.0, CC BY-NC-SA 4.0):
 ## License {.unnumbered}
-
-<!-- TODO: Specify the license for this work (e.g., CC BY 4.0, CC BY-NC-SA 4.0). -->
+-->

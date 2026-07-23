@@ -1,6 +1,4 @@
----
-title: "Feedback"
----
+# Feedback {.unnumbered}
 
 Spotted an error, found something unclear, or have a suggestion? Let us know below — every note helps improve the book. If you reached this page from a chapter, the section is pre-selected for you; adjust it if needed. Leaving your email is optional; do so only if you'd like a reply.
 

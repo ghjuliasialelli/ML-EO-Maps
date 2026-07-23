@@ -140,27 +140,32 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -366,7 +371,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -417,26 +422,26 @@ div.csl-indent {
 
 
 <p>Producing an uncertainty layer is only useful if it informs downstream decisions. We identify several modes of use, each with different requirements on the UQ method:</p>
-<section id="masking" class="level3">
-<h3 class="anchored" data-anchor-id="masking">Masking</h3>
+<section id="masking" class="level2">
+<h2 class="anchored" data-anchor-id="masking">Masking</h2>
 <p>Threshold the uncertainty and mask out high-uncertainty pixels before release or before aggregation. This is conservative but wasteful because it discards information rather than using it. For this use case, any method that produces a reasonable ranking of pixel reliability suffices and calibration is desirable but not strictly necessary, since the uncertainty values are used only to threshold, not to interpret quantitatively.</p>
 </section>
-<section id="reporting-as-a-separate-band" class="level3">
-<h3 class="anchored" data-anchor-id="reporting-as-a-separate-band">Reporting as a separate band</h3>
+<section id="reporting-as-a-separate-band" class="level2">
+<h2 class="anchored" data-anchor-id="reporting-as-a-separate-band">Reporting as a separate band</h2>
 <p>Ship the uncertainty layer alongside the map and let users decide how to use it. This is the most flexible option but places the burden of interpretation on the user, who may not have the statistical expertise to use it correctly. Calibration is essential here. If the reported uncertainty is systematically too narrow, users will make overconfident decisions.</p>
 </section>
-<section id="weighting-in-post-processing" class="level3">
-<h3 class="anchored" data-anchor-id="weighting-in-post-processing">Weighting in post-processing</h3>
+<section id="weighting-in-post-processing" class="level2">
+<h2 class="anchored" data-anchor-id="weighting-in-post-processing">Weighting in post-processing</h2>
 <p>Use uncertainty to weight pixels during temporal smoothing, spatial aggregation, or multi-model combination. Pixels with high uncertainty receive less weight, stabilizing the aggregate. This requires well calibrated uncertainty at the pixel level.</p>
 </section>
-<section id="change-estimation" class="level3">
-<h3 class="anchored" data-anchor-id="change-estimation">Change estimation</h3>
+<section id="change-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="change-estimation">Change estimation</h2>
 <p>Many downstream applications require not just single epoch estimates but differences between maps at two time points, such as annual deforestation area or biomass change. Propagating uncertainty through differencing introduces additional subtleties. If the same model and input pipeline are used for both epochs, errors may be positively correlated in time, causing them to partially cancel in the difference and yielding change estimates that are more precise than either single-epoch map alone but if the sensor, compositing strategy, or model version changes between epochs, the errors may be weakly correlated or independent, and the change uncertainty will be larger than users accustomed to the correlated case might expect.</p>
 </section>
-<section id="guiding-data-collection" class="level3">
-<h3 class="anchored" data-anchor-id="guiding-data-collection">Guiding data collection</h3>
+<section id="guiding-data-collection" class="level2">
+<h2 class="anchored" data-anchor-id="guiding-data-collection">Guiding data collection</h2>
 <p>Calibrated uncertainty identifies where additional observations would most reduce decision-relevant uncertainty, closing the loop between prediction and data collection. An overconfident model forecloses this feedback loop by masking the locations where additional data is most needed <span class="citation" data-cites="young2026interpolation"><a href="#ref-young2026interpolation" role="doc-biblioref">[1]</a></span>. Active learning strategies that target high-uncertainty regions can direct field campaigns, future LiDAR acquisitions, or validation sampling toward the locations with the highest expected information gain <span class="citation" data-cites="settles2009activelearning"><a href="#ref-settles2009activelearning" role="doc-biblioref">[2]</a></span>. <span class="citation" data-cites="meyer2021areaofapplicability"><a href="#ref-meyer2021areaofapplicability" role="doc-biblioref">[3]</a></span> proposed the related concept of an “area of applicability” as a spatial delineation of where the model’s training data support reliable predictions, which can be viewed as a binary uncertainty mask derived from the distance between inference and training data in feature space.</p>
-<p>Uncertainty quantification completes the modelling phase of the pipeline: the practitioner now has not only a trained model but also a principled framework for assessing how much to trust its outputs across space. What remains is to operationalize these components — to run inference at scale, mitigate the artifacts that inevitably arise when processing millions of patches, apply post-processing corrections that ensure temporal and spatial coherence, validate the result against independent reference data, and disseminate it in formats that are accessible and useful to downstream users. These operational stages are the subject of the next section, which covers map generation, post-processing, validation, and sharing. Although often treated as engineering details rather than research contributions, the choices made here can easily undermine the quality of an otherwise sound model, and they deserve the same level of methodological care.</p>
+<p>Uncertainty quantification completes the modeling phase of the pipeline: the practitioner now has not only a trained model but also a principled framework for assessing how much to trust its outputs across space. What remains is to operationalize these components — to run inference at scale, mitigate the artifacts that inevitably arise when processing millions of patches, apply post-processing corrections that ensure temporal and spatial coherence, validate the result against independent reference data, and disseminate it in formats that are accessible and useful to downstream users. These operational stages are the subject of the next section, which covers map generation, post-processing, validation, and sharing. Although often treated as engineering details rather than research contributions, the choices made here can easily undermine the quality of an otherwise sound model, and they deserve the same level of methodological care.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -461,8 +466,10 @@ div.csl-indent {
   // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
   var MAP = {
     "index.html":                        { part: "General / whole book" },
+    "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
+    "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
 
     "eo_data_landscape.html":            { part: "EO data landscape" },

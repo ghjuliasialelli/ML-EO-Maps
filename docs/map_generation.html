@@ -169,27 +169,32 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -395,7 +400,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -417,8 +422,8 @@ window.Quarto = {
   <ul>
   <li><a href="#compute-environments" id="toc-compute-environments" class="nav-link active" data-scroll-target="#compute-environments">Compute environments</a>
   <ul class="collapse">
-  <li><a href="#data-to-compute" id="toc-data-to-compute" class="nav-link" data-scroll-target="#data-to-compute"><strong>Data-to-Compute</strong></a></li>
-  <li><a href="#compute-to-data" id="toc-compute-to-data" class="nav-link" data-scroll-target="#compute-to-data"><strong>Compute-to-Data</strong></a></li>
+  <li><a href="#data-to-compute" id="toc-data-to-compute" class="nav-link" data-scroll-target="#data-to-compute">Data-to-compute</a></li>
+  <li><a href="#compute-to-data" id="toc-compute-to-data" class="nav-link" data-scroll-target="#compute-to-data">Compute-to-data</a></li>
   </ul></li>
   <li><a href="#mitigation-of-artifacts" id="toc-mitigation-of-artifacts" class="nav-link" data-scroll-target="#mitigation-of-artifacts">Mitigation of artifacts</a>
   <ul class="collapse">
@@ -455,26 +460,26 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="compute-environments">Compute environments</h2>
 <p>The computational strategy for large-scale EO/ML mapping is primarily dictated by the relationship between data volume and processing power. We distinguish between two primary regimes: local high-performance computing (HPC) and cloud-native environments. The decision of where to execute inference therefore involves a fundamental trade-off between bandwidth, cost, and architectural flexibility.</p>
 <section id="data-to-compute" class="level3">
-<h3 class="anchored" data-anchor-id="data-to-compute"><strong>Data-to-Compute</strong></h3>
+<h3 class="anchored" data-anchor-id="data-to-compute">Data-to-compute</h3>
 <p>This regime is most attractive to researchers with access to subsidized or institutional clusters, where the compute itself comes at little to no direct cost. Most major EO platforms (MPC, AWS Open Data, CDSE) do not charge egress fees, but the transfer is bounded by network bandwidth and provider-side rate limits, which can make the ingestion phase a significant bottleneck for global-scale mapping campaigns involving tens of thousands of satellite scenes. A compounding factor is the physical distance between the cluster and the data provider. Most EO platforms serve data from a single cloud region (e.g., <code>us-west-2</code> for NASA Earthdata, <code>eu-central-1</code> for the Sentinel archives on AWS, West Europe for Microsoft Planetary Computer, Warsaw for CDSE), so a researcher downloading from a different continent pays a steep latency penalty on every network request compared to an in-region client. Content Delivery Networks (CDNs) solve this by caching data on geographically distributed edge nodes, but none of the major EO data providers currently distribute data through a CDN. HuggingFace, which hosts a growing number of EO/ML datasets, is a notable exception owing to its use of CloudFront.</p>
 <p>Once the data reaches the local infrastructure, further challenges arise. Storing the full dataset locally can be prohibitive at petabyte scale, and institutional clusters typically separate storage nodes from the high-throughput compute nodes where GPU or CPU inference is executed. This means that data sitting on a storage node must be read across an internal network at inference time, introducing an additional I/O bottleneck that can stall the pipeline. One way to sidestep the storage layer entirely is to stream the data directly to the compute nodes during inference, which avoids both the storage capacity constraint and the inter-node transfer overhead. Streaming comes with its own drawback, however: if multiple passes over the same scenes are required, each pass triggers a fresh download, effectively multiplying the external transfer burden and the geographic penalty described above.</p>
 </section>
 <section id="compute-to-data" class="level3">
-<h3 class="anchored" data-anchor-id="compute-to-data"><strong>Compute-to-Data</strong></h3>
+<h3 class="anchored" data-anchor-id="compute-to-data">Compute-to-data</h3>
 <p>When data volumes, rate limits, or transfer times make the previous regime impractical, the alternative is to provision compute next to the data. The model is deployed within the same cloud ecosystem where the EO data already resides (e.g., AWS, MPC, CloudFerro). This neatly eliminates the data transfer penalty that plagues institutional clusters, but only if compute and data are genuinely colocated in the same cloud region. Cloud providers offer compute resources across dozens of regions worldwide, and it is the researcher’s responsibility to provision instances in the region where the EO data is actually stored. Launching compute in the wrong region silently reintroduces the same cross-continental latencies discussed above, compounded by inter-region egress fees. When colocation is correctly configured, however, read latencies drop to those of an internal network call, making this regime ideal for I/O-bound inference workloads. An inherent limitation is that the usable data pool is restricted to what the chosen platform hosts, both in terms of data sources and processing baselines: researchers cannot easily mix data from different providers and must accept the specific preprocessing version available on the platform.</p>
 <p>The dominant concern here is the price of compute itself. Costs can escalate quickly, particularly when heavy preprocessing must be performed at inference time rather than being precomputed, which has led some researchers <span class="citation" data-cites="feng2025tessera Van_Tricht_2023"><a href="#ref-feng2025tessera" role="doc-biblioref">[1]</a>, <a href="#ref-Van_Tricht_2023" role="doc-biblioref">[2]</a></span> to restrict their inference pipelines to CPU-only execution. Spot or preemptible instances offer substantial discounts but are subject to reclamation by the provider at any time, which means that inference jobs can be interrupted mid-execution. Running reliably on spot instances therefore requires a checkpoint-and-resume pipeline capable of recovering gracefully from preemption, along with orchestration tooling such as Kubernetes, Ray, or Flyte to manage job scheduling and restarts. Cost pressures also extend well beyond inference itself: downloading the resulting predictions incurs egress fees. Even their long-term storage on the cloud incurs recurring fees for both storage and egress (either on the user side or creator side), costs that persist well after the project ends and can become difficult to sustain. More economical alternatives exist and are discussed in Section <a href="./sharing.html">Sharing</a>.</p>
 </section>
 </section>
 <section id="mitigation-of-artifacts" class="level2">
 <h2 class="anchored" data-anchor-id="mitigation-of-artifacts">Mitigation of artifacts</h2>
-<p>Due to the significant memory constraints of modern ML architectures, EO scenes cannot be processed in their entirety. Instead, they are partitioned into a grid of smaller patches for inference. However, many models exhibit a spatial bias: predictive confidence tends to be highest near the center of a patch and degrades toward the borders. When these individually processed patches are reassembled into a final output, this bias manifests as patch artifacts—unnatural discontinuities or “seams” along the patch boundaries. This spatial bias is a consequence of translational variance in neural networks, arising in convolutional architectures primarily from zero-padding and non-unary strides <span class="citation" data-cites="huang2018tiling zhang2019making kayhan2020translation"><a href="#ref-huang2018tiling" role="doc-biblioref">[3]</a>, <a href="#ref-zhang2019making" role="doc-biblioref">[4]</a>, <a href="#ref-kayhan2020translation" role="doc-biblioref">[5]</a></span>, and in vision transformers from patch embedding, positional encodings, and windowed attention <span class="citation" data-cites="rojasgomez2023making"><a href="#ref-rojasgomez2023making" role="doc-biblioref">[6]</a></span>. Architectural remedies exist <span class="citation" data-cites="zhang2019making kayhan2020translation"><a href="#ref-zhang2019making" role="doc-biblioref">[4]</a>, <a href="#ref-kayhan2020translation" role="doc-biblioref">[5]</a></span>, but are rarely adopted in large-scale EO inference, where translational variance remains a practical concern. To mitigate the resulting artifacts at inference time, researchers typically employ one of two strategies, illustrated in Figure <a href="#fig-inference-tiling" class="quarto-xref">Figure&nbsp;<span>18.1</span></a>.</p>
+<p>Due to the significant memory constraints of modern ML architectures, EO scenes cannot be processed in their entirety. Instead, they are partitioned into a grid of smaller patches for inference. However, many models exhibit a spatial bias: predictive confidence tends to be highest near the center of a patch and degrades toward the borders. When these individually processed patches are reassembled into a final output, this bias manifests as patch artifacts—unnatural discontinuities or “seams” along the patch boundaries. This spatial bias is a consequence of translational variance in neural networks, arising in convolutional architectures primarily from zero-padding and non-unary strides <span class="citation" data-cites="huang2018tiling zhang2019making kayhan2020translation"><a href="#ref-huang2018tiling" role="doc-biblioref">[3]</a>, <a href="#ref-zhang2019making" role="doc-biblioref">[4]</a>, <a href="#ref-kayhan2020translation" role="doc-biblioref">[5]</a></span>, and in vision transformers from patch embedding, positional encodings, and windowed attention <span class="citation" data-cites="rojasgomez2023making"><a href="#ref-rojasgomez2023making" role="doc-biblioref">[6]</a></span>. Architectural remedies exist <span class="citation" data-cites="zhang2019making kayhan2020translation"><a href="#ref-zhang2019making" role="doc-biblioref">[4]</a>, <a href="#ref-kayhan2020translation" role="doc-biblioref">[5]</a></span>, but are rarely adopted in large-scale EO inference, where translational variance remains a practical concern. To mitigate the resulting artifacts at inference time, researchers typically employ one of two strategies, illustrated in <a href="#fig-inference-tiling" class="quarto-xref">Figure&nbsp;<span>13.1</span></a>.</p>
 <div id="fig-inference-tiling" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-inference-tiling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/patches.png" id="fig-inference-tiling" class="img-fluid figure-img">
+<img src="images/patches.png" class="img-fluid figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-inference-tiling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;18.1
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-inference-tiling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13.1: The two strategies for mitigating patch-boundary artifacts in tiled inference. (a) Overlapping patches with blending: boundary pixels receive multiple predictions, which are merged with distance-based weight profiles. (b) Padding and cropping: each patch is expanded with surrounding context before the forward pass, and predictions are cropped back to the original extent, discarding the less reliable border outputs.
 </figcaption>
 </figure>
 </div>
@@ -543,8 +548,10 @@ Figure&nbsp;18.1
   // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
   var MAP = {
     "index.html":                        { part: "General / whole book" },
+    "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
+    "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
 
     "eo_data_landscape.html":            { part: "EO data landscape" },

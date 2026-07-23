@@ -1,5 +1,4 @@
 ---
-id: sec-processing-pathways
 title: "Sentinel-1 and Sentinel-2 processing across access pathways"
 ---
 
@@ -7,16 +6,16 @@ The same nominal Sentinel-1 or Sentinel-2 product can differ depending on where 
 
 ## Sentinel-2 {#sec-s2-pathways}
 
-For Sentinel-2, the differences between CDSE and GEE are summarized in Table @tbl-s2-pathways. The atmospheric correction is identical between the two platforms, so observed differences in surface reflectance might arise from baseline currency or radiometric offset handling.
+For Sentinel-2, the differences between CDSE and GEE are summarized in @tbl-s2-pathways. The atmospheric correction is identical between the two platforms, so observed differences in surface reflectance might arise from baseline currency or radiometric offset handling.
 
-**Aspect** | **CDSE (native)** | **GEE** |
+| **Aspect** | **CDSE (native)** | **GEE** |
 | --- | --- | --- |
 | Radiometric offset (post PB 04.00) | $+1000$ DN baked in | Subtracted in `HARMONIZED` collections; passed through unchanged in non-harmonized collections |
 | Atmospheric correction | Sen2Cor | Same (ingested from CDSE) |
 | Processing baseline currency | Authoritative; updated on ESA's schedule | May lag CDSE during reprocessing campaigns |
 | QA60 cloud mask | Discontinued by ESA after Feb 2022 | Reconstructed from classification data starting Feb 2024 |
 
-: Processing differences between native Sentinel-2 products on CDSE and the corresponding GEE collections. DN: digital number. SR: surface reflectance. {#tbl-s2-pathways}
+: Processing differences between native Sentinel-2 products on CDSE and the corresponding GEE collections. DN: digital number. {#tbl-s2-pathways}
 
 The most consequential subtlety beyond the table is the *timing of baseline reprocessing*. CDSE has carried out a Collection-1 reprocessing campaign in stages. Phase 1 brought all data through the end of 2021 to baseline 05.00 (which uses the 30 m Copernicus DEM in place of the older 90 m one) and harmonizes radiometry between Sentinel-2A and Sentinel-2B. Phase 2 reprocessed January 2022 through December 2023 to baseline 05.10. Baseline 05.11 (July 2024) introduced further refinements to geometric registration, cloud screening (with parallax handling), and snow/ice detection, and renamed the SCL class `DARK_FEATURES` to `CAST_SHADOW`. Because GEE ingests from CDSE, it inherits these improvements but with a refresh lag whose duration depends on the granule volume. During such windows, CDSE and GEE may serve different baseline versions of the same granule.
 
@@ -24,22 +23,22 @@ The *QA60 reconstruction* introduced by GEE in February 2024 is similarly worth 
 
 ## Sentinel-1 {#sec-s1-pathways}
 
-For Sentinel-1, the differences are more substantial because GEE applies a full preprocessing chain (thermal noise removal, data calibration, multi-looking and range-doppler terrain correction) rather than redistributing the GRD product, and the three CDSE pathways themselves expose different defaults and degrees of configurability. Table @tbl-s1-pathways summarizes the four options side by side.
+For Sentinel-1, the differences are more substantial because GEE applies a full preprocessing chain (thermal noise removal, data calibration, multi-looking and range-doppler terrain correction) rather than redistributing the GRD product, and the three CDSE pathways themselves expose different defaults and degrees of configurability. @tbl-s1-pathways summarizes the four options side by side.
 
 | **Step** | **CDSE (OData)** | **CDSE (Sentinel Hub)** | **CDSE (openEO)** | **Google Earth Engine** |
 | --- | --- | --- | --- | --- |
 | Backscatter convention | User choice ($\beta^0/\sigma^0/\gamma^0$) | Configurable (default $\gamma^0$ ellipsoid) | $\sigma^0$ ellipsoid (fixed) | $\sigma^0$ only |
-| Thermal noise removal | $\times$ | ✓ | ✓ | ✓ |
-| Speckle filtering | $\times$ | Configurable | $\times$ | $\times$ |
-| Orthorectification | $\times$ | Configurable, with Range--Doppler terrain correction | ✓ | ✓ |
+| Thermal noise removal | × | ✓ | ✓ | ✓ |
+| Speckle filtering | × | Configurable | × | × |
+| Orthorectification | × | Configurable, with Range--Doppler terrain correction | ✓ | ✓ |
 | DEM for orthorectification | User choice | Copernicus 10 m / 30 m / 90 m, or Mapzen (regional defaults differ) | Copernicus 30 m | SRTM 30 m, with ASTER fallback above $\pm 60^\circ$ latitude |
-| Radiometric terrain correction | $\times$ | Available via `gamma0_terrain` + orthorectification | $\times$ | $\times$ |
+| Radiometric terrain correction | × | Available via `gamma0_terrain` + orthorectification | × | × |
 | Output units | DN | Linear power; dB via evalscript | Linear power | dB (`S1_GRD`) or linear power (`S1_GRD_FLOAT`) |
-| SLC products | ✓ | $\times$ | $\times$ | $\times$ |
+| SLC products | ✓ | × | × | × |
 
 : Sentinel-1 GRD processing options across CDSE access pathways and GEE. "Configurable" indicates that the option is exposed through the API and can be enabled or disabled by the user. {#tbl-s1-pathways}
 
-Several details in Table @tbl-s1-pathways have downstream consequences worth flagging. The default backscatter coefficient on Sentinel Hub is $\gamma^0$ ellipsoid, which contrasts with both the openEO default ($\sigma^0$ ellipsoid) and GEE's $\sigma^0$-only output. Radiometric terrain correction on Sentinel Hub is not selected by a single flag: it requires setting `backCoeff` to `gamma0_terrain` *and* enabling orthorectification, with users selecting `gamma0_ellipsoid` alone obtaining only the ellipsoid-referenced coefficient. The DEM defaults on Sentinel Hub also differ between deployment regions (Copernicus 30 m in EU-Central-1, Mapzen in US-West-2), so reproducibility across deployments requires setting `demInstance` explicitly.
+Several details in @tbl-s1-pathways have downstream consequences worth flagging. The default backscatter coefficient on Sentinel Hub is $\gamma^0$ ellipsoid, which contrasts with both the openEO default ($\sigma^0$ ellipsoid) and GEE's $\sigma^0$-only output. Radiometric terrain correction on Sentinel Hub is not selected by a single flag: it requires setting `backCoeff` to `gamma0_terrain` *and* enabling orthorectification, with users selecting `gamma0_ellipsoid` alone obtaining only the ellipsoid-referenced coefficient. The DEM defaults on Sentinel Hub also differ between deployment regions (Copernicus 30 m in EU-Central-1, Mapzen in US-West-2), so reproducibility across deployments requires setting `demInstance` explicitly.
 
 The DEM choice is also where the most significant divergence between Sentinel Hub and GEE arises. GEE uses SRTM 30 m, with an ASTER fallback above $\pm 60^\circ$ latitude, while Sentinel Hub recommends the Copernicus DEM. The resulting geometric and radiometric differences are typically small over flat terrain but can become significant in regions with strong relief, especially when collocating Sentinel-1 with optical imagery.
 

@@ -1,14 +1,10 @@
----
-title: "From Machine Learning to Large-Scale EO Products"
-subtitle: "Best Practices and Guidelines for Making Maps"
-sidebar-title: "Welcome"
----
+# Welcome {.unnumbered}
 
 The past decade has seen a rapid expansion in the production of large-scale geospatial products derived from Earth observation (EO) data using machine learning (ML). This website presents an end-to-end account of the best practices, challenges, and common pitfalls that span the entire pipeline from raw satellite data to a published, validated map product.
 
 We organize the discussion around six interconnected themes which trace the pipeline from the EO data landscape and preprocessing, through ML-specific stages of dataset construction, model design, and training, to uncertainty quantification, map generation, dissemination, and validation.
 
-![Overview of the pipeline covered in this book.](images/overview.png){#fig-overview}
+![Overview of the pipeline covered in this book.](images/overview.png)
 
 ## Main Sections {.unnumbered}
 

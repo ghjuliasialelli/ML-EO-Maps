@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Appendix C — Radiometric Calibration and Terrain Correction of SAR data – From Machine Learning to Large-Scale EO Products</title>
+<title>Appendix C — Radiometric calibration and terrain correction of SAR data – From Machine Learning to Large-Scale EO Products</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -134,7 +134,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendix_s1_gaps.html">Appendices</a></li><li class="breadcrumb-item"><a href="./appendix_sar_rtc.html"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendix_s1_gaps.html">Appendices</a></li><li class="breadcrumb-item"><a href="./appendix_sar_rtc.html"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -169,27 +169,32 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -395,7 +400,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -426,9 +431,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendix_s1_gaps.html">Appendices</a></li><li class="breadcrumb-item"><a href="./appendix_sar_rtc.html"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendix_s1_gaps.html">Appendices</a></li><li class="breadcrumb-item"><a href="./appendix_sar_rtc.html"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Appendix C — Radiometric Calibration and Terrain Correction of SAR data</h1>
+<h1 class="title">Appendix C — Radiometric calibration and terrain correction of SAR data</h1>
 </div>
 
 
@@ -446,9 +451,9 @@ window.Quarto = {
 
 
 <p>This appendix expands on the radiometric processing chain summarized in Section <a href="./data_preprocessing.html">Data Preprocessing</a>, focusing on the choice of backscatter convention and the role of terrain in radiometric normalization, following the taxonomy of <span class="citation" data-cites="Small2011"><a href="#ref-Small2011" role="doc-biblioref">[1]</a></span>.</p>
-<section id="from-digital-numbers-to-calibrated-backscatter" class="level3">
-<h3 class="anchored" data-anchor-id="from-digital-numbers-to-calibrated-backscatter">From digital numbers to calibrated backscatter</h3>
-<p>SAR backscatter is recorded in phase, used to determine the distance to a target, and amplitude, indicating the amount of signal returning to the sensor. Intensity is calculated from the phase and amplitude and stored as digital numbers (DN). Radiometric calibration converts DN to a physically meaningful backscatter coefficient by normalizing by a reference area to obtain backscatter per unit area. The simplest calibrated quantity is the radar brightness <span class="math inline">\(\beta^0\)</span>, defined as the calibrated intensity divided by the slant-range pixel area <span class="math inline">\(A_\beta\)</span> (see Figure <a href="#fig-backscatter" class="quarto-xref">Figure&nbsp;<span>C.1</span></a>). Because <span class="math inline">\(\beta^0\)</span> assumes no Earth model, it is a property of the radar measurement alone and forms the conceptual root from which all other conventions are derived <span class="citation" data-cites="Raney1994"><a href="#ref-Raney1994" role="doc-biblioref">[2]</a></span>.</p>
+<section id="from-digital-numbers-to-calibrated-backscatter" class="level2">
+<h2 class="anchored" data-anchor-id="from-digital-numbers-to-calibrated-backscatter">From digital numbers to calibrated backscatter</h2>
+<p>SAR backscatter is recorded in phase, used to determine the distance to a target, and amplitude, indicating the amount of signal returning to the sensor. Intensity is calculated from the phase and amplitude and stored as digital numbers (DN). Radiometric calibration converts DN to a physically meaningful backscatter coefficient by normalizing by a reference area to obtain backscatter per unit area. The simplest calibrated quantity is the radar brightness <span class="math inline">\(\beta^0\)</span>, defined as the calibrated intensity divided by the slant-range pixel area <span class="math inline">\(A_\beta\)</span> (see <a href="#fig-backscatter" class="quarto-xref">Figure&nbsp;<span>C.1</span></a>). Because <span class="math inline">\(\beta^0\)</span> assumes no Earth model, it is a property of the radar measurement alone and forms the conceptual root from which all other conventions are derived <span class="citation" data-cites="Raney1994"><a href="#ref-Raney1994" role="doc-biblioref">[2]</a></span>.</p>
 <div id="fig-backscatter" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-backscatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -460,20 +465,20 @@ Figure&nbsp;C.1: Normalization areas for SAR backscatter.
 </figure>
 </div>
 </section>
-<section id="ellipsoid-referenced-conventions" class="level3">
-<h3 class="anchored" data-anchor-id="ellipsoid-referenced-conventions">Ellipsoid-referenced conventions</h3>
+<section id="ellipsoid-referenced-conventions" class="level2">
+<h2 class="anchored" data-anchor-id="ellipsoid-referenced-conventions">Ellipsoid-referenced conventions</h2>
 <p>Two conventions normalize <span class="math inline">\(\beta^0\)</span> by an area defined under a flat-ellipsoid assumption. The <span class="math inline">\(\sigma^0_E\)</span> convention divides by the ground-projected area <span class="math inline">\(A_\sigma\)</span>, giving <span class="math inline">\(\sigma^0_E = \beta^0 \cdot \frac{A_{\beta}}{A_{\sigma}} = \beta^0 \cdot \sin\theta_E\)</span>, where <span class="math inline">\(\theta_E\)</span> is the incidence angle with respect to the ellipsoid. The <span class="math inline">\(\gamma^0_E\)</span> convention divides by the area perpendicular to the line of sight <span class="math inline">\(A_\gamma\)</span>, giving <span class="math inline">\(\gamma^0_E = \beta^0 \cdot \tan\theta_E\)</span>. Note that a model of the Earth is required to gain knowledge of the incident angle <span class="math inline">\(\theta_E\)</span> to calculate <span class="math inline">\(\sigma^0\)</span> or <span class="math inline">\(\gamma^0\)</span>.</p>
 </section>
-<section id="the-problem-with-the-ellipsoid-assumption" class="level3">
-<h3 class="anchored" data-anchor-id="the-problem-with-the-ellipsoid-assumption">The problem with the ellipsoid assumption</h3>
+<section id="the-problem-with-the-ellipsoid-assumption" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem-with-the-ellipsoid-assumption">The problem with the ellipsoid assumption</h2>
 <p>None of <span class="math inline">\(\beta^0\)</span>, <span class="math inline">\(\sigma^0_E\)</span>, or <span class="math inline">\(\gamma^0_E\)</span> accounts for local relief: the areas they normalize by are derived from the ellipsoid, but the true illuminated area of a pixel depends on the terrain. A slope tilted toward the sensor exposes more surface area than the ellipsoid assumes and therefore appears brighter; a slope tilted away exposes less and appears darker. Pixel intensity becomes partly a function of topography rather than ground properties, biasing any task that compares backscatter across relief: land cover classification, biomass retrieval, change detection, or the mosaicking of ascending and descending passes.</p>
 </section>
-<section id="terrain-referenced-conventions" class="level3">
-<h3 class="anchored" data-anchor-id="terrain-referenced-conventions">Terrain-referenced conventions</h3>
+<section id="terrain-referenced-conventions" class="level2">
+<h2 class="anchored" data-anchor-id="terrain-referenced-conventions">Terrain-referenced conventions</h2>
 <p>Radiometric terrain correction (RTC) replaces the ellipsoid-derived reference area with one computed from a digital elevation model (DEM). Two terrain-referenced conventions are in common use. The <span class="math inline">\(\sigma^0_T\)</span> convention applies a per-pixel scalar correction based on the local incidence angle (LIM), <span class="math inline">\(\sigma^0_T = \sigma^0_E \cdot \sin\theta_{\text{LIM}}/\sin\theta_E\)</span>, where <span class="math inline">\(\theta_{\text{LIM}}\)</span> is derived from the DEM. This correction assumes that a single planar facet contributes to each pixel and only adjusts for its tilt. <span class="citation" data-cites="Small2011"><a href="#ref-Small2011" role="doc-biblioref">[1]</a></span> argues that such angle-based normalizations are flawed due to their failure to account for many important properties of radar backscatter in regions with significant topographic variation. They introduced the <span class="math inline">\(\gamma^0_T\)</span> convention that instead integrates the illuminated facet areas rigorously over the DEM, accumulating contributions from all terrain facets that map to a given SAR pixel. This handles cases of steep or complex relief where multiple facets contribute per pixel, which a local-angle scalar correction cannot represent. <span class="math inline">\(\gamma^0_T\)</span> is therefore preferred over <span class="math inline">\(\sigma^0_T\)</span> whenever significant relief is present, and is the default terrain-flattened output of modern processors, such as ESA SNAP <span class="citation" data-cites="esasnap"><a href="#ref-esasnap" role="doc-biblioref">[3]</a></span>.</p>
 </section>
-<section id="relationship-to-geometric-terrain-correction" class="level3">
-<h3 class="anchored" data-anchor-id="relationship-to-geometric-terrain-correction">Relationship to geometric terrain correction</h3>
+<section id="relationship-to-geometric-terrain-correction" class="level2">
+<h2 class="anchored" data-anchor-id="relationship-to-geometric-terrain-correction">Relationship to geometric terrain correction</h2>
 <p>Radiometric terrain correction is distinct from geometric terrain correction (GTC), which uses a DEM and the Range-Doppler algorithm to relocate pixels from radar coordinates to map coordinates. GTC corrects <em>where</em> pixels sit; RTC corrects <em>what their values mean</em>. The two operations share the same geometric mapping between SAR and DEM coordinates and are typically computed together, but they are conceptually independent: an image can be geometrically correct while remaining radiometrically biased on slopes, and backscatter can be terrain-flattened in radar geometry before being geocoded. GTC alone is adequate for visual interpretation over relatively flat terrain; quantitative analysis across significant relief generally requires both corrections, with <span class="math inline">\(\gamma^0_T\)</span> as the natural input convention for any downstream task that compares backscatter across topographically varied scenes.</p>
 
 
@@ -499,8 +504,10 @@ Figure&nbsp;C.1: Normalization areas for SAR backscatter.
   // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
   var MAP = {
     "index.html":                        { part: "General / whole book" },
+    "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
+    "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
 
     "eo_data_landscape.html":            { part: "EO data landscape" },

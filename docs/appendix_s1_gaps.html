@@ -140,27 +140,32 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -366,7 +371,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -406,14 +411,14 @@ div.csl-indent {
 </header>
 
 
-<p>The failure of the Sentinel-1B sensor reduced the number of available radar images and introduced gaps in global coverage (see Figure <a href="#fig-s1-coverage" class="quarto-xref">Figure&nbsp;<span>A.1</span></a>) from December 2021 until Sentinel-1C became operational in early 2025. This loss was particularly significant because synthetic aperture radar (SAR) can image through clouds and in darkness, making it an invaluable complement to optical imagery, especially in persistently cloud-covered regions such as Gabon. Furthermore, SAR provides sensing capabilities unavailable from other instruments and has proven particularly useful for various tasks, such as flood detection <span class="citation" data-cites="Misra2025"><a href="#ref-Misra2025" role="doc-biblioref">[1]</a></span>, vegetation monitoring <span class="citation" data-cites="PARAG2024101107"><a href="#ref-PARAG2024101107" role="doc-biblioref">[2]</a></span>, or ocean object detection <span class="citation" data-cites="10234538"><a href="#ref-10234538" role="doc-biblioref">[3]</a></span>. Rather than viewing these data gaps as a limitation, we encourage readers to explore complementary or alternative SAR sources (such as ALOS-2 PALSAR/PALSAR-2 yearly mosaics) and to develop models capable of handling multiple or missing modalities (see Section <a href="./model_design_training.html">Model Design and Training</a>).</p>
+<p>The failure of the Sentinel-1B sensor reduced the number of available radar images and introduced gaps in global coverage (see <a href="#fig-s1-coverage" class="quarto-xref">Figure&nbsp;<span>A.1</span></a>) from December 2021 until Sentinel-1C became operational in early 2025. This loss was particularly significant because synthetic aperture radar (SAR) can image through clouds and in darkness, making it an invaluable complement to optical imagery, especially in persistently cloud-covered regions such as Gabon. Furthermore, SAR provides sensing capabilities unavailable from other instruments and has proven particularly useful for various tasks, such as flood detection <span class="citation" data-cites="Misra2025"><a href="#ref-Misra2025" role="doc-biblioref">[1]</a></span>, vegetation monitoring <span class="citation" data-cites="PARAG2024101107"><a href="#ref-PARAG2024101107" role="doc-biblioref">[2]</a></span>, or ocean object detection <span class="citation" data-cites="10234538"><a href="#ref-10234538" role="doc-biblioref">[3]</a></span>. Rather than viewing these data gaps as a limitation, we encourage readers to explore complementary or alternative SAR sources (such as the ALOS PALSAR / ALOS-2 PALSAR-2 yearly mosaics) and to develop models capable of handling multiple or missing modalities (see Section <a href="./model_design_training.html">Model Design and Training</a>).</p>
 <div id="fig-s1-coverage" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-s1-coverage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/s1.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s1-coverage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;A.1: Sentinel-1 Level 1 GRD data coverage, as provided by the Alaska Satellite Facility <span class="citation" data-cites="ASFS1"><a href="#ref-ASFS1" role="doc-biblioref">[4]</a></span>. The map shows the number of Sentinel-1A and Sentinel-1B GRD observations acquired globally, in April 2024.
+Figure&nbsp;A.1: Sentinel-1 Level 1 GRD data coverage, as provided by the Alaska Satellite Facility <span class="citation" data-cites="ASFS1"><a href="#ref-ASFS1" role="doc-biblioref">[4]</a></span>. The map shows the number of Sentinel-1 GRD observations acquired globally in April 2024, during the coverage gap when only Sentinel-1A was operational.
 </figcaption>
 </figure>
 </div>
@@ -443,8 +448,10 @@ Figure&nbsp;A.1: Sentinel-1 Level 1 GRD data coverage, as provided by the Alaska
   // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
   var MAP = {
     "index.html":                        { part: "General / whole book" },
+    "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
+    "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
 
     "eo_data_landscape.html":            { part: "EO data landscape" },

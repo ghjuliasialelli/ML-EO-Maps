@@ -140,27 +140,32 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -366,7 +371,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -422,7 +427,7 @@ div.csl-indent {
 <section id="polygonization" class="level2">
 <h2 class="anchored" data-anchor-id="polygonization">Polygonization</h2>
 <p>The transition from pixel-wise semantic segmentation masks to vector-based geometries presents a significant bottleneck in modern geospatial ML pipelines. While deep learning models have reached high levels of semantic maturity, many tasks require going beyond pixel-level predictions to produce actionable, topologically sound vector data. This requirement is pervasive across diverse domains, including field or forest delineation <span class="citation" data-cites="kerner2025fields schwartz2025formspo"><a href="#ref-schwartz2025formspo" role="doc-biblioref">[5]</a>, <a href="#ref-kerner2025fields" role="doc-biblioref">[7]</a></span>, building mapping <span class="citation" data-cites="glazer2025tempo"><a href="#ref-glazer2025tempo" role="doc-biblioref">[2]</a></span>, and the mapping of photovoltaic installations <span class="citation" data-cites="microsoft2024renewables"><a href="#ref-microsoft2024renewables" role="doc-biblioref">[8]</a></span>. Beyond geometric precision, this conversion is critical for data portability; vector geometries are significantly easier to distribute to stakeholders than dense rasters.</p>
-<p>The primary difficulty stems from the inherent discretization artifacts of the raster grid, which often fail to align with the continuous or highly regularized boundaries of geographic entities. To address these inconsistencies, a multi-stage pipeline is typically employed. Initial noise attenuation can be achieved through mathematical morphology; for example, <span class="citation" data-cites="schwartz2025formspo"><a href="#ref-schwartz2025formspo" role="doc-biblioref">[5]</a></span> utilized an opening filter <span class="citation" data-cites="serra1982"><a href="#ref-serra1982" role="doc-biblioref">[9]</a></span> to regularize mask contours and remove small-scale artifacts. Subsequent vectorization generally relies on boundary-following algorithms with 8-connectivity logic <span class="citation" data-cites="Suzuki1985"><a href="#ref-Suzuki1985" role="doc-biblioref">[10]</a></span>, as in <span class="citation" data-cites="glazer2025tempo"><a href="#ref-glazer2025tempo" role="doc-biblioref">[2]</a></span>. To ensure computational efficiency and geometric fidelity, simplification algorithms <span class="citation" data-cites="POLY"><a href="#ref-POLY" role="doc-biblioref">[11]</a></span> can reduce vertex density. Despite these refinements, the gap between pixel-level probabilities and GIS-ready polygons remains a subject of active research, driving the development of geometry-aware loss functions and constrained regularization techniques <span class="citation" data-cites="9412866"><a href="#ref-9412866" role="doc-biblioref">[12]</a></span>.</p>
+<p>The primary difficulty stems from the inherent discretization artifacts of the raster grid, which often fail to align with the continuous or highly regularized boundaries of geographic entities. To address these inconsistencies, a multi-stage pipeline is typically employed. Initial noise attenuation can be achieved through mathematical morphology; for example, Schwartz et al. <span class="citation" data-cites="schwartz2025formspo"><a href="#ref-schwartz2025formspo" role="doc-biblioref">[5]</a></span> utilized an opening filter <span class="citation" data-cites="serra1982"><a href="#ref-serra1982" role="doc-biblioref">[9]</a></span> to regularize mask contours and remove small-scale artifacts. Subsequent vectorization generally relies on boundary-following algorithms with 8-connectivity logic <span class="citation" data-cites="Suzuki1985"><a href="#ref-Suzuki1985" role="doc-biblioref">[10]</a></span>, as in <span class="citation" data-cites="glazer2025tempo"><a href="#ref-glazer2025tempo" role="doc-biblioref">[2]</a></span>. To ensure computational efficiency and geometric fidelity, simplification algorithms <span class="citation" data-cites="POLY"><a href="#ref-POLY" role="doc-biblioref">[11]</a></span> can reduce vertex density. Despite these refinements, the gap between pixel-level probabilities and GIS-ready polygons remains a subject of active research, driving the development of geometry-aware loss functions and constrained regularization techniques <span class="citation" data-cites="9412866"><a href="#ref-9412866" role="doc-biblioref">[12]</a></span>.</p>
 <p>Once post-processing yields a final raster or vector product, the remaining challenge is to make it accessible. The choices of compression, tiling, hosting, and projection collectively determine whether the map will be widely adopted or remain difficult to discover and reuse.</p>
 
 
@@ -475,8 +480,10 @@ div.csl-indent {
   // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
   var MAP = {
     "index.html":                        { part: "General / whole book" },
+    "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
+    "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
 
     "eo_data_landscape.html":            { part: "EO data landscape" },

@@ -140,27 +140,32 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -366,7 +371,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -414,28 +419,28 @@ div.csl-indent {
 </header>
 
 
-<p>The total uncertainty in a map prediction arises from multiple, largely independent sources that are usefully organised into the classical distinction between aleatoric uncertainty (irreducible noise inherent in the data) and epistemic uncertainty (reducible uncertainty arising from limited knowledge) <span class="citation" data-cites="derkiureghian2009aleatory"><a href="#ref-derkiureghian2009aleatory" role="doc-biblioref">[1]</a></span>. In the context of EO-derived maps, however, this abstract distinction maps onto pipeline stages.</p>
-<section id="upstream-input-uncertainty" class="level3">
-<h3 class="anchored" data-anchor-id="upstream-input-uncertainty">Upstream (input) uncertainty</h3>
+<p>The total uncertainty in a map prediction arises from multiple, largely independent sources that are usefully organized into the classical distinction between aleatoric uncertainty (irreducible noise inherent in the data) and epistemic uncertainty (reducible uncertainty arising from limited knowledge) <span class="citation" data-cites="derkiureghian2009aleatory"><a href="#ref-derkiureghian2009aleatory" role="doc-biblioref">[1]</a></span>. In the context of EO-derived maps, however, this abstract distinction maps onto pipeline stages.</p>
+<section id="upstream-input-uncertainty" class="level2">
+<h2 class="anchored" data-anchor-id="upstream-input-uncertainty">Upstream (input) uncertainty</h2>
 <p>Every observation that enters the model carries errors introduced before any machine learning is applied. Sensor noise, imperfect atmospheric correction, cloud mask failures, co-registration errors between sensors, compositing artifacts, and BRDF effects all contribute. These sources are predominantly aleatoric at the pixel level though the magnitude of the noise varies spatially (e.g., atmospheric correction is harder over bright surfaces) and can therefore appear epistemic at the map level. In principle, one would propagate input uncertainty through the model via Monte Carlo simulation over perturbed inputs <span class="citation" data-cites="heuvelink1998error"><a href="#ref-heuvelink1998error" role="doc-biblioref">[2]</a></span>. In practice, this is rarely done since the computational cost is substantial, and the input uncertainty distributions are themselves poorly characterized. Nevertheless, it is important to acknowledge that model-derived uncertainty is only one component of the total error.</p>
 </section>
-<section id="label-reference-data-uncertainty" class="level3">
-<h3 class="anchored" data-anchor-id="label-reference-data-uncertainty">Label (reference data) uncertainty</h3>
+<section id="label-reference-data-uncertainty" class="level2">
+<h2 class="anchored" data-anchor-id="label-reference-data-uncertainty">Label (reference data) uncertainty</h2>
 <p>The training targets are themselves uncertain. For example, GEDI footprint-level AGBD estimates carry uncertainty from allometric models and instrument noise <span class="citation" data-cites="Duncanson2022GEDI_AGB"><a href="#ref-Duncanson2022GEDI_AGB" role="doc-biblioref">[3]</a></span>, national forest inventory plots carry measurement error and representativeness uncertainty, and crowdsourced labels carry annotator disagreement. Label noise is a form of aleatoric uncertainty that sets a floor on achievable prediction accuracy. Methods that assume noise-free labels, which are most standard loss functions, will conflate label noise with model error in their uncertainty estimates.</p>
 </section>
-<section id="model-epistemic-uncertainty" class="level3">
-<h3 class="anchored" data-anchor-id="model-epistemic-uncertainty">Model (epistemic) uncertainty</h3>
+<section id="model-epistemic-uncertainty" class="level2">
+<h2 class="anchored" data-anchor-id="model-epistemic-uncertainty">Model (epistemic) uncertainty</h2>
 <p>This encompasses everything the model does not know such as gaps in the training data distribution, misspecification of the functional form, and sensitivity to hyperparameter choices. Model uncertainty is highest where the inference domain differs from the training domain, which is exactly the regime that matters for global maps, which inevitably extrapolate beyond the spatial and temporal extent of their training data.</p>
 <p>Many UQ methods address only model uncertainty. The gap between what is quantified and what contributes to the total error budget should be made explicit.</p>
 <p>Unfortunately no method is simultaneously cheap, scalable, and well-calibrated. Gaussian Processes are calibrated (if the kernel is correct) but do not scale. Ensembles scale but are expensive and miscalibrated for spatial data. Conformal methods are cheap but provide only marginal coverage. Neural processes offer a favorable tradeoff but require bespoke architectures. Heteroskedastic regression is cheap and scalable but captures only aleatoric uncertainty.</p>
-<p>The appropriate choice depends on what will be done with the uncertainty. If the goal is to mask out unreliable regions, even a rough uncertainty proxy may suffice. If the goal is to produce calibrated prediction intervals for carbon accounting, the requirements are stringent and the cost is correspondingly higher. If the goal is to report aggregate uncertainty over administrative units, the dominant concern is spatial error correlation (Section <a href="./uq_spatial.html">Spatial Structure of Uncertainty</a>), and no pixel-level UQ method alone will suffice. Users should articulate the intended use of uncertainty before choosing a method, not after. Figure <a href="#fig-uq-flowchart" class="quarto-xref">Figure&nbsp;<span>13.1</span></a> summarizes the decision logic discussed in the sections that follow.</p>
+<p>The appropriate choice depends on what will be done with the uncertainty. If the goal is to mask out unreliable regions, even a rough uncertainty proxy may suffice. If the goal is to produce calibrated prediction intervals for carbon accounting, the requirements are stringent and the cost is correspondingly higher. If the goal is to report aggregate uncertainty over administrative units, the dominant concern is spatial error correlation (Section <a href="./uq_spatial.html">Spatial Structure of Uncertainty</a>), and no pixel-level UQ method alone will suffice. Users should articulate the intended use of uncertainty before choosing a method, not after. <a href="#fig-uq-flowchart" class="quarto-xref">Figure&nbsp;<span>8.1</span></a> summarizes the decision logic discussed in the sections that follow.</p>
 <div id="fig-uq-flowchart" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-uq-flowchart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/uq_flowchart.png" id="fig-uq-flowchart" class="img-fluid figure-img">
+<img src="images/uq_flowchart.png" class="img-fluid figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-uq-flowchart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13.1
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-uq-flowchart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.1: Decision logic for choosing an uncertainty quantification approach, starting from the intended use of the uncertainty: filtering unreliable pixels, reporting calibrated prediction intervals, aggregating uncertainty over regions, or estimating uncertainty of temporal change.
 </figcaption>
 </figure>
 </div>
@@ -463,8 +468,10 @@ Figure&nbsp;13.1
   // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
   var MAP = {
     "index.html":                        { part: "General / whole book" },
+    "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
+    "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
 
     "eo_data_landscape.html":            { part: "EO data landscape" },

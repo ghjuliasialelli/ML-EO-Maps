@@ -1,5 +1,4 @@
 ---
-id: sec-eo-data-landscape
 title: "Overview of the EO data infrastructure landscape"
 ---
 

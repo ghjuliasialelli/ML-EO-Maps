@@ -140,27 +140,32 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -366,7 +371,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -389,7 +394,7 @@ div.csl-indent {
   <li><a href="#data-landscape-and-access-section-eo-data-infrastructure-landscape" id="toc-data-landscape-and-access-section-eo-data-infrastructure-landscape" class="nav-link active" data-scroll-target="#data-landscape-and-access-section-eo-data-infrastructure-landscape">Data landscape and access (Section EO Data Infrastructure Landscape)</a></li>
   <li><a href="#data-selection-and-preprocessing-section-data-selection-and-preprocessing" id="toc-data-selection-and-preprocessing-section-data-selection-and-preprocessing" class="nav-link" data-scroll-target="#data-selection-and-preprocessing-section-data-selection-and-preprocessing">Data selection and preprocessing (Section Data Selection and Preprocessing)</a></li>
   <li><a href="#ml-dataset-construction-and-model-training-section-ml-pipeline" id="toc-ml-dataset-construction-and-model-training-section-ml-pipeline" class="nav-link" data-scroll-target="#ml-dataset-construction-and-model-training-section-ml-pipeline">ML dataset construction and model training (Section ML Pipeline)</a></li>
-  <li><a href="#uncertainty-quantification-section-sources-of-uncertainty" id="toc-uncertainty-quantification-section-sources-of-uncertainty" class="nav-link" data-scroll-target="#uncertainty-quantification-section-sources-of-uncertainty">Uncertainty quantification (Section Sources of Uncertainty)</a></li>
+  <li><a href="#uncertainty-quantification-section-uncertainty-quantification" id="toc-uncertainty-quantification-section-uncertainty-quantification" class="nav-link" data-scroll-target="#uncertainty-quantification-section-uncertainty-quantification">Uncertainty quantification (Section Uncertainty Quantification)</a></li>
   <li><a href="#map-generation-post-processing-and-sharing-section-map-production-and-distribution" id="toc-map-generation-post-processing-and-sharing-section-map-production-and-distribution" class="nav-link" data-scroll-target="#map-generation-post-processing-and-sharing-section-map-production-and-distribution">Map generation, post-processing, and sharing (Section Map Production and Distribution)</a></li>
   <li><a href="#validation-section-validation" id="toc-validation-section-validation" class="nav-link" data-scroll-target="#validation-section-validation">Validation (Section Validation)</a></li>
   </ul>
@@ -418,28 +423,28 @@ div.csl-indent {
 
 
 <p>This paper has traced the full pipeline from satellite observations to validated, disseminated map products, exposing the interdependencies between stages that are easy to overlook when each is treated in isolation. We distill the central lessons into actionable recommendations, organized by pipeline stage.</p>
-<section id="data-landscape-and-access-section-eo-data-infrastructure-landscape" class="level3">
-<h3 class="anchored" data-anchor-id="data-landscape-and-access-section-eo-data-infrastructure-landscape">Data landscape and access (Section <a href="./eo_data_landscape.html">EO Data Infrastructure Landscape</a>)</h3>
+<section id="data-landscape-and-access-section-eo-data-infrastructure-landscape" class="level2">
+<h2 class="anchored" data-anchor-id="data-landscape-and-access-section-eo-data-infrastructure-landscape">Data landscape and access (Section <a href="./eo_data_landscape.html">EO Data Infrastructure Landscape</a>)</h2>
 <p>The choice of data provider is not neutral. Different platforms apply different processing chains to nominally identical products, and these silent differences propagate into downstream models. Practitioners should document the exact provenance of their data — including the platform, processing baseline, and access date — and be aware that re-distribution platforms may introduce latency, processing divergence, or coverage gaps relative to canonical providers. When feasible, co-locating compute with data storage eliminates the transfer bottleneck that dominates global-scale workflows.</p>
 </section>
-<section id="data-selection-and-preprocessing-section-data-selection-and-preprocessing" class="level3">
-<h3 class="anchored" data-anchor-id="data-selection-and-preprocessing-section-data-selection-and-preprocessing">Data selection and preprocessing (Section <a href="./data_selection_preprocessing.html">Data Selection and Preprocessing</a>)</h3>
+<section id="data-selection-and-preprocessing-section-data-selection-and-preprocessing" class="level2">
+<h2 class="anchored" data-anchor-id="data-selection-and-preprocessing-section-data-selection-and-preprocessing">Data selection and preprocessing (Section <a href="./data_selection_preprocessing.html">Data Selection and Preprocessing</a>)</h2>
 <p>Every preprocessing decision encodes assumptions that shape the training signal. Temporal strategy (single scenes, composites, or time series) should be guided by the task rather than by convention, and researchers should account for cross-hemisphere seasonal shifts when defining temporal windows for global products. Cloud masking thresholds involve a direct trade-off between input quality and data availability; overly aggressive filtering discards valuable pixels in persistently cloudy regions. For Sentinel-2, practitioners must handle partial orbits, split products, and tile-boundary overlaps explicitly to avoid pixel duplication and biased statistics. Sentinel-1 preprocessing is particularly sensitive to platform choice, as thermal noise removal, radiometric calibration conventions, and terrain correction differ substantially across providers. Radiometric normalization of optical data (scaling, clipping, BRDF correction) should be chosen deliberately rather than inherited uncritically from prior work.</p>
 </section>
-<section id="ml-dataset-construction-and-model-training-section-ml-pipeline" class="level3">
-<h3 class="anchored" data-anchor-id="ml-dataset-construction-and-model-training-section-ml-pipeline">ML dataset construction and model training (Section <a href="./ml_pipeline.html">ML Pipeline</a>)</h3>
-<p>The data format chosen at dataset creation time should be treated as a design decision rather than a late implementation detail, as it determines access patterns, chunking efficiency, and I/O overhead throughout the pipeline. Spatial autocorrelation demands spatially blocked dataset splits with buffers to prevent train–test leakage; random pixel-level splitting yields overconfident performance estimates <span class="citation" data-cites="Roberts2017 ploton2020spatialvalidation"><a href="#ref-Roberts2017" role="doc-biblioref">[1]</a>, <a href="#ref-ploton2020spatialvalidation" role="doc-biblioref">[2]</a></span>. The choice of spatial grid for sampling and indexing has underappreciated consequences: grids that are not equal-area introduce geographic bias, and grids that inherit sensor-tiling overlaps (such as MGRS) can silently duplicate training samples. We advocate a two-layer design that separates the sampling frame from the raster storage projection. On the modelling side, the trade-off between architectural complexity and inference throughput remains decisive for operational pipelines, and data augmentation should be domain-specific, as standard natural-image augmentations do not transfer well to multispectral satellite data <span class="citation" data-cites="Hopkins2025"><a href="#ref-Hopkins2025" role="doc-biblioref">[3]</a></span>. Hyperparameter optimization should be documented systematically; when full-scale tuning is prohibitive, a two-stage strategy using a representative subset for search followed by validation on the full dataset offers a practical compromise.</p>
+<section id="ml-dataset-construction-and-model-training-section-ml-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="ml-dataset-construction-and-model-training-section-ml-pipeline">ML dataset construction and model training (Section <a href="./ml_pipeline.html">ML Pipeline</a>)</h2>
+<p>The data format chosen at dataset creation time should be treated as a design decision rather than a late implementation detail, as it determines access patterns, chunking efficiency, and I/O overhead throughout the pipeline. Spatial autocorrelation demands spatially blocked dataset splits with buffers to prevent train–test leakage; random pixel-level splitting yields overconfident performance estimates <span class="citation" data-cites="Roberts2017 ploton2020spatialvalidation"><a href="#ref-Roberts2017" role="doc-biblioref">[1]</a>, <a href="#ref-ploton2020spatialvalidation" role="doc-biblioref">[2]</a></span>. The choice of spatial grid for sampling and indexing has underappreciated consequences: grids that are not equal-area introduce geographic bias, and grids that inherit sensor-tiling overlaps (such as MGRS) can silently duplicate training samples. We advocate a two-layer design that separates the sampling frame from the raster storage projection. On the modeling side, the trade-off between architectural complexity and inference throughput remains decisive for operational pipelines, and data augmentation should be domain-specific, as standard natural-image augmentations do not transfer well to multispectral satellite data <span class="citation" data-cites="Hopkins2025"><a href="#ref-Hopkins2025" role="doc-biblioref">[3]</a></span>. Hyperparameter optimization should be documented systematically; when full-scale tuning is prohibitive, a two-stage strategy using a representative subset for search followed by validation on the full dataset offers a practical compromise.</p>
 </section>
-<section id="uncertainty-quantification-section-sources-of-uncertainty" class="level3">
-<h3 class="anchored" data-anchor-id="uncertainty-quantification-section-sources-of-uncertainty">Uncertainty quantification (Section <a href="./uq_sources.html">Sources of Uncertainty</a>)</h3>
+<section id="uncertainty-quantification-section-uncertainty-quantification" class="level2">
+<h2 class="anchored" data-anchor-id="uncertainty-quantification-section-uncertainty-quantification">Uncertainty quantification (Section <a href="./uncertainty_quantification.html">Uncertainty Quantification</a>)</h2>
 <p>Uncertainty is not an optional add-on but a requirement for any map that informs policy or scientific analysis. No currently existing method is simultaneously cheap, scalable, and well-calibrated; the appropriate choice depends on the downstream use of the uncertainty layer. A critical and widely underappreciated finding is that spatial autocorrelation of prediction errors causes aggregate uncertainty to be severely underestimated when pixel errors are treated as independent <span class="citation" data-cites="wadoux2023spatialaverages johnson2025flexible"><a href="#ref-wadoux2023spatialaverages" role="doc-biblioref">[4]</a>, <a href="#ref-johnson2025flexible" role="doc-biblioref">[5]</a></span>. At a minimum, practitioners should characterize residual spatial correlation in representative validation regions and report calibration diagnostics (coverage plots, standardized residuals, scoring rules) alongside the uncertainty layer.</p>
 </section>
-<section id="map-generation-post-processing-and-sharing-section-map-production-and-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="map-generation-post-processing-and-sharing-section-map-production-and-distribution">Map generation, post-processing, and sharing (Section <a href="./map_production.html">Map Production and Distribution</a>)</h3>
+<section id="map-generation-post-processing-and-sharing-section-map-production-and-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="map-generation-post-processing-and-sharing-section-map-production-and-distribution">Map generation, post-processing, and sharing (Section <a href="./map_production.html">Map Production and Distribution</a>)</h2>
 <p>Tiled inference introduces patch-boundary artifacts that must be addressed through overlapping-and-blending or padding-and-cropping strategies, with careful propagation of uncertainty through the blending step. Post-processing corrections — temporal smoothing, cross-variable consistency checks, polygonization — should be documented as part of the product specification rather than treated as ad hoc fixes. For dissemination, cloud-native formats (COG, Zarr) and open hosting platforms reduce barriers to reuse; data should be distributed in its native projection to avoid resampling artifacts, with reprojected layers provided only for visualization.</p>
 </section>
-<section id="validation-section-validation" class="level3">
-<h3 class="anchored" data-anchor-id="validation-section-validation">Validation (Section <a href="./validation.html">Validation</a>)</h3>
+<section id="validation-section-validation" class="level2">
+<h2 class="anchored" data-anchor-id="validation-section-validation">Validation (Section <a href="./validation.html">Validation</a>)</h2>
 <p>Model evaluation on a held-out test set is not the same as map validation. Rigorous accuracy assessment requires an independent probability sample with known inclusion probabilities, a transparent response design, and area-weighted estimation that accounts for the sampling strategy <span class="citation" data-cites="olofsson2014good tyukavina2025practical"><a href="#ref-olofsson2014good" role="doc-biblioref">[6]</a>, <a href="#ref-tyukavina2025practical" role="doc-biblioref">[7]</a></span>. When probability sampling is infeasible — for instance because suitable reference data do not exist, are prohibitively expensive to collect, or cannot cover the full mapped domain — alternative approaches such as comparison against National Forest Inventory plots or opportunistic ground-truth datasets can still provide valuable verification, provided their limitations are stated explicitly: they measure consistency at sampled locations rather than accuracy over the full map extent. Map-to-map comparisons likewise measure inter-product consistency, not accuracy, and should be reported as such. Validation protocols should be defined before map production begins, and accuracy metrics should be accompanied by confidence intervals and stratified by region or class to expose structured errors.</p>
 <p>A unifying theme across all stages is that choices made early in the pipeline — which provider to use, how to composite observations, how to split the data — propagate through every subsequent step and are difficult to diagnose or correct after the fact. Awareness of these dependencies, and explicit documentation of the decisions made at each stage, is what separates a technically sound and scientifically credible map product from one whose apparent quality cannot be verified.</p>
 
@@ -478,8 +483,10 @@ div.csl-indent {
   // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
   var MAP = {
     "index.html":                        { part: "General / whole book" },
+    "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
+    "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
 
     "eo_data_landscape.html":            { part: "EO data landscape" },

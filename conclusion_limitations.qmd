@@ -1,5 +1,4 @@
 ---
-id: sec-limitations
 title: "Limitations"
 ---
 
@@ -7,7 +6,7 @@ This review is subject to several limitations that should inform how its recomme
 
 First, the practical discussion of data selection and preprocessing focuses predominantly on Sentinel-1, Sentinel-2, and Landsat. While these are the most widely used open-access missions for large-scale ML-based mapping, the EO landscape encompasses many other sensors --- including commercial very-high-resolution optical systems (Planet, Airbus and Vantor, formerly known as Maxar), hyperspectral missions (PRISMA, EnMAP, EMIT), and specialized instruments (GEDI, ICESat-2, GRACE) --- each with its own preprocessing challenges that we do not address in comparable depth. Researchers working with these data sources will encounter sensor-specific issues not covered here.
 
-Second, we have framed the discussion primarily around the task of producing wall-to-wall raster maps at moderate resolution (10--30 m). Many important EO applications operate at substantially different scales or produce fundamentally different output types: sub-metre mapping for urban or infrastructure monitoring, coarse-resolution products for climate variables, time-series-based change detection, and point-based estimation rather than spatially exhaustive prediction. The best practices articulated here may require adaptation for these settings.
+Second, we have framed the discussion primarily around the task of producing wall-to-wall raster maps at moderate resolution (10--30 m). Many important EO applications operate at substantially different scales or produce fundamentally different output types: sub-meter mapping for urban or infrastructure monitoring, coarse-resolution products for climate variables, time-series-based change detection, and point-based estimation rather than spatially exhaustive prediction. The best practices articulated here may require adaptation for these settings.
 
 Third, this is a rapidly evolving field. The foundation model landscape, the available data platforms and their access policies, and the state of the art in uncertainty quantification and validation methodology are all changing on timescales shorter than the publication cycle of a journal article. Some of the specific tools, platforms, and methods discussed here will inevitably be superseded; our intent has been to emphasize principles and design considerations that are more durable than any particular implementation.
 

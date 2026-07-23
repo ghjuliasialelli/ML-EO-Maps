@@ -1,5 +1,4 @@
 ---
-id: sec-common-misconceptions
 title: "Common misconceptions in map validation"
 ---
 
@@ -9,4 +8,4 @@ Despite the central role of validation in establishing the scientific credibilit
 
 **Algorithm-derived uncertainty.** Metrics produced by ensemble variance, posterior probabilities, or model confidence scores quantify internal model uncertainty, not agreement with ground truth. These measures reflect what the model "thinks" about its own predictions and should not be interpreted as accuracy estimates [@lcgoodpractices].
 
-**Map comparison.** Comparison against an existing map product is another practice that is frequently mistaken for validation. In principle, validation should rely on reference data of higher quality than the product being evaluated, such as field observations or carefully interpreted high-resolution imagery. Existing map products, however, are often the result of inference procedures, including machine learning models or rule-based gridded approaches, and therefore contain their own uncertainties and biases. While map-to-map comparisons can provide valuable qualitative insights and help identify systematic differences between products [@strahler2006global], they should not be interpreted as ground truth validation. What these comparisons measure is inter-product consistency, not map quality. They are more accurately described as consistency checks and should be reported as such.
+**Map-to-map comparison.** Comparison against an existing map product is another practice that is frequently mistaken for validation. In principle, validation should rely on reference data of higher quality than the product being evaluated, such as field observations or carefully interpreted high-resolution imagery. Existing map products, however, are often the result of inference procedures, including machine learning models or rule-based gridded approaches, and therefore contain their own uncertainties and biases. While map-to-map comparisons can provide valuable qualitative insights and help identify systematic differences between products [@strahler2006global], they should not be interpreted as ground truth validation. What these comparisons measure is inter-product consistency, not map quality. They are more accurately described as consistency checks and should be reported as such.

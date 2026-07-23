@@ -1,5 +1,4 @@
 ---
-id: sec-all-things-data
 title: "Data selection and preprocessing"
 ---
 

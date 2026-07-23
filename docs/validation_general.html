@@ -140,27 +140,32 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chatbot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chatbot</span></a>
+  <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chatbot</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./feedback.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Feedback</span></a>
+  <a href="./feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -366,7 +371,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric Calibration and Terrain Correction of SAR data</span></a>
+  <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -409,7 +414,7 @@ div.csl-indent {
 <p>Despite the central role of validation in establishing the scientific credibility of geospatial products, accuracy assessment methodology is frequently under-reported, and reference datasets are rarely made publicly available <span class="citation" data-cites="stehman2019key foody2002status"><a href="#ref-stehman2019key" role="doc-biblioref">[1]</a>, <a href="#ref-foody2002status" role="doc-biblioref">[2]</a></span>. Four concepts are frequently conflated: <strong>model evaluation</strong>, <strong>algorithm-derived uncertainty</strong>, <strong>map-to-map comparison</strong>, and <strong>map validation</strong>. While the first three provide valuable information about model performance or product consistency, they do not constitute rigorous validation of the final map product. In this section, we focus specifically on map validation, namely the independent assessment of map quality using reference data, and clarify how it differs from these related but distinct concepts.</p>
 <p><strong>Model evaluation.</strong> Model evaluation is often confused with map validation. In many studies, standard ML practices (such as evaluating performance on a held-out test set) are presented as evidence of map quality. Model evaluation is indeed an important component of map development, as the final map is generated through spatial application of the model across a large geographic domain. Consequently, model performance and map quality are inherently related. However, they are not equivalent. Model evaluation primarily measures how well the model generalizes to a held-out test dataset, whereas map validation concerns the quality of the final spatial product across the full mapped domain. A held-out test set is typically not a probability sample of the map and may not represent the full range of landscapes, class distributions, and edge cases encountered in the final product. Even when the training sample is itself a probability sample and a portion is set aside for evaluation, this is generally not recommended: biases and errors present in the training data may transfer to the reference data <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[3]</a></span>. More broadly, when map and validation data originate from the same source or interpretation process, their errors tend to be correlated, and correlated errors inflate quality estimates, while independent errors deflate them <span class="citation" data-cites="foody2010assessing"><a href="#ref-foody2010assessing" role="doc-biblioref">[4]</a></span>. For these reasons, strong test-set performance of the model does not guarantee, and cannot substitute for, an independent assessment of map quality.</p>
 <p><strong>Algorithm-derived uncertainty.</strong> Metrics produced by ensemble variance, posterior probabilities, or model confidence scores quantify internal model uncertainty, not agreement with ground truth. These measures reflect what the model “thinks” about its own predictions and should not be interpreted as accuracy estimates <span class="citation" data-cites="lcgoodpractices"><a href="#ref-lcgoodpractices" role="doc-biblioref">[5]</a></span>.</p>
-<p><strong>Map comparison.</strong> Comparison against an existing map product is another practice that is frequently mistaken for validation. In principle, validation should rely on reference data of higher quality than the product being evaluated, such as field observations or carefully interpreted high-resolution imagery. Existing map products, however, are often the result of inference procedures, including machine learning models or rule-based gridded approaches, and therefore contain their own uncertainties and biases. While map-to-map comparisons can provide valuable qualitative insights and help identify systematic differences between products <span class="citation" data-cites="strahler2006global"><a href="#ref-strahler2006global" role="doc-biblioref">[6]</a></span>, they should not be interpreted as ground truth validation. What these comparisons measure is inter-product consistency, not map quality. They are more accurately described as consistency checks and should be reported as such.</p>
+<p><strong>Map-to-map comparison.</strong> Comparison against an existing map product is another practice that is frequently mistaken for validation. In principle, validation should rely on reference data of higher quality than the product being evaluated, such as field observations or carefully interpreted high-resolution imagery. Existing map products, however, are often the result of inference procedures, including machine learning models or rule-based gridded approaches, and therefore contain their own uncertainties and biases. While map-to-map comparisons can provide valuable qualitative insights and help identify systematic differences between products <span class="citation" data-cites="strahler2006global"><a href="#ref-strahler2006global" role="doc-biblioref">[6]</a></span>, they should not be interpreted as ground truth validation. What these comparisons measure is inter-product consistency, not map quality. They are more accurately described as consistency checks and should be reported as such.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -442,8 +447,10 @@ div.csl-indent {
   // page filename -> { part, chapter } — values MUST match the Tally dropdown options exactly.
   var MAP = {
     "index.html":                        { part: "General / whole book" },
+    "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
+    "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
 
     "eo_data_landscape.html":            { part: "EO data landscape" },

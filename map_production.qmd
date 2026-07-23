@@ -1,5 +1,4 @@
 ---
-id: sec-making-a-map
 title: "Map production and distribution"
 ---
 
