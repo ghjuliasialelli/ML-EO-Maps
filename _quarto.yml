@@ -23,7 +23,7 @@ book:
 
   chapters:
     - index.qmd
-    #- about.qmd
+    - about.qmd
     - howto.qmd
     - chatbot.qmd
     - feedback.qmd

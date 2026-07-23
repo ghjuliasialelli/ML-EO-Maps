@@ -174,6 +174,11 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
   </div>
 </li>
@@ -462,14 +467,14 @@ window.Quarto = {
 </section>
 <section id="mitigation-of-artifacts" class="level2">
 <h2 class="anchored" data-anchor-id="mitigation-of-artifacts">Mitigation of artifacts</h2>
-<p>Due to the significant memory constraints of modern ML architectures, EO scenes cannot be processed in their entirety. Instead, they are partitioned into a grid of smaller patches for inference. However, many models exhibit a spatial bias: predictive confidence tends to be highest near the center of a patch and degrades toward the borders. When these individually processed patches are reassembled into a final output, this bias manifests as patch artifacts—unnatural discontinuities or “seams” along the patch boundaries. This spatial bias is a consequence of translational variance in neural networks, arising in convolutional architectures primarily from zero-padding and non-unary strides <span class="citation" data-cites="huang2018tiling zhang2019making kayhan2020translation"><a href="#ref-huang2018tiling" role="doc-biblioref">[3]</a>, <a href="#ref-zhang2019making" role="doc-biblioref">[4]</a>, <a href="#ref-kayhan2020translation" role="doc-biblioref">[5]</a></span>, and in vision transformers from patch embedding, positional encodings, and windowed attention <span class="citation" data-cites="rojasgomez2023making"><a href="#ref-rojasgomez2023making" role="doc-biblioref">[6]</a></span>. Architectural remedies exist <span class="citation" data-cites="zhang2019making kayhan2020translation"><a href="#ref-zhang2019making" role="doc-biblioref">[4]</a>, <a href="#ref-kayhan2020translation" role="doc-biblioref">[5]</a></span>, but are rarely adopted in large-scale EO inference, where translational variance remains a practical concern. To mitigate the resulting artifacts at inference time, researchers typically employ one of two strategies, illustrated in Figure <a href="#fig-inference-tiling" class="quarto-xref">Figure&nbsp;<span>17.1</span></a>.</p>
+<p>Due to the significant memory constraints of modern ML architectures, EO scenes cannot be processed in their entirety. Instead, they are partitioned into a grid of smaller patches for inference. However, many models exhibit a spatial bias: predictive confidence tends to be highest near the center of a patch and degrades toward the borders. When these individually processed patches are reassembled into a final output, this bias manifests as patch artifacts—unnatural discontinuities or “seams” along the patch boundaries. This spatial bias is a consequence of translational variance in neural networks, arising in convolutional architectures primarily from zero-padding and non-unary strides <span class="citation" data-cites="huang2018tiling zhang2019making kayhan2020translation"><a href="#ref-huang2018tiling" role="doc-biblioref">[3]</a>, <a href="#ref-zhang2019making" role="doc-biblioref">[4]</a>, <a href="#ref-kayhan2020translation" role="doc-biblioref">[5]</a></span>, and in vision transformers from patch embedding, positional encodings, and windowed attention <span class="citation" data-cites="rojasgomez2023making"><a href="#ref-rojasgomez2023making" role="doc-biblioref">[6]</a></span>. Architectural remedies exist <span class="citation" data-cites="zhang2019making kayhan2020translation"><a href="#ref-zhang2019making" role="doc-biblioref">[4]</a>, <a href="#ref-kayhan2020translation" role="doc-biblioref">[5]</a></span>, but are rarely adopted in large-scale EO inference, where translational variance remains a practical concern. To mitigate the resulting artifacts at inference time, researchers typically employ one of two strategies, illustrated in Figure <a href="#fig-inference-tiling" class="quarto-xref">Figure&nbsp;<span>18.1</span></a>.</p>
 <div id="fig-inference-tiling" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-inference-tiling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/patches.png" id="fig-inference-tiling" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-inference-tiling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;17.1
+Figure&nbsp;18.1
 </figcaption>
 </figure>
 </div>

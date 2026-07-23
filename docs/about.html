@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Appendix A — Sentinel-1 data gaps – From Machine Learning to Large-Scale EO Products</title>
+<title>About the Authors – From Machine Learning to Large-Scale EO Products</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,27 +23,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -53,8 +33,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./appendix_processing_pathways.html" rel="next">
-<link href="./conclusion_limitations.html" rel="prev">
+<link href="./howto.html" rel="next">
+<link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -105,7 +85,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendix_s1_gaps.html">Appendices</a></li><li class="breadcrumb-item"><a href="./appendix_s1_gaps.html"><span class="chapter-title">Sentinel-1 data gaps</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./about.html"><span class="chapter-title">About the Authors</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -145,7 +125,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">About the Authors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -356,7 +336,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_s1_gaps.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Sentinel-1 data gaps</span></a>
+  <a href="./appendix_s1_gaps.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sentinel-1 data gaps</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -381,15 +361,25 @@ div.csl-indent {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#core-contributors" id="toc-core-contributors" class="nav-link active" data-scroll-target="#core-contributors">Core Contributors</a></li>
+  <li><a href="#technical-advisors" id="toc-technical-advisors" class="nav-link" data-scroll-target="#technical-advisors">Technical Advisors</a></li>
+  <li><a href="#supervisors" id="toc-supervisors" class="nav-link" data-scroll-target="#supervisors">Supervisors</a></li>
+  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
+  <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">Contact</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/about.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendix_s1_gaps.html">Appendices</a></li><li class="breadcrumb-item"><a href="./appendix_s1_gaps.html"><span class="chapter-title">Sentinel-1 data gaps</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Appendix A — Sentinel-1 data gaps</h1>
+<h1 class="title"><span class="chapter-title">About the Authors</span></h1>
 </div>
 
 
@@ -406,33 +396,44 @@ div.csl-indent {
 </header>
 
 
-<p>The failure of the Sentinel-1B sensor reduced the number of available radar images and introduced gaps in global coverage (see Figure <a href="#fig-s1-coverage" class="quarto-xref">Figure&nbsp;<span>A.1</span></a>) from December 2021 until Sentinel-1C became operational in early 2025. This loss was particularly significant because synthetic aperture radar (SAR) can image through clouds and in darkness, making it an invaluable complement to optical imagery, especially in persistently cloud-covered regions such as Gabon. Furthermore, SAR provides sensing capabilities unavailable from other instruments and has proven particularly useful for various tasks, such as flood detection <span class="citation" data-cites="Misra2025"><a href="#ref-Misra2025" role="doc-biblioref">[1]</a></span>, vegetation monitoring <span class="citation" data-cites="PARAG2024101107"><a href="#ref-PARAG2024101107" role="doc-biblioref">[2]</a></span>, or ocean object detection <span class="citation" data-cites="10234538"><a href="#ref-10234538" role="doc-biblioref">[3]</a></span>. Rather than viewing these data gaps as a limitation, we encourage readers to explore complementary or alternative SAR sources (such as ALOS-2 PALSAR/PALSAR-2 yearly mosaics) and to develop models capable of handling multiple or missing modalities (see Section <a href="./model_design_training.html">Model Design and Training</a>).</p>
-<div id="fig-s1-coverage" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-s1-coverage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/s1.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s1-coverage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;A.1: Sentinel-1 Level 1 GRD data coverage, as provided by the Alaska Satellite Facility <span class="citation" data-cites="ASFS1"><a href="#ref-ASFS1" role="doc-biblioref">[4]</a></span>. The map shows the number of Sentinel-1A and Sentinel-1B GRD observations acquired globally, in April 2024.
-</figcaption>
-</figure>
-</div>
+<p>&nbsp;</p>
+<p>⚠️ Subject to change. This page is a work in progress and will be updated as the project evolves. The list of contributors and advisors may expand.</p>
+<section id="core-contributors" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="core-contributors">Core Contributors</h2>
+<p><strong>Ghjulia Sialelli</strong> (lead author) is a PhD student in the Photogrammetry and Remote Sensing group at ETH Zurich and an ETH AI Center Doctoral Fellow. Her research focuses on high-resolution global mapping of above-ground biomass using deep learning and multi-modal satellite imagery, combining data from Sentinel-2, SAR sensors, and NASA’s GEDI mission. She is also a co-organizer of the AI + Environment Summit.</p>
+<p><strong>Robin Young</strong> is a researcher at the Department of Computer Science and Technology at the University of Cambridge. He works on machine learning for Earth observation, contributing to the development of TESSERA, a pixel-wise foundation model for multi-modal Sentinel-1/2 time series that learns robust, label-efficient embeddings for downstream EO tasks.</p>
+<p><strong>Cesar Aybar</strong> is a researcher at Asterisk Labs and formerly at the Image and Signal Processing Group (ISP) at the University of Valencia. His work spans remote sensing and machine learning, including contributions to super-resolution of satellite imagery (SEN2NAIP), cloud detection and atmospheric correction, and benchmarking of optical remote sensing methods.</p>
+<p><strong>Yuchang Jiang</strong> is a postdoctoral researcher at the Swiss Federal Institute for Forest, Snow and Landscape Research (WSL). She obtained her PhD from the EcoVision Lab at the University of Zurich, supervised by Jan D. Wegner and Konrad Schindler, and completed her master’s at ETH Zurich. She has interned at Google DeepMind. Her research lies at the intersection of computer vision and remote sensing, with a focus on applying deep learning to environmental and ecological monitoring, including forest type mapping, habitat mapping, and phenological forecasting.</p>
+<p><strong>Damien Robert</strong> is a postdoctoral researcher in the EcoVision Lab at the University of Zurich. He received his PhD in 3D Deep Learning from Gustave Eiffel University, where he worked at IGN (French mapping agency). His research at UZH focuses on deep learning methods for remote sensing and environmental applications, including forest structure analysis and species distribution modeling.</p>
+<p><strong>Linus Scheibenreif</strong> is a postdoctoral researcher in the Photogrammetry and Remote Sensing group at ETH Zurich. He received his PhD in Computer Science from the University of St.&nbsp;Gallen. His research focuses on foundation models for satellite imagery, with contributions to parameter-efficient fine-tuning of geospatial models, hyperspectral foundation models, and climate-aware satellite imagery generation.</p>
+</section>
+<section id="technical-advisors" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="technical-advisors">Technical Advisors</h2>
+<p><strong>Clemens Mosig</strong> is a PhD candidate at Leipzig University’s Institute for Earth System Science and Remote Sensing. His research applies data science to Earth system data, with a focus on tree mortality monitoring. He developed deadtrees.earth, an open-access interactive database for centimeter-scale aerial imagery to study global tree mortality dynamics.</p>
+<p><strong>Daniel Lusk</strong> is a PhD candidate in the Department for Sensor-based Geoinformatics at the University of Freiburg. He holds an M.Sc. in Remote Sensing from the University of Potsdam and a B.Sc. in Ecology from the University of Tennessee. His research focuses on global biodiversity patterns using citizen science and Earth observation, plant trait modeling, and bias reduction in geospatial data science.</p>
+<p><strong>Martin Schwartz</strong> is a postdoctoral researcher at the Laboratoire des Sciences du Climat et de l’Environnement (LSCE) in France. His research focuses on forest monitoring using remote sensing and deep learning, including the creation of FORMS — high-resolution tree height, wood volume, and biomass maps of France based on Sentinel-1, Sentinel-2, and GEDI data.</p>
+<p><strong>Mikolaj Czerkawski</strong> is a co-founder and partner scientist at Asterisk Labs and a former research fellow at the European Space Agency Φ-lab. His research lies at the intersection of computer vision, signal processing, and Earth observation, with recent work on open foundation model embeddings for Sentinel data (BetaEarth).</p>
+<p><strong>Zhengpeng Feng</strong> is a PhD student at the Department of Computer Science and Technology at the University of Cambridge. His research focuses on self-supervised learning for remote sensing imagery. He is the lead author of TESSERA, a foundation model for multi-modal Earth observation time series accepted at CVPR 2026.</p>
+<p><strong>Nandika Tsendbazar</strong> is an Assistant Professor at the Laboratory of Geo-Information Science and Remote Sensing at Wageningen University &amp; Research. She specializes in satellite-based land change monitoring, with extensive expertise in quality and uncertainty assessment of global land cover products. She developed an operational validation framework used for Copernicus Global Land Service and ESA WorldCover maps.</p>
+<p><strong>Adam J. Stewart</strong> is a postdoctoral researcher at the Chair of Data Science in Earth Observation at the Technical University of Munich (TU Munich). He is the lead developer of TorchGeo, an open-source PyTorch library providing datasets, samplers, transforms, and pre-trained models for geospatial data. His work focuses on machine learning for Earth observation, with an emphasis on reproducible benchmarks and reusable software for remote sensing.</p>
+</section>
+<section id="supervisors" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="supervisors">Supervisors</h2>
+<p><strong>Jan D. Wegner</strong> is an Associate Professor at the University of Zurich, where he holds the “Data Science for Sciences” chair and heads the EcoVision Lab. His research is at the frontier of machine learning, computer vision, and remote sensing for environmental sciences, with applications ranging from deforestation monitoring to ecosystem analysis at global scale.</p>
+<p><strong>Aleksis Pirinen</strong> is a Senior Researcher in Machine Learning and Computer Vision at RISE Research Institutes of Sweden and co-founder of Climate AI Nordics. He holds a PhD from Lund University on reinforcement learning for active visual perception. His current work focuses on AI for climate adaptation and environmental monitoring.</p>
+<p><strong>Olof Mogren</strong> is a Senior Research Scientist and director of deep learning research at RISE Research Institutes of Sweden, co-founder of Climate AI Nordics, and co-PI of CLIMES (Swedish Centre for Impacts of Climate Extremes). He holds a PhD in Machine Learning from Chalmers University of Technology. His work spans biodiversity monitoring, remote sensing, stream flow forecasting, and smart fire detection.</p>
+<p><strong>Konrad Schindler</strong> is a Full Professor of Photogrammetry and Remote Sensing at ETH Zurich, where he heads the Institute of Geodesy and Photogrammetry. He holds a PhD in Computer Science and has been at ETH since 2010. His research spans Earth observation, computer vision, and geo-AI, with a focus on extracting geospatial information from large-scale imagery and sensor data.</p>
+</section>
+<section id="acknowledgments" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
+<p>This research was supported by the ETH AI Center through an ETH AI Center doctoral fellowship to Ghjulia Sialelli. We thank Isabelle Tingzon, Chiara Ceccobello, and Sebastian Hafner (RISE Research Institutes of Sweden), Johannes Reiche and Robert N. Masolele (Wageningen University), Nico Lang (University of Copenhagen), Jan Pauls (University of Münster), Christelle Vancutsem (EU Joint Research Centre), Peter Potapov (World Resources Institute), Kristof Van Tricht (VITO), Maurizio Santoro (Gamma Remote Sensing), Marcin Kluczek (CloudFerro), Louis de Vitry (Kanop), Valerie J. Pasquarella (Google), Henry Herzog (Allen Institute for AI), Caleb Robinson (Microsoft AI for Good Research Lab), Gabriel Belouze, Isaac Corley, and Harald Kristen for generously sharing their experience and insights during the preparation of this work. Their input helped shape several of the practical recommendations presented here, though responsibility for any errors or omissions remains with the authors.</p>
+</section>
+<section id="contact" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="contact">Contact</h2>
+<!-- TODO: Add contact information or a link to the corresponding author's page. -->
 
 
-<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
-<div id="ref-Misra2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">A. Misra, K. White, S. F. Nsutezo, W. Straka, and J. Lavista, <span>“<span class="nocase">Mapping global floods with 10 years of satellite radar data</span>,”</span> <em>Nature Communications</em>, vol. 16, no. 1, Jul. 2025, doi: <a href="https://doi.org/10.1038/s41467-025-60973-1">10.1038/s41467-025-60973-1</a>.</div>
-</div>
-<div id="ref-PARAG2024101107" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">M. Parag, R. Lottering, K. Peerbhay, N. Agjee, and N. Poona, <span>“<span class="nocase">The use of synthetic aperture radar technology for crop biomass monitoring: A systematic review</span>,”</span> <em>Remote Sensing Applications: Society and Environment</em>, vol. 33, p. 101107, 2024, doi: <a href="https://doi.org/10.1016/j.rsase.2023.101107">10.1016/j.rsase.2023.101107</a>.</div>
-</div>
-<div id="ref-10234538" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">R. M. Asiyabi, A. Ghorbanian, S. N. Tameh, M. Amani, S. Jin, and A. Mohammadzadeh, <span>“<span class="nocase">Synthetic Aperture Radar (SAR) for Ocean: A Review</span>,”</span> <em>IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing</em>, vol. 16, pp. 9106–9138, 2023, doi: <a href="https://doi.org/10.1109/JSTARS.2023.3310363">10.1109/JSTARS.2023.3310363</a>.</div>
-</div>
-<div id="ref-ASFS1" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Alaska Satellite Facility, <span>“<span><span>Sentinel-1</span> Data Coverage Heat Maps</span>.”</span> <a href="https://asf.alaska.edu/daac/sentinel-1-acquisition-maps/" class="uri">https://asf.alaska.edu/daac/sentinel-1-acquisition-maps/</a>, n.d.</div>
-</div>
-</div>
+</section>
 
 </main> <!-- /main -->
 <script>
@@ -939,13 +940,13 @@ Figure&nbsp;A.1: Sentinel-1 Level 1 GRD data coverage, as provided by the Alaska
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./conclusion_limitations.html" class="pagination-link" aria-label="Limitations">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Limitations</span></span>
+      <a href="./index.html" class="pagination-link" aria-label="From Machine Learning to Large-Scale EO Products">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">From Machine Learning to Large-Scale EO Products</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./appendix_processing_pathways.html" class="pagination-link" aria-label="Sentinel-1 and Sentinel-2 processing across access pathways">
-        <span class="nav-page-text"><span class="chapter-title">Sentinel-1 and Sentinel-2 processing across access pathways</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./howto.html" class="pagination-link" aria-label="How to Use This Book">
+        <span class="nav-page-text"><span class="chapter-title">How to Use This Book</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -957,7 +958,7 @@ Figure&nbsp;A.1: Sentinel-1 Level 1 GRD data coverage, as provided by the Alaska
 </div>   
     <div class="nav-footer-center">
 <p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>
-<div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/appendix_s1_gaps.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/about.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Built with <a href="https://quarto.org/">Quarto</a></p>
 </div>

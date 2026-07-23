@@ -145,6 +145,11 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the Authors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How to Use This Book</span></a>
   </div>
 </li>
@@ -423,14 +428,14 @@ div.csl-indent {
 <p>This encompasses everything the model does not know such as gaps in the training data distribution, misspecification of the functional form, and sensitivity to hyperparameter choices. Model uncertainty is highest where the inference domain differs from the training domain, which is exactly the regime that matters for global maps, which inevitably extrapolate beyond the spatial and temporal extent of their training data.</p>
 <p>Many UQ methods address only model uncertainty. The gap between what is quantified and what contributes to the total error budget should be made explicit.</p>
 <p>Unfortunately no method is simultaneously cheap, scalable, and well-calibrated. Gaussian Processes are calibrated (if the kernel is correct) but do not scale. Ensembles scale but are expensive and miscalibrated for spatial data. Conformal methods are cheap but provide only marginal coverage. Neural processes offer a favorable tradeoff but require bespoke architectures. Heteroskedastic regression is cheap and scalable but captures only aleatoric uncertainty.</p>
-<p>The appropriate choice depends on what will be done with the uncertainty. If the goal is to mask out unreliable regions, even a rough uncertainty proxy may suffice. If the goal is to produce calibrated prediction intervals for carbon accounting, the requirements are stringent and the cost is correspondingly higher. If the goal is to report aggregate uncertainty over administrative units, the dominant concern is spatial error correlation (Section <a href="./uq_spatial.html">Spatial Structure of Uncertainty</a>), and no pixel-level UQ method alone will suffice. Users should articulate the intended use of uncertainty before choosing a method, not after. Figure <a href="#fig-uq-flowchart" class="quarto-xref">Figure&nbsp;<span>12.1</span></a> summarizes the decision logic discussed in the sections that follow.</p>
+<p>The appropriate choice depends on what will be done with the uncertainty. If the goal is to mask out unreliable regions, even a rough uncertainty proxy may suffice. If the goal is to produce calibrated prediction intervals for carbon accounting, the requirements are stringent and the cost is correspondingly higher. If the goal is to report aggregate uncertainty over administrative units, the dominant concern is spatial error correlation (Section <a href="./uq_spatial.html">Spatial Structure of Uncertainty</a>), and no pixel-level UQ method alone will suffice. Users should articulate the intended use of uncertainty before choosing a method, not after. Figure <a href="#fig-uq-flowchart" class="quarto-xref">Figure&nbsp;<span>13.1</span></a> summarizes the decision logic discussed in the sections that follow.</p>
 <div id="fig-uq-flowchart" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-uq-flowchart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/uq_flowchart.png" id="fig-uq-flowchart" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-uq-flowchart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;12.1
+Figure&nbsp;13.1
 </figcaption>
 </figure>
 </div>

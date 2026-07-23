@@ -34,6 +34,10 @@ title: "About the Authors"
 
 **Nandika Tsendbazar** is an Assistant Professor at the Laboratory of Geo-Information Science and Remote Sensing at Wageningen University & Research. She specializes in satellite-based land change monitoring, with extensive expertise in quality and uncertainty assessment of global land cover products. She developed an operational validation framework used for Copernicus Global Land Service and ESA WorldCover maps.
 
+**Adam J. Stewart** is a postdoctoral researcher at the Chair of Data Science in Earth Observation at the Technical University of Munich (TU Munich). He is the lead developer of TorchGeo, an open-source PyTorch library providing datasets, samplers, transforms, and pre-trained models for geospatial data. His work focuses on machine learning for Earth observation, with an emphasis on reproducible benchmarks and reusable software for remote sensing.
+
+## Supervisors {.unnumbered}
+
 **Jan D. Wegner** is an Associate Professor at the University of Zurich, where he holds the "Data Science for Sciences" chair and heads the EcoVision Lab. His research is at the frontier of machine learning, computer vision, and remote sensing for environmental sciences, with applications ranging from deforestation monitoring to ecosystem analysis at global scale.
 
 **Aleksis Pirinen** is a Senior Researcher in Machine Learning and Computer Vision at RISE Research Institutes of Sweden and co-founder of Climate AI Nordics. He holds a PhD from Lund University on reinforcement learning for active visual perception. His current work focuses on AI for climate adaptation and environmental monitoring.
@@ -44,7 +48,7 @@ title: "About the Authors"
 
 ## Acknowledgments {.unnumbered}
 
-GS is supported by an ETH AI Center doctoral fellowship. We thank Isabelle Tingzon, Chiara Ceccobello, and Sebastian Hafner (RISE Research Institutes of Sweden), Henry Herzog (Allen Institute for AI), Christelle Vancutsem (EU Joint Research Centre), Robert N. Masolele (Wageningen University), Peter Potapov (World Resources Institute), Louis de Vitry (Kanop), and Valerie J. Pasquarella (Google) for generously sharing their experience and insights during the preparation of this work. Their input helped shape several of the practical recommendations presented here, though responsibility for any errors or omissions remains with the authors.
+This research was supported by the ETH AI Center through an ETH AI Center doctoral fellowship to Ghjulia Sialelli. We thank Isabelle Tingzon, Chiara Ceccobello, and Sebastian Hafner (RISE Research Institutes of Sweden), Johannes Reiche and Robert N. Masolele (Wageningen University), Nico Lang (University of Copenhagen), Jan Pauls (University of Münster), Christelle Vancutsem (EU Joint Research Centre), Peter Potapov (World Resources Institute), Kristof Van Tricht (VITO), Maurizio Santoro (Gamma Remote Sensing), Marcin Kluczek (CloudFerro), Louis de Vitry (Kanop), Valerie J. Pasquarella (Google), Henry Herzog (Allen Institute for AI), Caleb Robinson (Microsoft AI for Good Research Lab), Gabriel Belouze, Isaac Corley, and Harald Kristen for generously sharing their experience and insights during the preparation of this work. Their input helped shape several of the practical recommendations presented here, though responsibility for any errors or omissions remains with the authors.
 
 ## Contact {.unnumbered}
 
