@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c255c5907d4ec97ac61b80091d22c4d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -160,6 +160,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reference_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference map</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -353,7 +359,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Dive Deeper</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -371,12 +377,37 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./appendix_s2_artifacts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Identifying Sentinel-2 tiling artifacts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_geometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Selecting a SAR viewing geometry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  <a href="./appendix_sar_ard.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis-ready SAR products</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_optical_radiometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric conventions for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_combining_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Combining Landsat and Sentinel-2</span></a>
   </div>
 </li>
       </ul>
@@ -414,6 +445,7 @@ div.csl-indent {
 <p>International frameworks for climate reporting, including the UNFCCC REDD+ mechanism <span class="citation" data-cites="UNFCCC2013_Warsaw_REDD"><a href="#ref-UNFCCC2013_Warsaw_REDD" role="doc-biblioref">[1]</a></span> and IPCC national greenhouse gas inventory guidelines <span class="citation" data-cites="ipcc2006guidelines"><a href="#ref-ipcc2006guidelines" role="doc-biblioref">[2]</a></span>, require that participating countries report estimates of forest carbon stock changes with quantified uncertainty. Carbon credit markets depend on this, as overconfident uncertainty bounds can overstate the precision of issued credits, while excessively wide bounds waste verification resources <span class="citation" data-cites="haya2020managing"><a href="#ref-haya2020managing" role="doc-biblioref">[3]</a></span>. Beyond carbon accounting, uncertainty is what transforms a map from a static product into a tool that can guide action by identifying where additional field measurements would be most valuable, where policy conclusions are robust, and where they are not.</p>
 <p>The challenge is that uncertainty quantification (UQ) for maps is different from UQ for individual predictions. Maps are spatial products, so users do not consume pixel values in isolation but aggregate them into regional statistics, compare them across years, and derive change estimates. A model may be well-calibrated on average across a global test set while being systematically overconfident in specific biomes or regions. If the uncertainty layer does not capture this spatial variation in reliability, it fails where it is most needed.</p>
 <p>This section surveys the methods available for quantifying prediction uncertainty in large-scale EO maps, the techniques for assessing whether that uncertainty is trustworthy, the underappreciated role of spatial error correlation in aggregated estimates, and the practical question of what to do with uncertainty once it has been estimated.</p>
+<p>Throughout, we distinguish two branches of large-scale mapping that differ in what an uncertainty estimate is. For continuous targets (biomass, canopy height, soil properties) uncertainty is a predictive distribution or interval around a real-valued prediction, and calibration is assessed by whether intervals achieve their nominal coverage. For categorical targets (land cover, crop type, change detection) uncertainty is a probability vector over classes, and calibration is assessed by whether those probabilities match observed class frequencies. The two branches share most of the method families below but not all of them, and they have different validation methods. Categorical mapping has a design-based tradition for aggregate accuracy and area estimation <span class="citation" data-cites="olofsson2014good stehman2019key"><a href="#ref-olofsson2014good" role="doc-biblioref">[4]</a>, <a href="#ref-stehman2019key" role="doc-biblioref">[5]</a></span> but comparatively weak per-pixel uncertainty products, whereas continuous mapping has invested in per-pixel uncertainty but has only recently begun to address the aggregate problem (see <a href="./uq_spatial.html">Spatial structure of uncertainty</a>). We note where method applications diverge as we go.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -425,6 +457,12 @@ div.csl-indent {
 </div>
 <div id="ref-haya2020managing" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[3] </div><div class="csl-right-inline">B. Haya <em>et al.</em>, <span>“<span class="nocase">Managing uncertainty in carbon offsets: insights from California’s standardized approach</span>,”</span> <em>Climate Policy</em>, vol. 20, no. 9, pp. 1112–1126, 2020, doi: <a href="https://doi.org/10.1080/14693062.2020.1781035">10.1080/14693062.2020.1781035</a>.</div>
+</div>
+<div id="ref-olofsson2014good" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">P. Olofsson, G. M. Foody, M. Herold, S. V. Stehman, C. E. Woodcock, and M. A. Wulder, <span>“<span class="nocase">Good practices for estimating area and assessing accuracy of land change</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 148, pp. 42–57, May 2014, doi: <a href="https://doi.org/10.1016/j.rse.2014.02.015">10.1016/j.rse.2014.02.015</a>.</div>
+</div>
+<div id="ref-stehman2019key" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">S. V. Stehman and G. M. Foody, <span>“<span class="nocase">Key issues in rigorous accuracy assessment of land cover products</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 231, p. 111199, 2019, doi: <a href="https://doi.org/10.1016/j.rse.2019.05.018">10.1016/j.rse.2019.05.018</a>.</div>
 </div>
 </div>
 
@@ -477,10 +515,15 @@ div.csl-indent {
     "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
     "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
 
-    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
-    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
-    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
-    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+    "appendix_s1_gaps.html":             { part: "Dive Deeper", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Dive Deeper", chapter: "S1/S2 processing across access pathways" },
+    "appendix_s2_artifacts.html":        { part: "Dive Deeper", chapter: "Sentinel-2 tiling artifacts" },
+    "appendix_sar_geometry.html":        { part: "Dive Deeper", chapter: "SAR viewing geometry" },
+    "appendix_sar_rtc.html":             { part: "Dive Deeper", chapter: "SAR calibration & terrain correction" },
+    "appendix_sar_ard.html":             { part: "Dive Deeper", chapter: "Analysis-ready SAR products" },
+    "appendix_cloud_masking.html":       { part: "Dive Deeper", chapter: "Cloud masking for optical data" },
+    "appendix_optical_radiometry.html":  { part: "Dive Deeper", chapter: "Optical radiometric conventions" },
+    "appendix_combining_missions.html":  { part: "Dive Deeper", chapter: "Combining Landsat and Sentinel-2" }
   };
 
   function currentInfo() {
@@ -949,7 +992,7 @@ div.csl-indent {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Best Practices for EO Maps</p>
+<p>Good Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
 <p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>

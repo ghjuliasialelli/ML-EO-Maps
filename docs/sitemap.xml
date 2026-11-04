@@ -2,19 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/index.html</loc>
-    <lastmod>2026-07-23T12:49:00.010Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.603Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/about.html</loc>
-    <lastmod>2026-07-23T13:02:57.721Z</lastmod>
+    <lastmod>2026-11-02T16:47:59.259Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/howto.html</loc>
-    <lastmod>2026-07-23T13:03:38.060Z</lastmod>
+    <lastmod>2026-11-02T15:01:27.013Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/chatbot.html</loc>
-    <lastmod>2026-07-23T13:03:41.024Z</lastmod>
+    <lastmod>2026-11-02T15:01:27.023Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/reference_map.html</loc>
+    <lastmod>2026-11-04T13:09:20.409Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/feedback.html</loc>
@@ -22,67 +26,67 @@
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/introduction.html</loc>
-    <lastmod>2026-07-23T13:02:10.283Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.604Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/eo_data_landscape.html</loc>
-    <lastmod>2026-07-23T13:16:28.118Z</lastmod>
+    <lastmod>2026-11-02T15:04:46.961Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/eo_missions.html</loc>
-    <lastmod>2026-07-23T13:16:28.114Z</lastmod>
+    <lastmod>2026-11-02T15:05:10.886Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/accessing_eo_data.html</loc>
-    <lastmod>2026-07-23T13:16:28.120Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.604Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/data_selection_preprocessing.html</loc>
-    <lastmod>2026-07-23T13:16:28.120Z</lastmod>
+    <lastmod>2026-11-02T15:05:56.156Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/data_selection.html</loc>
-    <lastmod>2026-07-23T13:16:28.113Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.605Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/data_preprocessing.html</loc>
-    <lastmod>2026-07-23T13:16:28.116Z</lastmod>
+    <lastmod>2026-11-04T16:20:26.094Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/ml_pipeline.html</loc>
-    <lastmod>2026-07-23T13:16:28.120Z</lastmod>
+    <lastmod>2026-11-02T15:04:54.507Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/ml_ready_dataset.html</loc>
-    <lastmod>2026-07-23T13:16:28.116Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.606Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/model_design_training.html</loc>
-    <lastmod>2026-07-23T13:16:28.116Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.606Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/uncertainty_quantification.html</loc>
-    <lastmod>2026-07-23T13:16:28.121Z</lastmod>
+    <lastmod>2026-11-02T15:06:59.646Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/uq_sources.html</loc>
-    <lastmod>2026-07-23T13:16:28.120Z</lastmod>
+    <lastmod>2026-11-02T15:07:08.206Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/uq_methods.html</loc>
-    <lastmod>2026-07-23T13:16:28.121Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.607Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/uq_calibration.html</loc>
-    <lastmod>2026-07-23T13:16:28.115Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.607Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/uq_spatial.html</loc>
-    <lastmod>2026-07-23T13:16:28.114Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.608Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/uq_operationalizing.html</loc>
-    <lastmod>2026-07-23T13:16:28.114Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.608Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/map_production.html</loc>
@@ -90,7 +94,7 @@
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/map_generation.html</loc>
-    <lastmod>2026-07-23T13:16:28.117Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.608Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/post_processing.html</loc>
@@ -98,23 +102,23 @@
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/sharing.html</loc>
-    <lastmod>2026-07-23T13:16:28.118Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.609Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/validation.html</loc>
-    <lastmod>2026-07-23T13:16:28.118Z</lastmod>
+    <lastmod>2026-11-02T15:05:53.265Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/validation_general.html</loc>
-    <lastmod>2026-07-23T13:16:28.113Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.625Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/validation_design_based.html</loc>
-    <lastmod>2026-07-23T13:16:28.114Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.609Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/validation_beyond.html</loc>
-    <lastmod>2026-07-23T13:16:28.119Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.610Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/conclusion.html</loc>
@@ -122,30 +126,50 @@
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/conclusion_summary.html</loc>
-    <lastmod>2026-07-23T13:16:28.121Z</lastmod>
+    <lastmod>2026-11-02T15:06:44.773Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/conclusion_forward.html</loc>
-    <lastmod>2026-07-23T13:16:28.119Z</lastmod>
+    <lastmod>2026-11-04T16:20:26.097Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/conclusion_limitations.html</loc>
-    <lastmod>2026-07-23T13:16:28.115Z</lastmod>
+    <lastmod>2026-11-04T16:20:26.133Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/appendix_s1_gaps.html</loc>
-    <lastmod>2026-07-23T13:16:28.119Z</lastmod>
+    <lastmod>2026-11-02T15:05:35.487Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/appendix_processing_pathways.html</loc>
-    <lastmod>2026-07-23T13:16:28.121Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.610Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/appendix_s2_artifacts.html</loc>
+    <lastmod>2026-11-04T16:19:27.611Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/appendix_sar_geometry.html</loc>
+    <lastmod>2026-11-04T16:19:27.611Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/appendix_sar_rtc.html</loc>
-    <lastmod>2026-07-23T13:16:28.115Z</lastmod>
+    <lastmod>2026-11-04T16:19:27.611Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/appendix_sar_ard.html</loc>
+    <lastmod>2026-11-02T15:06:31.141Z</lastmod>
   </url>
   <url>
     <loc>https://ghjuliasialelli.github.io/ml-eo-maps/appendix_cloud_masking.html</loc>
-    <lastmod>2026-07-23T13:16:28.121Z</lastmod>
+    <lastmod>2026-11-02T15:05:35.488Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/appendix_optical_radiometry.html</loc>
+    <lastmod>2026-11-04T16:19:27.612Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ghjuliasialelli.github.io/ml-eo-maps/appendix_combining_missions.html</loc>
+    <lastmod>2026-11-04T16:19:27.612Z</lastmod>
   </url>
 </urlset>

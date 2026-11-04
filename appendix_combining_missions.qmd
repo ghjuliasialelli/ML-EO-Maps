@@ -1,0 +1,23 @@
+---
+title: "Combining Landsat and Sentinel-2"
+---
+
+Products from different missions are rarely directly comparable. This appendix gives the Landsat and Sentinel-2 case, which is the best-supported instance and the one most often encountered.
+
+## What a mature processing chain delivers
+
+Landsat benefits from a longer-standing and more standardized processing pipeline than Sentinel-2, and the user-side burden is correspondingly lower. Collection 2 Level-2 Science Products provide atmospherically corrected surface reflectance together with surface temperature, delivered scene by scene in UTM projection. Every scene carries a bit-packed `QA_PIXEL` band generated during Level-1 processing, so the same quality information travels with the Level-1 and Level-2 products alike. The Landsat Analysis Ready Data product standardizes the geometric framework further by tiling scenes onto a fixed grid in Albers Equal Area projection, removing the need to manage overlapping scene boundaries, though the underlying radiometric processing is identical to Collection 2 Level-2.
+
+## Harmonizing across Landsat generations
+
+Researchers working with multi-decadal archives should be aware that spectral response functions differ across Landsat generations. Landsat 8 and 9 use narrower bands that avoid atmospheric absorption features present in the Landsat 5 and 7 bandpasses, producing systematic offsets that bias time-series analysis if left uncorrected. Roy et al. [@Roy2016b] published spectral bandpass adjustment coefficients that harmonize across sensors. BRDF normalization improves temporal consistency in the same way it does for Sentinel-2, and Roy et al. [@Roy2016a] developed the standard route for Landsat, applying MODIS BRDF spectral model parameters to normalize surface reflectance to a nadir view at a fixed solar zenith angle. Neither correction is applied operationally by USGS, so both remain the user's responsibility.
+
+## What the long archive costs
+
+The depth that makes Landsat attractive is also where its defects accumulate. USGS maintains a catalog of known issues running to more than twenty distinct anomalies^[<https://www.usgs.gov/landsat-missions/landsat-known-issues>], the large majority of them affecting Landsat 1 through 7: banding and detector striping, coherent noise, memory effect, optical leaks, oversaturation. The single largest discontinuity is the failure of the Landsat 7 scan line corrector on 31 May 2003, after which roughly 22% of every ETM+ scene is lost to wedge-shaped gaps. The remaining data are usable and gap-filled products exist, but a time series crossing that date changes character partway through. None of this is an argument against the long archive. It is an argument for establishing, before committing to a span of years, which anomalies fall inside it — a check that costs an afternoon and is almost never performed.
+
+## Harmonizing across missions
+
+The Harmonized Landsat Sentinel-2 (HLS) dataset [@Claverie2018] offers a convenient starting point for studies that combine both missions. HLS provides 30 m surface reflectance from Landsat 8 and 9 and Sentinel-2A, 2B and 2C, with atmospheric correction, BRDF normalization, cloud masking and spectral bandpass adjustment applied consistently across all of them. Products are delivered on the Sentinel-2 MGRS tile grid, in tiles of 109.8 km overlapping by 4.9 km on each side; with five satellites contributing, the combined revisit is now under two days. For large-scale mapping, HLS removes most of the cross-sensor harmonization burden, at a cost that should be stated plainly: Sentinel-2's native 10 m resolution is sacrificed in favor of cross-mission consistency, and every pixel is resampled.
+
+The complementary direction is taken by sen2like^[<https://github.com/senbox-org/sen2like>], which harmonizes Landsat toward Sentinel-2 rather than the reverse, preserving the finer grid at the cost of upsampling the coarser sensor. Which direction is appropriate depends on whether spatial detail or archive length matters more for the task: harmonizing toward Landsat buys a record reaching back to the 1980s at 30 m, while harmonizing toward Sentinel-2 keeps 10 m detail over a decade.

@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c255c5907d4ec97ac61b80091d22c4d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -160,6 +160,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reference_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference map</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -353,7 +359,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Dive Deeper</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -371,12 +377,37 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./appendix_s2_artifacts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Identifying Sentinel-2 tiling artifacts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_geometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Selecting a SAR viewing geometry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  <a href="./appendix_sar_ard.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis-ready SAR products</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_optical_radiometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric conventions for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_combining_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Combining Landsat and Sentinel-2</span></a>
   </div>
 </li>
       </ul>
@@ -420,115 +451,144 @@ div.csl-indent {
 </header>
 
 
-<p>Model design must balance predictive accuracy against inference throughput at continental or global scale, and accommodate the heterogeneity of EO data. Effective model training must examine the specificities of large EO datasets to guide hyper-parameter tuning and data augmentation.</p>
+<p>Model design must balance predictive accuracy against inference throughput at continental or global scale, and accommodate the heterogeneity of EO data. Effective model training must examine the specificities of large EO datasets to guide hyperparameter tuning and data augmentation.</p>
 <section id="trade-off" class="level2">
 <h2 class="anchored" data-anchor-id="trade-off">Trade-off</h2>
-<p>Developing ML models for large-scale EO applications requires balancing model complexity, predictive performance, and inference throughput. This trade-off becomes critical in operational settings, where maps must be produced on fixed schedules (quarterly to yearly monitoring) or on demand (real-time alerts, post-disaster response) over wide areas. The chosen architecture directly shapes both the quality of the outputs and the feasibility of the pipeline. Recent years have seen growing interest in Vision Transformer and hybrid CNN-Transformer architectures for EO tasks <span class="citation" data-cites="TransformersRS"><a href="#ref-TransformersRS" role="doc-biblioref">[1]</a></span>, as well as transformer-based foundation models pre-trained on large satellite archives <span class="citation" data-cites="Jakubik2023 satmae2022 Astruc2024anysat feng2025tessera"><a href="#ref-Jakubik2023" role="doc-biblioref">[2]</a>, <a href="#ref-satmae2022" role="doc-biblioref">[3]</a>, <a href="#ref-Astruc2024anysat" role="doc-biblioref">[4]</a>, <a href="#ref-feng2025tessera" role="doc-biblioref">[5]</a></span>. However, convolutional encoder-decoder architectures remain widely adopted in operational pipelines, where the latency and memory constraints of large-area mapping often favor their lower computational footprint <span class="citation" data-cites="Liu_2023 glazer2025tempo kerner2025fields"><a href="#ref-Liu_2023" role="doc-biblioref">[6]</a>, <a href="#ref-glazer2025tempo" role="doc-biblioref">[7]</a>, <a href="#ref-kerner2025fields" role="doc-biblioref">[8]</a></span>. In particular, UNet architectures <span class="citation" data-cites="Ronneberger2015"><a href="#ref-Ronneberger2015" role="doc-biblioref">[9]</a></span> with EfficientNet backbones <span class="citation" data-cites="efficientnet"><a href="#ref-efficientnet" role="doc-biblioref">[10]</a></span> offer a well-documented trade-off between accuracy and throughput for such settings. Knowledge distillation <span class="citation" data-cites="HintonKD"><a href="#ref-HintonKD" role="doc-biblioref">[11]</a></span> offers a further avenue to improve inference efficiency without notable performance degradation <span class="citation" data-cites="HIMEUR2025102742"><a href="#ref-HIMEUR2025102742" role="doc-biblioref">[12]</a></span>.</p>
+<p>Developing ML models for large-scale EO applications requires balancing model complexity, predictive performance, and inference throughput. This trade-off becomes critical in operational settings, where maps must be produced on fixed schedules (quarterly to yearly monitoring) or on demand (real-time alerts, post-disaster response) over wide areas. It is largely shaped by two choices: the model family, and the use of spatial context. Model families range widely in cost. At the simple end, tree ensembles such as gradient boosting and random forests remain common in operational products <span class="citation" data-cites="Van_Tricht_2023 esa2021worldcover potapov2021mapping"><a href="#ref-Van_Tricht_2023" role="doc-biblioref">[1]</a>, <a href="#ref-esa2021worldcover" role="doc-biblioref">[2]</a>, <a href="#ref-potapov2021mapping" role="doc-biblioref">[3]</a></span>, being cheap to train and deploy without GPUs. At the complex end, Vision Transformer architectures have attracted growing interest, including for large-area mapping <span class="citation" data-cites="Mosig2026 Neumann_2025 herzog2025olmoearthstable pauls2026echosat"><a href="#ref-Mosig2026" role="doc-biblioref">[4]</a>, <a href="#ref-Neumann_2025" role="doc-biblioref">[5]</a>, <a href="#ref-herzog2025olmoearthstable" role="doc-biblioref">[6]</a>, <a href="#ref-pauls2026echosat" role="doc-biblioref">[7]</a></span>. Simpler convolutional encoder-decoder architectures remain widely adopted in operational pipelines, where the latency and memory constraints often favor their lower computational footprint <span class="citation" data-cites="Liu_2023 glazer2025tempo kerner2025fields"><a href="#ref-Liu_2023" role="doc-biblioref">[8]</a>, <a href="#ref-glazer2025tempo" role="doc-biblioref">[9]</a>, <a href="#ref-kerner2025fields" role="doc-biblioref">[10]</a></span>. In particular, UNet architectures <span class="citation" data-cites="Ronneberger2015"><a href="#ref-Ronneberger2015" role="doc-biblioref">[11]</a></span> with EfficientNet backbones <span class="citation" data-cites="efficientnet"><a href="#ref-efficientnet" role="doc-biblioref">[12]</a></span> offer a well-documented trade-off between accuracy and throughput for such settings. Most of these architectures operate on image patches, exploiting the spatial context around each pixel. Many operational products instead predict each pixel independently, from its own time series <span class="citation" data-cites="Van_Tricht_2023 feng2025tessera Mosig2026"><a href="#ref-Van_Tricht_2023" role="doc-biblioref">[1]</a>, <a href="#ref-Mosig2026" role="doc-biblioref">[4]</a>, <a href="#ref-feng2025tessera" role="doc-biblioref">[13]</a></span>, giving up spatial information in exchange for smaller inputs and simpler inference. Knowledge distillation <span class="citation" data-cites="HintonKD"><a href="#ref-HintonKD" role="doc-biblioref">[14]</a></span> offers a further avenue to improve inference efficiency without notable performance degradation <span class="citation" data-cites="HIMEUR2025102742"><a href="#ref-HIMEUR2025102742" role="doc-biblioref">[15]</a></span>.</p>
+<!-- web-only: not in manuscript -->
+<p>A recent benchmark of inference throughput across 45 vision backbones and geospatial foundation-model encoders illustrates the stakes: on a single H100 GPU, forward-pass throughput varies by roughly 205× between the fastest and slowest models, whereas moving the same model from a V100 to an H100 yields only a 3–5× speedup. For planetary-scale inference, model choice therefore dominates hardware choice, and combining half precision with <code>torch.compile</code> gives the largest gains <span class="citation" data-cites="robinson2026throughputbench"><a href="#ref-robinson2026throughputbench" role="doc-biblioref">[16]</a></span>. <!-- /web-only --></p>
+<div class="box-decision callout callout-style-default callout-note no-icon callout-titled" title="Decision · Model family and spatial context">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Decision · Model family and spatial context
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Alternatives.</strong> Tree ensembles, convolutional encoder-decoders or vision transformers; each pixel predicted from its own time series, or within its spatial neighborhood.</p>
+<p><strong>Trade-off.</strong> Larger models can improve predictions but raise the cost of inference, which recurs with every update of a global map; per-pixel prediction keeps inputs small and inference simple, at the price of the spatial information that patches provide.</p>
+<p><strong>Constrains.</strong> The data layout (see <a href="./ml_ready_dataset.html#sec-data-formats">Data formats</a>), the inference tiling and its artifacts (see <a href="./map_generation.html">Map generation</a>), and, in the other direction, the compute budget available for deployment.</p>
+</div>
+</div>
 </section>
 <section id="handling-input-heterogeneity" class="level2">
 <h2 class="anchored" data-anchor-id="handling-input-heterogeneity">Handling input heterogeneity</h2>
-<p>EO applications frequently combine inputs that differ in spatial resolution, number of channels, or temporal cadence. Rather than resampling all modalities to a common grid before ingestion (as described in <a href="ml_ready_dataset.html#sec-grid" class="quarto-xref"><span>Spatial gridding</span></a>), an alternative approach consists in delegating this alignment to the model itself. Typical designs employ modality-specific encoder branches that operate at each source’s native resolution and fuse representations at a shared spatial scale, either through learned upsampling, cross-attention, or feature concatenation after spatial alignment layers <span class="citation" data-cites="Li2022multimodal"><a href="#ref-Li2022multimodal" role="doc-biblioref">[13]</a></span>. This strategy avoids the interpolation artifacts and information loss inherent in a priori resampling. Recent geospatial foundation models have pushed this flexibility further, using dynamic patch embeddings and scale-adaptive encoders to train a single model across sensors with arbitrary channel counts, resolutions, and tile extents, while also gracefully handling missing or variable modalities at inference time <span class="citation" data-cites="Xiong2024dofa Astruc2024anysat Fuller2023croma"><a href="#ref-Astruc2024anysat" role="doc-biblioref">[4]</a>, <a href="#ref-Xiong2024dofa" role="doc-biblioref">[14]</a>, <a href="#ref-Fuller2023croma" role="doc-biblioref">[15]</a></span>. The added architectural complexity must, however, be weighed against the throughput and simplicity advantages of a single pre-aligned input tensor, particularly in operational pipelines where inference latency is a binding constraint.</p>
+<p>EO applications frequently combine inputs that differ in spatial resolution, number of channels, or temporal cadence. Rather than resampling all modalities to a common grid before ingestion (as described in <a href="./ml_ready_dataset.html#sec-gridtopatches">From grid to patches</a>), an alternative approach consists in delegating this alignment to the model itself. Typical designs employ modality-specific encoder branches that operate at each source’s native resolution and fuse representations at a shared spatial scale, either through learned upsampling, cross-attention, or feature concatenation after spatial alignment layers <span class="citation" data-cites="Li2022multimodal"><a href="#ref-Li2022multimodal" role="doc-biblioref">[17]</a></span>. This strategy avoids the interpolation artifacts and information loss inherent in a priori resampling. Recent geospatial foundation models have pushed this flexibility further, using dynamic patch embeddings and scale-adaptive encoders to train a single model across sensors with arbitrary channel counts, resolutions, and tile extents, while also gracefully handling missing or variable modalities at inference time <span class="citation" data-cites="Xiong2024dofa Astruc2024anysat Fuller2023croma"><a href="#ref-Xiong2024dofa" role="doc-biblioref">[18]</a>, <a href="#ref-Astruc2024anysat" role="doc-biblioref">[19]</a>, <a href="#ref-Fuller2023croma" role="doc-biblioref">[20]</a></span>. The added architectural complexity must, however, be weighed against the throughput and simplicity advantages of a single pre-aligned input tensor, particularly in operational pipelines where inference latency is a binding constraint.</p>
 </section>
 <section id="hyperparameter-tuning" class="level2">
 <h2 class="anchored" data-anchor-id="hyperparameter-tuning">Hyperparameter tuning</h2>
-<p>Hyperparameter optimization (HPO) is an important step in the ML pipeline, and we refer the reader to <span class="citation" data-cites="HPO"><a href="#ref-HPO" role="doc-biblioref">[16]</a></span> for a general review of HPO best practices. We focus on two key aspects that are relevant for large EO datasets: <em>which</em> parameters to optimize, and <em>how much</em> data do you need for it. Hyperparameter tuning for deep learning models is inherently challenging: the number of configurable hyperparameters is large, and their relative influence on model performance varies across tasks, architectures, and datasets, making it difficult to establish universally valid tuning priorities. Nevertheless, a broad consensus has emerged in the literature that the learning rate and its scheduler, batch size, and regularization mechanisms such as dropout and weight decay tend to be the most influential hyperparameters for deep neural networks <span class="citation" data-cites="Smith2018"><a href="#ref-Smith2018" role="doc-biblioref">[17]</a></span>. Regarding how much data should be used for HPO, the common practice is to use the entire validation set, as in <span class="citation" data-cites="Mosig2026 pauls2024estimating"><a href="#ref-Mosig2026" role="doc-biblioref">[18]</a>, <a href="#ref-pauls2024estimating" role="doc-biblioref">[19]</a></span>. However, given the computational cost of training deep learning models on large datasets, a strategy encountered in the literature (e.g., <span class="citation" data-cites="pauls2025capturing"><a href="#ref-pauls2025capturing" role="doc-biblioref">[20]</a></span>) is to perform hyperparameter optimization on a subset of the data, and subsequently train the final model on the full dataset using the selected configuration. This approach is a special case of multi-fidelity hyperparameter optimization, and many methods have been developed for it <span class="citation" data-cites="AML FABOLAS AUTOMATA"><a href="#ref-AML" role="doc-biblioref">[21]</a>, <a href="#ref-FABOLAS" role="doc-biblioref">[22]</a>, <a href="#ref-AUTOMATA" role="doc-biblioref">[23]</a></span>, ranging from simple random subsampling to gradient-based subset selection. When complex subset selection methods are not warranted, stratified random sampling should be preferred over naive uniform sampling, particularly in the presence of class imbalance or long-tailed distributions, to ensure that the subset adequately reflects the class distribution of the original dataset. We suggest adopting a two-stage strategy: first using the subset for efficient hyperparameter search to narrow the configuration space, then validation of the top-performing configurations on the full dataset before final model training. We encourage researchers to document their hyperparameter optimization or to report when none was performed, as in <span class="citation" data-cites="kerner2025fields"><a href="#ref-kerner2025fields" role="doc-biblioref">[8]</a></span>.</p>
+<p>Hyperparameter optimization (HPO) is an important step in the ML pipeline, and we refer the reader to <span class="citation" data-cites="HPO"><a href="#ref-HPO" role="doc-biblioref">[21]</a></span> for a general review of HPO good practices. We focus on two key aspects that are relevant for large EO datasets: <em>which</em> parameters to optimize, and <em>how much</em> data to use for it. Which parameters matter depends on the model family. Hyperparameter tuning for deep learning models is inherently challenging: the number of configurable hyperparameters is large, and their relative influence on model performance varies across tasks, architectures, and datasets, making it difficult to establish universally valid tuning priorities. Nevertheless, a broad consensus has emerged in the literature that the learning rate and its scheduler, batch size, and regularization mechanisms such as dropout and weight decay tend to be the most influential hyperparameters for deep neural networks <span class="citation" data-cites="Smith2018"><a href="#ref-Smith2018" role="doc-biblioref">[22]</a></span>. Classical ML models have fewer hyperparameters: for gradient boosting trees, for example, the learning rate is the main one to tune <span class="citation" data-cites="Probst2019tunability"><a href="#ref-Probst2019tunability" role="doc-biblioref">[23]</a></span>. Regarding how much data should be used for HPO, the common practice is to use the entire validation set, as in <span class="citation" data-cites="Mosig2026 pauls2024estimating"><a href="#ref-Mosig2026" role="doc-biblioref">[4]</a>, <a href="#ref-pauls2024estimating" role="doc-biblioref">[24]</a></span>. However, given the computational cost of training on large datasets, a strategy encountered in the literature (e.g., <span class="citation" data-cites="pauls2025capturing"><a href="#ref-pauls2025capturing" role="doc-biblioref">[25]</a></span>) is to perform hyperparameter optimization on a subset of the data, and subsequently train the final model on the full dataset using the selected configuration. This approach is a special case of multi-fidelity hyperparameter optimization, and many methods have been developed for it <span class="citation" data-cites="AML FABOLAS AUTOMATA"><a href="#ref-AML" role="doc-biblioref">[26]</a>, <a href="#ref-FABOLAS" role="doc-biblioref">[27]</a>, <a href="#ref-AUTOMATA" role="doc-biblioref">[28]</a></span>, ranging from simple random subsampling to gradient-based subset selection. When complex subset selection methods are not warranted, stratified random sampling should be preferred over naive uniform sampling, particularly in the presence of class imbalance or long-tailed distributions, to ensure that the subset adequately reflects the class distribution of the original dataset. When using the full dataset is prohibitively expensive, we suggest adopting a two-stage strategy: first using the subset for efficient hyperparameter search to narrow the configuration space, then validation of the top-performing configurations on the full dataset before final model training. We encourage researchers to document their hyperparameter optimization or to report when none was performed, as in <span class="citation" data-cites="kerner2025fields"><a href="#ref-kerner2025fields" role="doc-biblioref">[10]</a></span>.</p>
 </section>
 <section id="data-augmentation" class="level2">
 <h2 class="anchored" data-anchor-id="data-augmentation">Data augmentation</h2>
-<p>In the SatML field, less attention is brought to data augmentation than in the general ML field. This is partly due to the fact that “augmentation techniques designed for natural images should not be applied to satellite imagery without careful consideration” <span class="citation" data-cites="Hopkins2025"><a href="#ref-Hopkins2025" role="doc-biblioref">[24]</a></span>. Their findings suggest that while standard natural image techniques (particularly color-based augmentations) do not translate effectively to the satellite domain, geometric operations remain a beneficial approach. Furthermore, <span class="citation" data-cites="muhawenayo2026pruepracticalrecipefield"><a href="#ref-muhawenayo2026pruepracticalrecipefield" role="doc-biblioref">[25]</a></span> have identified that without specific data augmentation techniques to make them resilient, ML models often lack the necessary robustness to handle domain shifts (e.g., in terms of brightness) which can lead to decreased performance and visual artifacts. Various data augmentation techniques have been established in the literature to improve model generalization. Beyond standard geometric transformations—such as rotations, flips, and random cropping <span class="citation" data-cites="Brown_2022 glazer2025tempo microsoft2024renewables Liu_2023"><a href="#ref-Liu_2023" role="doc-biblioref">[6]</a>, <a href="#ref-glazer2025tempo" role="doc-biblioref">[7]</a>, <a href="#ref-Brown_2022" role="doc-biblioref">[26]</a>, <a href="#ref-microsoft2024renewables" role="doc-biblioref">[27]</a></span>—recent research has introduced domain-specific augmentations tailored to EO data. To enhance spectral robustness, noise is frequently added to Sentinel-2 surface reflectance values <span class="citation" data-cites="Mosig2026 Brown_2022"><a href="#ref-Mosig2026" role="doc-biblioref">[18]</a>, <a href="#ref-Brown_2022" role="doc-biblioref">[26]</a></span>, while <span class="citation" data-cites="muhawenayo2026pruepracticalrecipefield"><a href="#ref-muhawenayo2026pruepracticalrecipefield" role="doc-biblioref">[25]</a></span> advocate for varying Sentinel-2 processing strategies to mitigate sensitivity to shifting processing conventions. For models incorporating spatial metadata, <span class="citation" data-cites="Van_Tricht_2023"><a href="#ref-Van_Tricht_2023" role="doc-biblioref">[28]</a></span> apply random perturbations to latitude and longitude coordinates. Furthermore, temporal augmentations, such as dropping timesteps, are utilized to simulate cloud-induced data gaps <span class="citation" data-cites="Mosig2026"><a href="#ref-Mosig2026" role="doc-biblioref">[18]</a></span> or missing modalities. Finally, several approaches specifically target sensor-induced artifacts to ensure resilience during inference; these include simulating narrow no-data seams in Sentinel-1 GRD mosaics <span class="citation" data-cites="brown2025alphaearthfoundations"><a href="#ref-brown2025alphaearthfoundations" role="doc-biblioref">[29]</a></span>, as well as modeling swath boundaries, misregistration, and detector failures <span class="citation" data-cites="Pasquarella2023"><a href="#ref-Pasquarella2023" role="doc-biblioref">[30]</a></span>.</p>
+<p>In the SatML field, less attention is brought to data augmentation than in the general ML field. This is partly due to the fact that “augmentation techniques designed for natural images should not be applied to satellite imagery without careful consideration” <span class="citation" data-cites="Hopkins2025"><a href="#ref-Hopkins2025" role="doc-biblioref">[29]</a></span>. Their findings suggest that while standard natural image techniques (particularly color-based augmentations) do not translate effectively to the satellite domain, geometric operations remain a beneficial approach. Furthermore, Muhawenayo et al. <span class="citation" data-cites="muhawenayo2026pruepracticalrecipefield"><a href="#ref-muhawenayo2026pruepracticalrecipefield" role="doc-biblioref">[30]</a></span> have identified that without specific data augmentation techniques to make them resilient, ML models often lack the necessary robustness to handle domain shifts (e.g., in terms of brightness) which can lead to decreased performance and visual artifacts. Various data augmentation techniques have been established in the literature to improve model generalization. Geometric transformations (such as rotations, flips, and random cropping) are being applied to EO data <span class="citation" data-cites="Brown_2022 glazer2025tempo microsoft2024renewables Liu_2023"><a href="#ref-Liu_2023" role="doc-biblioref">[8]</a>, <a href="#ref-glazer2025tempo" role="doc-biblioref">[9]</a>, <a href="#ref-Brown_2022" role="doc-biblioref">[31]</a>, <a href="#ref-microsoft2024renewables" role="doc-biblioref">[32]</a></span>, although particular care must be taken for SAR, since the look direction fixes which side of a slope shows layover or shadow. Recent research has introduced domain-specific augmentations tailored to EO data. To enhance spectral robustness, noise is frequently added to Sentinel-2 surface reflectance values <span class="citation" data-cites="Mosig2026 Brown_2022"><a href="#ref-Mosig2026" role="doc-biblioref">[4]</a>, <a href="#ref-Brown_2022" role="doc-biblioref">[31]</a></span>, while Muhawenayo et al. <span class="citation" data-cites="muhawenayo2026pruepracticalrecipefield"><a href="#ref-muhawenayo2026pruepracticalrecipefield" role="doc-biblioref">[30]</a></span> advocate for varying Sentinel-2 processing strategies to mitigate sensitivity to shifting processing conventions. For models incorporating spatial metadata, Van Tricht et al. <span class="citation" data-cites="Van_Tricht_2023"><a href="#ref-Van_Tricht_2023" role="doc-biblioref">[1]</a></span> apply random perturbations to latitude and longitude coordinates. Furthermore, temporal augmentations, such as dropping timesteps, are utilized to simulate cloud-induced data gaps <span class="citation" data-cites="Mosig2026"><a href="#ref-Mosig2026" role="doc-biblioref">[4]</a></span> or missing modalities. Finally, several approaches specifically target sensor-induced artifacts to ensure resilience during inference; these include simulating narrow no-data seams in Sentinel-1 GRD mosaics <span class="citation" data-cites="brown2025alphaearthfoundations"><a href="#ref-brown2025alphaearthfoundations" role="doc-biblioref">[33]</a></span>, as well as modeling swath boundaries, misregistration, and detector failures <span class="citation" data-cites="Pasquarella2023"><a href="#ref-Pasquarella2023" role="doc-biblioref">[34]</a></span>.</p>
 <p>A model trained with the practices described above will produce a prediction for every pixel on Earth. However, a prediction should come with a measure of its confidence. The model cannot perform equally well everywhere: it will be more reliable in regions well-represented in the training data than in under-sampled biomes, more confident under clear-sky conditions than under persistent cloud cover, and more accurate for common classes than for rare ones. Characterizing where and how much to trust the predictions is the subject of the next section, which surveys ML uncertainty quantification methods and argues that uncertainty is not a supplementary layer to be added as an afterthought, but a necessary component of any credible map product.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
-<div id="ref-TransformersRS" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline"><span class="nocase">A. A. Aleissaee <em>et al.</em></span>, <span>“<span class="nocase">Transformers in Remote Sensing: A Survey</span>.”</span> arXiv, 2022. doi: <a href="https://doi.org/10.48550/ARXIV.2209.01206">10.48550/ARXIV.2209.01206</a>.</div>
+<div id="ref-Van_Tricht_2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">K. Van Tricht <em>et al.</em>, <span>“<span class="nocase">WorldCereal: a dynamic open-source system for global-scale, seasonal, and reproducible crop and irrigation mapping</span>,”</span> <em>Earth System Science Data</em>, vol. 15, no. 12, pp. 5491–5515, Dec. 2023, doi: <a href="https://doi.org/10.5194/essd-15-5491-2023">10.5194/essd-15-5491-2023</a>.</div>
 </div>
-<div id="ref-Jakubik2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">J. Jakubik <em>et al.</em>, <span>“<span class="nocase">Foundation Models for Generalist Geospatial Artificial Intelligence</span>.”</span> arXiv, 2023. doi: <a href="https://doi.org/10.48550/ARXIV.2310.18660">10.48550/ARXIV.2310.18660</a>.</div>
+<div id="ref-esa2021worldcover" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">European Space Agency, <span>“<span class="nocase">ESA WorldCover 2021 v200 Map User Manual and Validation Report</span>.”</span> 2021. Available: <a href="https://esa-worldcover.org/">https://esa-worldcover.org/</a></div>
 </div>
-<div id="ref-satmae2022" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Y. Cong <em>et al.</em>, <span>“<span class="nocase">Sat<span>MAE</span>: Pre-training Transformers for Temporal and Multi-Spectral Satellite Imagery</span>,”</span> in <em>Advances in neural information processing systems</em>, A. H. Oh, A. Agarwal, D. Belgrave, and K. Cho, Eds., 2022. Available: <a href="https://openreview.net/forum?id=WBhqzpF6KYH">https://openreview.net/forum?id=WBhqzpF6KYH</a></div>
-</div>
-<div id="ref-Astruc2024anysat" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">G. Astruc, N. Gonthier, C. Mallet, and L. Landrieu, <span>“<span class="nocase"><span>AnySat: An Earth</span> Observation Model for Any Resolutions, Scales, and Modalities</span>,”</span> <em>arXiv preprint arXiv:2412.14123</em>, 2024.</div>
-</div>
-<div id="ref-feng2025tessera" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">Z. Feng <em>et al.</em>, <span>“<span class="nocase">TESSERA: Temporal Embeddings of Surface Spectra for Earth Representation and Analysis</span>,”</span> <em>arXiv preprint arXiv:2506.20380</em>, 2025, Available: <a href="https://arxiv.org/abs/2506.20380">https://arxiv.org/abs/2506.20380</a></div>
-</div>
-<div id="ref-Liu_2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">S. Liu <em>et al.</em>, <span>“<span class="nocase">The overlooked contribution of trees outside forests to tree cover and woody biomass across Europe</span>,”</span> <em>Science Advances</em>, vol. 9, no. 37, Sep. 2023, doi: <a href="https://doi.org/10.1126/sciadv.adh4097">10.1126/sciadv.adh4097</a>.</div>
-</div>
-<div id="ref-glazer2025tempo" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[7] </div><div class="csl-right-inline">T. Glazer <em>et al.</em>, <span>“<span class="nocase">TEMPO: Global Temporal Building Density and Height Estimation from Satellite Imagery</span>,”</span> <em>arXiv preprint arXiv:2511.12104</em>, 2025, Available: <a href="https://arxiv.org/abs/2511.12104">https://arxiv.org/abs/2511.12104</a></div>
-</div>
-<div id="ref-kerner2025fields" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[8] </div><div class="csl-right-inline">H. Kerner <em>et al.</em>, <span>“<span class="nocase">Fields of the World: A Machine Learning Benchmark Dataset for Global Agricultural Field Boundary Segmentation</span>,”</span> in <em>Proceedings of the AAAI conference on artificial intelligence</em>, 2025, pp. 28151–28159. doi: <a href="https://doi.org/10.1609/aaai.v39i27.35034">10.1609/aaai.v39i27.35034</a>.</div>
-</div>
-<div id="ref-Ronneberger2015" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[9] </div><div class="csl-right-inline">O. Ronneberger, P. Fischer, and T. Brox, <span>“<span class="nocase">U-Net: Convolutional Networks for Biomedical Image Segmentation</span>,”</span> in <em>Medical image computing and computer-assisted intervention – MICCAI 2015</em>, Springer International Publishing, 2015, pp. 234–241. doi: <a href="https://doi.org/10.1007/978-3-319-24574-4_28">10.1007/978-3-319-24574-4_28</a>.</div>
-</div>
-<div id="ref-efficientnet" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[10] </div><div class="csl-right-inline">M. Tan and Q. V. Le, <span>“<span class="nocase">EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks</span>,”</span> 2019, doi: <a href="https://doi.org/10.48550/ARXIV.1905.11946">10.48550/ARXIV.1905.11946</a>.</div>
-</div>
-<div id="ref-HintonKD" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[11] </div><div class="csl-right-inline">G. Hinton, O. Vinyals, and J. Dean, <span>“<span class="nocase">Distilling the Knowledge in a Neural Network</span>.”</span> arXiv, 2015. doi: <a href="https://doi.org/10.48550/ARXIV.1503.02531">10.48550/ARXIV.1503.02531</a>.</div>
-</div>
-<div id="ref-HIMEUR2025102742" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[12] </div><div class="csl-right-inline">Y. Himeur <em>et al.</em>, <span>“Applications of knowledge distillation in remote sensing: A survey,”</span> <em>Information Fusion</em>, vol. 115, p. 102742, 2025, doi: <a href="https://doi.org/10.1016/j.inffus.2024.102742">https://doi.org/10.1016/j.inffus.2024.102742</a>.</div>
-</div>
-<div id="ref-Li2022multimodal" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[13] </div><div class="csl-right-inline">J. Li <em>et al.</em>, <span>“<span class="nocase">Deep learning in multimodal remote sensing data fusion: A comprehensive review</span>,”</span> <em>International Journal of Applied Earth Observation and Geoinformation</em>, vol. 112, p. 102926, Aug. 2022, doi: <a href="https://doi.org/10.1016/j.jag.2022.102926">10.1016/j.jag.2022.102926</a>.</div>
-</div>
-<div id="ref-Xiong2024dofa" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[14] </div><div class="csl-right-inline">Z. Xiong <em>et al.</em>, <span>“<span class="nocase">Neural Plasticity-Inspired Foundation Model for Observing the <span>Earth</span> Crossing Modalities</span>,”</span> <em>arXiv preprint arXiv:2403.15356</em>, 2024.</div>
-</div>
-<div id="ref-Fuller2023croma" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[15] </div><div class="csl-right-inline">A. Fuller, K. Millard, and J. R. Green, <span>“<span class="nocase">CROMA: Remote Sensing Representations with Contrastive Radar-Optical Masked Autoencoders</span>,”</span> in <em>Thirty-seventh conference on neural information processing systems</em>, 2023.</div>
-</div>
-<div id="ref-HPO" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[16] </div><div class="csl-right-inline">B. Bischl <em>et al.</em>, <span>“<span class="nocase">Hyperparameter Optimization: Foundations, Algorithms, Best Practices and Open Challenges</span>.”</span> arXiv, 2021. doi: <a href="https://doi.org/10.48550/ARXIV.2107.05847">10.48550/ARXIV.2107.05847</a>.</div>
-</div>
-<div id="ref-Smith2018" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[17] </div><div class="csl-right-inline">L. N. Smith, <span>“<span class="nocase">A disciplined approach to neural network hyper-parameters: Part 1 – learning rate, batch size, momentum, and weight decay</span>.”</span> arXiv, 2018. doi: <a href="https://doi.org/10.48550/ARXIV.1803.09820">10.48550/ARXIV.1803.09820</a>.</div>
+<div id="ref-potapov2021mapping" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">P. Potapov <em>et al.</em>, <span>“<span class="nocase">Mapping global forest canopy height through integration of GEDI and Landsat data</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 253, p. 112165, 2021, doi: <a href="https://doi.org/10.1016/j.rse.2020.112165">10.1016/j.rse.2020.112165</a>.</div>
 </div>
 <div id="ref-Mosig2026" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[18] </div><div class="csl-right-inline">C. Mosig <em>et al.</em>, <span>“<span class="nocase">Sub-pixel mapping of disturbance and tree mortality dynamics from Sentinel-2 time series around the globe</span>,”</span> Feb. 2026, doi: <a href="https://doi.org/10.31223/x5b18w">10.31223/x5b18w</a>.</div>
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">C. Mosig <em>et al.</em>, <span>“<span class="nocase">Sub-pixel mapping of disturbance and tree mortality dynamics from Sentinel-2 time series around the globe</span>.”</span> EarthArXiv preprint, Feb. 2026. doi: <a href="https://doi.org/10.31223/X5B18W">10.31223/X5B18W</a>.</div>
+</div>
+<div id="ref-Neumann_2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">M. Neumann <em>et al.</em>, <span>“<span class="nocase">Natural forests of the world – a 2020 baseline for deforestation and degradation monitoring</span>,”</span> <em>Scientific Data</em>, vol. 12, no. 1, Nov. 2025, doi: <a href="https://doi.org/10.1038/s41597-025-06097-z">10.1038/s41597-025-06097-z</a>.</div>
+</div>
+<div id="ref-herzog2025olmoearthstable" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">H. Herzog <em>et al.</em>, <span>“<span class="nocase">OlmoEarth: Stable Latent Image Modeling for Multimodal Earth Observation</span>,”</span> <em>arXiv preprint arXiv:2511.13655</em>, 2025, Available: <a href="https://arxiv.org/abs/2511.13655">https://arxiv.org/abs/2511.13655</a></div>
+</div>
+<div id="ref-pauls2026echosat" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">J. Pauls <em>et al.</em>, <span>“<span class="nocase">ECHOSAT: Estimating Canopy Height Over Space and Time</span>,”</span> <em>arXiv preprint arXiv:2602.21421</em>, 2026, Available: <a href="https://arxiv.org/abs/2602.21421">https://arxiv.org/abs/2602.21421</a></div>
+</div>
+<div id="ref-Liu_2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">S. Liu <em>et al.</em>, <span>“<span class="nocase">The overlooked contribution of trees outside forests to tree cover and woody biomass across Europe</span>,”</span> <em>Science Advances</em>, vol. 9, no. 37, Sep. 2023, doi: <a href="https://doi.org/10.1126/sciadv.adh4097">10.1126/sciadv.adh4097</a>.</div>
+</div>
+<div id="ref-glazer2025tempo" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">T. Glazer <em>et al.</em>, <span>“<span class="nocase">TEMPO: Global Temporal Building Density and Height Estimation from Satellite Imagery</span>,”</span> <em>arXiv preprint arXiv:2511.12104</em>, 2025, Available: <a href="https://arxiv.org/abs/2511.12104">https://arxiv.org/abs/2511.12104</a></div>
+</div>
+<div id="ref-kerner2025fields" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">H. Kerner <em>et al.</em>, <span>“<span class="nocase">Fields of the World: A Machine Learning Benchmark Dataset for Global Agricultural Field Boundary Segmentation</span>,”</span> in <em>Proceedings of the AAAI conference on artificial intelligence</em>, 2025, pp. 28151–28159. doi: <a href="https://doi.org/10.1609/aaai.v39i27.35034">10.1609/aaai.v39i27.35034</a>.</div>
+</div>
+<div id="ref-Ronneberger2015" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">O. Ronneberger, P. Fischer, and T. Brox, <span>“<span class="nocase">U-Net: Convolutional Networks for Biomedical Image Segmentation</span>,”</span> in <em>Medical image computing and computer-assisted intervention – MICCAI 2015</em>, Springer International Publishing, 2015, pp. 234–241. doi: <a href="https://doi.org/10.1007/978-3-319-24574-4_28">10.1007/978-3-319-24574-4_28</a>.</div>
+</div>
+<div id="ref-efficientnet" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">M. Tan and Q. V. Le, <span>“<span class="nocase">EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks</span>,”</span> 2019, doi: <a href="https://doi.org/10.48550/ARXIV.1905.11946">10.48550/ARXIV.1905.11946</a>.</div>
+</div>
+<div id="ref-feng2025tessera" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">Z. Feng <em>et al.</em>, <span>“<span class="nocase">TESSERA: Temporal Embeddings of Surface Spectra for Earth Representation and Analysis</span>,”</span> <em>arXiv preprint arXiv:2506.20380</em>, 2025, Available: <a href="https://arxiv.org/abs/2506.20380">https://arxiv.org/abs/2506.20380</a></div>
+</div>
+<div id="ref-HintonKD" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">G. Hinton, O. Vinyals, and J. Dean, <span>“<span class="nocase">Distilling the Knowledge in a Neural Network</span>.”</span> arXiv, 2015. doi: <a href="https://doi.org/10.48550/ARXIV.1503.02531">10.48550/ARXIV.1503.02531</a>.</div>
+</div>
+<div id="ref-HIMEUR2025102742" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">Y. Himeur <em>et al.</em>, <span>“Applications of knowledge distillation in remote sensing: A survey,”</span> <em>Information Fusion</em>, vol. 115, p. 102742, 2025, doi: <a href="https://doi.org/10.1016/j.inffus.2024.102742">https://doi.org/10.1016/j.inffus.2024.102742</a>.</div>
+</div>
+<div id="ref-robinson2026throughputbench" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">C. Robinson and I. Corley, <span>“<span>ThroughputBench</span>: How fast can a deep learning model map the <span>Earth</span>?”</span> [Online]. Available: <a href="https://geospatialml.com/posts/throughput-bench/">https://geospatialml.com/posts/throughput-bench/</a></div>
+</div>
+<div id="ref-Li2022multimodal" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">J. Li <em>et al.</em>, <span>“<span class="nocase">Deep learning in multimodal remote sensing data fusion: A comprehensive review</span>,”</span> <em>International Journal of Applied Earth Observation and Geoinformation</em>, vol. 112, p. 102926, Aug. 2022, doi: <a href="https://doi.org/10.1016/j.jag.2022.102926">10.1016/j.jag.2022.102926</a>.</div>
+</div>
+<div id="ref-Xiong2024dofa" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline">Z. Xiong <em>et al.</em>, <span>“<span class="nocase">Neural Plasticity-Inspired Foundation Model for Observing the <span>Earth</span> Crossing Modalities</span>,”</span> <em>arXiv preprint arXiv:2403.15356</em>, 2024.</div>
+</div>
+<div id="ref-Astruc2024anysat" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline">G. Astruc, N. Gonthier, C. Mallet, and L. Landrieu, <span>“<span class="nocase"><span>AnySat: An Earth</span> Observation Model for Any Resolutions, Scales, and Modalities</span>,”</span> <em>arXiv preprint arXiv:2412.14123</em>, 2024.</div>
+</div>
+<div id="ref-Fuller2023croma" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline">A. Fuller, K. Millard, and J. R. Green, <span>“<span class="nocase">CROMA: Remote Sensing Representations with Contrastive Radar-Optical Masked Autoencoders</span>,”</span> in <em>Thirty-seventh conference on neural information processing systems</em>, 2023.</div>
+</div>
+<div id="ref-HPO" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline">B. Bischl <em>et al.</em>, <span>“<span class="nocase">Hyperparameter Optimization: Foundations, Algorithms, Best Practices and Open Challenges</span>.”</span> arXiv, 2021. doi: <a href="https://doi.org/10.48550/ARXIV.2107.05847">10.48550/ARXIV.2107.05847</a>.</div>
+</div>
+<div id="ref-Smith2018" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline">L. N. Smith, <span>“<span class="nocase">A disciplined approach to neural network hyper-parameters: Part 1 – learning rate, batch size, momentum, and weight decay</span>.”</span> arXiv, 2018. doi: <a href="https://doi.org/10.48550/ARXIV.1803.09820">10.48550/ARXIV.1803.09820</a>.</div>
+</div>
+<div id="ref-Probst2019tunability" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[23] </div><div class="csl-right-inline">P. Probst, A.-L. Boulesteix, and B. Bischl, <span>“Tunability: Importance of hyperparameters of machine learning algorithms,”</span> <em>Journal of Machine Learning Research</em>, vol. 20, no. 53, pp. 1–32, 2019, Available: <a href="http://jmlr.org/papers/v20/18-444.html">http://jmlr.org/papers/v20/18-444.html</a></div>
 </div>
 <div id="ref-pauls2024estimating" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[19] </div><div class="csl-right-inline">J. Pauls <em>et al.</em>, <span>“<span class="nocase">Estimating Canopy Height at Scale</span>,”</span> <em>arXiv preprint arXiv:2406.01076</em>, 2024, Available: <a href="https://arxiv.org/abs/2406.01076">https://arxiv.org/abs/2406.01076</a></div>
+<div class="csl-left-margin">[24] </div><div class="csl-right-inline">J. Pauls <em>et al.</em>, <span>“<span class="nocase">Estimating Canopy Height at Scale</span>,”</span> <em>arXiv preprint arXiv:2406.01076</em>, 2024, Available: <a href="https://arxiv.org/abs/2406.01076">https://arxiv.org/abs/2406.01076</a></div>
 </div>
 <div id="ref-pauls2025capturing" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[20] </div><div class="csl-right-inline">J. Pauls <em>et al.</em>, <span>“<span class="nocase">Capturing Temporal Dynamics in Large-Scale Canopy Tree Height Estimation</span>,”</span> <em>arXiv preprint arXiv:2501.19328</em>, 2025, Available: <a href="https://arxiv.org/abs/2501.19328">https://arxiv.org/abs/2501.19328</a></div>
+<div class="csl-left-margin">[25] </div><div class="csl-right-inline">J. Pauls <em>et al.</em>, <span>“<span class="nocase">Capturing Temporal Dynamics in Large-Scale Canopy Tree Height Estimation</span>,”</span> <em>arXiv preprint arXiv:2501.19328</em>, 2025, Available: <a href="https://arxiv.org/abs/2501.19328">https://arxiv.org/abs/2501.19328</a></div>
 </div>
 <div id="ref-AML" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[21] </div><div class="csl-right-inline">T. Nickson, M. A. Osborne, S. Reece, and S. J. Roberts, <span>“<span class="nocase">Automated Machine Learning on Big Data using Stochastic Algorithm Tuning</span>.”</span> arXiv, 2014. doi: <a href="https://doi.org/10.48550/ARXIV.1407.7969">10.48550/ARXIV.1407.7969</a>.</div>
+<div class="csl-left-margin">[26] </div><div class="csl-right-inline">T. Nickson, M. A. Osborne, S. Reece, and S. J. Roberts, <span>“<span class="nocase">Automated Machine Learning on Big Data using Stochastic Algorithm Tuning</span>.”</span> arXiv, 2014. doi: <a href="https://doi.org/10.48550/ARXIV.1407.7969">10.48550/ARXIV.1407.7969</a>.</div>
 </div>
 <div id="ref-FABOLAS" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[22] </div><div class="csl-right-inline">A. Klein, S. Falkner, S. Bartels, P. Hennig, and F. Hutter, <span>“<span class="nocase">Fast Bayesian Optimization of Machine Learning Hyperparameters on Large Datasets</span>.”</span> arXiv, 2016. doi: <a href="https://doi.org/10.48550/ARXIV.1605.07079">10.48550/ARXIV.1605.07079</a>.</div>
+<div class="csl-left-margin">[27] </div><div class="csl-right-inline">A. Klein, S. Falkner, S. Bartels, P. Hennig, and F. Hutter, <span>“<span class="nocase">Fast Bayesian Optimization of Machine Learning Hyperparameters on Large Datasets</span>.”</span> arXiv, 2016. doi: <a href="https://doi.org/10.48550/ARXIV.1605.07079">10.48550/ARXIV.1605.07079</a>.</div>
 </div>
 <div id="ref-AUTOMATA" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[23] </div><div class="csl-right-inline">K. Killamsetty <em>et al.</em>, <span>“<span class="nocase">AUTOMATA: Gradient Based Data Subset Selection for Compute-Efficient Hyper-parameter Tuning</span>.”</span> arXiv, 2022. doi: <a href="https://doi.org/10.48550/ARXIV.2203.08212">10.48550/ARXIV.2203.08212</a>.</div>
+<div class="csl-left-margin">[28] </div><div class="csl-right-inline">K. Killamsetty <em>et al.</em>, <span>“<span class="nocase">AUTOMATA: Gradient Based Data Subset Selection for Compute-Efficient Hyper-parameter Tuning</span>.”</span> arXiv, 2022. doi: <a href="https://doi.org/10.48550/ARXIV.2203.08212">10.48550/ARXIV.2203.08212</a>.</div>
 </div>
 <div id="ref-Hopkins2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[24] </div><div class="csl-right-inline">L. M. Hopkins, W.-K. Wong, H. Kerner, F. Li, and R. A. Hutchinson, <span>“<span class="nocase">Data Augmentation Approaches for Satellite Imagery</span>,”</span> <em>Proceedings of the AAAI Conference on Artificial Intelligence</em>, vol. 39, no. 27, pp. 28097–28105, Apr. 2025, doi: <a href="https://doi.org/10.1609/aaai.v39i27.35028">10.1609/aaai.v39i27.35028</a>.</div>
+<div class="csl-left-margin">[29] </div><div class="csl-right-inline">L. M. Hopkins, W.-K. Wong, H. Kerner, F. Li, and R. A. Hutchinson, <span>“<span class="nocase">Data Augmentation Approaches for Satellite Imagery</span>,”</span> <em>Proceedings of the AAAI Conference on Artificial Intelligence</em>, vol. 39, no. 27, pp. 28097–28105, Apr. 2025, doi: <a href="https://doi.org/10.1609/aaai.v39i27.35028">10.1609/aaai.v39i27.35028</a>.</div>
 </div>
 <div id="ref-muhawenayo2026pruepracticalrecipefield" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[25] </div><div class="csl-right-inline">G. Muhawenayo <em>et al.</em>, <span>“<span class="nocase">PRUE: A Practical Recipe for Field Boundary Segmentation at Scale</span>.”</span> 2026. Available: <a href="https://arxiv.org/abs/2603.27101">https://arxiv.org/abs/2603.27101</a></div>
+<div class="csl-left-margin">[30] </div><div class="csl-right-inline">G. Muhawenayo <em>et al.</em>, <span>“<span class="nocase">PRUE: A Practical Recipe for Field Boundary Segmentation at Scale</span>.”</span> 2026. Available: <a href="https://arxiv.org/abs/2603.27101">https://arxiv.org/abs/2603.27101</a></div>
 </div>
 <div id="ref-Brown_2022" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[26] </div><div class="csl-right-inline">C. F. Brown <em>et al.</em>, <span>“<span class="nocase">Dynamic World, Near real-time global 10 m land use land cover mapping</span>,”</span> <em>Scientific Data</em>, vol. 9, no. 1, Jun. 2022, doi: <a href="https://doi.org/10.1038/s41597-022-01307-4">10.1038/s41597-022-01307-4</a>.</div>
+<div class="csl-left-margin">[31] </div><div class="csl-right-inline">C. F. Brown <em>et al.</em>, <span>“<span class="nocase">Dynamic World, Near real-time global 10 m land use land cover mapping</span>,”</span> <em>Scientific Data</em>, vol. 9, no. 1, Jun. 2022, doi: <a href="https://doi.org/10.1038/s41597-022-01307-4">10.1038/s41597-022-01307-4</a>.</div>
 </div>
 <div id="ref-microsoft2024renewables" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[27] </div><div class="csl-right-inline">Microsoft, <span>“<span>Global Renewables Watch</span>.”</span> 2024. Available: <a href="https://github.com/microsoft/global-renewables-watch">https://github.com/microsoft/global-renewables-watch</a></div>
-</div>
-<div id="ref-Van_Tricht_2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[28] </div><div class="csl-right-inline">K. Van Tricht <em>et al.</em>, <span>“<span class="nocase">WorldCereal: a dynamic open-source system for global-scale, seasonal, and reproducible crop and irrigation mapping</span>,”</span> <em>Earth System Science Data</em>, vol. 15, no. 12, pp. 5491–5515, Dec. 2023, doi: <a href="https://doi.org/10.5194/essd-15-5491-2023">10.5194/essd-15-5491-2023</a>.</div>
+<div class="csl-left-margin">[32] </div><div class="csl-right-inline">Microsoft, <span>“<span>Global Renewables Watch</span>.”</span> 2024. Available: <a href="https://github.com/microsoft/global-renewables-watch">https://github.com/microsoft/global-renewables-watch</a></div>
 </div>
 <div id="ref-brown2025alphaearthfoundations" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[29] </div><div class="csl-right-inline">C. F. Brown <em>et al.</em>, <span>“<span class="nocase">AlphaEarth Foundations: An embedding field model for accurate and efficient global mapping from sparse label data</span>,”</span> <em>arXiv preprint arXiv:2507.22291</em>, 2025, Available: <a href="https://arxiv.org/abs/2507.22291">https://arxiv.org/abs/2507.22291</a></div>
+<div class="csl-left-margin">[33] </div><div class="csl-right-inline">C. F. Brown <em>et al.</em>, <span>“<span class="nocase">AlphaEarth Foundations: An embedding field model for accurate and efficient global mapping from sparse label data</span>,”</span> <em>arXiv preprint arXiv:2507.22291</em>, 2025, Available: <a href="https://arxiv.org/abs/2507.22291">https://arxiv.org/abs/2507.22291</a></div>
 </div>
 <div id="ref-Pasquarella2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[30] </div><div class="csl-right-inline">V. J. Pasquarella, C. F. Brown, W. Czerwinski, and W. J. Rucklidge, <span>“<span class="nocase">Comprehensive quality assessment of optical satellite imagery using weakly supervised video learning</span>,”</span> in <em>2023 IEEE/CVF conference on computer vision and pattern recognition workshops (CVPRW)</em>, IEEE, 2023, pp. 2125–2135. doi: <a href="https://doi.org/10.1109/cvprw59228.2023.00206">10.1109/cvprw59228.2023.00206</a>.</div>
+<div class="csl-left-margin">[34] </div><div class="csl-right-inline">V. J. Pasquarella, C. F. Brown, W. Czerwinski, and W. J. Rucklidge, <span>“<span class="nocase">Comprehensive quality assessment of optical satellite imagery using weakly supervised video learning</span>,”</span> in <em>2023 IEEE/CVF conference on computer vision and pattern recognition workshops (CVPRW)</em>, IEEE, Jun. 2023, pp. 2125–2135. doi: <a href="https://doi.org/10.1109/CVPRW59228.2023.00206">10.1109/CVPRW59228.2023.00206</a>.</div>
 </div>
 </div>
 </section>
@@ -582,10 +642,15 @@ div.csl-indent {
     "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
     "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
 
-    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
-    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
-    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
-    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+    "appendix_s1_gaps.html":             { part: "Dive Deeper", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Dive Deeper", chapter: "S1/S2 processing across access pathways" },
+    "appendix_s2_artifacts.html":        { part: "Dive Deeper", chapter: "Sentinel-2 tiling artifacts" },
+    "appendix_sar_geometry.html":        { part: "Dive Deeper", chapter: "SAR viewing geometry" },
+    "appendix_sar_rtc.html":             { part: "Dive Deeper", chapter: "SAR calibration & terrain correction" },
+    "appendix_sar_ard.html":             { part: "Dive Deeper", chapter: "Analysis-ready SAR products" },
+    "appendix_cloud_masking.html":       { part: "Dive Deeper", chapter: "Cloud masking for optical data" },
+    "appendix_optical_radiometry.html":  { part: "Dive Deeper", chapter: "Optical radiometric conventions" },
+    "appendix_combining_missions.html":  { part: "Dive Deeper", chapter: "Combining Landsat and Sentinel-2" }
   };
 
   function currentInfo() {
@@ -1054,7 +1119,7 @@ div.csl-indent {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Best Practices for EO Maps</p>
+<p>Good Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
 <p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>

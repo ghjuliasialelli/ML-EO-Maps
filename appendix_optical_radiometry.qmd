@@ -1,0 +1,35 @@
+---
+title: "Radiometric conventions for optical data"
+---
+
+[Optical preprocessing](data_preprocessing.qmd) notes that reflectance scaling is a convention rather than a constant. This appendix gives the Sentinel-2 and Landsat cases in full, as a worked example of the kind of detail such a convention involves.
+
+## Sentinel-2
+
+Since the deployment of Sentinel-2 Processing Baseline (PB) 04.00 in January 2022, a radiometric offset is added to the digital number values of all bands. For Sentinel-2 L1C data, the conversion to reflectance is given by @eq-1, where $\rho_\mathtt{TOA}$ is the top-of-atmosphere (TOA) reflectance, $DN$ is the digital number, $\mathtt{RADIO\_ADD\_OFFSET}$ is the radiometric offset ($-1000$ for all bands for PB$\geq04.00$, $0$ otherwise), and $\mathtt{QUANTIFICATION\_VALUE} = 10{,}000$. For Sentinel-2 L2A data, the conversion is given by @eq-2, where $\rho_{BOA}$ is the bottom-of-atmosphere (BOA) reflectance, $\mathtt{BOA\_ADD\_OFFSET}$ is the corresponding offset ($-1000$ for all bands for PB$\geq04.00$, $0$ otherwise), and $\mathtt{BOA\_QUANTIFICATION\_VALUE} = 10{,}000$. All values can be retrieved from the product metadata files. The offset applies to any product with Processing Baseline $\geq$ 04.00, which should be determined from the `PROCESSING_BASELINE` field in the metadata rather than the acquisition date: as part of the Collection-1 reprocessing campaign completed in 2024, ESA reprocessed the entire historical archive, so even early acquisitions now carry the offset convention. This procedure applies to products distributed by ESA (e.g., through CDSE). Some third-party platforms (such as GEE's harmonized collections) apply the offset upstream, in which case it must not be applied a second time.
+
+$$
+\rho_\mathtt{TOA}=\frac{\mathtt{DN}+\mathtt{RADIO\_ADD\_OFFSET}}{\mathtt{QUANTIFICATION\_VALUE}}
+$$ {#eq-1}
+
+$$
+\rho_\mathtt{BOA}=\frac{\mathtt{DN}+\mathtt{BOA\_ADD\_OFFSET}}{\mathtt{BOA\_QUANTIFICATION\_VALUE}}
+$$ {#eq-2}
+
+While @eq-1 and @eq-2 use a quantification value of $10{,}000$ as specified in the product metadata, ML pipelines sometimes substitute alternative divisors: Kerner et al. [@kerner2025fields] use $3{,}000$ and Pauls et al. [@pauls2025capturing; @pauls2026echosat] apply band-specific divisors. These linear schemes target a bounded range such as $[0,1]$ or $[-1,1]$, typically with further clipping. A less conventional family of approaches instead applies nonlinear transformations to handle the long-tailed distribution of reflectance values. Brown et al. [@Brown_2022] log-transform reflectance values and remap percentiles of the result onto a sigmoid function, bounding the data to $(0,1)$ without hard truncation. Similarly, Brown et al. [@brown2025alphaearthfoundations] and Pasquarella et al. [@Pasquarella2023] compress the distribution as $x'=\log(x+1)/10$.
+
+## Landsat
+
+Landsat Collection 2 applies the same idea with different numbers, and changed them between collections. Level-2 surface reflectance is stored as an unsigned 16-bit integer and converted by @eq-l8sr, with a scale factor of $0.0000275$ and an additive offset of $-0.2$; valid digital numbers run from $7{,}273$ to $43{,}636$. Surface temperature in the same package converts to Kelvin by @eq-l8st, with a scale factor of $0.00341802$ and an offset of $149.0$, over a valid range of $293$ to $65{,}535$.
+
+$$
+\rho = \mathtt{DN} \times 0.0000275 - 0.2
+$$ {#eq-l8sr}
+
+$$
+T_{\mathrm{K}} = \mathtt{DN} \times 0.00341802 + 149.0
+$$ {#eq-l8st}
+
+Collection 1 used a scale factor of $0.0001$ with no offset, so a pipeline written against Collection 1 and pointed at Collection 2 returns reflectance values about 3.6 times their true magnitude, shifted by a constant^[<https://www.usgs.gov/faqs/why-are-fill-values-and-scaling-factors-landsat-collection-2-level-2-products-different-those>]. The fill value changed in the same transition, and the change deserves more attention than it usually receives: Collection 1 used $-9999$, which is conspicuous in any histogram and fatal to any arithmetic that reaches it, whereas Collection 2 uses $0$, which converts to a reflectance of $-0.2$ and passes through most pipelines looking like an unremarkable dark pixel. As with the Sentinel-2 offset, neither change raises an error; both silently shift the input distribution.
+
+Conventions are not the only thing that changes beneath a pipeline. Errors are found and corrected too, sometimes long after acquisition. A radiometric error in Landsat 2 and 3 MSS Level-1 products, affecting more than 44,000 scenes, was identified in April 2025, with reprocessing under way through 2026^[<https://www.usgs.gov/faqs/what-are-some-known-issues-users-might-find-landsat-data>]; separately, framing errors traced to faulty ancillary data in a subset of 2023–2024 Landsat 8 scenes prompted a reprocessing campaign announced in June 2025. Two users holding what is nominally the same scene can therefore hold different data, depending only on when they downloaded it. This is the practical argument for recording the processing version alongside every input, rather than the product identifier alone: the identifier is stable, and the pixels behind it are not.

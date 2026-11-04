@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c255c5907d4ec97ac61b80091d22c4d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -160,6 +160,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reference_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference map</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -353,7 +359,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Dive Deeper</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -371,12 +377,37 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./appendix_s2_artifacts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Identifying Sentinel-2 tiling artifacts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_geometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Selecting a SAR viewing geometry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  <a href="./appendix_sar_ard.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis-ready SAR products</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_optical_radiometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric conventions for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_combining_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Combining Landsat and Sentinel-2</span></a>
   </div>
 </li>
       </ul>
@@ -412,12 +443,26 @@ div.csl-indent {
 
 
 <p>The preceding sections describe the recommended framework for map validation based on probability sampling and design-based accuracy assessment. In practice, however, this framework is not always feasible. Large-area mapping projects may lack purpose-designed probability samples, existing reference data may have been collected for different objectives, or certain products (particularly continuous-field variables) may require specialized validation strategies. In these situations, validation typically relies on one or more of three approaches: <strong>alternative inferential frameworks</strong>, <strong>existing reference datasets</strong>, and <strong>product-specific validation protocols</strong>. Although these approaches provide valuable evidence of map quality, they generally do not provide the same statistical guarantees as design-based accuracy assessment.</p>
-<p><strong>Alternative inferential frameworks.</strong> One alternative is to replace the design-based framework with model-based inference. Whereas design-based inference derives its validity from the randomness of the sampling process, model-based inference relies on a statistical model that describes how map errors relate to predictors such as landscape characteristics or data availability. This enables the use of non-probability reference data, such as opportunistic field plots or spatially sparse inventories, by extrapolating accuracy estimates to unsampled locations through the model <span class="citation" data-cites="stehman2019key"><a href="#ref-stehman2019key" role="doc-biblioref">[1]</a></span>. The trade-off is that validity depends entirely on whether the assumed model is correct, which may be difficult to verify. Consequently, model-based inference has seen only limited adoption in operational map accuracy assessment <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[2]</a></span>.</p>
-<p><strong>Existing reference datasets.</strong> In practice, validation more commonly relies on existing reference datasets than on model-based inference. National Forest Inventories (NFIs) represent a valuable source of high-quality, field-verified reference data. When the inventory sampling design aligns with the target population and class definitions of the mapped product, for example, national land cover assessments using compatible forest definitions, NFI data can support probability-sampling-based validation. However, in practice, NFIs are also used to assess products with different thematic definitions, spatial extents, or target classes, such as global land cover products. In these situations, the original sampling design may no longer correspond to the validation objective, and the resulting assessment should be interpreted with appropriate caution.</p>
-<p>In addition, NFI data are typically not openly accessible and often require formal collaboration for use in validation, particularly when applied to global products. Nevertheless, when appropriately matched to the validation objective and sampling framework, NFI-based assessments provide valuable and independent evidence of map quality and remain among the most reliable sources of reference data currently available.</p>
+<div class="box-runex callout callout-style-default callout-note no-icon callout-titled" title="Running example · How the two products were validated">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Running example · How the two products were validated
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>WorldCereal</strong> validated its cropland extent on a purpose-built probability sample: 50,000 sites drawn at random in an equal-area projection before the maps were produced, each interpreted by several experts from very high-resolution imagery and Sentinel-2 and MODIS time series. Its user’s and producer’s accuracies are therefore estimates of map accuracy. Crop types could not be labeled this way; they were checked against an opportunistic sample of street-level photographs, and the results reported as agreement rather than accuracy.</p>
+<p><strong>CHM</strong> was evaluated on held-out GEDI footprints, one random area per Sentinel-2 tile, with airborne LiDAR used as a local check over one French forest. This is model evaluation rather than map validation, and since GEDI does not sample north of 51.6°N, the map’s forests there are not evaluated at all; the authors note that independent validation remains to be done.</p>
+<p>The difference follows from the target: cropland can be labeled from imagery, canopy height cannot.</p>
+</div>
+</div>
+<p><strong>Alternative inferential framework.</strong> One alternative is to replace the design-based framework with model-based inference. Whereas design-based inference derives its validity from the randomness of the sampling process, model-based inference relies on a statistical model that describes how map errors relate to predictors such as landscape characteristics or data availability. This enables the use of non-probability reference data, such as opportunistic field plots or spatially sparse inventories, by extrapolating accuracy estimates to unsampled locations through the model <span class="citation" data-cites="stehman2019key"><a href="#ref-stehman2019key" role="doc-biblioref">[1]</a></span>. The trade-off is that validity depends entirely on whether the assumed model is correct, which may be difficult to verify. Consequently, model-based inference has seen only limited adoption in operational map accuracy assessment <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[2]</a></span>.</p>
+<p><strong>Existing reference datasets.</strong> In practice, validation more commonly relies on existing reference datasets than on model-based inference. These include, for example, national forest inventories (NFIs), agricultural parcel registers, and airborne LiDAR campaigns. Whether such datasets can validate a map depends, among others, on its sampling design and the population it covers, its reference period and its independence from the training data. When the design is probabilistic and its population and definitions align with the product (for example an NFI used to assess a national forest map with a compatible forest definition), design-based estimation remains possible. However, in practice, NFIs are used to assess products with different thematic definitions, spatial extents, or target classes, such as global land cover products. In these situations, the original sampling design may no longer correspond to the validation objective, and the resulting assessment should be interpreted with appropriate caution. The results describe agreement at the reference locations rather than accuracy over the map, that is, verification rather than validation.</p>
 <p><strong>Product-specific validation protocols.</strong> Some geospatial products require dedicated validation protocols that extend beyond the general recommendations described above. Biomass mapping provides a representative example. The CEOS WGCV Land Product Validation subgroup has developed dedicated protocols that address the particular challenges of validating continuous-field products, including the use of plot-level field measurements, allometric uncertainty, and spatial scaling from plot to pixel <span class="citation" data-cites="ceos_biomass_protocol"><a href="#ref-ceos_biomass_protocol" role="doc-biblioref">[3]</a></span>. These protocols recommend combining field inventory data with airborne LiDAR transects to bridge the scale gap between ground plots and satellite-derived estimates. Even under such protocols, however, spatial coverage remains fundamentally limited, and the resulting accuracy characterization applies only to the sampled regions.</p>
 <p>Regardless of the validation strategy adopted, the principles of transparency and rigorous reporting remain unchanged. Reference data sources and their limitations should be clearly documented, the distinction between verification and validation should be made explicit, and results should be interpreted as indicative rather than as unbiased estimates of map accuracy.</p>
-<p>The preceding sections have traced the full arc of the EO mapping pipeline, from the processing of satellite observations through to a validated, disseminated product. At each stage, we have highlighted choices that are easy to get wrong and hard to diagnose after the fact—from the silent differences between data providers, through the spatial structure of training splits, to the gap between algorithm-derived uncertainty and genuine accuracy assessment. We conclude by summarizing the key recommendations that emerge from this analysis, examining the structural and institutional challenges that the community must confront as ML-based mapping matures from a research activity into an operational capability, and acknowledging the limitations of the present work.</p>
+<p>The preceding sections have traced the full arc of the EO mapping pipeline, from the processing of satellite observations through to a validated, disseminated product. At each stage, we have highlighted choices that are easy to get wrong and hard to diagnose after the fact — from the silent differences between data providers, through the spatial structure of training splits, to the gap between algorithm-derived uncertainty and genuine accuracy assessment. We conclude by summarizing the key recommendations that emerge from this analysis, examining the structural and institutional challenges that the community must confront as ML-based mapping matures from a research activity into an operational capability, and acknowledging the limitations of the present work.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -481,10 +526,15 @@ div.csl-indent {
     "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
     "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
 
-    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
-    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
-    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
-    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+    "appendix_s1_gaps.html":             { part: "Dive Deeper", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Dive Deeper", chapter: "S1/S2 processing across access pathways" },
+    "appendix_s2_artifacts.html":        { part: "Dive Deeper", chapter: "Sentinel-2 tiling artifacts" },
+    "appendix_sar_geometry.html":        { part: "Dive Deeper", chapter: "SAR viewing geometry" },
+    "appendix_sar_rtc.html":             { part: "Dive Deeper", chapter: "SAR calibration & terrain correction" },
+    "appendix_sar_ard.html":             { part: "Dive Deeper", chapter: "Analysis-ready SAR products" },
+    "appendix_cloud_masking.html":       { part: "Dive Deeper", chapter: "Cloud masking for optical data" },
+    "appendix_optical_radiometry.html":  { part: "Dive Deeper", chapter: "Optical radiometric conventions" },
+    "appendix_combining_missions.html":  { part: "Dive Deeper", chapter: "Combining Landsat and Sentinel-2" }
   };
 
   function currentInfo() {
@@ -953,7 +1003,7 @@ div.csl-indent {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Best Practices for EO Maps</p>
+<p>Good Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
 <p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>

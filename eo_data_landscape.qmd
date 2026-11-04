@@ -2,4 +2,16 @@
 title: "Overview of the EO data infrastructure landscape"
 ---
 
-Researchers and practitioners must navigate a complex and rapidly evolving ecosystem of satellite data sources, derived products, and access platforms. The choices made at early stages (which mission to use, which processing level to start from, and which platform to retrieve the data through) have downstream consequences that are easy to underestimate. This section maps the landscape of available EO data, from raw observations to existing ML-ready datasets, and discusses the practical considerations of accessing them.
+Researchers and practitioners must navigate a complex and rapidly evolving ecosystem of satellite data sources and access platforms. The choices made in the early stages (which mission to use, which processing level to start from, and which platform to retrieve the data through) have downstream consequences that are easy to underestimate. This section maps the landscape of available EO data, and discusses the practical considerations of accessing them.
+
+::: {.callout-note .box-definition appearance="default" icon="false" title="Definition · Processing levels, analysis-ready, ML-ready"}
+
+**Processing levels.** How far a product is from the raw signal. Level 0 is unprocessed instrument data; Level 1 adds time referencing, calibration and geolocation (e.g., Sentinel-1 GRD, Sentinel-2 L1C top-of-atmosphere reflectance); Level 2 holds geophysical variables at the resolution and location of the Level 1 source (e.g., Sentinel-2 L2A surface reflectance, Landsat Collection 2 Level-2); Level 3 maps variables onto a uniform space-time grid, often by compositing (e.g., the Sentinel-1 monthly mosaics) [@nasa_levels].
+
+**Analysis-ready data (ARD).** Data processed to standardized physical specifications (calibrated, geometrically orthorectified, radiometrically corrected, with per-pixel quality masks and documented provenance) so that it can be used for analysis with a minimum of additional user effort.
+
+**ML-ready.** Data formatted into standardized tensors (e.g., spatial or temporal patches) and organized in high-throughput layouts to optimize I/O performance during model training.
+
+While institutional standards (e.g., NASA, ESIP) often use **AI-ready** as a broader term encompassing FAIR metadata, licensing, and documentation, **ML-ready** specifically denotes the structural formatting required for efficient GPU ingestion.
+
+:::

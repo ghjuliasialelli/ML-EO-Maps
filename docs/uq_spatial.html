@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c255c5907d4ec97ac61b80091d22c4d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -189,6 +189,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reference_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference map</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -382,7 +388,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Dive Deeper</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -400,12 +406,37 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./appendix_s2_artifacts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Identifying Sentinel-2 tiling artifacts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_geometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Selecting a SAR viewing geometry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  <a href="./appendix_sar_ard.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis-ready SAR products</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_optical_radiometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric conventions for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_combining_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Combining Landsat and Sentinel-2</span></a>
   </div>
 </li>
       </ul>
@@ -440,11 +471,13 @@ window.Quarto = {
 </header>
 
 
-<p>At what resolution does uncertainty operate? Per-pixel uncertainty is the default assumption, but whether it is meaningful depends on the model’s effective receptive field and the spatial scale of the prediction errors. A model with a <span class="math inline">\(256 \times 256\)</span> pixel input patch does not make independent predictions at each pixel as neighboring pixels share the same input context and will have correlated uncertainties. Reporting per-pixel uncertainty in this setting is not wrong exactly but it may overstate the spatial resolution at which the uncertainty is informative. In reality, map errors are spatially correlated. If the model overpredicts biomass at one pixel, it likely overpredicts at neighbouring pixels as well, because the same model biases, input errors, and training data gaps affect nearby locations.</p>
+<p>At what resolution does uncertainty operate? Per-pixel uncertainty is the default assumption, but whether it is meaningful depends on the model’s effective receptive field and the spatial scale of the prediction errors. A model with a <span class="math inline">\(256 \times 256\)</span> pixel input patch does not make independent predictions at each pixel as neighboring pixels share the same input context and will have correlated uncertainties. Reporting per-pixel uncertainty in this setting is not wrong exactly but it may overstate the spatial resolution at which the uncertainty is informative. In reality, map errors are spatially correlated. If the model overpredicts biomass at one pixel, it likely overpredicts at neighboring pixels as well, because the same model biases, input errors, and training data gaps affect nearby locations.</p>
 <p>This has a consequence for any user who aggregates pixel-level predictions into regional estimates such as total biomass in a country, total deforested area in a watershed, average canopy height in a management unit. If pixel errors were independent, the uncertainty of the aggregate would shrink as <span class="math inline">\(1/\sqrt{n}\)</span> with the number of pixels. But when errors are positively correlated, they do not cancel upon averaging and the uncertainty of the aggregate is much larger than the naive <span class="math inline">\(1/\sqrt{n}\)</span> calculation suggests.</p>
-<p><span class="citation" data-cites="wadoux2023spatialaverages"><a href="#ref-wadoux2023spatialaverages" role="doc-biblioref">[1]</a></span> formalized this problem and demonstrated that a number of recent high-profile studies have reported uncertainty for spatial aggregates without accounting for spatial autocorrelation of map errors, leading to substantially underestimated confidence intervals. They propose block kriging as the geostatistically rigorous solution, which requires fitting a variogram to the spatial structure of the model residuals and using it to compute the variance of the spatial average.</p>
-<p>The practical importance of this effect has been studied empirically. <span class="citation" data-cites="johnson2025flexible"><a href="#ref-johnson2025flexible" role="doc-biblioref">[2]</a></span> produced model based uncertainty estimates for biomass aggregated to ownership parcels in New York State, incorporating all four recognized uncertainty components (reference data, sample variability, residual variability, and auxiliary data) as well as spatial autocorrelation of model residuals. They found that residual variance, largely resulting from spatial correlation of residuals, dominated all other sources of uncertainty for most parcels. This means that even if one perfectly characterized label noise, model variance, and input errors, ignoring spatial correlation would still produce dramatically underestimated aggregate uncertainty. <span class="citation" data-cites="kangas2023uncertainty"><a href="#ref-kangas2023uncertainty" role="doc-biblioref">[3]</a></span> reached a similar conclusion in the forest mapping context. When errors are spatially correlated, they introduce domain-level bias in aggregated estimates that must be explicitly modeled, for instance via random area effects or distance-dependent correlation structures.</p>
-<p>This remains one of the largest gaps between current practice in ML-based mapping and what is needed for rigorous area-based reporting. The methodology exists as block kriging on model residuals provides a rigorous estimate of aggregate uncertainty <span class="citation" data-cites="wadoux2023spatialaverages johnson2025flexible"><a href="#ref-wadoux2023spatialaverages" role="doc-biblioref">[1]</a>, <a href="#ref-johnson2025flexible" role="doc-biblioref">[2]</a></span>. However, fitting a variogram to residuals requires spatially distributed validation data dense enough to characterize the correlation structure, and that structure is unlikely to be stationary. Most mapping efforts lack the validation density to estimate this, let alone estimate it regionally. Until validation protocols are designed with spatial error correlation in mind by sampling densely enough in representative regions to fit at least regional variograms, aggregate uncertainty will remain underestimated by default. As a practical minimum, we recommend that mapping projects characterize residual spatial correlation in a small number of ecologically distinct validation regions, even if global estimation is infeasible. This provides at least an approximate bound on the aggregation effect and prevents the false precision that arises from treating pixel errors as independent.</p>
+<p>Wadoux and Heuvelink <span class="citation" data-cites="wadoux2023spatialaverages"><a href="#ref-wadoux2023spatialaverages" role="doc-biblioref">[1]</a></span> formalized this problem and demonstrated that a number of recent high-profile studies have reported uncertainty for spatial aggregates without accounting for spatial autocorrelation of map errors, leading to substantially underestimated confidence intervals. They propose block kriging as the geostatistically rigorous solution, which requires fitting a variogram to the spatial structure of the model residuals and using it to compute the variance of the spatial average.</p>
+<p>The practical importance of this effect has been studied empirically. Johnson et al. <span class="citation" data-cites="johnson2025flexible"><a href="#ref-johnson2025flexible" role="doc-biblioref">[2]</a></span> produced model based uncertainty estimates for biomass aggregated to ownership parcels in New York State, incorporating all four recognized uncertainty components (reference data, sample variability, residual variability, and auxiliary data) as well as spatial autocorrelation of model residuals. They found that residual variance, largely resulting from spatial correlation of residuals, dominated all other sources of uncertainty for most parcels. This means that even if one perfectly characterized label noise, model variance, and input errors, ignoring spatial correlation would still produce dramatically underestimated aggregate uncertainty. Kangas et al. <span class="citation" data-cites="kangas2023uncertainty"><a href="#ref-kangas2023uncertainty" role="doc-biblioref">[3]</a></span> reached a similar conclusion in the forest mapping context. When errors are spatially correlated, they introduce domain-level bias in aggregated estimates that must be explicitly modeled, for instance via random area effects or distance-dependent correlation structures.</p>
+<p>The same argument applies to categorical maps, where aggregates such as total cropland area or annual deforested area are sums of per-pixel class indicators, and the errors in those indicators are spatially clustered for the same reasons that regression residuals are. The consequence, however, manifests differently. In the continuous case, the dominant effect of correlated errors is variance that does not shrink with <span class="math inline">\(n\)</span> but in the categorical case it is bias. Whenever commission and omission of a class are unequal which is commonly the case, pixel counting yields an area estimate that is systematically too large or too small, and averaging over more pixels does not reduce this error but fixes it in place. When the confusion is itself regionally patterned (a crop confused with a neighboring class in one agro-ecological zone but not another), the bias is spatially structured as well. Hence the land cover community has deprecated pixel counting in favor of design-based area estimation, in which the map serves as a stratification and the area estimate and its variance are derived from a probability reference sample and the resulting confusion matrix <span class="citation" data-cites="olofsson2013making stehman2013estimating olofsson2014good"><a href="#ref-olofsson2013making" role="doc-biblioref">[4]</a>, <a href="#ref-stehman2013estimating" role="doc-biblioref">[5]</a>, <a href="#ref-olofsson2014good" role="doc-biblioref">[6]</a></span>.</p>
+<p>The design-based area estimation approach sidesteps the correlation of map errors altogether, because the variance comes from the sampling design rather than from the map, at the cost of requiring a probability sample of reference observations in the reporting unit. Spatial correlation re-enters only when the reference sample is clustered, where it reduces the effective sample size in the usual way <span class="citation" data-cites="stehman1997estimating"><a href="#ref-stehman1997estimating" role="doc-biblioref">[7]</a></span>. Per-pixel outputs, whether variances or class probabilities, are not sufficient for reporting aggregate uncertainty, and something additional (a residual variogram, or a probability sample) is required. Change detection is the hardest case in the categorical branch, since the change class is rare, its errors are the most clustered, and the reference sample has to be sized for the rare class rather than for the map as a whole.</p>
+<p>This remains one of the largest gaps between current practice in ML-based mapping and what is needed for rigorous area-based reporting. The methodology exists: block kriging on model residuals provides a rigorous estimate of aggregate uncertainty <span class="citation" data-cites="wadoux2023spatialaverages johnson2025flexible"><a href="#ref-wadoux2023spatialaverages" role="doc-biblioref">[1]</a>, <a href="#ref-johnson2025flexible" role="doc-biblioref">[2]</a></span>. However, fitting a variogram to residuals requires spatially distributed validation data dense enough to characterize the correlation structure, and that structure is unlikely to be stationary. Most mapping efforts lack the validation density to estimate this, let alone estimate it regionally. Until validation protocols are designed with spatial error correlation in mind by sampling densely enough in representative regions to fit at least regional variograms, aggregate uncertainty will remain underestimated by default. As a practical minimum, we recommend that mapping projects characterize residual spatial correlation in a small number of ecologically distinct validation regions, even if global estimation is infeasible. This provides at least an approximate bound on the aggregation effect and prevents the false precision that arises from treating pixel errors as independent.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -456,6 +489,18 @@ window.Quarto = {
 </div>
 <div id="ref-kangas2023uncertainty" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[3] </div><div class="csl-right-inline">A. Kangas, M. Myllymäki, and L. Mehtätalo, <span>“<span class="nocase">Understanding Uncertainty in Forest Resources Maps</span>,”</span> <em>Silva Fennica</em>, vol. 57, no. 2, 2023, doi: <a href="https://doi.org/10.14214/sf.22026">10.14214/sf.22026</a>.</div>
+</div>
+<div id="ref-olofsson2013making" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">P. Olofsson, G. M. Foody, S. V. Stehman, and C. E. Woodcock, <span>“Making better use of accuracy data in land change studies: <span>Estimating</span> accuracy and area and quantifying uncertainty using stratified estimation,”</span> <em>Remote Sensing of Environment</em>, vol. 129, pp. 122–131, 2013, doi: <a href="https://doi.org/10.1016/j.rse.2012.10.031">10.1016/j.rse.2012.10.031</a>.</div>
+</div>
+<div id="ref-stehman2013estimating" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">S. V. Stehman, <span>“Estimating area from an accuracy assessment error matrix,”</span> <em>Remote Sensing of Environment</em>, vol. 132, pp. 202–211, 2013, doi: <a href="https://doi.org/10.1016/j.rse.2013.01.016">10.1016/j.rse.2013.01.016</a>.</div>
+</div>
+<div id="ref-olofsson2014good" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">P. Olofsson, G. M. Foody, M. Herold, S. V. Stehman, C. E. Woodcock, and M. A. Wulder, <span>“<span class="nocase">Good practices for estimating area and assessing accuracy of land change</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 148, pp. 42–57, May 2014, doi: <a href="https://doi.org/10.1016/j.rse.2014.02.015">10.1016/j.rse.2014.02.015</a>.</div>
+</div>
+<div id="ref-stehman1997estimating" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">S. V. Stehman, <span>“Estimating standard errors of accuracy assessment statistics under cluster sampling,”</span> <em>Remote Sensing of Environment</em>, vol. 60, no. 3, pp. 258–269, 1997, doi: <a href="https://doi.org/10.1016/S0034-4257(96)00176-9">10.1016/S0034-4257(96)00176-9</a>.</div>
 </div>
 </div>
 
@@ -508,10 +553,15 @@ window.Quarto = {
     "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
     "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
 
-    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
-    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
-    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
-    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+    "appendix_s1_gaps.html":             { part: "Dive Deeper", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Dive Deeper", chapter: "S1/S2 processing across access pathways" },
+    "appendix_s2_artifacts.html":        { part: "Dive Deeper", chapter: "Sentinel-2 tiling artifacts" },
+    "appendix_sar_geometry.html":        { part: "Dive Deeper", chapter: "SAR viewing geometry" },
+    "appendix_sar_rtc.html":             { part: "Dive Deeper", chapter: "SAR calibration & terrain correction" },
+    "appendix_sar_ard.html":             { part: "Dive Deeper", chapter: "Analysis-ready SAR products" },
+    "appendix_cloud_masking.html":       { part: "Dive Deeper", chapter: "Cloud masking for optical data" },
+    "appendix_optical_radiometry.html":  { part: "Dive Deeper", chapter: "Optical radiometric conventions" },
+    "appendix_combining_missions.html":  { part: "Dive Deeper", chapter: "Combining Landsat and Sentinel-2" }
   };
 
   function currentInfo() {
@@ -980,7 +1030,7 @@ window.Quarto = {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Best Practices for EO Maps</p>
+<p>Good Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
 <p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>

@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c255c5907d4ec97ac61b80091d22c4d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -160,6 +160,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reference_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference map</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -353,7 +359,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Dive Deeper</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -371,12 +377,37 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./appendix_s2_artifacts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Identifying Sentinel-2 tiling artifacts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_geometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Selecting a SAR viewing geometry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  <a href="./appendix_sar_ard.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis-ready SAR products</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_optical_radiometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric conventions for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_combining_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Combining Landsat and Sentinel-2</span></a>
   </div>
 </li>
       </ul>
@@ -425,27 +456,27 @@ div.csl-indent {
 <p>The rapid maturation of ML-based EO mapping has exposed several structural challenges that individual research groups cannot resolve alone and that will shape the field’s trajectory over the coming years. We highlight six directions that we consider both urgent and tractable.</p>
 <section id="foundation-models-and-transfer-learning-for-eo" class="level2">
 <h2 class="anchored" data-anchor-id="foundation-models-and-transfer-learning-for-eo">Foundation models and transfer learning for EO</h2>
-<p>Geospatial foundation models pre-trained on large satellite archives <span class="citation" data-cites="Jakubik2023 satmae2022 brown2025alphaearthfoundations feng2025tessera"><a href="#ref-Jakubik2023" role="doc-biblioref">[1]</a>, <a href="#ref-satmae2022" role="doc-biblioref">[2]</a>, <a href="#ref-brown2025alphaearthfoundations" role="doc-biblioref">[3]</a>, <a href="#ref-feng2025tessera" role="doc-biblioref">[4]</a></span> promise to reduce the labeled-data requirements of downstream tasks and to learn representations that generalize across sensors, resolutions, and geographies. However, several open questions remain. The optimal pre-training data mix — in terms of sensor diversity, geographic coverage, temporal extent, and preprocessing level — is not yet established, and current models differ widely in these choices. Whether a single model can meaningfully span the spectral and geometric heterogeneity of the full EO data landscape, from sub-meter optical imagery to coarse-resolution SAR composites, or whether sensor-family-specific models will prove more effective, is an empirical question that the community is only beginning to address. Equally important is the development of systematic evaluation protocols: without standardized benchmarks that cover diverse geographies, tasks, and sensor configurations, it is difficult to compare foundation models on equal footing or to determine when fine-tuning outperforms training from scratch.</p>
+<p>Geospatial foundation models pre-trained on large satellite archives <span class="citation" data-cites="Jakubik2023 satmae2022 brown2025alphaearthfoundations feng2025tessera"><a href="#ref-Jakubik2023" role="doc-biblioref">[1]</a>, <a href="#ref-satmae2022" role="doc-biblioref">[2]</a>, <a href="#ref-brown2025alphaearthfoundations" role="doc-biblioref">[3]</a>, <a href="#ref-feng2025tessera" role="doc-biblioref">[4]</a></span> promise to reduce the labeled-data requirements of downstream tasks and to learn representations that generalize across sensors, resolutions, and geographies. However, several open questions remain. The optimal pre-training data mix (in terms of sensor diversity, geographic coverage, temporal extent, and preprocessing level) is not yet established, and current models differ widely in these choices. Whether a single model can meaningfully span the spectral and geometric heterogeneity of the full EO data landscape, from submeter optical imagery to coarse-resolution SAR composites, or whether sensor-family-specific models will prove more effective, is an empirical question that the community is only beginning to address. Equally important is the development of systematic evaluation protocols: without standardized benchmarks that cover diverse geographies, tasks, and sensor configurations, it is difficult to compare foundation models on equal footing or to determine when fine-tuning outperforms training from scratch. A parallel development is the release of precomputed global embeddings <span class="citation" data-cites="brown2025alphaearthfoundations feng2025tessera olmoearthv13"><a href="#ref-brown2025alphaearthfoundations" role="doc-biblioref">[3]</a>, <a href="#ref-feng2025tessera" role="doc-biblioref">[4]</a>, <a href="#ref-olmoearthv13" role="doc-biblioref">[5]</a></span>, which pay the inference cost of a large model once and let users train lightweight models on top. These embeddings are map products in their own right, and every stage discussed in this paper applies to them, from their input data and tiling artifacts to their distribution grid.</p>
 </section>
 <section id="multi-modal-and-multi-scale-learning" class="level2">
 <h2 class="anchored" data-anchor-id="multi-modal-and-multi-scale-learning">Multi-modal and multi-scale learning</h2>
-<p>Many of the map products surveyed in this paper rely on a single sensor or a fixed combination of two. Yet the EO data landscape offers a far richer array of complementary modalities — optical, SAR, LiDAR, thermal, gravimetric — each with distinct spatial, temporal, and spectral characteristics. Architectures capable of ingesting arbitrary subsets of available modalities at their native resolutions, and of gracefully handling missing inputs at inference time <span class="citation" data-cites="Xiong2024dofa Astruc2024anysat Fuller2023croma"><a href="#ref-Xiong2024dofa" role="doc-biblioref">[5]</a>, <a href="#ref-Astruc2024anysat" role="doc-biblioref">[6]</a>, <a href="#ref-Fuller2023croma" role="doc-biblioref">[7]</a></span>, represent a promising direction. The challenge extends beyond architecture design to data infrastructure: aligning heterogeneous sources in space and time at global scale, while preserving each modality’s native information content, remains an engineering problem that lacks standardized solutions.</p>
+<p>Many of the map products surveyed in this paper rely on a single sensor or a fixed combination of two. Yet the EO data landscape offers a far richer array of complementary modalities (optical, SAR, LiDAR, thermal, gravimetric) each with distinct spatial, temporal, and spectral characteristics. Architectures capable of ingesting arbitrary subsets of available modalities at their native resolutions, and of gracefully handling missing inputs at inference time <span class="citation" data-cites="Xiong2024dofa Astruc2024anysat Fuller2023croma"><a href="#ref-Xiong2024dofa" role="doc-biblioref">[6]</a>, <a href="#ref-Astruc2024anysat" role="doc-biblioref">[7]</a>, <a href="#ref-Fuller2023croma" role="doc-biblioref">[8]</a></span>, represent a promising direction. The challenge extends beyond architecture design to data infrastructure: aligning heterogeneous sources in space and time at global scale, while preserving each modality’s native information content, remains an engineering problem that lacks standardized solutions.</p>
 </section>
 <section id="standardization-of-preprocessing-and-provenance-tracking" class="level2">
 <h2 class="anchored" data-anchor-id="standardization-of-preprocessing-and-provenance-tracking">Standardization of preprocessing and provenance tracking</h2>
-<p>A recurring finding throughout this paper is that nominally identical data products differ across platforms in ways that are poorly documented and difficult to detect. The absence of standardized, reproducible preprocessing pipelines — particularly for Sentinel-1 — means that two researchers starting from the same mission can arrive at materially different analysis-ready datasets without being aware of the divergence. Community-endorsed reference implementations for common preprocessing chains, accompanied by machine-readable provenance metadata that records every transformation applied to the data, would substantially improve the reproducibility and comparability of large-scale mapping efforts. Emerging specifications such as TACO <span class="citation" data-cites="taco"><a href="#ref-taco" role="doc-biblioref">[8]</a></span> and initiatives around STAC extensions represent steps in this direction, but broader adoption and institutional support are needed.</p>
+<p>A recurring finding throughout this paper is that nominally identical data products differ across platforms in ways that are poorly documented and difficult to detect. The absence of standardized, reproducible preprocessing pipelines (particularly for Sentinel-1) means that two researchers starting from the same mission can arrive at materially different analysis-ready datasets without being aware of the divergence. Community-endorsed reference implementations for common preprocessing chains, accompanied by machine-readable provenance metadata that records every transformation applied to the data, would substantially improve the reproducibility and comparability of large-scale mapping efforts. Emerging specifications such as TACO <span class="citation" data-cites="taco"><a href="#ref-taco" role="doc-biblioref">[9]</a></span> and initiatives around STAC extensions represent steps in this direction, as do analysis-ready products such as the Sentinel-1 monthly mosaics, whose processing chain is documented stage by stage, but broader adoption and institutional support are needed.</p>
 </section>
 <section id="validation-as-infrastructure" class="level2">
 <h2 class="anchored" data-anchor-id="validation-as-infrastructure">Validation as infrastructure</h2>
-<p>Current validation practice is overwhelmingly project-specific: each mapping effort designs its own accuracy assessment, collects its own reference data, and reports results using its own metrics and stratification. This fragmentation makes cross-product comparison difficult and wastes collective resources. Establishing and maintaining globally distributed, multi-purpose validation datasets — updated regularly, designed around probability sampling, and made openly available — would transform validation from a per-project cost into shared infrastructure <span class="citation" data-cites="tsendbazar2021towards"><a href="#ref-tsendbazar2021towards" role="doc-biblioref">[9]</a></span>. Such datasets should be designed with spatial error correlation in mind, sampling densely enough in representative regions to support variogram estimation and rigorous aggregate uncertainty reporting.</p>
+<p>Current validation practice is overwhelmingly project-specific: each mapping effort designs its own accuracy assessment, collects its own reference data, and reports results using its own metrics and stratification. This fragmentation makes cross-product comparison difficult and wastes collective resources. Establishing and maintaining globally distributed, multi-purpose validation datasets (updated regularly, designed around probability sampling, and made openly available) would transform validation from a per-project cost into shared infrastructure <span class="citation" data-cites="tsendbazar2021towards"><a href="#ref-tsendbazar2021towards" role="doc-biblioref">[10]</a></span>. Released together with the map values at their locations, such samples would also let users correct downstream analyses for map error <span class="citation" data-cites="Lu2025regression"><a href="#ref-Lu2025regression" role="doc-biblioref">[11]</a></span>. Such datasets should be designed with spatial error correlation in mind, sampling densely enough in representative regions to support variogram estimation and rigorous aggregate uncertainty reporting.</p>
 </section>
 <section id="uncertainty-quantification-as-standard-practice" class="level2">
 <h2 class="anchored" data-anchor-id="uncertainty-quantification-as-standard-practice">Uncertainty quantification as standard practice</h2>
-<p>Despite the methodological maturity of many UQ approaches (Section <a href="./uq_methods.html">UQ Methods</a>), uncertainty layers remain the exception rather than the norm in published map products. Making UQ a default component of every released map will require not only methodological advances — particularly in scalable methods that capture both aleatoric and epistemic uncertainty while remaining computationally tractable — but also community agreement on minimum reporting standards: which calibration diagnostics to include, how to communicate uncertainty to non-technical users, and how to handle the spatial aggregation problem that renders naive pixel-level uncertainty misleading at regional scales.</p>
+<p>Despite the methodological maturity of many UQ approaches (see <a href="./uq_methods.html">Uncertainty quantification methods</a>), uncertainty layers remain the exception rather than the norm in published map products. Making UQ a default component of every released map will require not only methodological advances (particularly in scalable methods that capture both aleatoric and epistemic uncertainty while remaining computationally tractable) but also community agreement on minimum reporting standards: which calibration diagnostics to include, how to communicate uncertainty to non-technical users, and how to handle the spatial aggregation problem that renders naive pixel-level uncertainty misleading at regional scales.</p>
 </section>
 <section id="open-data-infrastructure-and-long-term-sustainability" class="level2">
 <h2 class="anchored" data-anchor-id="open-data-infrastructure-and-long-term-sustainability">Open data infrastructure and long-term sustainability</h2>
-<p>The accessibility of EO data has improved enormously over the past decade, but the ecosystem remains fragile. Key re-distribution platforms have changed their pricing and access models with little advance notice, and the long-term availability of any commercial hosting service cannot be guaranteed. Building a durable infrastructure for large-scale EO mapping requires investment in platform-independent standards, community-governed data repositories, and institutional commitments to long-term data stewardship. The convergence around COG and Zarr as open formats is encouraging, but formats alone do not ensure sustainability without the governance structures and funding models to maintain the repositories that host them.</p>
+<p>The accessibility of EO data has improved enormously over the past decade, but the ecosystem remains fragile. Key re-distribution platforms have changed their pricing and access models with little advance notice, and the long-term availability of any commercial hosting service cannot be guaranteed. Building a durable infrastructure for large-scale EO mapping requires investment in platform-independent standards, community-governed data repositories, public infrastructures, and institutional commitments to long-term data stewardship. The convergence around COG and Zarr as open formats is encouraging, but formats alone do not ensure sustainability without the governance structures and funding models to maintain the repositories that host them.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -461,20 +492,26 @@ div.csl-indent {
 <div id="ref-feng2025tessera" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[4] </div><div class="csl-right-inline">Z. Feng <em>et al.</em>, <span>“<span class="nocase">TESSERA: Temporal Embeddings of Surface Spectra for Earth Representation and Analysis</span>,”</span> <em>arXiv preprint arXiv:2506.20380</em>, 2025, Available: <a href="https://arxiv.org/abs/2506.20380">https://arxiv.org/abs/2506.20380</a></div>
 </div>
+<div id="ref-olmoearthv13" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">G. Tseng <em>et al.</em>, <span>“OlmoEarth v1.3: embeddings.”</span> arXiv, 2026. doi: <a href="https://doi.org/10.48550/ARXIV.2610.32294">10.48550/ARXIV.2610.32294</a>.</div>
+</div>
 <div id="ref-Xiong2024dofa" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">Z. Xiong <em>et al.</em>, <span>“<span class="nocase">Neural Plasticity-Inspired Foundation Model for Observing the <span>Earth</span> Crossing Modalities</span>,”</span> <em>arXiv preprint arXiv:2403.15356</em>, 2024.</div>
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">Z. Xiong <em>et al.</em>, <span>“<span class="nocase">Neural Plasticity-Inspired Foundation Model for Observing the <span>Earth</span> Crossing Modalities</span>,”</span> <em>arXiv preprint arXiv:2403.15356</em>, 2024.</div>
 </div>
 <div id="ref-Astruc2024anysat" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">G. Astruc, N. Gonthier, C. Mallet, and L. Landrieu, <span>“<span class="nocase"><span>AnySat: An Earth</span> Observation Model for Any Resolutions, Scales, and Modalities</span>,”</span> <em>arXiv preprint arXiv:2412.14123</em>, 2024.</div>
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">G. Astruc, N. Gonthier, C. Mallet, and L. Landrieu, <span>“<span class="nocase"><span>AnySat: An Earth</span> Observation Model for Any Resolutions, Scales, and Modalities</span>,”</span> <em>arXiv preprint arXiv:2412.14123</em>, 2024.</div>
 </div>
 <div id="ref-Fuller2023croma" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[7] </div><div class="csl-right-inline">A. Fuller, K. Millard, and J. R. Green, <span>“<span class="nocase">CROMA: Remote Sensing Representations with Contrastive Radar-Optical Masked Autoencoders</span>,”</span> in <em>Thirty-seventh conference on neural information processing systems</em>, 2023.</div>
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">A. Fuller, K. Millard, and J. R. Green, <span>“<span class="nocase">CROMA: Remote Sensing Representations with Contrastive Radar-Optical Masked Autoencoders</span>,”</span> in <em>Thirty-seventh conference on neural information processing systems</em>, 2023.</div>
 </div>
 <div id="ref-taco" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[8] </div><div class="csl-right-inline">C. Aybar <em>et al.</em>, <span>“<span class="nocase">The Missing Piece: Standardising for <span>AI</span>-ready <span>E</span>arth <span>O</span>bservation Datasets</span>,”</span> in <em>ICML 2025 workshop TerraBytes</em>, 2025. Available: <a href="https://openreview.net/forum?id=HV6F0dsGLK">https://openreview.net/forum?id=HV6F0dsGLK</a></div>
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">C. Aybar <em>et al.</em>, <span>“<span class="nocase">The Missing Piece: Standardising for <span>AI</span>-ready <span>E</span>arth <span>O</span>bservation Datasets</span>,”</span> in <em>ICML 2025 workshop TerraBytes</em>, 2025. Available: <a href="https://openreview.net/forum?id=HV6F0dsGLK">https://openreview.net/forum?id=HV6F0dsGLK</a></div>
 </div>
 <div id="ref-tsendbazar2021towards" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[9] </div><div class="csl-right-inline">N. Tsendbazar, M. Herold, L. Li, A. Tarko, and M. Duerauer, <span>“<span class="nocase">Towards operational validation of annual global land cover maps</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 266, p. 112686, 2021, doi: <a href="https://doi.org/10.1016/j.rse.2021.112686">10.1016/j.rse.2021.112686</a>.</div>
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">N. Tsendbazar, M. Herold, L. Li, A. Tarko, and M. Duerauer, <span>“<span class="nocase">Towards operational validation of annual global land cover maps</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 266, p. 112686, 2021, doi: <a href="https://doi.org/10.1016/j.rse.2021.112686">10.1016/j.rse.2021.112686</a>.</div>
+</div>
+<div id="ref-Lu2025regression" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">K. Lu, D. M. Kluger, S. Bates, and S. Wang, <span>“Regression coefficient estimation from remote sensing maps,”</span> <em>Remote Sensing of Environment</em>, vol. 330, p. 114949, Dec. 2025, doi: <a href="https://doi.org/10.1016/j.rse.2025.114949">10.1016/j.rse.2025.114949</a>.</div>
 </div>
 </div>
 </section>
@@ -528,10 +565,15 @@ div.csl-indent {
     "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
     "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
 
-    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
-    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
-    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
-    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+    "appendix_s1_gaps.html":             { part: "Dive Deeper", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Dive Deeper", chapter: "S1/S2 processing across access pathways" },
+    "appendix_s2_artifacts.html":        { part: "Dive Deeper", chapter: "Sentinel-2 tiling artifacts" },
+    "appendix_sar_geometry.html":        { part: "Dive Deeper", chapter: "SAR viewing geometry" },
+    "appendix_sar_rtc.html":             { part: "Dive Deeper", chapter: "SAR calibration & terrain correction" },
+    "appendix_sar_ard.html":             { part: "Dive Deeper", chapter: "Analysis-ready SAR products" },
+    "appendix_cloud_masking.html":       { part: "Dive Deeper", chapter: "Cloud masking for optical data" },
+    "appendix_optical_radiometry.html":  { part: "Dive Deeper", chapter: "Optical radiometric conventions" },
+    "appendix_combining_missions.html":  { part: "Dive Deeper", chapter: "Combining Landsat and Sentinel-2" }
   };
 
   function currentInfo() {
@@ -1000,7 +1042,7 @@ div.csl-indent {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Best Practices for EO Maps</p>
+<p>Good Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
 <p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>

@@ -10,7 +10,15 @@ Threshold the uncertainty and mask out high-uncertainty pixels before release or
 
 ## Reporting as a separate band
 
-Ship the uncertainty layer alongside the map and let users decide how to use it. This is the most flexible option but places the burden of interpretation on the user, who may not have the statistical expertise to use it correctly. Calibration is essential here. If the reported uncertainty is systematically too narrow, users will make overconfident decisions.
+Ship the uncertainty layer alongside the map and let users decide how to use it. For categorical products the choice of what to ship is itself a design decision. The maximum class probability, the predictive entropy, the full probability vector, and a conformal prediction set carry different information and different storage costs, and only the full vector supports downstream area estimation without loss. This is the most flexible option but places the burden of interpretation on the user, who may not have the statistical expertise to use it correctly. Calibration is essential here since if the reported uncertainty is systematically too narrow, users will make overconfident decisions.
+
+::: {.callout-note .box-runex appearance="default" icon="false" title="Running example · Uncertainty in the two products"}
+**WorldCereal** ships a confidence layer rescaled from the winning class probability, and states that it "simply reflects how certain the model is of its prediction" and "does not reflect actual accuracy" [@Van_Tricht_2023].
+
+**CHM** provides no per-pixel uncertainty layer [@pauls2026echosat].
+
+Neither product therefore offers calibrated uncertainty in the sense of [Assessing calibration](uq_calibration.qmd).
+:::
 
 ## Weighting in post-processing
 
@@ -22,6 +30,6 @@ Many downstream applications require not just single epoch estimates but differe
 
 ## Guiding data collection
 
-Calibrated uncertainty identifies where additional observations would most reduce decision-relevant uncertainty, closing the loop between prediction and data collection. An overconfident model forecloses this feedback loop by masking the locations where additional data is most needed [@young2026interpolation]. Active learning strategies that target high-uncertainty regions can direct field campaigns, future LiDAR acquisitions, or validation sampling toward the locations with the highest expected information gain [@settles2009activelearning]. @meyer2021areaofapplicability proposed the related concept of an "area of applicability" as a spatial delineation of where the model's training data support reliable predictions, which can be viewed as a binary uncertainty mask derived from the distance between inference and training data in feature space.
+Calibrated uncertainty identifies where additional observations would most reduce decision-relevant uncertainty, closing the loop between prediction and data collection. An overconfident model forecloses this feedback loop by masking the locations where additional data is most needed [@young2026interpolation]. Active learning strategies that target high-uncertainty regions can direct field campaigns, future LiDAR acquisitions, or validation sampling toward the locations with the highest expected information gain [@settles2009activelearning]. Meyer and Pebesma [@meyer2021areaofapplicability] proposed the related concept of an "area of applicability" as a spatial delineation of where the model's training data support reliable predictions, which can be viewed as a binary uncertainty mask derived from the distance between inference and training data in feature space.
 
 Uncertainty quantification completes the modeling phase of the pipeline: the practitioner now has not only a trained model but also a principled framework for assessing how much to trust its outputs across space. What remains is to operationalize these components — to run inference at scale, mitigate the artifacts that inevitably arise when processing millions of patches, apply post-processing corrections that ensure temporal and spatial coherence, validate the result against independent reference data, and disseminate it in formats that are accessible and useful to downstream users. These operational stages are the subject of the next section, which covers map generation, post-processing, validation, and sharing. Although often treated as engineering details rather than research contributions, the choices made here can easily undermine the quality of an otherwise sound model, and they deserve the same level of methodological care.

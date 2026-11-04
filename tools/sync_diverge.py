@@ -19,14 +19,15 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 
-# Ordered list of (qmd filename, number of consecutive section/subsection blocks
-# that belong to this file). All are 1 except appendix_processing_pathways, which
-# owns its \section plus two \subsections. Order MUST match main.tex.
+# Ordered list of (qmd filename(s), number of consecutive section/subsection blocks
+# that belong to them). Order MUST match main.tex (with divedeeper.tex inlined at
+# its \input). A tuple of filenames means one manuscript block is split across
+# several pages on the website (compared against their concatenation).
 MAP = [
     ("introduction.qmd", 1),
-    ("eo_data_landscape.qmd", 1),
-    ("eo_missions.qmd", 1),
-    ("accessing_eo_data.qmd", 1),
+    # the manuscript section has no subsections; the site splits it at
+    # "The EO data access landscape has expanded..."
+    (("eo_data_landscape.qmd", "eo_missions.qmd", "accessing_eo_data.qmd"), 1),
     ("data_selection_preprocessing.qmd", 1),
     ("data_selection.qmd", 1),
     ("data_preprocessing.qmd", 1),
@@ -47,15 +48,21 @@ MAP = [
     ("validation_general.qmd", 1),
     ("validation_design_based.qmd", 1),
     ("validation_beyond.qmd", 1),
-    ("conclusion.qmd", 1),
+    ("conclusion.qmd", 1),            # manuscript block is empty; site intro is web-only
     ("conclusion_summary.qmd", 1),
     ("conclusion_forward.qmd", 1),
     ("conclusion_limitations.qmd", 1),
-    ("acknowledgments.qmd", 1),
-    ("appendix_s1_gaps.qmd", 1),
-    ("appendix_processing_pathways.qmd", 3),
-    ("appendix_sar_rtc.qmd", 1),
-    ("appendix_cloud_masking.qmd", 1),
+    ("about.qmd", 1),                 # \section*{Acknowledgments} -> about.qmd "Acknowledgments"
+    # --- Dive Deeper (appendices, from divedeeper.tex) ---
+    ("appendix_s1_gaps.qmd", 1),                  # A
+    ("appendix_processing_pathways.qmd", 3),      # B (+ its 2 subsections)
+    ("appendix_s2_artifacts.qmd", 1),             # C
+    ("appendix_sar_geometry.qmd", 1),             # D
+    ("appendix_sar_rtc.qmd", 1),                  # E
+    ("appendix_sar_ard.qmd", 1),                  # F
+    ("appendix_cloud_masking.qmd", 1),            # G
+    ("appendix_optical_radiometry.qmd", 1),       # H
+    ("appendix_combining_missions.qmd", 1),       # I
 ]
 
 # LaTeX/markup tokens to ignore when reporting "content" words.
@@ -69,7 +76,9 @@ theta pi clip trim tikz input include standalone clearpage newpage textsc mathrm
 frac cdot times approx leq geq times left right htbp lllllll eiades famappin
 arraystretch renewcommand cmidrule arraybackslash allowbreak textdegree setlength
 tabcolsep begingroup endgroup bibliographystyle bibliography elsarticle harv document
-references urls auto width height linewidth gensymb overview landscape infrastructure""".split())
+references urls auto width height linewidth gensymb overview landscape infrastructure
+term smallskip statusyes statusno statuspartial minipage tabularx decision runex
+appendices""".split())
 STOP = set("with that this from into their they which have been than only over each such more most them then when will your also both".split())
 
 
@@ -96,13 +105,20 @@ def clean_tex(block):
 
 def clean_qmd(t):
     t = re.sub(r'^---.*?---', '', t, flags=re.S)
+    t = re.sub(r'<!--.*?-->', ' ', t, flags=re.S)   # commented-out text is not content
     return re.sub(r'\[@[^\]]*\]', ' ', t)
 
 
 def main():
     if len(sys.argv) < 2:
         sys.exit("usage: python tools/sync_diverge.py /path/to/overleaf/main.tex")
-    tex = Path(sys.argv[1]).read_text(encoding="utf-8", errors="replace").split("\n")
+    main_tex = Path(sys.argv[1])
+    src = main_tex.read_text(encoding="utf-8", errors="replace")
+    # inline \input{divedeeper} (the appendices live in a separate file)
+    dd = main_tex.with_name("divedeeper.tex")
+    if dd.exists():
+        src = src.replace("\\input{divedeeper}", dd.read_text(encoding="utf-8", errors="replace"))
+    tex = src.split("\n")
 
     # split points: \section, \section*, \subsection (NOT \subsection*, NOT \subsubsection)
     def is_split(ln):
@@ -125,10 +141,13 @@ def main():
     pos = 0
     for qmd, n in MAP:
         blk = "\n".join(blocks[pos:pos+n]); pos += n
-        p = REPO / qmd
-        if not p.exists():
-            print(f"{qmd:38}  MISSING QMD"); continue
-        qw = words(clean_qmd(p.read_text(encoding="utf-8", errors="replace")))
+        files = qmd if isinstance(qmd, tuple) else (qmd,)
+        qmd = "+".join(f.removesuffix(".qmd") for f in files) if len(files) > 1 else qmd
+        missing = [f for f in files if not (REPO / f).exists()]
+        if missing:
+            print(f"{qmd:38}  MISSING QMD: {', '.join(missing)}"); continue
+        qw = words(" ".join(clean_qmd((REPO / f).read_text(encoding="utf-8", errors="replace"))
+                            for f in files))
         tw = words(clean_tex(blk))
         sim = difflib.SequenceMatcher(None, qw, tw).ratio() * 100
         cq, ct = Counter(qw), Counter(tw)

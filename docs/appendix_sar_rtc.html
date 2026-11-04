@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Appendix C — Radiometric calibration and terrain correction of SAR data – From Machine Learning to Large-Scale EO Products</title>
+<title>Appendix E — Radiometric calibration and terrain correction of SAR data – From Machine Learning to Large-Scale EO Products</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -53,8 +53,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./appendix_cloud_masking.html" rel="next">
-<link href="./appendix_processing_pathways.html" rel="prev">
+<link href="./appendix_sar_ard.html" rel="next">
+<link href="./appendix_sar_geometry.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c255c5907d4ec97ac61b80091d22c4d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -134,7 +134,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendix_s1_gaps.html">Appendices</a></li><li class="breadcrumb-item"><a href="./appendix_sar_rtc.html"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendix_s1_gaps.html">Dive Deeper</a></li><li class="breadcrumb-item"><a href="./appendix_sar_rtc.html"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -189,6 +189,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reference_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference map</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -382,7 +388,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Dive Deeper</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -400,12 +406,37 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./appendix_s2_artifacts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Identifying Sentinel-2 tiling artifacts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_geometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Selecting a SAR viewing geometry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  <a href="./appendix_sar_ard.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis-ready SAR products</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_optical_radiometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric conventions for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_combining_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Combining Landsat and Sentinel-2</span></a>
   </div>
 </li>
       </ul>
@@ -431,9 +462,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendix_s1_gaps.html">Appendices</a></li><li class="breadcrumb-item"><a href="./appendix_sar_rtc.html"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendix_s1_gaps.html">Dive Deeper</a></li><li class="breadcrumb-item"><a href="./appendix_sar_rtc.html"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Appendix C — Radiometric calibration and terrain correction of SAR data</h1>
+<h1 class="title">Appendix E — Radiometric calibration and terrain correction of SAR data</h1>
 </div>
 
 
@@ -450,17 +481,17 @@ window.Quarto = {
 </header>
 
 
-<p>This appendix expands on the radiometric processing chain summarized in Section <a href="./data_preprocessing.html">Data Preprocessing</a>, focusing on the choice of backscatter convention and the role of terrain in radiometric normalization, following the taxonomy of <span class="citation" data-cites="Small2011"><a href="#ref-Small2011" role="doc-biblioref">[1]</a></span>.</p>
+<p>This appendix expands on the radiometric processing chain summarized in <a href="./data_preprocessing.html">SAR preprocessing</a>, focusing on the choice of backscatter convention and the role of terrain in radiometric normalization, following the taxonomy of Small <span class="citation" data-cites="Small2011"><a href="#ref-Small2011" role="doc-biblioref">[1]</a></span>.</p>
 <section id="from-digital-numbers-to-calibrated-backscatter" class="level2">
 <h2 class="anchored" data-anchor-id="from-digital-numbers-to-calibrated-backscatter">From digital numbers to calibrated backscatter</h2>
-<p>SAR backscatter is recorded in phase, used to determine the distance to a target, and amplitude, indicating the amount of signal returning to the sensor. Intensity is calculated from the phase and amplitude and stored as digital numbers (DN). Radiometric calibration converts DN to a physically meaningful backscatter coefficient by normalizing by a reference area to obtain backscatter per unit area. The simplest calibrated quantity is the radar brightness <span class="math inline">\(\beta^0\)</span>, defined as the calibrated intensity divided by the slant-range pixel area <span class="math inline">\(A_\beta\)</span> (see <a href="#fig-backscatter" class="quarto-xref">Figure&nbsp;<span>C.1</span></a>). Because <span class="math inline">\(\beta^0\)</span> assumes no Earth model, it is a property of the radar measurement alone and forms the conceptual root from which all other conventions are derived <span class="citation" data-cites="Raney1994"><a href="#ref-Raney1994" role="doc-biblioref">[2]</a></span>.</p>
+<p>A SAR system records a complex signal with an amplitude, indicating the amount of signal returning to the sensor, and a phase. Detected products such as GRD keep only the amplitude, stored as digital numbers (DN); intensity is its square. Radiometric calibration converts DN to a physically meaningful backscatter coefficient by normalizing by a reference area to obtain backscatter per unit area. The simplest calibrated quantity is the radar brightness <span class="math inline">\(\beta^0\)</span>, defined as the calibrated intensity divided by the slant-range pixel area <span class="math inline">\(A_\beta\)</span> (see <a href="#fig-backscatter" class="quarto-xref">Figure&nbsp;<span>E.1</span></a>). Because <span class="math inline">\(\beta^0\)</span> assumes no Earth model, it is a property of the radar measurement alone and forms the conceptual root from which all other conventions are derived <span class="citation" data-cites="Raney1994"><a href="#ref-Raney1994" role="doc-biblioref">[2]</a></span>.</p>
 <div id="fig-backscatter" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-backscatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/backscatter.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-backscatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;C.1: Normalization areas for SAR backscatter.
+Figure&nbsp;E.1: Normalization areas for SAR backscatter. Reproduced from <span class="citation" data-cites="Small2011"><a href="#ref-Small2011" role="doc-biblioref">[1]</a></span>.
 </figcaption>
 </figure>
 </div>
@@ -475,7 +506,7 @@ Figure&nbsp;C.1: Normalization areas for SAR backscatter.
 </section>
 <section id="terrain-referenced-conventions" class="level2">
 <h2 class="anchored" data-anchor-id="terrain-referenced-conventions">Terrain-referenced conventions</h2>
-<p>Radiometric terrain correction (RTC) replaces the ellipsoid-derived reference area with one computed from a digital elevation model (DEM). Two terrain-referenced conventions are in common use. The <span class="math inline">\(\sigma^0_T\)</span> convention applies a per-pixel scalar correction based on the local incidence angle (LIM), <span class="math inline">\(\sigma^0_T = \sigma^0_E \cdot \sin\theta_{\text{LIM}}/\sin\theta_E\)</span>, where <span class="math inline">\(\theta_{\text{LIM}}\)</span> is derived from the DEM. This correction assumes that a single planar facet contributes to each pixel and only adjusts for its tilt. <span class="citation" data-cites="Small2011"><a href="#ref-Small2011" role="doc-biblioref">[1]</a></span> argues that such angle-based normalizations are flawed due to their failure to account for many important properties of radar backscatter in regions with significant topographic variation. They introduced the <span class="math inline">\(\gamma^0_T\)</span> convention that instead integrates the illuminated facet areas rigorously over the DEM, accumulating contributions from all terrain facets that map to a given SAR pixel. This handles cases of steep or complex relief where multiple facets contribute per pixel, which a local-angle scalar correction cannot represent. <span class="math inline">\(\gamma^0_T\)</span> is therefore preferred over <span class="math inline">\(\sigma^0_T\)</span> whenever significant relief is present, and is the default terrain-flattened output of modern processors, such as ESA SNAP <span class="citation" data-cites="esasnap"><a href="#ref-esasnap" role="doc-biblioref">[3]</a></span>.</p>
+<p>Radiometric terrain correction (RTC) replaces the ellipsoid-derived reference area with one computed from a digital elevation model (DEM). Two terrain-referenced conventions are in common use. The <span class="math inline">\(\sigma^0_T\)</span> convention applies a per-pixel scalar correction based on the local incidence angle (LIM), <span class="math inline">\(\sigma^0_T = \sigma^0_E \cdot \sin\theta_{\text{LIM}}/\sin\theta_E\)</span>, where <span class="math inline">\(\theta_{\text{LIM}}\)</span> is derived from the DEM. This correction assumes that a single planar facet contributes to each pixel and only adjusts for its tilt. Small <span class="citation" data-cites="Small2011"><a href="#ref-Small2011" role="doc-biblioref">[1]</a></span> argues that such angle-based normalizations are flawed due to their failure to account for many important properties of radar backscatter in regions with significant topographic variation. He introduced the <span class="math inline">\(\gamma^0_T\)</span> convention that instead integrates the illuminated facet areas rigorously over the DEM, accumulating contributions from all terrain facets that map to a given SAR pixel. This handles cases of steep or complex relief where multiple facets contribute per pixel, which a local-angle scalar correction cannot represent. <span class="math inline">\(\gamma^0_T\)</span> is therefore preferred over <span class="math inline">\(\sigma^0_T\)</span> whenever significant relief is present, and is the default terrain-flattened output of modern processors, such as ESA SNAP <span class="citation" data-cites="esasnap"><a href="#ref-esasnap" role="doc-biblioref">[3]</a></span>.</p>
 </section>
 <section id="relationship-to-geometric-terrain-correction" class="level2">
 <h2 class="anchored" data-anchor-id="relationship-to-geometric-terrain-correction">Relationship to geometric terrain correction</h2>
@@ -484,7 +515,7 @@ Figure&nbsp;C.1: Normalization areas for SAR backscatter.
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
 <div id="ref-Small2011" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">D. Small, <span>“Flattening gamma: Radiometric terrain correction for SAR imagery,”</span> <em>IEEE Transactions on Geoscience and Remote Sensing</em>, vol. 49, no. 8, pp. 3081–3093, Aug. 2011, doi: <a href="https://doi.org/10.1109/tgrs.2011.2120616">10.1109/tgrs.2011.2120616</a>.</div>
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">D. Small, <span>“Flattening gamma: Radiometric terrain correction for <span>SAR</span> imagery,”</span> <em>IEEE Transactions on Geoscience and Remote Sensing</em>, vol. 49, no. 8, pp. 3081–3093, Aug. 2011, doi: <a href="https://doi.org/10.1109/tgrs.2011.2120616">10.1109/tgrs.2011.2120616</a>.</div>
 </div>
 <div id="ref-Raney1994" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[2] </div><div class="csl-right-inline">R. K. Raney, T. Freeman, R. W. Hawkins, and R. Bamler, <span>“A plea for radar brightness,”</span> in <em>Proceedings of IGARSS ’94 - 1994 IEEE international geoscience and remote sensing symposium</em>, in IGARSS-94, vol. 2. IEEE, 1994, pp. 1090–1092. doi: <a href="https://doi.org/10.1109/igarss.1994.399352">10.1109/igarss.1994.399352</a>.</div>
@@ -544,10 +575,15 @@ Figure&nbsp;C.1: Normalization areas for SAR backscatter.
     "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
     "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
 
-    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
-    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
-    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
-    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+    "appendix_s1_gaps.html":             { part: "Dive Deeper", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Dive Deeper", chapter: "S1/S2 processing across access pathways" },
+    "appendix_s2_artifacts.html":        { part: "Dive Deeper", chapter: "Sentinel-2 tiling artifacts" },
+    "appendix_sar_geometry.html":        { part: "Dive Deeper", chapter: "SAR viewing geometry" },
+    "appendix_sar_rtc.html":             { part: "Dive Deeper", chapter: "SAR calibration & terrain correction" },
+    "appendix_sar_ard.html":             { part: "Dive Deeper", chapter: "Analysis-ready SAR products" },
+    "appendix_cloud_masking.html":       { part: "Dive Deeper", chapter: "Cloud masking for optical data" },
+    "appendix_optical_radiometry.html":  { part: "Dive Deeper", chapter: "Optical radiometric conventions" },
+    "appendix_combining_missions.html":  { part: "Dive Deeper", chapter: "Combining Landsat and Sentinel-2" }
   };
 
   function currentInfo() {
@@ -1002,13 +1038,13 @@ Figure&nbsp;C.1: Normalization areas for SAR backscatter.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./appendix_processing_pathways.html" class="pagination-link" aria-label="Sentinel-1 and Sentinel-2 processing across access pathways">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Sentinel-1 and Sentinel-2 processing across access pathways</span></span>
+      <a href="./appendix_sar_geometry.html" class="pagination-link" aria-label="Selecting a SAR viewing geometry">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Selecting a SAR viewing geometry</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./appendix_cloud_masking.html" class="pagination-link" aria-label="Cloud masking methods for Sentinel-2">
-        <span class="nav-page-text"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./appendix_sar_ard.html" class="pagination-link" aria-label="Analysis-ready SAR products">
+        <span class="nav-page-text"><span class="chapter-title">Analysis-ready SAR products</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1016,7 +1052,7 @@ Figure&nbsp;C.1: Normalization areas for SAR backscatter.
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Best Practices for EO Maps</p>
+<p>Good Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
 <p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>

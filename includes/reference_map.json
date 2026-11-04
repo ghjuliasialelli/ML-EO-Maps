@@ -1,0 +1,3184 @@
+{
+ "chapters": [
+  {
+   "id": "introduction",
+   "title": "Introduction",
+   "short": "Introduction",
+   "part": "Front matter",
+   "partShort": "Intro",
+   "href": "introduction.html"
+  },
+  {
+   "id": "eo_data_landscape",
+   "title": "Overview of the EO data infrastructure landscape",
+   "short": "EO data landscape",
+   "part": "Overview of the EO data infrastructure landscape",
+   "partShort": "EO data",
+   "href": "eo_data_landscape.html"
+  },
+  {
+   "id": "accessing_eo_data",
+   "title": "Accessing EO data",
+   "short": "Accessing EO data",
+   "part": "Overview of the EO data infrastructure landscape",
+   "partShort": "EO data",
+   "href": "accessing_eo_data.html"
+  },
+  {
+   "id": "data_selection",
+   "title": "Data selection",
+   "short": "Data selection",
+   "part": "Data selection and preprocessing",
+   "partShort": "Data",
+   "href": "data_selection.html"
+  },
+  {
+   "id": "data_preprocessing",
+   "title": "Data preprocessing",
+   "short": "Data preprocessing",
+   "part": "Data selection and preprocessing",
+   "partShort": "Data",
+   "href": "data_preprocessing.html"
+  },
+  {
+   "id": "ml_ready_dataset",
+   "title": "Constructing a machine-learning-ready dataset",
+   "short": "ML-ready dataset",
+   "part": "Machine learning dataset construction and model training",
+   "partShort": "ML",
+   "href": "ml_ready_dataset.html"
+  },
+  {
+   "id": "model_design_training",
+   "title": "Model design and training",
+   "short": "Model design & training",
+   "part": "Machine learning dataset construction and model training",
+   "partShort": "ML",
+   "href": "model_design_training.html"
+  },
+  {
+   "id": "uncertainty_quantification",
+   "title": "Uncertainty quantification",
+   "short": "Uncertainty (overview)",
+   "part": "Uncertainty quantification",
+   "partShort": "Uncertainty",
+   "href": "uncertainty_quantification.html"
+  },
+  {
+   "id": "uq_sources",
+   "title": "Sources of uncertainty",
+   "short": "Sources of uncertainty",
+   "part": "Uncertainty quantification",
+   "partShort": "Uncertainty",
+   "href": "uq_sources.html"
+  },
+  {
+   "id": "uq_methods",
+   "title": "Uncertainty quantification methods",
+   "short": "UQ methods",
+   "part": "Uncertainty quantification",
+   "partShort": "Uncertainty",
+   "href": "uq_methods.html"
+  },
+  {
+   "id": "uq_calibration",
+   "title": "Assessing calibration",
+   "short": "Calibration",
+   "part": "Uncertainty quantification",
+   "partShort": "Uncertainty",
+   "href": "uq_calibration.html"
+  },
+  {
+   "id": "uq_spatial",
+   "title": "Spatial structure of uncertainty",
+   "short": "Spatial uncertainty",
+   "part": "Uncertainty quantification",
+   "partShort": "Uncertainty",
+   "href": "uq_spatial.html"
+  },
+  {
+   "id": "uq_operationalizing",
+   "title": "Operationalizing uncertainty",
+   "short": "Operationalizing UQ",
+   "part": "Uncertainty quantification",
+   "partShort": "Uncertainty",
+   "href": "uq_operationalizing.html"
+  },
+  {
+   "id": "map_generation",
+   "title": "Map generation",
+   "short": "Map generation",
+   "part": "Map production and distribution",
+   "partShort": "Map production",
+   "href": "map_generation.html"
+  },
+  {
+   "id": "post_processing",
+   "title": "Post-processing",
+   "short": "Post-processing",
+   "part": "Map production and distribution",
+   "partShort": "Map production",
+   "href": "post_processing.html"
+  },
+  {
+   "id": "sharing",
+   "title": "Sharing",
+   "short": "Sharing",
+   "part": "Map production and distribution",
+   "partShort": "Map production",
+   "href": "sharing.html"
+  },
+  {
+   "id": "validation",
+   "title": "Validation",
+   "short": "Validation (overview)",
+   "part": "Validation",
+   "partShort": "Validation",
+   "href": "validation.html"
+  },
+  {
+   "id": "validation_general",
+   "title": "Common misconceptions in map validation",
+   "short": "Validation misconceptions",
+   "part": "Validation",
+   "partShort": "Validation",
+   "href": "validation_general.html"
+  },
+  {
+   "id": "validation_design_based",
+   "title": "Design-based accuracy assessment",
+   "short": "Design-based accuracy",
+   "part": "Validation",
+   "partShort": "Validation",
+   "href": "validation_design_based.html"
+  },
+  {
+   "id": "validation_beyond",
+   "title": "Validation beyond probability sampling",
+   "short": "Beyond probability sampling",
+   "part": "Validation",
+   "partShort": "Validation",
+   "href": "validation_beyond.html"
+  },
+  {
+   "id": "conclusion_summary",
+   "title": "Summary",
+   "short": "Summary",
+   "part": "Conclusion",
+   "partShort": "Conclusion",
+   "href": "conclusion_summary.html"
+  },
+  {
+   "id": "conclusion_forward",
+   "title": "Looking forward",
+   "short": "Looking forward",
+   "part": "Conclusion",
+   "partShort": "Conclusion",
+   "href": "conclusion_forward.html"
+  },
+  {
+   "id": "appendix_s1_gaps",
+   "title": "Sentinel-1 data gaps",
+   "short": "S1 data gaps",
+   "part": "Dive Deeper",
+   "partShort": "Dive Deeper",
+   "href": "appendix_s1_gaps.html"
+  },
+  {
+   "id": "appendix_processing_pathways",
+   "title": "Sentinel-1 and Sentinel-2 processing across access pathways",
+   "short": "Processing pathways",
+   "part": "Dive Deeper",
+   "partShort": "Dive Deeper",
+   "href": "appendix_processing_pathways.html"
+  },
+  {
+   "id": "appendix_sar_geometry",
+   "title": "Selecting a SAR viewing geometry",
+   "short": "SAR viewing geometry",
+   "part": "Dive Deeper",
+   "partShort": "Dive Deeper",
+   "href": "appendix_sar_geometry.html"
+  },
+  {
+   "id": "appendix_sar_rtc",
+   "title": "Radiometric calibration and terrain correction of SAR data",
+   "short": "SAR calibration & RTC",
+   "part": "Dive Deeper",
+   "partShort": "Dive Deeper",
+   "href": "appendix_sar_rtc.html"
+  },
+  {
+   "id": "appendix_sar_ard",
+   "title": "Analysis-ready SAR products",
+   "short": "Analysis-ready SAR",
+   "part": "Dive Deeper",
+   "partShort": "Dive Deeper",
+   "href": "appendix_sar_ard.html"
+  },
+  {
+   "id": "appendix_cloud_masking",
+   "title": "Cloud masking methods for optical data",
+   "short": "Cloud masking",
+   "part": "Dive Deeper",
+   "partShort": "Dive Deeper",
+   "href": "appendix_cloud_masking.html"
+  },
+  {
+   "id": "appendix_optical_radiometry",
+   "title": "Radiometric conventions for optical data",
+   "short": "Optical radiometry",
+   "part": "Dive Deeper",
+   "partShort": "Dive Deeper",
+   "href": "appendix_optical_radiometry.html"
+  },
+  {
+   "id": "appendix_combining_missions",
+   "title": "Combining Landsat and Sentinel-2",
+   "short": "Landsat + Sentinel-2",
+   "part": "Dive Deeper",
+   "partShort": "Dive Deeper",
+   "href": "appendix_combining_missions.html"
+  }
+ ],
+ "refs": [
+  {
+   "id": "Nasimiyu2026",
+   "title": "Remote sensing approaches for carbon stock estimation in optimizing REDD+ benefits: a systematic review from 2015 to 2025",
+   "authors": "Nasimiyu et al.",
+   "year": 2026,
+   "venue": "ISPRS Open Journal of Photogrammetry and Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.ophoto.2026.100131",
+   "chapters": [
+    "introduction"
+   ]
+  },
+  {
+   "id": "UNOSAT_2024_gaza_damage",
+   "title": "Gaza Strip Comprehensive Damage Assessment",
+   "authors": "Centre",
+   "year": 2024,
+   "venue": "",
+   "type": "misc",
+   "url": "https://unosat.org/products/3984",
+   "chapters": [
+    "introduction"
+   ]
+  },
+  {
+   "id": "Metzger2024",
+   "title": "High-resolution population maps derived from Sentinel-1 and Sentinel-2",
+   "authors": "Metzger et al.",
+   "year": 2024,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2024.114383",
+   "chapters": [
+    "introduction"
+   ]
+  },
+  {
+   "id": "glazer2025tempo",
+   "title": "TEMPO: Global Temporal Building Density and Height Estimation from Satellite Imagery",
+   "authors": "Glazer et al.",
+   "year": 2025,
+   "venue": "arXiv preprint arXiv:2511.12104",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2511.12104",
+   "chapters": [
+    "introduction",
+    "data_selection",
+    "ml_ready_dataset",
+    "model_design_training",
+    "post_processing"
+   ]
+  },
+  {
+   "id": "Brown_2022",
+   "title": "Dynamic World, Near real-time global 10 m land use land cover mapping",
+   "authors": "Brown et al.",
+   "year": 2022,
+   "venue": "Scientific Data",
+   "type": "article",
+   "url": "https://doi.org/10.1038/s41597-022-01307-4",
+   "chapters": [
+    "introduction",
+    "data_selection",
+    "model_design_training",
+    "appendix_optical_radiometry"
+   ]
+  },
+  {
+   "id": "lang2023canopyheight",
+   "title": "A High-Resolution Canopy Height Model of the Earth",
+   "authors": "Lang et al.",
+   "year": 2023,
+   "venue": "Nature Ecology & Evolution",
+   "type": "article",
+   "url": "https://doi.org/10.1038/s41559-023-02206-6",
+   "chapters": [
+    "introduction",
+    "ml_ready_dataset",
+    "sharing"
+   ]
+  },
+  {
+   "id": "Tolan2024",
+   "title": "Very high resolution canopy height maps from RGB imagery using self-supervised vision transformer and convolutional decoder trained on aerial lidar",
+   "authors": "Tolan et al.",
+   "year": 2024,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2023.113888",
+   "chapters": [
+    "introduction",
+    "data_selection"
+   ]
+  },
+  {
+   "id": "microsoft2024renewables",
+   "title": "Global Renewables Watch",
+   "authors": "Microsoft",
+   "year": 2024,
+   "venue": "",
+   "type": "misc",
+   "url": "https://github.com/microsoft/global-renewables-watch",
+   "chapters": [
+    "introduction",
+    "data_selection",
+    "model_design_training",
+    "post_processing"
+   ]
+  },
+  {
+   "id": "Misra2025",
+   "title": "Mapping global floods with 10 years of satellite radar data",
+   "authors": "Misra et al.",
+   "year": 2025,
+   "venue": "Nature Communications",
+   "type": "article",
+   "url": "https://doi.org/10.1038/s41467-025-60973-1",
+   "chapters": [
+    "introduction",
+    "appendix_s1_gaps"
+   ]
+  },
+  {
+   "id": "Singh2026",
+   "title": "Reflections on the use of maps in the field of climate, peace, and security",
+   "authors": "Singh et al.",
+   "year": 2026,
+   "venue": "Climate Services",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.cliser.2026.100635",
+   "chapters": [
+    "introduction"
+   ]
+  },
+  {
+   "id": "zhang2016deep",
+   "title": "Deep Learning for Remote Sensing Data: A Technical Tutorial on the State of the Art",
+   "authors": "Zhang et al.",
+   "year": 2016,
+   "venue": "IEEE Geoscience and Remote Sensing Magazine",
+   "type": "article",
+   "url": "https://doi.org/10.1109/MGRS.2016.2540798",
+   "chapters": [
+    "introduction"
+   ]
+  },
+  {
+   "id": "zhu2017deep",
+   "title": "Deep Learning in Remote Sensing: A Comprehensive Review and List of Resources",
+   "authors": "Zhu et al.",
+   "year": 2017,
+   "venue": "IEEE Geoscience and Remote Sensing Magazine",
+   "type": "article",
+   "url": "https://doi.org/10.1109/MGRS.2017.2762307",
+   "chapters": [
+    "introduction"
+   ]
+  },
+  {
+   "id": "Persello2022",
+   "title": "Deep Learning and Earth Observation to Support the Sustainable Development Goals: Current approaches, open challenges, and future opportunities",
+   "authors": "Persello et al.",
+   "year": 2022,
+   "venue": "IEEE Geoscience and Remote Sensing Magazine",
+   "type": "article",
+   "url": "https://doi.org/10.1109/MGRS.2021.3136100",
+   "chapters": [
+    "introduction"
+   ]
+  },
+  {
+   "id": "tuia2025",
+   "title": "Artificial Intelligence to Advance Earth Observation: A review of models, recent trends, and pathways forward",
+   "authors": "Tuia et al.",
+   "year": 2025,
+   "venue": "IEEE Geoscience and Remote Sensing Magazine",
+   "type": "article",
+   "url": "https://doi.org/10.1109/MGRS.2024.3425961",
+   "chapters": [
+    "introduction"
+   ]
+  },
+  {
+   "id": "olofsson2014good",
+   "title": "Good practices for estimating area and assessing accuracy of land change",
+   "authors": "Olofsson et al.",
+   "year": 2014,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2014.02.015",
+   "chapters": [
+    "introduction",
+    "uncertainty_quantification",
+    "uq_spatial",
+    "validation",
+    "validation_design_based",
+    "conclusion_summary"
+   ]
+  },
+  {
+   "id": "stehman2019key",
+   "title": "Key issues in rigorous accuracy assessment of land cover products",
+   "authors": "Stehman & Foody",
+   "year": 2019,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2019.05.018",
+   "chapters": [
+    "introduction",
+    "uncertainty_quantification",
+    "validation_general",
+    "validation_design_based",
+    "validation_beyond"
+   ]
+  },
+  {
+   "id": "ploton2020spatialvalidation",
+   "title": "Spatial Validation Reveals Poor Predictive Performance of Large-Scale Ecological Mapping Models",
+   "authors": "Ploton et al.",
+   "year": 2020,
+   "venue": "Nature Communications",
+   "type": "article",
+   "url": "https://doi.org/10.1038/s41467-020-18321-y",
+   "chapters": [
+    "introduction",
+    "ml_ready_dataset",
+    "uq_methods",
+    "conclusion_summary"
+   ]
+  },
+  {
+   "id": "meyer2022machine",
+   "title": "Machine learning-based global maps of ecological variables and the challenge of assessing them",
+   "authors": "Meyer & Pebesma",
+   "year": 2022,
+   "venue": "Nature Communications",
+   "type": "article",
+   "url": "https://doi.org/10.1038/s41467-022-29838-9",
+   "chapters": [
+    "introduction"
+   ]
+  },
+  {
+   "id": "Van_Tricht_2023",
+   "title": "WorldCereal: a dynamic open-source system for global-scale, seasonal, and reproducible crop and irrigation mapping",
+   "authors": "Van Tricht et al.",
+   "year": 2023,
+   "venue": "Earth System Science Data",
+   "type": "article",
+   "url": "https://doi.org/10.5194/essd-15-5491-2023",
+   "chapters": [
+    "introduction",
+    "data_selection",
+    "ml_ready_dataset",
+    "model_design_training",
+    "uq_operationalizing",
+    "map_generation",
+    "post_processing",
+    "validation_general",
+    "validation_beyond"
+   ]
+  },
+  {
+   "id": "pauls2024estimating",
+   "title": "Estimating Canopy Height at Scale",
+   "authors": "Pauls et al.",
+   "year": 2024,
+   "venue": "arXiv preprint arXiv:2406.01076",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2406.01076",
+   "chapters": [
+    "introduction",
+    "data_selection",
+    "ml_ready_dataset",
+    "model_design_training",
+    "map_generation",
+    "validation_general"
+   ]
+  },
+  {
+   "id": "pauls2025capturing",
+   "title": "Capturing Temporal Dynamics in Large-Scale Canopy Tree Height Estimation",
+   "authors": "Pauls et al.",
+   "year": 2025,
+   "venue": "arXiv preprint arXiv:2501.19328",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2501.19328",
+   "chapters": [
+    "introduction",
+    "data_selection",
+    "data_preprocessing",
+    "model_design_training",
+    "validation_general",
+    "appendix_optical_radiometry"
+   ]
+  },
+  {
+   "id": "nasa_levels",
+   "title": "Data Processing Levels",
+   "authors": "Earthdata",
+   "year": null,
+   "venue": "",
+   "type": "misc",
+   "url": "https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels",
+   "chapters": [
+    "eo_data_landscape"
+   ]
+  },
+  {
+   "id": "gorelick2017google",
+   "title": "Google Earth Engine: Planetary-scale geospatial analysis for everyone",
+   "authors": "Gorelick et al.",
+   "year": 2017,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2017.06.031",
+   "chapters": [
+    "accessing_eo_data"
+   ]
+  },
+  {
+   "id": "schwartz2025formspo",
+   "title": "FORMSpoT: A Decade of Tree-Level, Country-Scale Forest Monitoring",
+   "authors": "Schwartz et al.",
+   "year": 2025,
+   "venue": "arXiv preprint arXiv:2512.17021",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2512.17021",
+   "chapters": [
+    "data_selection",
+    "post_processing"
+   ]
+  },
+  {
+   "id": "dixonCanopyHeightEstimation2025",
+   "title": "Canopy Height Estimation from PlanetScope Time Series with Spatio-Temporal Deep Learning",
+   "authors": "Dixon et al.",
+   "year": 2025,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2024.114518",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "pauls2026echosat",
+   "title": "ECHOSAT: Estimating Canopy Height Over Space and Time",
+   "authors": "Pauls et al.",
+   "year": 2026,
+   "venue": "arXiv preprint arXiv:2602.21421",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2602.21421",
+   "chapters": [
+    "data_selection",
+    "ml_ready_dataset",
+    "model_design_training",
+    "uq_operationalizing",
+    "map_generation",
+    "validation_beyond",
+    "appendix_optical_radiometry"
+   ]
+  },
+  {
+   "id": "herzog2025olmoearthstable",
+   "title": "OlmoEarth: Stable Latent Image Modeling for Multimodal Earth Observation",
+   "authors": "Herzog et al.",
+   "year": 2025,
+   "venue": "arXiv preprint arXiv:2511.13655",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2511.13655",
+   "chapters": [
+    "data_selection",
+    "ml_ready_dataset",
+    "model_design_training",
+    "map_generation"
+   ]
+  },
+  {
+   "id": "schwartzRetrievingYearlyForest2025",
+   "title": "Retrieving Yearly Forest Growth from Satellite Data: A Deep Learning Based Approach",
+   "authors": "Schwartz et al.",
+   "year": 2025,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2025.114959",
+   "chapters": [
+    "data_selection",
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "schwartzFORMSForestMultiple2023a",
+   "title": "FORMS: Forest Multiple Source Height, Wood Volume, and Biomass Maps in France at 10 to 30 m Resolution Based on Sentinel-1, Sentinel-2, and Global Ecosystem Dynamics Investigation (GEDI) Data with a Deep Learning Approach",
+   "authors": "Schwartz et al.",
+   "year": 2023,
+   "venue": "Earth System Science Data",
+   "type": "article",
+   "url": "https://doi.org/10.5194/essd-15-4927-2023",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "suCanopyHeightBiomass2025",
+   "title": "Canopy Height and Biomass Distribution across the Forests of Iberian Peninsula",
+   "authors": "Su et al.",
+   "year": 2025,
+   "venue": "Scientific Data",
+   "type": "article",
+   "url": "https://doi.org/10.1038/s41597-025-05021-9",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "wanSatellitebasedMappingAnnual2025",
+   "title": "Satellite-Based Mapping of Annual Canopy Height and Aboveground Biomass in African Dense Forests",
+   "authors": "Wan et al.",
+   "year": 2025,
+   "venue": "Frontiers in Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.3389/frsen.2025.1724950",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "schwartzHighresolutionCanopyHeight2024",
+   "title": "High-Resolution Canopy Height Map in the Landes Forest (France) Based on GEDI, Sentinel-1, and Sentinel-2 Data with a Deep Learning Approach",
+   "authors": "Schwartz et al.",
+   "year": 2024,
+   "venue": "International Journal of Applied Earth Observation and Geoinformation",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.jag.2024.103711",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "favrichonMonitoringChangesForest2025",
+   "title": "Monitoring Changes of Forest Height in California",
+   "authors": "Favrichon et al.",
+   "year": 2025,
+   "venue": "Frontiers in Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.3389/frsen.2024.1459524",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "Neumann_2025",
+   "title": "Natural forests of the world – a 2020 baseline for deforestation and degradation monitoring",
+   "authors": "Neumann et al.",
+   "year": 2025,
+   "venue": "Scientific Data",
+   "type": "article",
+   "url": "https://doi.org/10.1038/s41597-025-06097-z",
+   "chapters": [
+    "data_selection",
+    "ml_ready_dataset",
+    "model_design_training",
+    "map_generation"
+   ]
+  },
+  {
+   "id": "esa2021worldcover",
+   "title": "ESA WorldCover 2021 v200 Map User Manual and Validation Report",
+   "authors": "Agency",
+   "year": 2021,
+   "venue": "",
+   "type": "misc",
+   "url": "https://esa-worldcover.org/",
+   "chapters": [
+    "data_selection",
+    "model_design_training",
+    "sharing"
+   ]
+  },
+  {
+   "id": "potapov2021mapping",
+   "title": "Mapping global forest canopy height through integration of GEDI and Landsat data",
+   "authors": "Potapov et al.",
+   "year": 2021,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2020.112165",
+   "chapters": [
+    "data_selection",
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "Mosig2026",
+   "title": "Sub-pixel mapping of disturbance and tree mortality dynamics from Sentinel-2 time series around the globe",
+   "authors": "Mosig et al.",
+   "year": 2026,
+   "venue": "California Digital Library (CDL)",
+   "type": "article",
+   "url": "https://doi.org/10.31223/x5b18w",
+   "chapters": [
+    "data_selection",
+    "ml_ready_dataset",
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "boudrasSERAHNativeSentinel2025",
+   "title": "SERA-H: Beyond Native Sentinel Spatial Limits for High-Resolution Canopy Height Mapping",
+   "authors": "Boudras et al.",
+   "year": 2025,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/arXiv.2512.18128",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "kacicForestStructureCharacterization2023",
+   "title": "Forest Structure Characterization in Germany: Novel Products and Analysis Based on GEDI, Sentinel-1 and Sentinel-2 Data",
+   "authors": "Kacic et al.",
+   "year": 2023,
+   "venue": "Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.3390/rs15081969",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "Liu_2023",
+   "title": "The overlooked contribution of trees outside forests to tree cover and woody biomass across Europe",
+   "authors": "Liu et al.",
+   "year": 2023,
+   "venue": "Science Advances",
+   "type": "article",
+   "url": "https://doi.org/10.1126/sciadv.adh4097",
+   "chapters": [
+    "data_selection",
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "langCountrywideHighresolutionVegetation2019",
+   "title": "Country-Wide High-Resolution Vegetation Height Mapping with Sentinel-2",
+   "authors": "Lang et al.",
+   "year": 2019,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2019.111347",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "Zhang2018",
+   "title": "Generation and evaluation of the VIIRS land surface phenology product",
+   "authors": "Zhang et al.",
+   "year": 2018,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2018.06.047",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "Zhang2003",
+   "title": "Monitoring vegetation phenology using MODIS",
+   "authors": "Zhang et al.",
+   "year": 2003,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/s0034-4257(02)00135-9",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "Franch2022",
+   "title": "Global crop calendars of maize and wheat in the framework of the WorldCereal project",
+   "authors": "Franch et al.",
+   "year": 2022,
+   "venue": "GIScience &amp; Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1080/15481603.2022.2079273",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "MolettoLobos2026",
+   "title": "Enhancing WorldCereal crop calendars with land surface phenology and machine learning",
+   "authors": "Moletto-Lobos et al.",
+   "year": 2026,
+   "venue": "Ecological Informatics",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.ecoinf.2026.103742",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "Davis2022",
+   "title": "New directions in tropical phenology",
+   "authors": "Davis et al.",
+   "year": 2022,
+   "venue": "Trends in Ecology &amp; Evolution",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.tree.2022.05.001",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "Karaman2025",
+   "title": "MT-GSR4B: Multi-Temporally Guided Super-Resolution for Above-Ground Biomass Estimation",
+   "authors": "Karaman et al.",
+   "year": 2025,
+   "venue": "PFG – Journal of Photogrammetry, Remote Sensing and Geoinformation Science",
+   "type": "article",
+   "url": "https://doi.org/10.1007/s41064-025-00370-x",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "kerner2025fields",
+   "title": "Fields of the World: A Machine Learning Benchmark Dataset for Global Agricultural Field Boundary Segmentation",
+   "authors": "Kerner et al.",
+   "year": 2025,
+   "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+   "type": "inproceedings",
+   "url": "https://doi.org/10.1609/aaai.v39i27.35034",
+   "chapters": [
+    "data_selection",
+    "ml_ready_dataset",
+    "model_design_training",
+    "post_processing",
+    "appendix_optical_radiometry"
+   ]
+  },
+  {
+   "id": "Ruwurm2020",
+   "title": "Self-attention for raw optical Satellite Time Series Classification",
+   "authors": "Rußwurm & Körner",
+   "year": 2020,
+   "venue": "ISPRS Journal of Photogrammetry and Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.isprsjprs.2020.06.006",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "Turkoglu2021",
+   "title": "Crop mapping from image time series: Deep learning with multi-scale label hierarchies",
+   "authors": "Turkoglu et al.",
+   "year": 2021,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2021.112603",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "Gawlikowski2022",
+   "title": "Explaining the Effects of Clouds on Remote Sensing Scene Classification",
+   "authors": "Gawlikowski et al.",
+   "year": 2022,
+   "venue": "IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1109/jstars.2022.3221788",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "muhawenayo2026pruepracticalrecipefield",
+   "title": "PRUE: A Practical Recipe for Field Boundary Segmentation at Scale",
+   "authors": "Muhawenayo et al.",
+   "year": 2026,
+   "venue": "",
+   "type": "misc",
+   "url": "https://arxiv.org/abs/2603.27101",
+   "chapters": [
+    "data_selection",
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "Francini2023",
+   "title": "An assessment approach for pixel-based image composites",
+   "authors": "Francini et al.",
+   "year": 2023,
+   "venue": "ISPRS Journal of Photogrammetry and Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.isprsjprs.2023.06.002",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "White2014",
+   "title": "Pixel-Based Image Compositing for Large-Area Dense Time Series Applications and Science",
+   "authors": "White et al.",
+   "year": 2014,
+   "venue": "Canadian Journal of Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1080/07038992.2014.945827",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "arvidson2006landsat",
+   "title": "Landsat-7 long-term acquisition plan",
+   "authors": "Arvidson et al.",
+   "year": 2006,
+   "venue": "Photogrammetric Engineering & Remote Sensing",
+   "type": "article",
+   "url": "",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "ju2008availability",
+   "title": "The availability of cloud-free Landsat ETM+ data over the conterminous United States and globally",
+   "authors": "Ju & Roy",
+   "year": 2008,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "brown2025alphaearthfoundations",
+   "title": "AlphaEarth Foundations: An embedding field model for accurate and efficient global mapping from sparse label data",
+   "authors": "Brown et al.",
+   "year": 2025,
+   "venue": "arXiv preprint arXiv:2507.22291",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2507.22291",
+   "chapters": [
+    "data_selection",
+    "ml_ready_dataset",
+    "model_design_training",
+    "map_generation",
+    "conclusion_forward",
+    "appendix_optical_radiometry"
+   ]
+  },
+  {
+   "id": "feng2025tessera",
+   "title": "TESSERA: Temporal Embeddings of Surface Spectra for Earth Representation and Analysis",
+   "authors": "Feng et al.",
+   "year": 2025,
+   "venue": "arXiv preprint arXiv:2506.20380",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2506.20380",
+   "chapters": [
+    "data_selection",
+    "ml_ready_dataset",
+    "model_design_training",
+    "map_generation",
+    "conclusion_forward"
+   ]
+  },
+  {
+   "id": "BauerMarschallinger2021",
+   "title": "The normalised Sentinel-1 Global Backscatter Model, mapping Earth’s land surface with C-band microwaves",
+   "authors": "Bauer-Marschallinger et al.",
+   "year": 2021,
+   "venue": "Scientific Data",
+   "type": "article",
+   "url": "https://doi.org/10.1038/s41597-021-01059-7",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "Schaufler2018",
+   "title": "Modelling and correcting azimuthal anisotropy in Sentinel-1 backscatter data",
+   "authors": "Schaufler et al.",
+   "year": 2018,
+   "venue": "Remote Sensing Letters",
+   "type": "article",
+   "url": "https://doi.org/10.1080/2150704x.2018.1480071",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "sarhandbook",
+   "title": "The SAR Handbook: Comprehensive Methodologies for Forest Monitoring and Biomass Estimation",
+   "authors": "Flores-Anderson et al.",
+   "year": 2019,
+   "venue": "",
+   "type": "book",
+   "url": "https://doi.org/10.25966/nr2c-s697",
+   "chapters": [
+    "data_selection"
+   ]
+  },
+  {
+   "id": "LeeFiltering",
+   "title": "Digital Image Enhancement and Noise Filtering by Use of Local Statistics",
+   "authors": "Lee",
+   "year": 1980,
+   "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+   "type": "article",
+   "url": "https://doi.org/10.1109/TPAMI.1980.4766994",
+   "chapters": [
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "FrostFiltering",
+   "title": "A Model for Radar Images and Its Application to Adaptive Digital Filtering of Multiplicative Noise",
+   "authors": "Frost et al.",
+   "year": 1982,
+   "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+   "type": "article",
+   "url": "https://doi.org/10.1109/TPAMI.1982.4767223",
+   "chapters": [
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "RefinedLee",
+   "title": "Polarimetric SAR speckle filtering and its implication for classification",
+   "authors": "Lee et al.",
+   "year": 1999,
+   "venue": "IEEE Transactions on Geoscience and Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1109/36.789635",
+   "chapters": [
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "Quegan2001",
+   "title": "Filtering of multichannel SAR images",
+   "authors": "Quegan & Yu",
+   "year": 2001,
+   "venue": "IEEE Transactions on Geoscience and Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1109/36.964973",
+   "chapters": [
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "pyrosar",
+   "title": "A Python Framework for Large-Scale SAR Satellite Data Processing, GitHub repository",
+   "authors": "pyroSAR",
+   "year": null,
+   "venue": "",
+   "type": "misc",
+   "url": "https://github.com/johntruckenbrodt/pyroSAR",
+   "chapters": [
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "esasnap",
+   "title": "SNAP — Sentinel Application Platform",
+   "authors": "Agency",
+   "year": null,
+   "venue": "",
+   "type": "misc",
+   "url": "http://step.esa.int",
+   "chapters": [
+    "data_preprocessing",
+    "appendix_sar_rtc"
+   ]
+  },
+  {
+   "id": "cdses1",
+   "title": "Sentinel-1 Documentation — Derived products & Processing options",
+   "authors": "Ecosystem",
+   "year": null,
+   "venue": "",
+   "type": "misc",
+   "url": "https://perma.cc/5YKB-NXSS",
+   "chapters": [
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "Mullissa2021",
+   "title": "Sentinel-1 SAR Backscatter Analysis Ready Data Preparation in Google Earth Engine",
+   "authors": "Mullissa et al.",
+   "year": 2021,
+   "venue": "Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.3390/rs13101954",
+   "chapters": [
+    "data_preprocessing",
+    "appendix_processing_pathways"
+   ]
+  },
+  {
+   "id": "gees1ard",
+   "title": "Sentinel-1 SAR Backscatter Analysis Ready Data Preparation in Google Earth Engine, GitHub repository",
+   "authors": "Mullissa",
+   "year": 2021,
+   "venue": "",
+   "type": "misc",
+   "url": "https://github.com/adugnag/gee_s1_ard",
+   "chapters": [
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "aws3grd",
+   "title": "Sentinel-1",
+   "authors": "AWS",
+   "year": null,
+   "venue": "",
+   "type": "misc",
+   "url": "https://registry.opendata.aws/sentinel-1/",
+   "chapters": [
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "aws3rtc",
+   "title": "Analysis Ready Sentinel-1 Backscatter Imagery",
+   "authors": "AWS",
+   "year": null,
+   "venue": "",
+   "type": "misc",
+   "url": "https://registry.opendata.aws/sentinel-1-rtc-indigo/",
+   "chapters": [
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "mpc",
+   "title": "Sentinel-1 Synthetic Aperture Radar (SAR) Datasets",
+   "authors": "Computer",
+   "year": null,
+   "venue": "",
+   "type": "misc",
+   "url": "https://planetarycomputer.microsoft.com/dataset/group/sentinel-1",
+   "chapters": [
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "sentinelhub",
+   "title": "BRDF Normalization Script — Sentinel-2 Custom Scripts",
+   "authors": "Hub",
+   "year": null,
+   "venue": "",
+   "type": "misc",
+   "url": "https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/brdf/",
+   "chapters": [
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "Montero2024",
+   "title": "Facilitating advanced Sentinel-2 analysis through a simplified computation of Nadir BRDF Adjusted Reflectance",
+   "authors": "Montero et al.",
+   "year": 2024,
+   "venue": "The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences",
+   "type": "article",
+   "url": "https://doi.org/10.5194/isprs-archives-xlviii-4-w12-2024-105-2024",
+   "chapters": [
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "force",
+   "title": "FORCE Documentation",
+   "authors": "FORCE",
+   "year": null,
+   "venue": "",
+   "type": "misc",
+   "url": "https://force-eo.readthedocs.io/en/latest/about.html",
+   "chapters": [
+    "data_preprocessing"
+   ]
+  },
+  {
+   "id": "Kattenborn2022",
+   "title": "Spatially autocorrelated training and validation samples inflate performance assessment of convolutional neural networks",
+   "authors": "Kattenborn et al.",
+   "year": 2022,
+   "venue": "ISPRS Open Journal of Photogrammetry and Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.ophoto.2022.100018",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "folk1999hdf5",
+   "title": "HDF5: A file format and I/O library for high performance computing applications",
+   "authors": "Folk et al.",
+   "year": 1999,
+   "venue": "Proceedings of supercomputing",
+   "type": "inproceedings",
+   "url": "",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "rew1990netcdf",
+   "title": "NetCDF: an interface for scientific data access",
+   "authors": "Rew & Davis",
+   "year": 1990,
+   "venue": "IEEE computer graphics and applications",
+   "type": "article",
+   "url": "",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "ogc_geotiff",
+   "title": "OGC GeoTIFF Standard, Version 1.1",
+   "authors": "Consortium",
+   "year": 2019,
+   "venue": "Open Geospatial Consortium",
+   "type": "techreport",
+   "url": "https://docs.ogc.org/is/19-008r4/19-008r4.html",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "ogc_cog",
+   "title": "OGC Cloud Optimized GeoTIFF Standard, Version 1.0",
+   "authors": "Consortium",
+   "year": 2023,
+   "venue": "Open Geospatial Consortium",
+   "type": "techreport",
+   "url": "https://docs.ogc.org/is/21-026/21-026.html",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "rew2006netcdf4",
+   "title": "NetCDF-4: Software Implementing an Enhanced Data Model for the Geosciences",
+   "authors": "Rew et al.",
+   "year": 2006,
+   "venue": "22nd International Conference on Interactive Information Processing Systems for Meteorology, Oceanography, and Hydrology (IIPS)",
+   "type": "inproceedings",
+   "url": "https://ams.confex.com/ams/pdfpapers/104931.pdf",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "hassell2017cf",
+   "title": "A data model of the Climate and Forecast metadata conventions (CF-1.6) with a software implementation (cf-python v2.1)",
+   "authors": "Hassell et al.",
+   "year": 2017,
+   "venue": "Geoscientific Model Development",
+   "type": "article",
+   "url": "https://doi.org/10.5194/gmd-10-4619-2017",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "miles2020zarr",
+   "title": "zarr-developers/zarr-python",
+   "authors": "Miles et al.",
+   "year": 2020,
+   "venue": "Zenodo",
+   "type": "software",
+   "url": "https://doi.org/10.5281/zenodo.3773449",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "coiled2023xarray",
+   "title": "Processing a 250 TB dataset with Coiled, Dask, and Xarray",
+   "authors": "Coiled",
+   "year": 2023,
+   "venue": "",
+   "type": "online",
+   "url": "https://docs.coiled.io/blog/coiled-xarray.html",
+   "chapters": [
+    "ml_ready_dataset",
+    "map_generation"
+   ]
+  },
+  {
+   "id": "rolf2024mission",
+   "title": "Mission Critical–Satellite Data is a Distinct Modality in Machine Learning",
+   "authors": "Rolf et al.",
+   "year": 2024,
+   "venue": "arXiv preprint arXiv:2402.01444",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2402.01444",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "Roberts2017",
+   "title": "Cross‐validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure",
+   "authors": "Roberts et al.",
+   "year": 2017,
+   "venue": "Ecography",
+   "type": "article",
+   "url": "https://doi.org/10.1111/ecog.02881",
+   "chapters": [
+    "ml_ready_dataset",
+    "uq_methods",
+    "conclusion_summary"
+   ]
+  },
+  {
+   "id": "Lusk_2026",
+   "title": "Crowdsourced biodiversity monitoring fills gaps in global plant trait mapping",
+   "authors": "Lusk et al.",
+   "year": 2026,
+   "venue": "Nature Communications",
+   "type": "article",
+   "url": "https://doi.org/10.1038/s41467-026-68996-y",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "garnot2021panoptic",
+   "title": "Panoptic Segmentation of Satellite Image Time Series with Convolutional Temporal Attention Networks",
+   "authors": "Sainte Fare Garnot & Landrieu",
+   "year": 2021,
+   "venue": "ICCV",
+   "type": "article",
+   "url": "",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "Revell2010",
+   "title": "Phylogenetic signal and linear regression on species data: <i>Phylogenetic regression</i>",
+   "authors": "Revell",
+   "year": 2010,
+   "venue": "Methods in Ecology and Evolution",
+   "type": "article",
+   "url": "https://doi.org/10.1111/j.2041-210x.2010.00044.x",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "Bergmeir2012",
+   "title": "On the use of cross-validation for time series predictor evaluation",
+   "authors": "Bergmeir & Benítez",
+   "year": 2012,
+   "venue": "Information Sciences",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.ins.2011.12.028",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "meyer2021areaofapplicability",
+   "title": "Predicting into Unknown Space? Estimating the Area of Applicability of Spatial Prediction Models",
+   "authors": "Meyer & Pebesma",
+   "year": 2021,
+   "venue": "Methods in Ecology and Evolution",
+   "type": "article",
+   "url": "https://doi.org/10.1111/2041-210X.13650",
+   "chapters": [
+    "ml_ready_dataset",
+    "uq_calibration",
+    "uq_operationalizing"
+   ]
+  },
+  {
+   "id": "butsko2025deploying",
+   "title": "Deploying Geospatial Foundation Models in the Real World: Lessons from WorldCereal",
+   "authors": "Butsko et al.",
+   "year": 2025,
+   "venue": "arXiv preprint arXiv:2508.00858",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2508.00858",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "NGA_SIG_0012_2014",
+   "title": "The Universal Grids and the Transverse Mercator and Polar Stereographic Map Projections",
+   "authors": "Agency",
+   "year": 2014,
+   "venue": "National Geospatial-Intelligence Agency",
+   "type": "techreport",
+   "url": "https://www.nga.mil/",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "BauerMarschallinger2023",
+   "title": "Wasting petabytes: A survey of the Sentinel-2 UTM tiling grid and its spatial overhead",
+   "authors": "Bauer-Marschallinger & Falkner",
+   "year": 2023,
+   "venue": "ISPRS Journal of Photogrammetry and Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.isprsjprs.2023.07.015",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "BauerMarschallinger2014",
+   "title": "Optimisation of global grids for high-resolution remote sensing data",
+   "authors": "Bauer-Marschallinger et al.",
+   "year": 2014,
+   "venue": "Computers &amp; Geosciences",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.cageo.2014.07.005",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "veach2017s2",
+   "title": "S2 Geometry Library: Computational geometry and spatial indexing on the sphere",
+   "authors": "Veach et al.",
+   "year": 2017,
+   "venue": "",
+   "type": "misc",
+   "url": "http://s2geometry.io/",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "h3",
+   "title": "H3: A Hexagonal Hierarchical Geospatial Indexing System, GitHub repository",
+   "authors": "Uber",
+   "year": null,
+   "venue": "",
+   "type": "misc",
+   "url": "https://github.com/uber/h3",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "Gorski2005",
+   "title": "HEALPix: A Framework for High‐Resolution Discretization and Fast Analysis of Data Distributed on the Sphere",
+   "authors": "Gorski et al.",
+   "year": 2005,
+   "venue": "The Astrophysical Journal",
+   "type": "article",
+   "url": "https://doi.org/10.1086/427976",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "Gibb2016",
+   "title": "The rHEALPix Discrete Global Grid System",
+   "authors": "Gibb",
+   "year": 2016,
+   "venue": "IOP Conference Series: Earth and Environmental Science",
+   "type": "article",
+   "url": "https://doi.org/10.1088/1755-1315/34/1/012012",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "Francis2024MajorTOM",
+   "title": "Major TOM: Expandable Datasets for Earth Observation",
+   "authors": "Francis & Czerkawski",
+   "year": 2024,
+   "venue": "IGARSS 2024 - 2024 IEEE International Geoscience and Remote Sensing Symposium",
+   "type": "inproceedings",
+   "url": "https://doi.org/10.1109/IGARSS53475.2024.10640760",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "Snyder1987",
+   "title": "Map projections: A working manual",
+   "authors": "Snyder",
+   "year": 1987,
+   "venue": "Professional Paper",
+   "type": "book",
+   "url": "https://doi.org/10.3133/pp1395",
+   "chapters": [
+    "ml_ready_dataset"
+   ]
+  },
+  {
+   "id": "Ronneberger2015",
+   "title": "U-Net: Convolutional Networks for Biomedical Image Segmentation",
+   "authors": "Ronneberger et al.",
+   "year": 2015,
+   "venue": "Medical Image Computing and Computer-Assisted Intervention – MICCAI 2015",
+   "type": "inbook",
+   "url": "https://doi.org/10.1007/978-3-319-24574-4_28",
+   "chapters": [
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "efficientnet",
+   "title": "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks",
+   "authors": "Tan & Le",
+   "year": 2019,
+   "venue": "arXiv",
+   "type": "article",
+   "url": "https://doi.org/10.48550/ARXIV.1905.11946",
+   "chapters": [
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "HintonKD",
+   "title": "Distilling the Knowledge in a Neural Network",
+   "authors": "Hinton et al.",
+   "year": 2015,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/ARXIV.1503.02531",
+   "chapters": [
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "HIMEUR2025102742",
+   "title": "Applications of knowledge distillation in remote sensing: A survey",
+   "authors": "Himeur et al.",
+   "year": 2025,
+   "venue": "Information Fusion",
+   "type": "article",
+   "url": "https://doi.org/https://doi.org/10.1016/j.inffus.2024.102742",
+   "chapters": [
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "robinson2026throughputbench",
+   "title": "ThroughputBench: How fast can a deep learning model map the Earth?",
+   "authors": "Robinson & Corley",
+   "year": 2026,
+   "venue": "",
+   "type": "online",
+   "url": "https://geospatialml.com/posts/throughput-bench/",
+   "chapters": [
+    "model_design_training",
+    "map_generation"
+   ]
+  },
+  {
+   "id": "Li2022multimodal",
+   "title": "Deep learning in multimodal remote sensing data fusion: A comprehensive review",
+   "authors": "Li et al.",
+   "year": 2022,
+   "venue": "International Journal of Applied Earth Observation and Geoinformation",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.jag.2022.102926",
+   "chapters": [
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "Xiong2024dofa",
+   "title": "Neural Plasticity-Inspired Foundation Model for Observing the Earth Crossing Modalities",
+   "authors": "Xiong et al.",
+   "year": 2024,
+   "venue": "arXiv preprint arXiv:2403.15356",
+   "type": "article",
+   "url": "",
+   "chapters": [
+    "model_design_training",
+    "conclusion_forward"
+   ]
+  },
+  {
+   "id": "Astruc2024anysat",
+   "title": "AnySat: An Earth Observation Model for Any Resolutions, Scales, and Modalities",
+   "authors": "Astruc et al.",
+   "year": 2024,
+   "venue": "arXiv preprint arXiv:2412.14123",
+   "type": "article",
+   "url": "",
+   "chapters": [
+    "model_design_training",
+    "conclusion_forward"
+   ]
+  },
+  {
+   "id": "Fuller2023croma",
+   "title": "CROMA: Remote Sensing Representations with Contrastive Radar-Optical Masked Autoencoders",
+   "authors": "Fuller et al.",
+   "year": 2023,
+   "venue": "Thirty-seventh Conference on Neural Information Processing Systems",
+   "type": "inproceedings",
+   "url": "",
+   "chapters": [
+    "model_design_training",
+    "conclusion_forward"
+   ]
+  },
+  {
+   "id": "HPO",
+   "title": "Hyperparameter Optimization: Foundations, Algorithms, Best Practices and Open Challenges",
+   "authors": "Bischl et al.",
+   "year": 2021,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/ARXIV.2107.05847",
+   "chapters": [
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "Smith2018",
+   "title": "A disciplined approach to neural network hyper-parameters: Part 1 – learning rate, batch size, momentum, and weight decay",
+   "authors": "Smith",
+   "year": 2018,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/ARXIV.1803.09820",
+   "chapters": [
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "Probst2019tunability",
+   "title": "Tunability: Importance of Hyperparameters of Machine Learning Algorithms",
+   "authors": "Probst et al.",
+   "year": 2019,
+   "venue": "Journal of Machine Learning Research",
+   "type": "article",
+   "url": "http://jmlr.org/papers/v20/18-444.html",
+   "chapters": [
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "AML",
+   "title": "Automated Machine Learning on Big Data using Stochastic Algorithm Tuning",
+   "authors": "Nickson et al.",
+   "year": 2014,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/ARXIV.1407.7969",
+   "chapters": [
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "FABOLAS",
+   "title": "Fast Bayesian Optimization of Machine Learning Hyperparameters on Large Datasets",
+   "authors": "Klein et al.",
+   "year": 2016,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/ARXIV.1605.07079",
+   "chapters": [
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "AUTOMATA",
+   "title": "AUTOMATA: Gradient Based Data Subset Selection for Compute-Efficient Hyper-parameter Tuning",
+   "authors": "Killamsetty et al.",
+   "year": 2022,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/ARXIV.2203.08212",
+   "chapters": [
+    "model_design_training"
+   ]
+  },
+  {
+   "id": "Hopkins2025",
+   "title": "Data Augmentation Approaches for Satellite Imagery",
+   "authors": "Hopkins et al.",
+   "year": 2025,
+   "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+   "type": "article",
+   "url": "https://doi.org/10.1609/aaai.v39i27.35028",
+   "chapters": [
+    "model_design_training",
+    "conclusion_summary"
+   ]
+  },
+  {
+   "id": "Pasquarella2023",
+   "title": "Comprehensive quality assessment of optical satellite imagery using weakly supervised video learning",
+   "authors": "Pasquarella et al.",
+   "year": 2023,
+   "venue": "2023 IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)",
+   "type": "inproceedings",
+   "url": "https://doi.org/10.1109/cvprw59228.2023.00206",
+   "chapters": [
+    "model_design_training",
+    "map_generation",
+    "appendix_cloud_masking",
+    "appendix_optical_radiometry"
+   ]
+  },
+  {
+   "id": "UNFCCC2013_Warsaw_REDD",
+   "title": "Warsaw Framework for REDD+",
+   "authors": "UNFCCC",
+   "year": 2013,
+   "venue": "Decisions 9–15/CP.19, Conference of the Parties, Warsaw",
+   "type": "misc",
+   "url": "https://redd.unfccc.int/fact-sheets/warsaw-framework-for-redd.html",
+   "chapters": [
+    "uncertainty_quantification"
+   ]
+  },
+  {
+   "id": "ipcc2006guidelines",
+   "title": "2006 IPCC Guidelines for National Greenhouse Gas Inventories",
+   "authors": "Eggleston et al.",
+   "year": 2006,
+   "venue": "Institute for Global Environmental Strategies (IGES) for the IPCC",
+   "type": "book",
+   "url": "https://www.ipcc-nggip.iges.or.jp/public/2006gl/",
+   "chapters": [
+    "uncertainty_quantification"
+   ]
+  },
+  {
+   "id": "haya2020managing",
+   "title": "Managing uncertainty in carbon offsets: insights from California’s standardized approach",
+   "authors": "Haya et al.",
+   "year": 2020,
+   "venue": "Climate Policy",
+   "type": "article",
+   "url": "https://doi.org/10.1080/14693062.2020.1781035",
+   "chapters": [
+    "uncertainty_quantification"
+   ]
+  },
+  {
+   "id": "derkiureghian2009aleatory",
+   "title": "Aleatory or epistemic? Does it matter?",
+   "authors": "Der Kiureghian & Ditlevsen",
+   "year": 2009,
+   "venue": "Structural Safety",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.strusafe.2008.06.020",
+   "chapters": [
+    "uq_sources"
+   ]
+  },
+  {
+   "id": "heuvelink1998error",
+   "title": "Error Propagation in Environmental Modelling with GIS",
+   "authors": "Heuvelink",
+   "year": 1998,
+   "venue": "CRC Press",
+   "type": "book",
+   "url": "https://doi.org/10.4324/9780203016114",
+   "chapters": [
+    "uq_sources"
+   ]
+  },
+  {
+   "id": "Duncanson2022GEDI_AGB",
+   "title": "Aboveground biomass density models for NASA’s Global Ecosystem Dynamics Investigation (GEDI) lidar mission",
+   "authors": "Duncanson et al.",
+   "year": 2022,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2021.112845",
+   "chapters": [
+    "uq_sources"
+   ]
+  },
+  {
+   "id": "rasmussen2005gaussianprocesses",
+   "title": "Gaussian Processes for Machine Learning",
+   "authors": "Rasmussen & Williams",
+   "year": 2005,
+   "venue": "The MIT Press",
+   "type": "book",
+   "url": "https://doi.org/10.7551/mitpress/3206.001.0001",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "titsias2009variational",
+   "title": "Variational Learning of Inducing Variables in Sparse Gaussian Processes",
+   "authors": "Titsias",
+   "year": 2009,
+   "venue": "Proceedings of the Twelfth International Conference on Artificial Intelligence and Statistics",
+   "type": "inproceedings",
+   "url": "https://proceedings.mlr.press/v5/titsias09a.html",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "hensman2013gaussian",
+   "title": "Gaussian Processes for Big Data",
+   "authors": "Hensman et al.",
+   "year": 2013,
+   "venue": "Proceedings of the Twenty-Ninth Conference on Uncertainty in Artificial Intelligence (UAI 2013)",
+   "type": "inproceedings",
+   "url": "https://arxiv.org/abs/1309.6835",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "cressie1993statistics",
+   "title": "Statistics for Spatial Data",
+   "authors": "Cressie",
+   "year": 1993,
+   "venue": "Wiley",
+   "type": "book",
+   "url": "",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "goovaerts2001geostatistical",
+   "title": "Geostatistical modelling of uncertainty in soil science",
+   "authors": "Goovaerts",
+   "year": 2001,
+   "venue": "Geoderma",
+   "type": "article",
+   "url": "https://doi.org/10.1016/S0016-7061(01)00067-2",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "nix1994estimating",
+   "title": "Estimating the mean and variance of the target probability distribution",
+   "authors": "Nix & Weigend",
+   "year": 1994,
+   "venue": "Proceedings of 1994 IEEE International Conference on Neural Networks (ICNN'94)",
+   "type": "inproceedings",
+   "url": "https://doi.org/10.1109/ICNN.1994.374138",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "bishop1994mixture",
+   "title": "Mixture Density Networks",
+   "authors": "Bishop",
+   "year": 1994,
+   "venue": "Aston University",
+   "type": "techreport",
+   "url": "https://research.aston.ac.uk/en/publications/mixture-density-networks",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "jonespewsey2009",
+   "title": "Sinh-arcsinh distributions",
+   "authors": "Jones & Pewsey",
+   "year": 2009,
+   "venue": "Biometrika",
+   "type": "article",
+   "url": "https://doi.org/10.1093/biomet/asp053",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "garnelo2018conditional",
+   "title": "Conditional Neural Processes",
+   "authors": "Garnelo et al.",
+   "year": 2018,
+   "venue": "Proceedings of the 35th International Conference on Machine Learning",
+   "type": "inproceedings",
+   "url": "https://proceedings.mlr.press/v80/garnelo18a.html",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "kim2018attentive",
+   "title": "Attentive Neural Processes",
+   "authors": "Kim et al.",
+   "year": 2019,
+   "venue": "International Conference on Learning Representations",
+   "type": "inproceedings",
+   "url": "https://openreview.net/forum?id=SkE6PjC9KX",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "young2026interpolation",
+   "title": "Interpolation of GEDI Biomass Estimates with Calibrated Uncertainty Quantification",
+   "authors": "Young & Keshav",
+   "year": 2026,
+   "venue": "",
+   "type": "misc",
+   "url": "https://arxiv.org/abs/2601.16834",
+   "chapters": [
+    "uq_methods",
+    "uq_operationalizing"
+   ]
+  },
+  {
+   "id": "young2026neural",
+   "title": "Neural Processes Maintain Calibrated Biomass Estimates Across Spatiotemporal Gaps and Disturbance",
+   "authors": "Young & Keshav",
+   "year": 2026,
+   "venue": "",
+   "type": "misc",
+   "url": "https://arxiv.org/abs/2604.03874",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "lakshminarayanan2017deep",
+   "title": "Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles",
+   "authors": "Lakshminarayanan et al.",
+   "year": 2017,
+   "venue": "Advances in Neural Information Processing Systems",
+   "type": "inproceedings",
+   "url": "https://proceedings.neurips.cc/paper_files/paper/2017/file/9ef2ed4b7fd2c810847ffa5fa85bce38-Paper.pdf",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "meinshausen2006quantile",
+   "title": "Quantile Regression Forests",
+   "authors": "Meinshausen",
+   "year": 2006,
+   "venue": "Journal of Machine Learning Research",
+   "type": "article",
+   "url": "https://www.jmlr.org/papers/volume7/meinshausen06a/meinshausen06a.pdf",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "lang2022canopy",
+   "title": "Global canopy height regression and uncertainty estimation from GEDI LIDAR waveforms with deep ensembles",
+   "authors": "Lang et al.",
+   "year": 2022,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2021.112760",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "wager2014randomforestsci",
+   "title": "Confidence Intervals for Random Forests: The Jackknife and the Infinitesimal Jackknife",
+   "authors": "Wager et al.",
+   "year": 2014,
+   "venue": "Journal of Machine Learning Research",
+   "type": "article",
+   "url": "https://jmlr.org/papers/volume15/wager14a/wager14a.pdf",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "gal2016dropout",
+   "title": "Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning",
+   "authors": "Gal & Ghahramani",
+   "year": 2016,
+   "venue": "Proceedings of The 33rd International Conference on Machine Learning",
+   "type": "inproceedings",
+   "url": "https://proceedings.mlr.press/v48/gal16.html",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "huang2017snapshot",
+   "title": "Snapshot Ensembles: Train 1, Get M for Free",
+   "authors": "Huang et al.",
+   "year": 2017,
+   "venue": "International Conference on Learning Representations",
+   "type": "inproceedings",
+   "url": "https://openreview.net/forum?id=BJYwwY9ll",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "izmailov2018averaging",
+   "title": "Averaging Weights Leads to Wider Optima and Better Generalization",
+   "authors": "Izmailov et al.",
+   "year": 2018,
+   "venue": "Proceedings of the Conference on Uncertainty in Artificial Intelligence (UAI 2018)",
+   "type": "inproceedings",
+   "url": "https://doi.org/10.48550/arXiv.1803.05407",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "wen2020batchensemble",
+   "title": "BatchEnsemble: an Alternative Approach to Efficient Ensemble and Lifelong Learning",
+   "authors": "Wen et al.",
+   "year": 2020,
+   "venue": "International Conference on Learning Representations",
+   "type": "inproceedings",
+   "url": "https://openreview.net/forum?id=Sklf1yrYDr",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "turkoglu2022film",
+   "title": "FiLM-ensemble: probabilistic deep learning via feature-wise linear modulation",
+   "authors": "Turkoglu et al.",
+   "year": 2022,
+   "venue": "Proceedings of the 36th International Conference on Neural Information Processing Systems",
+   "type": "inproceedings",
+   "url": "",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "koenker1978regression",
+   "title": "Regression Quantiles",
+   "authors": "Koenker & Bassett",
+   "year": 1978,
+   "venue": "Econometrica",
+   "type": "article",
+   "url": "https://doi.org/10.2307/1913643",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "vovk2005algorithmiclearning",
+   "title": "Algorithmic Learning in a Random World",
+   "authors": "Vovk et al.",
+   "year": 2005,
+   "venue": "Springer New York, NY",
+   "type": "book",
+   "url": "https://doi.org/10.1007/b106715",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "angelopoulos2023conformal",
+   "title": "Conformal Prediction: A Gentle Introduction",
+   "authors": "Angelopoulos & Bates",
+   "year": 2023,
+   "venue": "Foundations and Trends in Machine Learning",
+   "type": "article",
+   "url": "https://doi.org/10.1561/2200000101",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "singh2024uncertaintyconformal",
+   "title": "Uncertainty Quantification for Probabilistic Machine Learning in Earth Observation Using Conformal Prediction",
+   "authors": "Singh et al.",
+   "year": 2024,
+   "venue": "Scientific Reports",
+   "type": "article",
+   "url": "https://doi.org/10.1038/s41598-024-65954-w",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "valle2023luluconformal",
+   "title": "Quantifying Uncertainty in Land-Use Land-Cover Classification Using Conformal Statistics",
+   "authors": "Valle et al.",
+   "year": 2023,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2023.113682",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "young2026samples",
+   "title": "How Many Independent Samples Does a Satellite Image Contain? Generalization Bounds for Spatially Dependent Data",
+   "authors": "Young",
+   "year": 2026,
+   "venue": "IEEE Transactions on Geoscience and Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1109/TGRS.2026.3739158",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "barber2023conformal",
+   "title": "Conformal prediction beyond exchangeability",
+   "authors": "Barber et al.",
+   "year": 2023,
+   "venue": "The Annals of Statistics",
+   "type": "article",
+   "url": "https://doi.org/10.1214/23-AOS2276",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "guan2023localized",
+   "title": "Localized conformal prediction: a generalized inference framework for conformal prediction",
+   "authors": "Guan",
+   "year": 2023,
+   "venue": "Biometrika",
+   "type": "article",
+   "url": "https://doi.org/10.1093/biomet/asac040",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "romano2019conformalized",
+   "title": "Conformalized Quantile Regression",
+   "authors": "Romano et al.",
+   "year": 2019,
+   "venue": "Advances in Neural Information Processing Systems",
+   "type": "inproceedings",
+   "url": "https://papers.neurips.cc/paper/8613-conformalized-quantile-regression.pdf",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "kuronen2025conformal",
+   "title": "Uncertainty quantification for forest attribute maps with conformal prediction and k-nearest neighbor method",
+   "authors": "Kuronen et al.",
+   "year": 2025,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2025.114758",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "houlsby2011bayesian",
+   "title": "Bayesian active learning for classification and preference learning",
+   "authors": "Houlsby et al.",
+   "year": 2011,
+   "venue": "",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/arXiv.1112.5745",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "kendall2017uncertainties",
+   "title": "What uncertainties do we need in Bayesian deep learning for computer vision?",
+   "authors": "Kendall & Gal",
+   "year": 2017,
+   "venue": "Proceedings of the 31st International Conference on Neural Information Processing Systems",
+   "type": "inproceedings",
+   "url": "https://arxiv.org/abs/1703.04977",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "guo2017calibration",
+   "title": "On Calibration of Modern Neural Networks",
+   "authors": "Guo et al.",
+   "year": 2017,
+   "venue": "Proceedings of the 34th International Conference on Machine Learning",
+   "type": "inproceedings",
+   "url": "https://proceedings.mlr.press/v70/guo17a.html",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "niculescu2005predicting",
+   "title": "Predicting Good Probabilities with Supervised Learning",
+   "authors": "Niculescu-Mizil & Caruana",
+   "year": 2005,
+   "venue": "Proceedings of the 22nd International Conference on Machine Learning (ICML)",
+   "type": "inproceedings",
+   "url": "https://doi.org/10.1145/1102351.1102430",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "kull2019beyond",
+   "title": "Beyond temperature scaling: obtaining well-calibrated multiclass probabilities with Dirichlet calibration",
+   "authors": "Kull et al.",
+   "year": 2019,
+   "venue": "Proceedings of the 33rd International Conference on Neural Information Processing Systems",
+   "type": "inbook",
+   "url": "https://proceedings.neurips.cc/paper/2019/hash/8ca01ea920679a0fe3728441494041b9-Abstract.html",
+   "chapters": [
+    "uq_methods",
+    "uq_calibration"
+   ]
+  },
+  {
+   "id": "mukhoti2020calibrating",
+   "title": "Calibrating Deep Neural Networks using Focal Loss",
+   "authors": "Mukhoti et al.",
+   "year": 2020,
+   "venue": "Advances in Neural Information Processing Systems (NeurIPS)",
+   "type": "inproceedings",
+   "url": "https://proceedings.neurips.cc/paper/2020/hash/aeb7b30ef1d024a76f21a1d40e30c302-Abstract.html",
+   "chapters": [
+    "uq_methods"
+   ]
+  },
+  {
+   "id": "kuleshov2018accurate",
+   "title": "Accurate Uncertainties for Deep Learning Using Calibrated Regression",
+   "authors": "Kuleshov et al.",
+   "year": 2018,
+   "venue": "Proceedings of the 35th International Conference on Machine Learning",
+   "type": "inproceedings",
+   "url": "https://proceedings.mlr.press/v80/kuleshov18a.html",
+   "chapters": [
+    "uq_calibration"
+   ]
+  },
+  {
+   "id": "gneiting2007probabilistic",
+   "title": "Probabilistic Forecasts, Calibration and Sharpness",
+   "authors": "Gneiting et al.",
+   "year": 2007,
+   "venue": "Journal of the Royal Statistical Society: Series B (Statistical Methodology)",
+   "type": "article",
+   "url": "https://doi.org/10.1111/j.1467-9868.2007.00587.x",
+   "chapters": [
+    "uq_calibration"
+   ]
+  },
+  {
+   "id": "wadoux2023spatialaverages",
+   "title": "Uncertainty of Spatial Averages and Totals of Natural Resource Maps",
+   "authors": "Wadoux & Heuvelink",
+   "year": 2023,
+   "venue": "Methods in Ecology and Evolution",
+   "type": "article",
+   "url": "https://doi.org/10.1111/2041-210X.14106",
+   "chapters": [
+    "uq_spatial",
+    "conclusion_summary"
+   ]
+  },
+  {
+   "id": "johnson2025flexible",
+   "title": "From pixels to parcels: Flexible, practical small-area uncertainty estimation for spatial averages obtained from aboveground biomass maps",
+   "authors": "Johnson et al.",
+   "year": 2025,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2025.114951",
+   "chapters": [
+    "uq_spatial",
+    "conclusion_summary"
+   ]
+  },
+  {
+   "id": "kangas2023uncertainty",
+   "title": "Understanding Uncertainty in Forest Resources Maps",
+   "authors": "Kangas et al.",
+   "year": 2023,
+   "venue": "Silva Fennica",
+   "type": "article",
+   "url": "https://doi.org/10.14214/sf.22026",
+   "chapters": [
+    "uq_spatial"
+   ]
+  },
+  {
+   "id": "olofsson2013making",
+   "title": "Making better use of accuracy data in land change studies: Estimating accuracy and area and quantifying uncertainty using stratified estimation",
+   "authors": "Olofsson et al.",
+   "year": 2013,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2012.10.031",
+   "chapters": [
+    "uq_spatial"
+   ]
+  },
+  {
+   "id": "stehman2013estimating",
+   "title": "Estimating area from an accuracy assessment error matrix",
+   "authors": "Stehman",
+   "year": 2013,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2013.01.016",
+   "chapters": [
+    "uq_spatial"
+   ]
+  },
+  {
+   "id": "stehman1997estimating",
+   "title": "Estimating standard errors of accuracy assessment statistics under cluster sampling",
+   "authors": "Stehman",
+   "year": 1997,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/S0034-4257(96)00176-9",
+   "chapters": [
+    "uq_spatial"
+   ]
+  },
+  {
+   "id": "settles2009activelearning",
+   "title": "Active Learning Literature Survey",
+   "authors": "Settles",
+   "year": 2009,
+   "venue": "University of Wisconsin-Madison, Department of Computer Sciences",
+   "type": "techreport",
+   "url": "http://digital.library.wisc.edu/1793/60660",
+   "chapters": [
+    "uq_operationalizing"
+   ]
+  },
+  {
+   "id": "huang2018tiling",
+   "title": "Tiling and Stitching Segmentation Output for Remote Sensing: Basic Challenges and Recommendations",
+   "authors": "Huang et al.",
+   "year": 2018,
+   "venue": "arXiv preprint arXiv:1805.12219",
+   "type": "article",
+   "url": "https://arxiv.org/abs/1805.12219",
+   "chapters": [
+    "map_generation"
+   ]
+  },
+  {
+   "id": "zhang2019making",
+   "title": "Making Convolutional Networks Shift-Invariant Again",
+   "authors": "Zhang",
+   "year": 2019,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/ARXIV.1904.11486",
+   "chapters": [
+    "map_generation"
+   ]
+  },
+  {
+   "id": "kayhan2020translation",
+   "title": "On Translation Invariance in CNNs: Convolutional Layers can Exploit Absolute Spatial Location",
+   "authors": "Kayhan & van Gemert",
+   "year": 2020,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/ARXIV.2003.07064",
+   "chapters": [
+    "map_generation"
+   ]
+  },
+  {
+   "id": "rojasgomez2023making",
+   "title": "Making Vision Transformers Truly Shift-Equivariant",
+   "authors": "Rojas-Gomez et al.",
+   "year": 2023,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/ARXIV.2305.16316",
+   "chapters": [
+    "map_generation"
+   ]
+  },
+  {
+   "id": "olmoearthv12",
+   "title": "OlmoEarth v1.2: A more efficient family of OlmoEarth models",
+   "authors": "Tseng et al.",
+   "year": 2026,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/ARXIV.2605.20804",
+   "chapters": [
+    "map_generation"
+   ]
+  },
+  {
+   "id": "olmoearthv13",
+   "title": "OlmoEarth v1.3: Embeddings",
+   "authors": "Tseng et al.",
+   "year": 2026,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/ARXIV.2610.32294",
+   "chapters": [
+    "map_generation",
+    "conclusion_forward"
+   ]
+  },
+  {
+   "id": "turubanova2023tree",
+   "title": "Tree canopy extent and height change in Europe, 2001–2021, quantified using Landsat data archive",
+   "authors": "Turubanova et al.",
+   "year": 2023,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2023.113797",
+   "chapters": [
+    "post_processing"
+   ]
+  },
+  {
+   "id": "copernicus2021globalland",
+   "title": "Copernicus Global Land Cover 100m - Algorithm Theoretical Basis Document (ATBD), User Manual",
+   "authors": "Service",
+   "year": 2021,
+   "venue": "",
+   "type": "misc",
+   "url": "https://land.copernicus.eu/en/technical-library/global-dynamic-land-cover-algorithm-theoretical-basis-document-v3.0",
+   "chapters": [
+    "post_processing"
+   ]
+  },
+  {
+   "id": "anderson2026forest",
+   "title": "Forest Carbon Diligence: Digital MRV for mapping forest structure and carbon stocks",
+   "authors": "Anderson et al.",
+   "year": 2026,
+   "venue": "Forest Ecology and Management",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.foreco.2026.123709",
+   "chapters": [
+    "post_processing"
+   ]
+  },
+  {
+   "id": "serra1982",
+   "title": "Image Analysis and Mathematical Morphology",
+   "authors": "Serra",
+   "year": 1982,
+   "venue": "Academic Press",
+   "type": "book",
+   "url": "",
+   "chapters": [
+    "post_processing"
+   ]
+  },
+  {
+   "id": "Suzuki1985",
+   "title": "Topological structural analysis of digitized binary images by border following",
+   "authors": "Suzuki & be",
+   "year": 1985,
+   "venue": "Computer Vision, Graphics, and Image Processing",
+   "type": "article",
+   "url": "https://doi.org/10.1016/0734-189x(85)90016-7",
+   "chapters": [
+    "post_processing"
+   ]
+  },
+  {
+   "id": "POLY",
+   "title": "A developer's survey of polygonal simplification algorithms",
+   "authors": "Luebke",
+   "year": 2001,
+   "venue": "IEEE Computer Graphics and Applications",
+   "type": "article",
+   "url": "https://doi.org/10.1109/38.920624",
+   "chapters": [
+    "post_processing"
+   ]
+  },
+  {
+   "id": "9412866",
+   "title": "Machine-learned Regularization and Polygonization of Building Segmentation Masks",
+   "authors": "Zorzi et al.",
+   "year": 2021,
+   "venue": "2020 25th International Conference on Pattern Recognition (ICPR)",
+   "type": "inproceedings",
+   "url": "https://doi.org/10.1109/ICPR48806.2021.9412866",
+   "chapters": [
+    "post_processing"
+   ]
+  },
+  {
+   "id": "pcodec",
+   "title": "Pcodec: Better Compression for Numerical Sequences",
+   "authors": "Loncaric et al.",
+   "year": 2025,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/ARXIV.2502.06112",
+   "chapters": [
+    "sharing"
+   ]
+  },
+  {
+   "id": "Vancutsem_2021",
+   "title": "Long-term (1990–2019) monitoring of forest cover changes in the humid tropics",
+   "authors": "Vancutsem et al.",
+   "year": 2021,
+   "venue": "Science Advances",
+   "type": "article",
+   "url": "https://doi.org/10.1126/sciadv.abe1603",
+   "chapters": [
+    "sharing"
+   ]
+  },
+  {
+   "id": "tyukavina2025practical",
+   "title": "Practical global sampling methods for estimating area and map accuracy of land cover and change",
+   "authors": "Tyukavina et al.",
+   "year": 2025,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "",
+   "chapters": [
+    "validation",
+    "validation_general",
+    "validation_design_based",
+    "validation_beyond",
+    "conclusion_summary"
+   ]
+  },
+  {
+   "id": "foody2002status",
+   "title": "Status of land cover classification accuracy assessment",
+   "authors": "Foody",
+   "year": 2002,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/s0034-4257(01)00295-4",
+   "chapters": [
+    "validation_general"
+   ]
+  },
+  {
+   "id": "foody2010assessing",
+   "title": "Assessing the accuracy of land cover change with imperfect ground reference data",
+   "authors": "Foody",
+   "year": 2010,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2010.05.003",
+   "chapters": [
+    "validation_general"
+   ]
+  },
+  {
+   "id": "lcgoodpractices",
+   "title": "Land Cover and Change Map Accuracy Assessment and Area Estimation Good Practices Protocol",
+   "authors": "Tyukavina et al.",
+   "year": 2025,
+   "venue": "",
+   "type": "book",
+   "url": "https://doi.org/10.5067/doc/ceoswgcv/lpv/lc.001",
+   "chapters": [
+    "validation_general"
+   ]
+  },
+  {
+   "id": "strahler2006global",
+   "title": "Global Land Cover Validation: Recommendations for Evaluation and Accuracy Assessment of Global Land Cover Maps",
+   "authors": "Strahler et al.",
+   "year": 2006,
+   "venue": "European Commission, Joint Research Centre, Institute for Environment and Sustainability",
+   "type": "techreport",
+   "url": "",
+   "chapters": [
+    "validation_general"
+   ]
+  },
+  {
+   "id": "Stehman1998",
+   "title": "Design and analysis for thematic map accuracy assessment: fundamental principles",
+   "authors": "Stehman & Czaplewski",
+   "year": 1998,
+   "venue": "Remote sensing of environment",
+   "type": "article",
+   "url": "",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "stehman2001statistical",
+   "title": "Statistical rigor and practical utility in thematic map accuracy assessment",
+   "authors": "Stehman",
+   "year": 2001,
+   "venue": "Photogrammetric Engineering and Remote Sensing",
+   "type": "article",
+   "url": "",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "congalton2019assessing",
+   "title": "Assessing the Accuracy of Remotely Sensed Data: Principles and Practices, Third Edition",
+   "authors": "Congalton & Green",
+   "year": 2019,
+   "venue": "CRC Press",
+   "type": "book",
+   "url": "https://doi.org/10.1201/9780429052729",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "pengra2015global",
+   "title": "A global reference database from very high resolution commercial satellite data and methodology for application to Landsat derived 30 m continuous field tree cover data",
+   "authors": "Pengra et al.",
+   "year": 2015,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2015.01.018",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "stehman2009sampling",
+   "title": "Sampling designs for accuracy assessment of land cover",
+   "authors": "Stehman",
+   "year": 2009,
+   "venue": "International Journal of Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1080/01431160903131000",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "olofsson2020mitigating",
+   "title": "Mitigating the effects of omission errors on area and area change estimates",
+   "authors": "Olofsson et al.",
+   "year": 2020,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2019.111492",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "olofsson2012making",
+   "title": "A global land-cover validation data set, part I: fundamental design principles",
+   "authors": "Olofsson et al.",
+   "year": 2012,
+   "venue": "International Journal of Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1080/01431161.2012.674230",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "tsendbazar2021towards",
+   "title": "Towards operational validation of annual global land cover maps",
+   "authors": "Tsendbazar et al.",
+   "year": 2021,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2021.112686",
+   "chapters": [
+    "validation_design_based",
+    "conclusion_forward"
+   ]
+  },
+  {
+   "id": "xu2024comparative",
+   "title": "Comparative validation of recent 10 m-resolution global land cover maps",
+   "authors": "Xu et al.",
+   "year": 2024,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2024.114316",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "tsendbazar2018developing",
+   "title": "Developing and applying a multi-purpose land cover validation dataset for Africa",
+   "authors": "Tsendbazar et al.",
+   "year": 2018,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2018.10.025",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "powell2004sources",
+   "title": "Sources of error in accuracy assessment of thematic land-cover maps in the Brazilian Amazon",
+   "authors": "Powell et al.",
+   "year": 2004,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2003.12.007",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "pengra2020quality",
+   "title": "Quality control and assessment of interpreter consistency of annual land cover reference data in an operational national monitoring program",
+   "authors": "Pengra et al.",
+   "year": 2020,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2019.111261",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "fritz2012geo",
+   "title": "Geo-Wiki: An online platform for improving global land cover",
+   "authors": "Fritz et al.",
+   "year": 2012,
+   "venue": "Environmental Modelling & Software",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.envsoft.2011.11.015",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "see2015crowdsourcing",
+   "title": "Crowdsourcing, Citizen Science or Volunteered Geographic Information? The Current State of Crowdsourced Geographic Information",
+   "authors": "See et al.",
+   "year": 2016,
+   "venue": "ISPRS International Journal of Geo-Information",
+   "type": "article",
+   "url": "https://doi.org/10.3390/ijgi5050055",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "fonte2015vgi",
+   "title": "Usability of VGI for validation of land cover maps",
+   "authors": "Fonte et al.",
+   "year": 2015,
+   "venue": "International Journal of Geographical Information Science",
+   "type": "article",
+   "url": "https://doi.org/10.1080/13658816.2015.1018266",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "tsendbazar2015assessing",
+   "title": "Assessing global land cover reference datasets for different user communities",
+   "authors": "Tsendbazar et al.",
+   "year": 2015,
+   "venue": "ISPRS Journal of Photogrammetry and Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.isprsjprs.2014.02.008",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "tsendbazar2016comparative",
+   "title": "Comparative assessment of thematic accuracy of GLC maps for specific applications using existing reference data",
+   "authors": "Tsendbazar et al.",
+   "year": 2016,
+   "venue": "International Journal of Applied Earth Observation and Geoinformation",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.jag.2015.08.009",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "wickham2010effect",
+   "title": "Thematic accuracy of the NLCD 2001 land cover for the conterminous United States",
+   "authors": "Wickham et al.",
+   "year": 2010,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2010.01.018",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "pontius2011death",
+   "title": "Death to Kappa: birth of quantity disagreement and allocation disagreement for accuracy assessment",
+   "authors": "Pontius & Millones",
+   "year": 2011,
+   "venue": "International Journal of Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1080/01431161.2011.552923",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "Lu2025regression",
+   "title": "Regression coefficient estimation from remote sensing maps",
+   "authors": "Lu et al.",
+   "year": 2025,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2025.114949",
+   "chapters": [
+    "validation_design_based",
+    "conclusion_summary",
+    "conclusion_forward"
+   ]
+  },
+  {
+   "id": "gcos2011systematic",
+   "title": "Systematic Observation Requirements for Satellite-Based Products for Climate, 2011 Update, Supplemental Details to the Satellite-Based Component of the Implementation Plan for the Global Observing System for Climate in Support of the UNFCCC (2010 Update)",
+   "authors": "Lahoz",
+   "year": 2011,
+   "venue": "",
+   "type": "article",
+   "url": "",
+   "chapters": [
+    "validation_design_based"
+   ]
+  },
+  {
+   "id": "ceos_biomass_protocol",
+   "title": "Global Aboveground Biomass Product Validation Best Practices Protocol",
+   "authors": "Duncanson et al.",
+   "year": 2020,
+   "venue": "Best Practice Protocol for Satellite Derived Land Product Validation",
+   "type": "incollection",
+   "url": "https://doi.org/10.5067/doc/ceoswgcv/lpv/agb.001",
+   "chapters": [
+    "validation_beyond"
+   ]
+  },
+  {
+   "id": "Jakubik2023",
+   "title": "Foundation Models for Generalist Geospatial Artificial Intelligence",
+   "authors": "Jakubik et al.",
+   "year": 2023,
+   "venue": "arXiv",
+   "type": "misc",
+   "url": "https://doi.org/10.48550/ARXIV.2310.18660",
+   "chapters": [
+    "conclusion_forward"
+   ]
+  },
+  {
+   "id": "satmae2022",
+   "title": "SatMAE: Pre-training Transformers for Temporal and Multi-Spectral Satellite Imagery",
+   "authors": "Cong et al.",
+   "year": 2022,
+   "venue": "Advances in Neural Information Processing Systems",
+   "type": "inproceedings",
+   "url": "https://openreview.net/forum?id=WBhqzpF6KYH",
+   "chapters": [
+    "conclusion_forward"
+   ]
+  },
+  {
+   "id": "taco",
+   "title": "The Missing Piece: Standardising for AI-ready Earth Observation Datasets",
+   "authors": "Aybar et al.",
+   "year": 2025,
+   "venue": "ICML 2025 Workshop TerraBytes",
+   "type": "inproceedings",
+   "url": "https://openreview.net/forum?id=HV6F0dsGLK",
+   "chapters": [
+    "conclusion_forward"
+   ]
+  },
+  {
+   "id": "PARAG2024101107",
+   "title": "The use of synthetic aperture radar technology for crop biomass monitoring: A systematic review",
+   "authors": "Parag et al.",
+   "year": 2024,
+   "venue": "Remote Sensing Applications: Society and Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rsase.2023.101107",
+   "chapters": [
+    "appendix_s1_gaps"
+   ]
+  },
+  {
+   "id": "10234538",
+   "title": "Synthetic Aperture Radar (SAR) for Ocean: A Review",
+   "authors": "Asiyabi et al.",
+   "year": 2023,
+   "venue": "IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1109/JSTARS.2023.3310363",
+   "chapters": [
+    "appendix_s1_gaps"
+   ]
+  },
+  {
+   "id": "ASFS1",
+   "title": "Sentinel-1 Data Coverage Heat Maps",
+   "authors": "Facility",
+   "year": null,
+   "venue": "",
+   "type": "misc",
+   "url": "https://asf.alaska.edu/daac/sentinel-1-acquisition-maps/",
+   "chapters": [
+    "appendix_s1_gaps"
+   ]
+  },
+  {
+   "id": "esas2handbook",
+   "title": "Sentinel-2 user handbook",
+   "authors": "Agency",
+   "year": 2015,
+   "venue": "ESA Standard Document Date",
+   "type": "article",
+   "url": "https://sentinels.copernicus.eu/documents/247904/685211/Sentinel-2_User_Handbook",
+   "chapters": [
+    "appendix_processing_pathways"
+   ]
+  },
+  {
+   "id": "sen2coratbd",
+   "title": "Level-2A Algorithm Theoretical Basis Document",
+   "authors": "MPC",
+   "year": 2021,
+   "venue": "",
+   "type": "article",
+   "url": "https://doi.org/10.1117/12.2278218",
+   "chapters": [
+    "appendix_processing_pathways"
+   ]
+  },
+  {
+   "id": "sentinelhubs1grd",
+   "title": "Sentinel-1 GRD Documentation",
+   "authors": "Hub",
+   "year": null,
+   "venue": "",
+   "type": "misc",
+   "url": "https://docs.sentinel-hub.com/api/latest/data/sentinel-1-grd/",
+   "chapters": [
+    "appendix_processing_pathways"
+   ]
+  },
+  {
+   "id": "gees1grd",
+   "title": "Sentinel-1 Preprocessing Documentation",
+   "authors": "Engine",
+   "year": null,
+   "venue": "",
+   "type": "misc",
+   "url": "https://developers.google.com/earth-engine/guides/sentinel1#sentinel-1-preprocessing",
+   "chapters": [
+    "appendix_processing_pathways"
+   ]
+  },
+  {
+   "id": "sarmpc2022burstid",
+   "title": "Sentinel-1 Burst ID Map",
+   "authors": "SAR-MPC",
+   "year": 2022,
+   "venue": "",
+   "type": "misc",
+   "url": "https://sar-mpc.eu/sar-mpc-products",
+   "chapters": [
+    "appendix_sar_geometry"
+   ]
+  },
+  {
+   "id": "Small2011",
+   "title": "Flattening Gamma: Radiometric Terrain Correction for SAR Imagery",
+   "authors": "Small",
+   "year": 2011,
+   "venue": "IEEE Transactions on Geoscience and Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.1109/tgrs.2011.2120616",
+   "chapters": [
+    "appendix_sar_rtc"
+   ]
+  },
+  {
+   "id": "Raney1994",
+   "title": "A plea for radar brightness",
+   "authors": "Raney et al.",
+   "year": 1994,
+   "venue": "Proceedings of IGARSS ’94 - 1994 IEEE International Geoscience and Remote Sensing Symposium",
+   "type": "inproceedings",
+   "url": "https://doi.org/10.1109/igarss.1994.399352",
+   "chapters": [
+    "appendix_sar_rtc"
+   ]
+  },
+  {
+   "id": "Small2012",
+   "title": "SAR backscatter multitemporal compositing via local resolution weighting",
+   "authors": "Small",
+   "year": 2012,
+   "venue": "2012 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)",
+   "type": "inproceedings",
+   "url": "https://doi.org/10.1109/IGARSS.2012.6350465",
+   "chapters": [
+    "appendix_sar_ard"
+   ]
+  },
+  {
+   "id": "louis2016sentinel",
+   "title": "Sentinel-2 SEN2COR: L2A Processor for Users;(Special Publication) ESA SP-740",
+   "authors": "Louis et al.",
+   "year": 2016,
+   "venue": "European Space Agency: Prague, Czech Repubic",
+   "type": "misc",
+   "url": "",
+   "chapters": [
+    "appendix_cloud_masking"
+   ]
+  },
+  {
+   "id": "QIU2019111205",
+   "title": "Fmask 4.0: Improved cloud and cloud shadow detection in Landsats 4–8 and Sentinel-2 imagery",
+   "authors": "Qiu et al.",
+   "year": 2019,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2019.05.024",
+   "chapters": [
+    "appendix_cloud_masking"
+   ]
+  },
+  {
+   "id": "zupanc2017improving",
+   "title": "Improving Cloud Detection with Machine Learning",
+   "authors": "Zupanc",
+   "year": 2017,
+   "venue": "Sentinel Hub Blog",
+   "type": "misc",
+   "url": "https://medium.com/sentinel-hub/improving-cloud-detection-with-machine-learning-c09dc5d7cf13",
+   "chapters": [
+    "appendix_cloud_masking"
+   ]
+  },
+  {
+   "id": "Domnich2021",
+   "title": "KappaMask: AI-Based Cloudmask Processor for Sentinel-2",
+   "authors": "Domnich et al.",
+   "year": 2021,
+   "venue": "Remote Sensing",
+   "type": "article",
+   "url": "https://doi.org/10.3390/rs13204100",
+   "chapters": [
+    "appendix_cloud_masking"
+   ]
+  },
+  {
+   "id": "Aybar2022",
+   "title": "CloudSEN12, a global dataset for semantic understanding of cloud and cloud shadow in Sentinel-2",
+   "authors": "Aybar et al.",
+   "year": 2022,
+   "venue": "Scientific Data",
+   "type": "article",
+   "url": "https://doi.org/10.1038/s41597-022-01878-2",
+   "chapters": [
+    "appendix_cloud_masking"
+   ]
+  },
+  {
+   "id": "Wright2025",
+   "title": "Training sensor-agnostic deep learning models for remote sensing: Achieving state-of-the-art cloud and cloud shadow identification with OmniCloudMask",
+   "authors": "Wright et al.",
+   "year": 2025,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2025.114694",
+   "chapters": [
+    "appendix_cloud_masking"
+   ]
+  },
+  {
+   "id": "Roy2016b",
+   "title": "Characterization of Landsat-7 to Landsat-8 reflective wavelength and normalized difference vegetation index continuity",
+   "authors": "Roy et al.",
+   "year": 2016,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2015.12.024",
+   "chapters": [
+    "appendix_combining_missions"
+   ]
+  },
+  {
+   "id": "Roy2016a",
+   "title": "A general method to normalize Landsat reflectance data to nadir BRDF adjusted reflectance",
+   "authors": "Roy et al.",
+   "year": 2016,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2016.01.023",
+   "chapters": [
+    "appendix_combining_missions"
+   ]
+  },
+  {
+   "id": "Claverie2018",
+   "title": "The Harmonized Landsat and Sentinel-2 surface reflectance data set",
+   "authors": "Claverie et al.",
+   "year": 2018,
+   "venue": "Remote Sensing of Environment",
+   "type": "article",
+   "url": "https://doi.org/10.1016/j.rse.2018.09.002",
+   "chapters": [
+    "appendix_combining_missions"
+   ]
+  }
+ ],
+ "bibEntries": 265
+}

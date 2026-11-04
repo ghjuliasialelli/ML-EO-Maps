@@ -13,8 +13,8 @@ Helper scripts live in `tools/`. Run Python via the project env: `conda run -n m
 
 1. On Overleaf: **Menu → Download → Source** (a `.zip`).
 2. Unzip it somewhere outside the repo, e.g. a scratch folder. The file that matters is
-   `main.tex`; the reference entries live in `references.bib` (plus `ref_auto.bib` /
-   `ref_urls.bib`). Note that path — call it `$TEX` below.
+   `main.tex` (plus `divedeeper.tex` for the appendices); all reference entries live in
+   `references.bib`. Note that path — call it `$TEX` below.
 
 ```sh
 TEX=/path/to/unzipped/main.tex
@@ -67,6 +67,13 @@ Watch for these in particular:
 | `\paragraph{X}` | bold run-in `**X.**` (or `####` — match the file) |
 | `\label`, `\bigskip`, `\noindent`, `\clearpage`, `\resizebox`, tikz/figure scaffolding | dropped |
 | inline / display math `$...$`, `$$...$$` | kept as-is |
+| `\begin{decision}{T}…\end{decision}` | `::: {.callout-note .box-decision appearance="default" icon="false" title="Decision · T"}` … `:::` (keep the **Alternatives.** / **Trade-off.** / **Constrains.** run-ins, one paragraph each) |
+| `\begin{definition}{T}` with `\term{X} text` | `.box-definition`, `title="Definition · T"`; each `\term{X}` becomes its own paragraph starting `**X.**` |
+| `\begin{runex}{T}` | `.box-runex`, `title="Running example · T"`; `\textbf{WorldCereal}` / `\textbf{CHM}` lead-ins become separate paragraphs |
+| `\begin{sidebar}{T}` | `.box-sidebar`, `title="Dive deeper · T"` |
+| `\statusYes` / `\statusPartial` / `\statusNo` | ✓ / ~ / × |
+| `\textsc{WorldCereal}` | WorldCereal (plain) |
+| `Appendix~\ref{app:x}` | link to the Dive Deeper page, e.g. `[Appendix: Sentinel-1 data gaps](appendix_s1_gaps.qmd)` |
 
 > Tip for large updates: the chapters are independent, so you can hand each chapter
 > group to a separate subagent to sync in parallel (that's how the big 2026-07 sync was
@@ -110,9 +117,9 @@ re-renders and deploys to GitHub Pages automatically.
 | Manuscript (`\section` / `\subsection`) | `.qmd` file |
 | --- | --- |
 | Introduction | `introduction.qmd` |
-| Overview of the EO data infrastructure landscape (intro) | `eo_data_landscape.qmd` |
-| — EO missions | `eo_missions.qmd` |
-| — Accessing EO data | `accessing_eo_data.qmd` |
+| Overview of the EO data infrastructure landscape — one `\section` with no subsections, split on the site: intro + Definition box | `eo_data_landscape.qmd` |
+| — … up to (not incl.) "The EO data access landscape has expanded…" (missions table) | `eo_missions.qmd` |
+| — from "The EO data access landscape has expanded…" to the end (providers, Decision/Running-example boxes) | `accessing_eo_data.qmd` |
 | Data selection and preprocessing (intro) | `data_selection_preprocessing.qmd` |
 | — Data selection | `data_selection.qmd` |
 | — Data preprocessing | `data_preprocessing.qmd` |
@@ -137,11 +144,23 @@ re-renders and deploys to GitHub Pages automatically.
 | — Summary | `conclusion_summary.qmd` |
 | — Looking forward | `conclusion_forward.qmd` |
 | — Limitations | `conclusion_limitations.qmd` |
-| Acknowledgments | `acknowledgments.qmd` |
-| App: Sentinel-1 data gaps | `appendix_s1_gaps.qmd` |
-| App: Sentinel-1 and Sentinel-2 processing across access pathways (+ its 2 subsections) | `appendix_processing_pathways.qmd` |
-| App: Radiometric Calibration and Terrain Correction of SAR data | `appendix_sar_rtc.qmd` |
-| App: Cloud masking methods for Sentinel-2 | `appendix_cloud_masking.qmd` |
+| Acknowledgments (`\section*`) | `about.qmd` → "Acknowledgments" section |
+| *Dive Deeper* (`divedeeper.tex`, `\input` after the acknowledgments) | |
+| A: Sentinel-1 data gaps | `appendix_s1_gaps.qmd` |
+| B: Sentinel-1 and Sentinel-2 processing across access pathways (+ its 2 subsections) | `appendix_processing_pathways.qmd` |
+| C: Identifying Sentinel-2 tiling artifacts | `appendix_s2_artifacts.qmd` |
+| D: Selecting a SAR viewing geometry | `appendix_sar_geometry.qmd` |
+| E: Radiometric calibration and terrain correction of SAR data | `appendix_sar_rtc.qmd` |
+| F: Analysis-ready SAR products | `appendix_sar_ard.qmd` |
+| G: Cloud masking methods for optical data | `appendix_cloud_masking.qmd` |
+| H: Radiometric conventions for optical data | `appendix_optical_radiometry.qmd` |
+| I: Combining Landsat and Sentinel-2 | `appendix_combining_missions.qmd` |
 
 Website-only pages with no manuscript counterpart (don't touch during a sync):
-`index.qmd`, `howto.qmd`, `chatbot.qmd`, `feedback.qmd`, `about.qmd`.
+`index.qmd`, `howto.qmd`, `chatbot.qmd`, `feedback.qmd`, `about.qmd` (except its Acknowledgments section).
+
+**Website-only additions inside synced chapters.** Some passages cite sources that are
+not in the manuscript (e.g. blog posts on inference throughput and cloud processing).
+They are wrapped in `<!-- web-only: not in manuscript -->` … `<!-- /web-only -->`
+comments. Keep them when syncing a chapter; `sync_diverge.py` only reports words the
+manuscript has and the `.qmd` lacks, so they never trigger a flag.

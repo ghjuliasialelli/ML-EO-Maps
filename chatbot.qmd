@@ -1,6 +1,6 @@
 # Chatbot {.unnumbered}
 
-Ask questions about the best practices covered in this book — the chatbot will point you to the relevant section.
+Ask questions about the good practices covered in this book — the chatbot will point you to the relevant section.
 
 <iframe
   src="https://ghjuliasialelli-ml-eo-maps.hf.space"

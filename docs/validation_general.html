@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c255c5907d4ec97ac61b80091d22c4d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -160,6 +160,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reference_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference map</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -353,7 +359,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Dive Deeper</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -371,12 +377,37 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./appendix_s2_artifacts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Identifying Sentinel-2 tiling artifacts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_geometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Selecting a SAR viewing geometry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  <a href="./appendix_sar_ard.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis-ready SAR products</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_optical_radiometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric conventions for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_combining_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Combining Landsat and Sentinel-2</span></a>
   </div>
 </li>
       </ul>
@@ -414,7 +445,7 @@ div.csl-indent {
 <p>Despite the central role of validation in establishing the scientific credibility of geospatial products, accuracy assessment methodology is frequently under-reported, and reference datasets are rarely made publicly available <span class="citation" data-cites="stehman2019key foody2002status"><a href="#ref-stehman2019key" role="doc-biblioref">[1]</a>, <a href="#ref-foody2002status" role="doc-biblioref">[2]</a></span>. Four concepts are frequently conflated: <strong>model evaluation</strong>, <strong>algorithm-derived uncertainty</strong>, <strong>map-to-map comparison</strong>, and <strong>map validation</strong>. While the first three provide valuable information about model performance or product consistency, they do not constitute rigorous validation of the final map product. In this section, we focus specifically on map validation, namely the independent assessment of map quality using reference data, and clarify how it differs from these related but distinct concepts.</p>
 <p><strong>Model evaluation.</strong> Model evaluation is often confused with map validation. In many studies, standard ML practices (such as evaluating performance on a held-out test set) are presented as evidence of map quality. Model evaluation is indeed an important component of map development, as the final map is generated through spatial application of the model across a large geographic domain. Consequently, model performance and map quality are inherently related. However, they are not equivalent. Model evaluation primarily measures how well the model generalizes to a held-out test dataset, whereas map validation concerns the quality of the final spatial product across the full mapped domain. A held-out test set is typically not a probability sample of the map and may not represent the full range of landscapes, class distributions, and edge cases encountered in the final product. Even when the training sample is itself a probability sample and a portion is set aside for evaluation, this is generally not recommended: biases and errors present in the training data may transfer to the reference data <span class="citation" data-cites="tyukavina2025practical"><a href="#ref-tyukavina2025practical" role="doc-biblioref">[3]</a></span>. More broadly, when map and validation data originate from the same source or interpretation process, their errors tend to be correlated, and correlated errors inflate quality estimates, while independent errors deflate them <span class="citation" data-cites="foody2010assessing"><a href="#ref-foody2010assessing" role="doc-biblioref">[4]</a></span>. For these reasons, strong test-set performance of the model does not guarantee, and cannot substitute for, an independent assessment of map quality.</p>
 <p><strong>Algorithm-derived uncertainty.</strong> Metrics produced by ensemble variance, posterior probabilities, or model confidence scores quantify internal model uncertainty, not agreement with ground truth. These measures reflect what the model “thinks” about its own predictions and should not be interpreted as accuracy estimates <span class="citation" data-cites="lcgoodpractices"><a href="#ref-lcgoodpractices" role="doc-biblioref">[5]</a></span>.</p>
-<p><strong>Map-to-map comparison.</strong> Comparison against an existing map product is another practice that is frequently mistaken for validation. In principle, validation should rely on reference data of higher quality than the product being evaluated, such as field observations or carefully interpreted high-resolution imagery. Existing map products, however, are often the result of inference procedures, including machine learning models or rule-based gridded approaches, and therefore contain their own uncertainties and biases. While map-to-map comparisons can provide valuable qualitative insights and help identify systematic differences between products <span class="citation" data-cites="strahler2006global"><a href="#ref-strahler2006global" role="doc-biblioref">[6]</a></span>, they should not be interpreted as ground truth validation. What these comparisons measure is inter-product consistency, not map quality. They are more accurately described as consistency checks and should be reported as such.</p>
+<p><strong>Map comparison.</strong> Comparison against an existing map product is another practice that is frequently mistaken for validation. In principle, validation should rely on reference data of higher quality than the product being evaluated, such as field observations or carefully interpreted high-resolution imagery. Existing map products, however, are often the result of inference procedures, including machine learning models or rule-based gridded approaches, and therefore contain their own uncertainties and biases. While map-to-map comparisons can provide valuable qualitative insights and help identify systematic differences between products <span class="citation" data-cites="strahler2006global"><a href="#ref-strahler2006global" role="doc-biblioref">[6]</a></span>, they should not be interpreted as ground truth validation. What these comparisons measure is inter-product consistency, not map quality. They are more accurately described as consistency checks and should be reported as such.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -487,10 +518,15 @@ div.csl-indent {
     "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
     "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
 
-    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
-    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
-    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
-    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+    "appendix_s1_gaps.html":             { part: "Dive Deeper", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Dive Deeper", chapter: "S1/S2 processing across access pathways" },
+    "appendix_s2_artifacts.html":        { part: "Dive Deeper", chapter: "Sentinel-2 tiling artifacts" },
+    "appendix_sar_geometry.html":        { part: "Dive Deeper", chapter: "SAR viewing geometry" },
+    "appendix_sar_rtc.html":             { part: "Dive Deeper", chapter: "SAR calibration & terrain correction" },
+    "appendix_sar_ard.html":             { part: "Dive Deeper", chapter: "Analysis-ready SAR products" },
+    "appendix_cloud_masking.html":       { part: "Dive Deeper", chapter: "Cloud masking for optical data" },
+    "appendix_optical_radiometry.html":  { part: "Dive Deeper", chapter: "Optical radiometric conventions" },
+    "appendix_combining_missions.html":  { part: "Dive Deeper", chapter: "Combining Landsat and Sentinel-2" }
   };
 
   function currentInfo() {
@@ -959,7 +995,7 @@ div.csl-indent {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Best Practices for EO Maps</p>
+<p>Good Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
 <p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>

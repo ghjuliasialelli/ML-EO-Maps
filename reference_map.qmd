@@ -1,0 +1,284 @@
+---
+echo: false
+---
+
+# Reference map {.unnumbered}
+
+This book draws on a few hundred papers, datasets, and tools. The map below shows how they connect to the chapters that cite them. Each chapter sits on the outer ring, grouped by part. Each dot is a reference. A reference cited by one chapter sits near it; one cited across several chapters is pulled toward the middle. The papers near the center are the ones the whole book leans on.
+
+Hover over a dot to see the reference, and click it to open the paper. Hover over a chapter to see everything it cites, and click it to go to that chapter.
+
+```{ojs}
+//| output: false
+data = FileAttachment("includes/reference_map.json").json()
+chapterById = new Map(data.chapters.map((c) => [c.id, c]))
+yearBins = [
+  { label: "≤ 2000", max: 2000, color: "#86b6ef" },
+  { label: "2001–15", max: 2015, color: "#5598e7" },
+  { label: "2016–20", max: 2020, color: "#2a78d6" },
+  { label: "2021–23", max: 2023, color: "#1c5cab" },
+  { label: "2024–26", max: 9999, color: "#0d366b" }
+]
+undatedColor = "#a8a7a1"
+yearColor = (y) => (y == null ? undatedColor : yearBins.find((b) => y <= b.max).color)
+refUrl = (r) => r.url || `https://scholar.google.com/scholar?q=${encodeURIComponent(r.title)}`
+```
+
+```{ojs}
+//| output: false
+stats = {
+  const years = data.refs.map((r) => r.year).filter((y) => y != null).sort(d3.ascending);
+  return {
+    cited: data.refs.length,
+    chapters: data.chapters.length,
+    shared: data.refs.filter((r) => r.chapters.length > 1).length,
+    median: d3.median(years),
+    recent: years.filter((y) => y >= 2020).length / years.length
+  };
+}
+```
+
+::: {.refmap-stats}
+```{ojs}
+html`<div class="refmap-statrow">
+  <div><span class="refmap-num">${stats.cited}</span><span class="refmap-lbl">references cited</span></div>
+  <div><span class="refmap-num">${stats.chapters}</span><span class="refmap-lbl">chapters and appendices</span></div>
+  <div><span class="refmap-num">${stats.shared}</span><span class="refmap-lbl">cited in more than one chapter</span></div>
+  <div><span class="refmap-num">${Math.round(stats.recent * 100)}%</span><span class="refmap-lbl">published since 2020</span></div>
+</div>`
+```
+:::
+
+```{ojs}
+viewof query = Inputs.text({ placeholder: "Find a reference by title, author or year…", width: 360 })
+```
+
+```{ojs}
+//| column: page
+chart = {
+  const S = 920, C = S / 2, R = 280;
+  const parts = Array.from(d3.group(data.chapters, (c) => c.part), ([part, chs]) => ({ part, short: chs[0].partShort, chs }));
+
+  // Chapters on the ring, in book order, with a gap between parts.
+  const gap = 1.2, slots = data.chapters.length + gap * parts.length;
+  const step = (2 * Math.PI) / slots;
+  let s = gap / 2;
+  for (const p of parts) {
+    p.a0 = s * step;
+    for (const c of p.chs) { c.angle = (s + 0.5) * step; s += 1; }
+    p.a1 = s * step;
+    s += gap;
+  }
+  const polar = (a, r) => [C + r * Math.sin(a), C - r * Math.cos(a)];
+  const chNodes = data.chapters.map((c) => {
+    const [x, y] = polar(c.angle, R);
+    return { ...c, kind: "chapter", fx: x, fy: y, x, y };
+  });
+  const chNode = new Map(chNodes.map((c) => [c.id, c]));
+
+  // References float inside, tied to the chapters that cite them.
+  const rand = d3.randomLcg(42);
+  const radius = (n) => 4 + 2.4 * Math.pow(n - 1, 0.75);
+  const target = (n) => (n === 1 ? R - 46 : Math.max(30, R * (0.62 - 0.07 * (n - 2))));
+  const refNodes = data.refs.map((r) => {
+    const cs = r.chapters.map((id) => chNode.get(id));
+    const n = cs.length;
+    return {
+      ...r, kind: "ref", n, r: radius(n),
+      x: d3.mean(cs, (c) => c.x) * 0.9 + C * 0.1 + (rand() - 0.5) * 20,
+      y: d3.mean(cs, (c) => c.y) * 0.9 + C * 0.1 + (rand() - 0.5) * 20
+    };
+  });
+  const links = refNodes.flatMap((r) => r.chapters.map((id) => ({ source: r, target: chNode.get(id) })));
+
+  const sim = d3.forceSimulation([...chNodes, ...refNodes])
+    .randomSource(rand)
+    .force("link", d3.forceLink(links).distance((l) => (l.source.n === 1 ? 50 : 120)).strength((l) => 0.5 / l.source.n))
+    .force("radial", d3.forceRadial((d) => (d.kind === "ref" ? target(d.n) : R), C, C).strength((d) => (d.kind === "ref" ? 0.35 : 0)))
+    .force("collide", d3.forceCollide((d) => (d.kind === "ref" ? d.r + 1.5 : 6)).iterations(3))
+    .stop();
+  for (let i = 0; i < 500; i++) sim.tick();
+
+  // ---- drawing ----
+  const wrap = d3.create("div").attr("class", "refmap");
+  const svg = wrap.append("svg")
+    .attr("viewBox", `0 0 ${S} ${S}`)
+    .attr("role", "img")
+    .attr("aria-label", "Network of the book's chapters and the references they cite");
+
+  // Part arcs and names
+  const arc = d3.arc();
+  const g = svg.append("g");
+  g.selectAll("path.refmap-part").data(parts).join("path")
+    .attr("class", "refmap-part")
+    .attr("transform", `translate(${C},${C})`)
+    .attr("d", (p) => arc({ innerRadius: R + 9, outerRadius: R + 11, startAngle: p.a0, endAngle: p.a1 }));
+  const defs = svg.append("defs");
+  parts.forEach((p, i) => {
+    const mid = (p.a0 + p.a1) / 2;
+    const bottom = Math.cos(mid) < 0;
+    const r = bottom ? R + 14 : R + 7;
+    const [x0, y0] = polar(bottom ? p.a1 : p.a0, r), [x1, y1] = polar(bottom ? p.a0 : p.a1, r);
+    defs.append("path").attr("id", `refmap-arc-${i}`)
+      .attr("d", `M${x0},${y0} A${r},${r} 0 ${p.a1 - p.a0 > Math.PI ? 1 : 0} ${bottom ? 0 : 1} ${x1},${y1}`);
+    g.append("text").attr("class", "refmap-partname")
+      .append("textPath").attr("href", `#refmap-arc-${i}`).attr("startOffset", "50%").attr("text-anchor", "middle")
+      .text(p.short);
+  });
+
+  // Links: curves bent toward the centre, so shared references read as bundles.
+  const linkPath = (l) => {
+    const sx = l.source.x, sy = l.source.y, tx = l.target.x, ty = l.target.y;
+    const mx = (sx + tx) / 2, my = (sy + ty) / 2;
+    return `M${sx},${sy} Q${mx + (C - mx) * 0.35},${my + (C - my) * 0.35} ${tx},${ty}`;
+  };
+  const linkSel = g.append("g").attr("class", "refmap-links")
+    .selectAll("path").data(links).join("path").attr("d", linkPath);
+
+  // Reference dots (2px surface ring keeps overlaps legible)
+  const refSel = g.append("g").selectAll("circle").data(refNodes).join("circle")
+    .attr("class", "refmap-ref")
+    .attr("cx", (d) => d.x).attr("cy", (d) => d.y).attr("r", (d) => d.r)
+    .attr("fill", (d) => yearColor(d.year));
+
+  // Chapters
+  const chG = g.append("g").selectAll("g").data(chNodes).join("g")
+    .attr("class", "refmap-chapter")
+    .attr("transform", (d) => `translate(${d.x},${d.y})`);
+  chG.append("circle").attr("r", 5);
+  chG.append("circle").attr("r", 14).attr("class", "refmap-hit");
+  chG.append("text")
+    .attr("dy", "0.32em")
+    .attr("transform", (d) => {
+      const deg = (d.angle * 180) / Math.PI - 90;
+      return deg > 90 ? `rotate(${deg - 180}) translate(-24,0)` : `rotate(${deg}) translate(24,0)`;
+    })
+    .attr("text-anchor", (d) => ((d.angle * 180) / Math.PI - 90 > 90 ? "end" : "start"))
+    .text((d) => d.short);
+
+  // ---- interaction ----
+  const tip = wrap.append("div").attr("class", "refmap-tip").attr("hidden", true);
+  let matches = null, pinned = null;
+
+  function paint(focus) {
+    const on = new Set(), onCh = new Set();
+    if (focus?.kind === "ref") { on.add(focus.id); focus.chapters.forEach((c) => onCh.add(c)); }
+    if (focus?.kind === "chapter") {
+      onCh.add(focus.id);
+      refNodes.forEach((r) => r.chapters.includes(focus.id) && on.add(r.id));
+    }
+    const lit = (d) => (focus ? on.has(d.id) : matches ? matches.has(d.id) : true);
+    refSel.classed("is-dim", (d) => !lit(d)).classed("is-on", (d) => focus && on.has(d.id));
+    linkSel
+      .classed("is-on", (l) => (focus ? on.has(l.source.id) && onCh.has(l.target.id) : matches ? matches.has(l.source.id) : false))
+      .classed("is-dim", (l) => (focus || matches ? !(focus ? on.has(l.source.id) && onCh.has(l.target.id) : matches.has(l.source.id)) : false));
+    chG.classed("is-on", (d) => onCh.has(d.id) || (!focus && matches && refNodes.some((r) => matches.has(r.id) && r.chapters.includes(d.id))))
+      .classed("is-dim", (d) => (focus ? !onCh.has(d.id) : false));
+  }
+
+  function showTip(event, html) {
+    tip.html(html).attr("hidden", null);
+    const box = wrap.node().getBoundingClientRect();
+    const tw = tip.node().offsetWidth, th = tip.node().offsetHeight;
+    let x = event.clientX - box.left + 14, y = event.clientY - box.top + 14;
+    if (x + tw > box.width) x = Math.max(0, event.clientX - box.left - tw - 14);
+    if (y + th > box.height) y = Math.max(0, event.clientY - box.top - th - 14);
+    tip.style("left", `${x}px`).style("top", `${y}px`);
+  }
+  const hide = () => { tip.attr("hidden", true); pinned = null; paint(null); };
+
+  const refTip = (d) => `
+    <div class="refmap-tip-title">${d.title}</div>
+    <div class="refmap-tip-meta">${[d.authors, d.year ?? "n.d."].filter(Boolean).join(" · ")}${d.venue ? `<br><em>${d.venue}</em>` : ""}</div>
+    <div class="refmap-tip-ch">Cited in ${d.n === 1 ? "1 chapter" : `${d.n} chapters`}: ${d.chapters.map((c) => chapterById.get(c).short).join(", ")}</div>`;
+  const chTip = (d) => {
+    const mine = refNodes.filter((r) => r.chapters.includes(d.id));
+    const shared = mine.filter((r) => r.n > 1).length;
+    return `<div class="refmap-tip-title">${d.title}</div>
+      <div class="refmap-tip-meta">${d.part}</div>
+      <div class="refmap-tip-ch">${mine.length} references, ${shared} shared with other chapters</div>`;
+  };
+
+  refSel
+    .on("pointerenter pointermove", (e, d) => { if (!pinned) { paint(d); showTip(e, refTip(d)); } })
+    .on("pointerleave", () => { if (!pinned) hide(); })
+    .on("click", (e, d) => {
+      if (e.pointerType === "touch" && pinned !== d.id) { pinned = d.id; paint(d); showTip(e, refTip(d)); return; }
+      window.open(refUrl(d), "_blank", "noopener");
+    });
+  chG
+    .on("pointerenter pointermove", (e, d) => { if (!pinned) { paint(d); showTip(e, chTip(d)); } })
+    .on("pointerleave", () => { if (!pinned) hide(); })
+    .on("click", (e, d) => {
+      if (e.pointerType === "touch" && pinned !== d.id) { pinned = d.id; paint(d); showTip(e, chTip(d)); return; }
+      window.location.href = d.href;
+    });
+  svg.on("click", (e) => { if (e.target === svg.node()) hide(); });
+
+  const node = wrap.node();
+  node.setQuery = (q) => {
+    q = (q || "").trim().toLowerCase();
+    matches = q ? new Set(refNodes.filter((r) => `${r.title} ${r.authors} ${r.year ?? ""} ${r.venue}`.toLowerCase().includes(q)).map((r) => r.id)) : null;
+    paint(null);
+  };
+  return node;
+}
+```
+
+```{ojs}
+//| output: false
+chart.setQuery(query)
+```
+
+```{ojs}
+html`<div class="refmap-legend">
+  <span class="refmap-legend-title">Publication year</span>
+  ${yearBins.map((b) => html`<span class="refmap-key"><i style="background:${b.color}"></i>${b.label}</span>`)}
+  <span class="refmap-key"><i style="background:${undatedColor}"></i>undated (web pages, software)</span>
+  <span class="refmap-legend-title refmap-legend-size">Dot size</span>
+  ${[1, 4, 9].map((n) => { const r = 4 + 2.4 * Math.pow(n - 1, 0.75); return html`<span class="refmap-key"><svg width=${2 * r + 2} height=${2 * r + 2}><circle cx=${r + 1} cy=${r + 1} r=${r} fill="#2a78d6"></circle></svg>${n === 1 ? "1 chapter" : `${n} chapters`}</span>`; })}
+</div>`
+```
+
+## The references the book leans on most {.unnumbered}
+
+```{ojs}
+{
+  const top = data.refs.filter((r) => r.chapters.length >= 4)
+    .sort((a, b) => b.chapters.length - a.chapters.length || (b.year ?? 0) - (a.year ?? 0));
+  return html`<table class="table table-sm refmap-table">
+    <thead><tr><th>Reference</th><th class="refmap-n">Chapters</th><th>Cited in</th></tr></thead>
+    <tbody>${top.map((r) => html`<tr>
+      <td><a href="${refUrl(r)}" target="_blank" rel="noopener">${r.title}</a><br><span class="refmap-muted">${r.authors}${r.year ? `, ${r.year}` : ""}</span></td>
+      <td class="refmap-n">${r.chapters.length}</td>
+      <td>${r.chapters.map((c, i) => html`${i ? ", " : ""}<a href="${chapterById.get(c).href}">${chapterById.get(c).short}</a>`)}</td>
+    </tr>`)}</tbody>
+  </table>`;
+}
+```
+
+## All cited references {.unnumbered}
+
+::: {.callout-note collapse="true" appearance="simple"}
+## Show the full table (filtered by the search box above)
+
+```{ojs}
+Inputs.table(
+  data.refs
+    .filter((r) => !query || `${r.title} ${r.authors} ${r.year ?? ""} ${r.venue}`.toLowerCase().includes(query.trim().toLowerCase()))
+    .map((r) => ({
+      Reference: r.title,
+      Authors: r.authors,
+      Year: r.year,
+      Chapters: r.chapters.length,
+      "Cited in": r.chapters.map((c) => chapterById.get(c).short).join(", "),
+      url: refUrl(r)
+    })),
+  {
+    columns: ["Reference", "Authors", "Year", "Chapters", "Cited in"],
+    format: { Reference: (t, i, rows) => html`<a href="${rows[i].url}" target="_blank" rel="noopener">${t}</a>` },
+    sort: "Chapters", reverse: true, rows: 20, layout: "auto"
+  }
+)
+```
+:::

@@ -1,0 +1,13 @@
+---
+title: "Identifying Sentinel-2 tiling artifacts"
+---
+
+[Optical data selection](data_selection.qmd#sec-optical) describes the general problem: a product's distribution unit need not align with its acquisition unit, so a nominally complete tile may be partial, may need mosaicking, or may be duplicated. For Sentinel-2 the three cases are distinguished from the product metadata as follows.
+
+![Illustration of Sentinel-2 artifacts. *Top*: Sentinel-2 L2A products for tile 31TGN, from sensor A, orbit 008 (left) and sensor B, orbit 108 (right) for April 8 2025. *Middle*: Sentinel-2 L2A products for tile 30SUH, sensor B on June 4 2025, orbit 137 (left) vs. sensor C on June 6 2025, orbit 094 (right). *Bottom*: Sentinel-2C L2A products for tile 30STH, acquired on April 5 2026, in the same orbit (137). *The images were acquired using the Copernicus Browser.*](images/s2-combined.png){#fig-s2-combined}
+
+**Partial and full orbit coverage.** Each tile is covered by multiple orbits, some of which encompass it entirely. In @fig-s2-combined (top), tile 31TGN is partially covered by orbit 008 and fully by orbit 108. The covering orbit is identified directly from the `MTD_MSIL2A.xml` file: `NODATA_PIXEL_PERCENTAGE` is 0.0 for the orbit that fully covers the tile and greater than 0.0 for the others.
+
+**Tiles requiring mosaicking.** Most tiles are not fully covered by any single orbit and require mosaicking products from several orbits, which may have been acquired on different days. Tile 30SUH is typical: two products acquired two days apart are needed for complete coverage (@fig-s2-combined, middle).
+
+**Duplicate products.** A tile that should be fully covered by one orbit sometimes yields two products sharing date, orbit and footprint. If the processing baselines differ, retain the higher one. If they are identical, the duplication indicates a data strip split: a single continuous observation broken into separate segments during ground processing, slicing the tile into two partial files that must be mosaicked (@fig-s2-combined, bottom).

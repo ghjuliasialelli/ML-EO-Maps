@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c255c5907d4ec97ac61b80091d22c4d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -189,6 +189,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reference_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference map</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -382,7 +388,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Dive Deeper</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -400,12 +406,37 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./appendix_s2_artifacts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Identifying Sentinel-2 tiling artifacts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_geometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Selecting a SAR viewing geometry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  <a href="./appendix_sar_ard.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis-ready SAR products</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_optical_radiometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric conventions for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_combining_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Combining Landsat and Sentinel-2</span></a>
   </div>
 </li>
       </ul>
@@ -420,10 +451,12 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#coverage-and-reliability" id="toc-coverage-and-reliability" class="nav-link active" data-scroll-target="#coverage-and-reliability">Coverage and Reliability</a></li>
+  <li><a href="#coverage-and-reliability" id="toc-coverage-and-reliability" class="nav-link active" data-scroll-target="#coverage-and-reliability">Coverage and reliability</a></li>
   <li><a href="#standardized-residuals" id="toc-standardized-residuals" class="nav-link" data-scroll-target="#standardized-residuals">Standardized residuals</a></li>
   <li><a href="#scoring-rules" id="toc-scoring-rules" class="nav-link" data-scroll-target="#scoring-rules">Scoring rules</a></li>
   <li><a href="#additional-diagnostics" id="toc-additional-diagnostics" class="nav-link" data-scroll-target="#additional-diagnostics">Additional diagnostics</a></li>
+  <li><a href="#classification-diagnostics" id="toc-classification-diagnostics" class="nav-link" data-scroll-target="#classification-diagnostics">Classification diagnostics</a></li>
+  <li><a href="#qualifying-a-model-before-inference" id="toc-qualifying-a-model-before-inference" class="nav-link" data-scroll-target="#qualifying-a-model-before-inference">Qualifying a model before inference</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/edit/main/uq_calibration.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ghjuliasialelli/ml-eo-maps/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -451,12 +484,12 @@ window.Quarto = {
 
 <p>The preceding methods differ not only in cost but in whether they produce calibrated uncertainty, which raises the question of how to verify calibration in the first place. Reporting uncertainty without verifying its calibration is akin to reporting accuracy without a test set. We recommend a minimal set of diagnostics that should accompany maps with per-pixel uncertainty:</p>
 <section id="coverage-and-reliability" class="level2">
-<h2 class="anchored" data-anchor-id="coverage-and-reliability">Coverage and Reliability</h2>
-<p>Do the <span class="math inline">\(1\sigma\)</span> ($$68%) prediction intervals contain 68% of held-out observations, and the <span class="math inline">\(2\sigma\)</span> ($$95%) intervals contain 95%? Coverage above the nominal level indicates underconfident (conservative) intervals and coverage below indicates overconfidence. Plot observed coverage against nominal coverage for a range of probability levels (e.g., 10% through 90%). A well-calibrated model lies on the diagonal. This generalizes the coverage check to all levels simultaneously and is the regression analogue of the classification reliability diagram <span class="citation" data-cites="kuleshov2018accurate"><a href="#ref-kuleshov2018accurate" role="doc-biblioref">[1]</a></span>.</p>
+<h2 class="anchored" data-anchor-id="coverage-and-reliability">Coverage and reliability</h2>
+<p>Do the <span class="math inline">\(1\sigma\)</span> ($$68%) prediction intervals contain 68% of held-out observations, and the <span class="math inline">\(2\sigma\)</span> ($$95%) intervals contain 95%? Coverage above the nominal level indicates underconfident (conservative) intervals and coverage below indicates overconfidence. Plot observed coverage against nominal coverage for a range of probability levels (e.g., 10% through 90%). A well-calibrated model lies on the diagonal. This generalizes the coverage check to all levels simultaneously and is the regression analog of the classification reliability diagram <span class="citation" data-cites="kuleshov2018accurate"><a href="#ref-kuleshov2018accurate" role="doc-biblioref">[1]</a></span>.</p>
 </section>
 <section id="standardized-residuals" class="level2">
 <h2 class="anchored" data-anchor-id="standardized-residuals">Standardized residuals</h2>
-<p>For regression, compute <span class="math inline">\(z = (y_\text{true} - y_\text{pred}) / \sigma_\text{pred}\)</span>. If the predicted uncertainties are well-calibrated, <span class="math inline">\(z\)</span> should follow <span class="math inline">\(\mathcal{N}(0, 1)\)</span>. The Z-score mean (ideal: 0.0) detects systematic bias; the Z-score standard deviation (ideal: 1.0) detects miscalibrated interval width. Values above 1 indicate overconfidence; below 1 indicate underconfidence. For classification, the Brier score, expected calibration error (ECE), and reliability diagrams stratified by class replace the continuous variable diagnostics.</p>
+<p>For regression, compute <span class="math inline">\(z = (y_\text{true} - y_\text{pred}) / \sigma_\text{pred}\)</span>. If the predicted uncertainties are well-calibrated, <span class="math inline">\(z\)</span> should follow <span class="math inline">\(\mathcal{N}(0, 1)\)</span>. The Z-score mean (ideal: 0.0) detects systematic bias; the Z-score standard deviation (ideal: 1.0) detects miscalibrated interval width. Values above 1 indicate overconfidence; below 1 indicate underconfidence.</p>
 </section>
 <section id="scoring-rules" class="level2">
 <h2 class="anchored" data-anchor-id="scoring-rules">Scoring rules</h2>
@@ -464,10 +497,20 @@ window.Quarto = {
 </section>
 <section id="additional-diagnostics" class="level2">
 <h2 class="anchored" data-anchor-id="additional-diagnostics">Additional diagnostics</h2>
-<p>Probability integral transform (PIT) histograms and Q-Q plots provide visual checks of distributional calibration. The uncertainty–error correlation assesses whether predicted uncertainty is actually informative about where the model makes large errors.</p>
-<p>A model calibrated on a geographically restricted validation set may not be calibrated on the inference domain, which, for a global map, is almost certainly different from where validation data were available. This is especially relevant for the “one model globally versus one model per region” design choice. A global model may be well calibrated on average but poorly calibrated in specific biomes where training data were sparse. Conversely, regional models may be well-calibrated locally but provide no guarantees when extrapolating to adjacent regions.</p>
-<p>When calibration diagnostics reveal problems, the response depends on the severity and pattern of the failure. Mild, smooth miscalibration where the reliability diagram shows a consistent curve away from the diagonal can often be corrected post hoc. Isotonic regression applied to the predicted CDF values, or Platt scaling for parametric models, can remap predicted intervals to achieve empirical coverage without retraining <span class="citation" data-cites="kuleshov2018accurate"><a href="#ref-kuleshov2018accurate" role="doc-biblioref">[1]</a></span>. These are cheap fixes and should be attempted first. If miscalibration is more structured, for instance, systematic overconfidence in one biome but reasonable calibration elsewhere, post hoc recalibration on a stratified held out set can help, but the stratification should reflect the structure of the miscalibration, which requires enough validation data in each stratum to fit the recalibration reliably. When miscalibration is severe or regionally patterned in ways that post hoc correction cannot resolve, the model itself may need revisiting by retraining with a proper scoring rule as the loss function (e.g., CRPS for distributional regression, or Gaussian NLL rather than MSE for heteroskedastic models) can produce better-calibrated uncertainty at source.</p>
+<p>Probability integral transform (PIT) histograms and Q-Q plots provide visual checks of distributional calibration. The uncertainty–error correlation assesses whether predicted uncertainty is informative about where the model makes large errors, within the domain where errors can be measured.</p>
+<p>The diagnostics above require reference observations, and so can only be computed where reference observations exist. This is an inconvenient constraint, because epistemic uncertainty is most consequential where the inference domain departs from the training and reference domain, and for a global map that departure is the norm rather than the exception. It is therefore worth thinking about what can and cannot be established. Three regimes may be distinguished. In the first, reference data are available at sufficient density that calibration can be verified directly, stratified by biome or land cover, and reported as such. In the second, no reference data exist in the target region, but the model’s behavior under extrapolation can be tested by proxy. We may hold out an entire region or biome from training (not merely pixels within it) and check whether predicted uncertainty rises there and whether it remains calibrated against that region’s held-out observations.</p>
+<p>This is the only direct test of epistemic uncertainty under the conditions that matter, and it is distinct from spatial cross-validation at the pixel or block scale, which tests interpolation rather than extrapolation. Weaker checks, such as confirming that predicted uncertainty increases with feature-space distance from the training data <span class="citation" data-cites="meyer2021areaofapplicability"><a href="#ref-meyer2021areaofapplicability" role="doc-biblioref">[3]</a></span>, establish that the uncertainty is responsive but not that it is calibrated, and should be labeled accordingly. In the third regime, neither direct verification nor a credible proxy is available, and the map documentation may state that the uncertainty layer is unverified there rather than implying that the band carries the same meaning everywhere. A map’s uncertainty product could therefore come with its own map that delineates where calibration was verified, where it was tested under proxy extrapolation, and where it is inferred only.</p>
+<p>When calibration diagnostics reveal problems, the response depends on the severity and pattern of the failure. Mild, smooth miscalibration where the reliability diagram shows a consistent curve away from the diagonal can often be corrected post hoc. Isotonic regression applied to the predicted CDF values, or Platt scaling for parametric models, can remap predicted intervals to achieve empirical coverage without retraining <span class="citation" data-cites="kuleshov2018accurate"><a href="#ref-kuleshov2018accurate" role="doc-biblioref">[1]</a></span>. These are cheap fixes and should be attempted first. If miscalibration is more structured, for instance, systematic overconfidence in one biome but reasonable calibration elsewhere, post hoc recalibration on a stratified held out set can help, but the stratification should reflect the structure of the miscalibration, which requires enough validation data in each stratum to fit the recalibration reliably. When miscalibration is severe or regionally patterned in ways that post hoc correction cannot resolve, the model itself may need revisiting: retraining with a proper scoring rule as the loss function (e.g., CRPS for distributional regression, or Gaussian NLL rather than MSE for heteroskedastic models) can produce better-calibrated uncertainty at source.</p>
 <p>Switching to a method that provides calibration by construction such as conformal prediction as a post hoc wrapper is another option, with the caveat that the resulting guarantees are marginal rather than conditional. At a minimum, if calibration cannot be achieved, this should be documented explicitly by reporting the empirical coverage alongside the nominal coverage, stratified by region or land cover class, so that downstream users can judge for themselves whether the uncertainty layer is trustworthy for their application.</p>
+</section>
+<section id="classification-diagnostics" class="level2">
+<h2 class="anchored" data-anchor-id="classification-diagnostics">Classification diagnostics</h2>
+<p>The categorical analogs of the above are the reliability diagram (observed frequency of correctness binned by predicted confidence), expected calibration error (ECE) as its scalar summary, and the Brier score as a proper scoring rule that, like the interval score, rewards both calibration and sharpness. There are, however, two caveats specific to maps, which is the context we care about. First, ECE and the standard reliability diagram assess only the top-label probability. For area estimation, where all class probabilities are summed over pixels, class-wise reliability diagrams or a class-wise ECE are the relevant diagnostics <span class="citation" data-cites="kull2019beyond"><a href="#ref-kull2019beyond" role="doc-biblioref">[4]</a></span>. Second, per-class diagnostics on rare classes (change, in particular) are dominated by the few reference observations available, and should be reported with their sample sizes.</p>
+</section>
+<section id="qualifying-a-model-before-inference" class="level2">
+<h2 class="anchored" data-anchor-id="qualifying-a-model-before-inference">Qualifying a model before inference</h2>
+<p>The recalibration and retraining remedies above presuppose that miscalibration can be, and is, discovered while retraining is still an option. For global maps, training is typically cheap relative to inference over the full domain, so the cost of discovering a regionally patterned failure late is not the retraining itself, but rather the inference run that must now be repeated. Due to the compute use differential, calibration assessment should therefore be treated as a sanity check that precedes wall-to-wall inference. To this end, we suggest a qualification step with a few example components. (i) calibration diagnostics described above, computed on spatially and environmentally blocked holdouts, reported per stratum, since pooled diagnostics can hide regionally patterned miscalibration. (ii) feature space coverage analysis over the full inference domain, such as the area of applicability or a dissimilarity index <span class="citation" data-cites="meyer2021areaofapplicability"><a href="#ref-meyer2021areaofapplicability" role="doc-biblioref">[3]</a></span>, which requires predictor data only and can be computed before prediction is made. This identifies where the model will be extrapolating and therefore where the proxy-extrapolation test above should be targeted. (iii) end-to-end inference on a small number of tiles chosen to span ecologically distinct regions, including regions that the coverage analysis flags as poorly supported, evaluated against whatever reference data exist there. This should also surface tiling, compositing, and edge artifacts (see <a href="./map_production.html">Map production and distribution</a>) that do not appear in pixel-level cross-validation.</p>
+<p>Of course, this does not guarantee calibration where reference data are absent, since such regions are unverifiable by modeling alone. However, testing models before inference makes sure that failures that could, in principle, have been detected are detected before expensive inference compute.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -476,6 +519,12 @@ window.Quarto = {
 </div>
 <div id="ref-gneiting2007probabilistic" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[2] </div><div class="csl-right-inline">T. Gneiting, F. Balabdaoui, and A. E. Raftery, <span>“<span class="nocase">Probabilistic Forecasts, Calibration and Sharpness</span>,”</span> <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em>, vol. 69, no. 2, pp. 243–268, 2007, doi: <a href="https://doi.org/10.1111/j.1467-9868.2007.00587.x">10.1111/j.1467-9868.2007.00587.x</a>.</div>
+</div>
+<div id="ref-meyer2021areaofapplicability" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">H. Meyer and E. Pebesma, <span>“<span class="nocase">Predicting into Unknown Space? Estimating the Area of Applicability of Spatial Prediction Models</span>,”</span> <em>Methods in Ecology and Evolution</em>, vol. 12, pp. 1620–1633, 2021, doi: <a href="https://doi.org/10.1111/2041-210X.13650">10.1111/2041-210X.13650</a>.</div>
+</div>
+<div id="ref-kull2019beyond" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">M. Kull, M. Perello-Nieto, M. Kängsepp, T. S. Filho, H. Song, and P. Flach, <span>“Beyond temperature scaling: Obtaining well-calibrated multiclass probabilities with dirichlet calibration,”</span> in <em>Proceedings of the 33rd international conference on neural information processing systems</em>, Red Hook, NY, USA: Curran Associates Inc., 2019. Available: <a href="https://proceedings.neurips.cc/paper/2019/hash/8ca01ea920679a0fe3728441494041b9-Abstract.html">https://proceedings.neurips.cc/paper/2019/hash/8ca01ea920679a0fe3728441494041b9-Abstract.html</a></div>
 </div>
 </div>
 </section>
@@ -529,10 +578,15 @@ window.Quarto = {
     "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
     "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
 
-    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
-    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
-    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
-    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+    "appendix_s1_gaps.html":             { part: "Dive Deeper", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Dive Deeper", chapter: "S1/S2 processing across access pathways" },
+    "appendix_s2_artifacts.html":        { part: "Dive Deeper", chapter: "Sentinel-2 tiling artifacts" },
+    "appendix_sar_geometry.html":        { part: "Dive Deeper", chapter: "SAR viewing geometry" },
+    "appendix_sar_rtc.html":             { part: "Dive Deeper", chapter: "SAR calibration & terrain correction" },
+    "appendix_sar_ard.html":             { part: "Dive Deeper", chapter: "Analysis-ready SAR products" },
+    "appendix_cloud_masking.html":       { part: "Dive Deeper", chapter: "Cloud masking for optical data" },
+    "appendix_optical_radiometry.html":  { part: "Dive Deeper", chapter: "Optical radiometric conventions" },
+    "appendix_combining_missions.html":  { part: "Dive Deeper", chapter: "Combining Landsat and Sentinel-2" }
   };
 
   function currentInfo() {
@@ -1001,7 +1055,7 @@ window.Quarto = {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Best Practices for EO Maps</p>
+<p>Good Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
 <p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>

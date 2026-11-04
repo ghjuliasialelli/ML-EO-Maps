@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c255c5907d4ec97ac61b80091d22c4d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -160,6 +160,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reference_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference map</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -353,7 +359,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Dive Deeper</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -371,12 +377,37 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./appendix_s2_artifacts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Identifying Sentinel-2 tiling artifacts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_geometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Selecting a SAR viewing geometry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  <a href="./appendix_sar_ard.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis-ready SAR products</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_optical_radiometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric conventions for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_combining_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Combining Landsat and Sentinel-2</span></a>
   </div>
 </li>
       </ul>
@@ -411,38 +442,89 @@ div.csl-indent {
 </header>
 
 
-<p>The past decade has seen a rapid expansion in the production of large-scale geospatial products derived from Earth observation (EO) data using machine learning (ML). A growing range of global products is now routinely generated at resolutions that would have been unthinkable a few years ago, including maps of building footprints <span class="citation" data-cites="glazer2025tempo"><a href="#ref-glazer2025tempo" role="doc-biblioref">[1]</a></span>, land cover <span class="citation" data-cites="Brown_2022"><a href="#ref-Brown_2022" role="doc-biblioref">[2]</a></span>, canopy height <span class="citation" data-cites="lang2023canopyheight Tolan2024"><a href="#ref-lang2023canopyheight" role="doc-biblioref">[3]</a>, <a href="#ref-Tolan2024" role="doc-biblioref">[4]</a></span>, renewable energy installations <span class="citation" data-cites="microsoft2024renewables"><a href="#ref-microsoft2024renewables" role="doc-biblioref">[5]</a></span> and flood inundation <span class="citation" data-cites="Misra2025"><a href="#ref-Misra2025" role="doc-biblioref">[6]</a></span>. This represents a substantial shift from the traditional EO toolkit of spectral indices, radiative transfer (or other physical) models, spectral unmixing, and classical ML pipelines built on hand-crafted features, which historically delivered maps as collections of locally calibrated models tuned to specific regions, sensors, or biomes. ML has shifted this paradigm toward single, globally generalizing models trained on heterogeneous data, promising consistent worldwide products but also introducing challenges with no clear analogue in the traditional workflow. Scaled inference, for instance, now demands engineering skills (distributed compute, efficient I/O, cloud-native data formats) that the traditional EO scientist rarely needed. At the same time, the apparent ease with which such maps seem to be produced hides the depth of the underlying pipeline, and the lowered barrier to entry has enabled a proliferation of map products released without adequate validation.</p>
-<p>When considering the full workflow for a global map, every stage of the process (from data acquisition and preprocessing, through model design and training, to inference, uncertainty quantification, validation, and dissemination) presents domain-specific challenges that have no direct equivalent in conventional computer vision. These challenges are tightly coupled: preprocessing decisions propagate into the training signal, the training signal shapes the uncertainty landscape, and uncharacterized uncertainty undermines downstream validation and decision-making. This paper is addressed to a broad audience of researchers and practitioners, from those just entering the EO domain to seasoned ML experts looking to build ML-ready EO datasets or generate large-scale maps. It presents an end-to-end account of the best practices, challenges, and common pitfalls that span the entire pipeline from raw satellite data to a published, validated map product. We organize the discussion around six interconnected themes, summarized in <a href="#fig-overview" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>, which trace the pipeline from the EO data landscape and preprocessing, through ML-specific stages of dataset construction, model design, and training, to uncertainty quantification, map generation, dissemination, and validation. Choices made at each stage carry consequences for all subsequent ones, and awareness of these dependencies is one of the factors that separate a technically sound map from a misleading one.</p>
+<p>Maps, of varying scales and extents, are accessible and powerful tools for policy-makers and other stakeholders to visualize spatial patterns, and inform planning and decision making. Forest carbon claims made under the UNFCCC REDD+ mechanism rest on mapped estimates of extent and change <span class="citation" data-cites="Nasimiyu2026"><a href="#ref-Nasimiyu2026" role="doc-biblioref">[1]</a></span>. The humanitarian sector relies on rapidly generated maps to assess damage extent <span class="citation" data-cites="UNOSAT_2024_gaza_damage"><a href="#ref-UNOSAT_2024_gaza_damage" role="doc-biblioref">[2]</a></span>, and on population maps to determine which communities are at risk <span class="citation" data-cites="Metzger2024"><a href="#ref-Metzger2024" role="doc-biblioref">[3]</a></span>.</p>
+<p>The past decade has seen a rapid expansion in the production of large-scale geospatial products derived from Earth observation (EO) data using machine learning (ML). Driven by expanding model capacity and compute availability, the domain has reached a level of operational maturity where practitioners can routinely generate high-resolution global products, including maps of building footprints <span class="citation" data-cites="glazer2025tempo"><a href="#ref-glazer2025tempo" role="doc-biblioref">[4]</a></span>, land cover <span class="citation" data-cites="Brown_2022"><a href="#ref-Brown_2022" role="doc-biblioref">[5]</a></span>, canopy height <span class="citation" data-cites="lang2023canopyheight Tolan2024"><a href="#ref-lang2023canopyheight" role="doc-biblioref">[6]</a>, <a href="#ref-Tolan2024" role="doc-biblioref">[7]</a></span>, renewable energy installations <span class="citation" data-cites="microsoft2024renewables"><a href="#ref-microsoft2024renewables" role="doc-biblioref">[8]</a></span> and flood inundation <span class="citation" data-cites="Misra2025"><a href="#ref-Misra2025" role="doc-biblioref">[9]</a></span>. The traditional EO toolkit (spectral indices, radiative transfer and other physical models, spectral unmixing, and classical ML pipelines built on hand-crafted features) historically delivered maps by leveraging locally calibrated models tuned to specific regions, sensors, or biomes; global products created this way were mosaics of local solutions. Deep learning has expanded the paradigm toward singular, globally applicable models trained on heterogeneous data, promising consistent worldwide products but also introducing challenges with no clear analog in the traditional workflow. Scaled inference, for instance, now demands specific engineering skills (distributed compute, efficient I/O, cloud-native data formats) that traditional EO scientists rarely needed in the past. At the same time, the apparent ease with which such maps seem to be produced hides the complexity of the underlying pipeline, and the lowered barrier to entry has enabled a proliferation of map products released without adequate validation. Crucially, “maps are being developed by different organizations across the research-policy-practice interface, […] without a shared understanding of best practices” <span class="citation" data-cites="Singh2026"><a href="#ref-Singh2026" role="doc-biblioref">[10]</a></span>.</p>
+<p>When considering the full workflow for a global map, every stage of the process presents domain-specific, tightly coupled challenges that have no direct equivalent in conventional machine learning. The failures we most often see in published maps are not failures of any single stage in isolation, but rather mismatches; e.g., train/test splits that rely on Sentinel-2 tile grids, introducing spatial overlap and hidden data leakage. Most reviews and tutorials on ML for EO are organized around methods or applications <span class="citation" data-cites="zhang2016deep zhu2017deep Persello2022 tuia2025"><a href="#ref-zhang2016deep" role="doc-biblioref">[11]</a>, <a href="#ref-zhu2017deep" role="doc-biblioref">[12]</a>, <a href="#ref-Persello2022" role="doc-biblioref">[13]</a>, <a href="#ref-tuia2025" role="doc-biblioref">[14]</a></span>. Individual stages have received dedicated attention <span class="citation" data-cites="olofsson2014good stehman2019key ploton2020spatialvalidation meyer2022machine"><a href="#ref-olofsson2014good" role="doc-biblioref">[15]</a>, <a href="#ref-stehman2019key" role="doc-biblioref">[16]</a>, <a href="#ref-ploton2020spatialvalidation" role="doc-biblioref">[17]</a>, <a href="#ref-meyer2022machine" role="doc-biblioref">[18]</a></span>, but a comprehensive account of the workflow as a whole is lacking, particularly for the steps between a trained model and a released product.</p>
+<p>This article is addressed to a broad audience of researchers and practitioners, from those just entering the EO domain to ML experts looking to build ML-ready EO datasets or generate large-scale maps. It presents an end-to-end account of the good practices, challenges, and common pitfalls that span the entire pipeline, from the collection of satellite data to a published, validated map product. Throughout the article, we refer to many published products; two of them act as a common thread. WorldCereal <span class="citation" data-cites="Van_Tricht_2023"><a href="#ref-Van_Tricht_2023" role="doc-biblioref">[19]</a></span> is an operational, categorical cropland and crop-type mapping system: it consumes per-pixel multi-sensor time series, classifies each pixel independently with gradient-boosted trees, runs inference on CPU, releases its 2021 products through Zenodo and Earth Engine, and validates its cropland layer through design-based accuracy assessment against a probability sample. Canopy height map (CHM) refers to ECHOSAT <span class="citation" data-cites="pauls2026echosat"><a href="#ref-pauls2026echosat" role="doc-biblioref">[20]</a></span>, the most recent of three canopy height maps from the same group; where ECHOSAT leaves a step undocumented, we take it from its predecessors <span class="citation" data-cites="pauls2024estimating pauls2025capturing"><a href="#ref-pauls2024estimating" role="doc-biblioref">[21]</a>, <a href="#ref-pauls2025capturing" role="doc-biblioref">[22]</a></span>. It is a research-oriented continuous regression product: it consumes multi-temporal image patches, is trained on GPU with encoder–decoder networks, is released through Earth Engine, and is evaluated against its own test set. We contrast their choices in boxes throughout the article.</p>
+<p>It would be misleading to present map-making sequentially: acquire, preprocess, train, infer, validate, publish. Several constraints run backwards through the workflow. For example, to minimize domain shift, training data preparation should ideally align with the data sources and processing baselines available on the global inference platform. As such, <a href="#fig-overview" class="quarto-xref">Figure&nbsp;<span>1.1</span></a> presents the workflow as a directed graph, emphasizing that choices made at each stage carry consequences for other ones, and awareness of these dependencies is one of the factors that separate a technically sound map from a misleading one.</p>
 <div id="fig-overview" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/overview.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.1: Overview of the end-to-end pipeline covered in this work, from the EO data landscape through dataset construction, model design and training, and uncertainty quantification, to map production, dissemination, and validation.
+Figure&nbsp;1.1: The mapping workflow as a constraint network. Solid arrows are the familiar forward flow; dotted arrows indicate that every stage is conditioned by the intended map product. Dashed arrows are constraints that run <em>backwards</em> through the workflow, and are responsible for the most expensive and least recoverable mistakes in large-scale mapping: the training and inference data must match, or the model meets a distribution shift at deployment that it was never tested on; data must be acquired over the regions where validation is intended, since without inference there, there is nothing to validate against; the uncertainty the product has to report constrains which models are admissible; the compute budget available for deployment shapes model development; and the validation regions must be excluded from the training and model-selection sets. The section numbers in the boxes refer to the parts of this book: § II = EO data landscape, § III = Data selection &amp; preprocessing, § IV = ML dataset &amp; training, § V = Uncertainty quantification, § VI = Map production &amp; distribution, § VII = Validation.
 </figcaption>
 </figure>
 </div>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-Nasimiyu2026" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">L. B. Nasimiyu, M. Gebreslasie, and R. N. Masolele, <span>“Remote sensing approaches for carbon stock estimation in optimizing <span>REDD+</span> benefits: A systematic review from 2015 to 2025,”</span> <em>ISPRS Open Journal of Photogrammetry and Remote Sensing</em>, vol. 21, p. 100131, Aug. 2026, doi: <a href="https://doi.org/10.1016/j.ophoto.2026.100131">10.1016/j.ophoto.2026.100131</a>.</div>
+</div>
+<div id="ref-UNOSAT_2024_gaza_damage" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">United Nations Satellite Centre, <span>“Gaza strip comprehensive damage assessment.”</span> <a href="https://unosat.org/products/3984" class="uri">https://unosat.org/products/3984</a>, 2024.</div>
+</div>
+<div id="ref-Metzger2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">N. Metzger, R. C. Daudt, D. Tuia, and K. Schindler, <span>“High-resolution population maps derived from <span class="nocase">Sentinel-1 and Sentinel-2</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 314, p. 114383, Dec. 2024, doi: <a href="https://doi.org/10.1016/j.rse.2024.114383">10.1016/j.rse.2024.114383</a>.</div>
+</div>
 <div id="ref-glazer2025tempo" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">T. Glazer <em>et al.</em>, <span>“<span class="nocase">TEMPO: Global Temporal Building Density and Height Estimation from Satellite Imagery</span>,”</span> <em>arXiv preprint arXiv:2511.12104</em>, 2025, Available: <a href="https://arxiv.org/abs/2511.12104">https://arxiv.org/abs/2511.12104</a></div>
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">T. Glazer <em>et al.</em>, <span>“<span class="nocase">TEMPO: Global Temporal Building Density and Height Estimation from Satellite Imagery</span>,”</span> <em>arXiv preprint arXiv:2511.12104</em>, 2025, Available: <a href="https://arxiv.org/abs/2511.12104">https://arxiv.org/abs/2511.12104</a></div>
 </div>
 <div id="ref-Brown_2022" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">C. F. Brown <em>et al.</em>, <span>“<span class="nocase">Dynamic World, Near real-time global 10 m land use land cover mapping</span>,”</span> <em>Scientific Data</em>, vol. 9, no. 1, Jun. 2022, doi: <a href="https://doi.org/10.1038/s41597-022-01307-4">10.1038/s41597-022-01307-4</a>.</div>
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">C. F. Brown <em>et al.</em>, <span>“<span class="nocase">Dynamic World, Near real-time global 10 m land use land cover mapping</span>,”</span> <em>Scientific Data</em>, vol. 9, no. 1, Jun. 2022, doi: <a href="https://doi.org/10.1038/s41597-022-01307-4">10.1038/s41597-022-01307-4</a>.</div>
 </div>
 <div id="ref-lang2023canopyheight" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">N. Lang, W. Jetz, K. Schindler, and J. D. Wegner, <span>“<span class="nocase">A High-Resolution Canopy Height Model of the Earth</span>,”</span> <em>Nature Ecology &amp; Evolution</em>, vol. 7, pp. 1778–1789, 2023, doi: <a href="https://doi.org/10.1038/s41559-023-02206-6">10.1038/s41559-023-02206-6</a>.</div>
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">N. Lang, W. Jetz, K. Schindler, and J. D. Wegner, <span>“<span class="nocase">A High-Resolution Canopy Height Model of the Earth</span>,”</span> <em>Nature Ecology &amp; Evolution</em>, vol. 7, pp. 1778–1789, 2023, doi: <a href="https://doi.org/10.1038/s41559-023-02206-6">10.1038/s41559-023-02206-6</a>.</div>
 </div>
 <div id="ref-Tolan2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">J. Tolan <em>et al.</em>, <span>“Very high resolution canopy height maps from RGB imagery using self-supervised vision transformer and convolutional decoder trained on aerial lidar,”</span> <em>Remote Sensing of Environment</em>, vol. 300, p. 113888, Jan. 2024, doi: <a href="https://doi.org/10.1016/j.rse.2023.113888">10.1016/j.rse.2023.113888</a>.</div>
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">J. Tolan <em>et al.</em>, <span>“Very high resolution canopy height maps from <span>RGB</span> imagery using self-supervised vision transformer and convolutional decoder trained on aerial lidar,”</span> <em>Remote Sensing of Environment</em>, vol. 300, p. 113888, Jan. 2024, doi: <a href="https://doi.org/10.1016/j.rse.2023.113888">10.1016/j.rse.2023.113888</a>.</div>
 </div>
 <div id="ref-microsoft2024renewables" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">Microsoft, <span>“<span>Global Renewables Watch</span>.”</span> 2024. Available: <a href="https://github.com/microsoft/global-renewables-watch">https://github.com/microsoft/global-renewables-watch</a></div>
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">Microsoft, <span>“<span>Global Renewables Watch</span>.”</span> 2024. Available: <a href="https://github.com/microsoft/global-renewables-watch">https://github.com/microsoft/global-renewables-watch</a></div>
 </div>
 <div id="ref-Misra2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">A. Misra, K. White, S. F. Nsutezo, W. Straka, and J. Lavista, <span>“<span class="nocase">Mapping global floods with 10 years of satellite radar data</span>,”</span> <em>Nature Communications</em>, vol. 16, no. 1, Jul. 2025, doi: <a href="https://doi.org/10.1038/s41467-025-60973-1">10.1038/s41467-025-60973-1</a>.</div>
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">A. Misra, K. White, S. F. Nsutezo, W. Straka, and J. Lavista, <span>“<span class="nocase">Mapping global floods with 10 years of satellite radar data</span>,”</span> <em>Nature Communications</em>, vol. 16, no. 1, Jul. 2025, doi: <a href="https://doi.org/10.1038/s41467-025-60973-1">10.1038/s41467-025-60973-1</a>.</div>
+</div>
+<div id="ref-Singh2026" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">R. Singh <em>et al.</em>, <span>“Reflections on the use of maps in the field of climate, peace, and security,”</span> <em>Climate Services</em>, vol. 42, p. 100635, Apr. 2026, doi: <a href="https://doi.org/10.1016/j.cliser.2026.100635">10.1016/j.cliser.2026.100635</a>.</div>
+</div>
+<div id="ref-zhang2016deep" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">L. Zhang, L. Zhang, and B. Du, <span>“Deep learning for remote sensing data: A technical tutorial on the state of the art,”</span> <em>IEEE Geoscience and Remote Sensing Magazine</em>, vol. 4, no. 2, pp. 22–40, 2016, doi: <a href="https://doi.org/10.1109/MGRS.2016.2540798">10.1109/MGRS.2016.2540798</a>.</div>
+</div>
+<div id="ref-zhu2017deep" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">X. X. Zhu <em>et al.</em>, <span>“Deep learning in remote sensing: A comprehensive review and list of resources,”</span> <em>IEEE Geoscience and Remote Sensing Magazine</em>, vol. 5, no. 4, pp. 8–36, 2017, doi: <a href="https://doi.org/10.1109/MGRS.2017.2762307">10.1109/MGRS.2017.2762307</a>.</div>
+</div>
+<div id="ref-Persello2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">C. Persello <em>et al.</em>, <span>“Deep learning and <span>Earth</span> observation to support the <span>Sustainable Development Goals</span>: Current approaches, open challenges, and future opportunities,”</span> <em>IEEE Geoscience and Remote Sensing Magazine</em>, vol. 10, no. 2, pp. 172–200, 2022, doi: <a href="https://doi.org/10.1109/MGRS.2021.3136100">10.1109/MGRS.2021.3136100</a>.</div>
+</div>
+<div id="ref-tuia2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">D. Tuia <em>et al.</em>, <span>“Artificial intelligence to advance <span>Earth</span> observation: A review of models, recent trends, and pathways forward,”</span> <em>IEEE Geoscience and Remote Sensing Magazine</em>, vol. 13, no. 4, pp. 119–141, 2025, doi: <a href="https://doi.org/10.1109/MGRS.2024.3425961">10.1109/MGRS.2024.3425961</a>.</div>
+</div>
+<div id="ref-olofsson2014good" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">P. Olofsson, G. M. Foody, M. Herold, S. V. Stehman, C. E. Woodcock, and M. A. Wulder, <span>“<span class="nocase">Good practices for estimating area and assessing accuracy of land change</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 148, pp. 42–57, May 2014, doi: <a href="https://doi.org/10.1016/j.rse.2014.02.015">10.1016/j.rse.2014.02.015</a>.</div>
+</div>
+<div id="ref-stehman2019key" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">S. V. Stehman and G. M. Foody, <span>“<span class="nocase">Key issues in rigorous accuracy assessment of land cover products</span>,”</span> <em>Remote Sensing of Environment</em>, vol. 231, p. 111199, 2019, doi: <a href="https://doi.org/10.1016/j.rse.2019.05.018">10.1016/j.rse.2019.05.018</a>.</div>
+</div>
+<div id="ref-ploton2020spatialvalidation" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">P. Ploton <em>et al.</em>, <span>“<span class="nocase">Spatial Validation Reveals Poor Predictive Performance of Large-Scale Ecological Mapping Models</span>,”</span> <em>Nature Communications</em>, vol. 11, no. 4540, 2020, doi: <a href="https://doi.org/10.1038/s41467-020-18321-y">10.1038/s41467-020-18321-y</a>.</div>
+</div>
+<div id="ref-meyer2022machine" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline">H. Meyer and E. Pebesma, <span>“Machine learning-based global maps of ecological variables and the challenge of assessing them,”</span> <em>Nature Communications</em>, vol. 13, no. 1, Apr. 2022, doi: <a href="https://doi.org/10.1038/s41467-022-29838-9">10.1038/s41467-022-29838-9</a>.</div>
+</div>
+<div id="ref-Van_Tricht_2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline">K. Van Tricht <em>et al.</em>, <span>“<span class="nocase">WorldCereal: a dynamic open-source system for global-scale, seasonal, and reproducible crop and irrigation mapping</span>,”</span> <em>Earth System Science Data</em>, vol. 15, no. 12, pp. 5491–5515, Dec. 2023, doi: <a href="https://doi.org/10.5194/essd-15-5491-2023">10.5194/essd-15-5491-2023</a>.</div>
+</div>
+<div id="ref-pauls2026echosat" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline">J. Pauls <em>et al.</em>, <span>“<span class="nocase">ECHOSAT: Estimating Canopy Height Over Space and Time</span>,”</span> <em>arXiv preprint arXiv:2602.21421</em>, 2026, Available: <a href="https://arxiv.org/abs/2602.21421">https://arxiv.org/abs/2602.21421</a></div>
+</div>
+<div id="ref-pauls2024estimating" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline">J. Pauls <em>et al.</em>, <span>“<span class="nocase">Estimating Canopy Height at Scale</span>,”</span> <em>arXiv preprint arXiv:2406.01076</em>, 2024, Available: <a href="https://arxiv.org/abs/2406.01076">https://arxiv.org/abs/2406.01076</a></div>
+</div>
+<div id="ref-pauls2025capturing" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline">J. Pauls <em>et al.</em>, <span>“<span class="nocase">Capturing Temporal Dynamics in Large-Scale Canopy Tree Height Estimation</span>,”</span> <em>arXiv preprint arXiv:2501.19328</em>, 2025, Available: <a href="https://arxiv.org/abs/2501.19328">https://arxiv.org/abs/2501.19328</a></div>
 </div>
 </div>
 
@@ -495,10 +577,15 @@ Figure&nbsp;1.1: Overview of the end-to-end pipeline covered in this work, from 
     "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
     "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
 
-    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
-    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
-    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
-    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+    "appendix_s1_gaps.html":             { part: "Dive Deeper", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Dive Deeper", chapter: "S1/S2 processing across access pathways" },
+    "appendix_s2_artifacts.html":        { part: "Dive Deeper", chapter: "Sentinel-2 tiling artifacts" },
+    "appendix_sar_geometry.html":        { part: "Dive Deeper", chapter: "SAR viewing geometry" },
+    "appendix_sar_rtc.html":             { part: "Dive Deeper", chapter: "SAR calibration & terrain correction" },
+    "appendix_sar_ard.html":             { part: "Dive Deeper", chapter: "Analysis-ready SAR products" },
+    "appendix_cloud_masking.html":       { part: "Dive Deeper", chapter: "Cloud masking for optical data" },
+    "appendix_optical_radiometry.html":  { part: "Dive Deeper", chapter: "Optical radiometric conventions" },
+    "appendix_combining_missions.html":  { part: "Dive Deeper", chapter: "Combining Landsat and Sentinel-2" }
   };
 
   function currentInfo() {
@@ -967,7 +1054,7 @@ Figure&nbsp;1.1: Overview of the end-to-end pipeline covered in this work, from 
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Best Practices for EO Maps</p>
+<p>Good Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
 <p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>

@@ -4,12 +4,12 @@ project:
 
 book:
   title: "From Machine Learning to Large-Scale EO Products"
-  subtitle: "Best Practices and Guidelines for Making Maps"
+  subtitle: "Good Practices and Guidelines for Making Maps"
   reader-mode: true
 
   page-footer:
     left: |
-      Best Practices for EO Maps
+      Good Practices for EO Maps
     center: |
       [Feedback](feedback.html){#site-feedback-link}
     right: |
@@ -25,6 +25,7 @@ book:
     - about.qmd
     - howto.qmd
     - chatbot.qmd
+    - reference_map.qmd
     - feedback.qmd
     - introduction.qmd
     - part: eo_data_landscape.qmd
@@ -64,8 +65,13 @@ book:
   appendices:
     - appendix_s1_gaps.qmd
     - appendix_processing_pathways.qmd
+    - appendix_s2_artifacts.qmd
+    - appendix_sar_geometry.qmd
     - appendix_sar_rtc.qmd
+    - appendix_sar_ard.qmd
     - appendix_cloud_masking.qmd
+    - appendix_optical_radiometry.qmd
+    - appendix_combining_missions.qmd
 
 format:
   html:
@@ -77,6 +83,9 @@ format:
     toc: true
     number-sections: false
     include-after-body: includes/feedback-prefill.html
+
+language:
+  section-title-appendices: "Dive Deeper"
 
 bibliography: references.bib
 csl: ieee.csl

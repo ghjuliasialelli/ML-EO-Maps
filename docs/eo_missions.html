@@ -23,27 +23,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -64,7 +44,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c255c5907d4ec97ac61b80091d22c4d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -189,6 +169,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reference_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference map</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -382,7 +368,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Dive Deeper</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -400,12 +386,37 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./appendix_s2_artifacts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Identifying Sentinel-2 tiling artifacts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_geometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Selecting a SAR viewing geometry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  <a href="./appendix_sar_ard.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis-ready SAR products</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_optical_radiometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric conventions for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_combining_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Combining Landsat and Sentinel-2</span></a>
   </div>
 </li>
       </ul>
@@ -440,11 +451,11 @@ window.Quarto = {
 </header>
 
 
-<p>EO data spans a range of processing levels and thematic focuses, each suited to different analytical needs. Data providers typically distribute measurements across standardized processing levels (from raw instrument data to results from analyses of lower-level data) and most ML workflows operate on data with varying degrees of preprocessing. At its core, this ecosystem draws on a rich archive of satellite imagery from well-established missions (e.g., Sentinel-1, Sentinel-2, Sentinel-3, Landsat, MODIS, VIIRS, HLS, ALOS PALSAR), complemented by higher-resolution commercial data (e.g., Planet, Airbus, and Vantor, formerly known as Maxar) and specialized missions with a targeted scope (e.g., GRACE, ICESat-2, GEDI, BIOMASS). In <a href="#tbl-eo-missions" class="quarto-xref">Table&nbsp;<span>2.1</span></a>, we summarize the key attributes of widely used missions that structure this diverse data landscape.</p>
+<p>EO data spans a range of modalities and thematic focuses, presenting distinct trade-offs in spatial detail, temporal revisit, and access regimes. To ground the subsequent discussion of processing baselines and retrieval pipelines, <a href="#tbl-eo-missions" class="quarto-xref">Table&nbsp;<span>2.1</span></a> establishes a concrete taxonomy of the missions that recur most often in large-scale mapping, covering both open-access constellations and commercial platforms, alongside their core specifications and typical applications.</p>
 <div id="tbl-eo-missions" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-eo-missions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2.1: Overview of widely used Earth observation missions. Revisit times assume full constellation availability. Spatial resolution ranges reflect different acquisition modes or spectral bands. Coverage symbols: 🌐 = global (land &amp; ocean), 🌿 = land surfaces and coastal areas only, 🎯 = tasked/on-demand, * = the failure of Sentinel-1B induced significant data gaps, see <a href="./appendix_s1_gaps.html">Sentinel-1 Data Gaps</a>.
+Table&nbsp;2.1: Earth observation missions that recur in large-scale mapping. Revisit times assume full constellation availability; spatial resolution ranges reflect different acquisition modes or spectral bands. Coverage: 🌐 = global (land &amp; ocean), 🌿 = land surfaces and coastal areas only, 🎯 = tasked/on-demand. <sup>*</sup> The failure of Sentinel-1B induced significant data gaps, see <a href="./appendix_s1_gaps.html">Appendix: Sentinel-1 data gaps</a>. <sup>†</sup> Gaofen-1/6 is openly distributed at Level 1 only: published ARD covers only China and its surrounding areas. <sup>‡</sup> The Dove constellation provides near-daily coverage of the land surface; sub-daily revisit of a specific site requires tasking a different constellation.
 </figcaption>
 <div aria-describedby="tbl-eo-missions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -460,7 +471,7 @@ Table&nbsp;2.1: Overview of widely used Earth observation missions. Revisit time
 <thead>
 <tr class="header">
 <th><strong>Mission</strong></th>
-<th><strong>Sensor</strong></th>
+<th><strong>Modality</strong></th>
 <th><strong>Spatial res.</strong></th>
 <th><strong>Revisit</strong></th>
 <th><strong>Cov.</strong></th>
@@ -470,13 +481,13 @@ Table&nbsp;2.1: Overview of widely used Earth observation missions. Revisit time
 </thead>
 <tbody>
 <tr class="odd">
-<td>Sentinel-1</td>
-<td>SAR-C</td>
-<td>5–20 m</td>
-<td>6 days</td>
-<td>🌐<sup>*</sup></td>
-<td>2014–</td>
-<td>Flood, oil spill mapping</td>
+<td><em>Open access</em></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
 <td>Sentinel-2</td>
@@ -488,22 +499,22 @@ Table&nbsp;2.1: Overview of widely used Earth observation missions. Revisit time
 <td>Land cover, agriculture</td>
 </tr>
 <tr class="odd">
-<td>Sentinel-3</td>
-<td>Optical</td>
-<td>300–1200 m</td>
-<td><span class="math inline">\(&lt;2\)</span> days</td>
-<td>🌐</td>
-<td>2016–</td>
-<td>Ocean color, SST</td>
-</tr>
-<tr class="even">
 <td>Landsat</td>
 <td>Optical</td>
 <td>15–120 m</td>
-<td>8-18 days</td>
+<td>8–18 days</td>
 <td>🌿</td>
 <td>1972–</td>
 <td>Land cover change</td>
+</tr>
+<tr class="even">
+<td>Sentinel-3</td>
+<td>Optical</td>
+<td>300–1200 m</td>
+<td>&lt;2 days</td>
+<td>🌐</td>
+<td>2016–</td>
+<td>Ocean color, SST</td>
 </tr>
 <tr class="odd">
 <td>MODIS</td>
@@ -524,58 +535,40 @@ Table&nbsp;2.1: Overview of widely used Earth observation missions. Revisit time
 <td>Nighttime lights, fire</td>
 </tr>
 <tr class="odd">
-<td>ALOS PALSAR</td>
-<td>SAR-L</td>
+<td>Sentinel-1</td>
+<td>SAR, C-band</td>
+<td>5–20 m</td>
+<td>6 days</td>
+<td>🌐<sup>*</sup></td>
+<td>2014–</td>
+<td>Flood, oil spill mapping</td>
+</tr>
+<tr class="even">
+<td>ALOS PALSAR/-2</td>
+<td>SAR, L-band</td>
 <td>6–100 m</td>
 <td>14–46 days</td>
 <td>🌐</td>
 <td>2006–</td>
 <td>Forest mapping</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>NISAR</td>
-<td>SAR-L/S</td>
+<td>SAR, L/S-band</td>
 <td>10–20 m</td>
 <td>12 days</td>
 <td>🌿</td>
-<td>2025–</td>
-<td>Land/forests/ice changes</td>
+<td>2026–</td>
+<td>Land, forest, ice change</td>
 </tr>
-<tr class="odd">
-<td>Planet (Dove)</td>
-<td>Optical</td>
-<td>3–5 m</td>
-<td>Daily</td>
+<tr class="even">
+<td>BIOMASS</td>
+<td>SAR, P-band</td>
+<td>50–200 m</td>
+<td><span class="math inline">\(\sim 17\)</span> days</td>
 <td>🌿</td>
-<td>2017–</td>
-<td>Change detection, agriculture</td>
-</tr>
-<tr class="even">
-<td>Planet (SkySat)</td>
-<td>Optical</td>
-<td>0.5 m</td>
-<td>🎯</td>
-<td>🎯</td>
-<td>2016–</td>
-<td>Sub-daily site-monitoring</td>
-</tr>
-<tr class="odd">
-<td>Vantor (WorldView)</td>
-<td>Optical</td>
-<td>0.3–2 m</td>
-<td>🎯</td>
-<td>🎯</td>
-<td>2001–</td>
-<td>Change detection, defense</td>
-</tr>
-<tr class="even">
-<td>Airbus (Pléiades/SPOT)</td>
-<td>Optical</td>
-<td>0.3–6 m</td>
-<td>🎯</td>
-<td>🎯</td>
-<td>2002–</td>
-<td>Large-area mapping, 3D</td>
+<td>2025–</td>
+<td>Forest biomass</td>
 </tr>
 <tr class="odd">
 <td>GEDI</td>
@@ -604,81 +597,94 @@ Table&nbsp;2.1: Overview of widely used Earth observation missions. Revisit time
 <td>2002–</td>
 <td>Groundwater, ice mass</td>
 </tr>
+<tr class="even">
+<td>Gaofen-1/6<sup>†</sup></td>
+<td>Optical</td>
+<td>16 m</td>
+<td>2–4 days</td>
+<td>🌐</td>
+<td>2013–</td>
+<td>Agriculture, land cover</td>
+</tr>
+<tr class="odd">
+<td><em>Commercial</em></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Planet (Dove)</td>
+<td>Optical</td>
+<td>3–5 m</td>
+<td>Daily<sup>‡</sup></td>
+<td>🌿</td>
+<td>2017–</td>
+<td>Change detection</td>
+</tr>
+<tr class="odd">
+<td>Planet (SkySat)</td>
+<td>Optical</td>
+<td>0.5 m</td>
+<td>🎯</td>
+<td>🎯</td>
+<td>2016–</td>
+<td>Sub-daily site monitoring</td>
+</tr>
+<tr class="even">
+<td>Vantor (WorldView)</td>
+<td>Optical</td>
+<td>0.3–2 m</td>
+<td>🎯</td>
+<td>🎯</td>
+<td>2001–</td>
+<td>Change detection, defense</td>
+</tr>
+<tr class="odd">
+<td>Airbus (Pléiades/SPOT)</td>
+<td>Optical</td>
+<td>0.3–6 m</td>
+<td>🎯</td>
+<td>🎯</td>
+<td>2002–</td>
+<td>Large-area mapping, 3D</td>
+</tr>
+<tr class="even">
+<td>ICEYE</td>
+<td>SAR, X-band</td>
+<td>0.25–3 m</td>
+<td>🎯</td>
+<td>🎯</td>
+<td>2018–</td>
+<td>Flood, disaster response</td>
+</tr>
+<tr class="odd">
+<td>Capella</td>
+<td>SAR, X-band</td>
+<td>0.5–1.2 m</td>
+<td>🎯</td>
+<td>🎯</td>
+<td>2020–</td>
+<td>Infrastructure monitoring</td>
+</tr>
+<tr class="even">
+<td>TerraSAR-X / TanDEM-X</td>
+<td>SAR, X-band</td>
+<td>1–18 m</td>
+<td>11 days</td>
+<td>🎯</td>
+<td>2007–</td>
+<td>Elevation models, InSAR</td>
+</tr>
 </tbody>
 </table>
 </div>
 </figure>
 </div>
-<p>Beyond satellite observations, derived products constitute a second category of EO data. These include land use and land cover maps (e.g., Copernicus Global Dynamic Land Cover <span class="citation" data-cites="copernicus2021globalland"><a href="#ref-copernicus2021globalland" role="doc-biblioref">[1]</a></span>), terrain models (e.g., Copernicus GLO-30 Digital Elevation Model <span class="citation" data-cites="CopernicusDEM"><a href="#ref-CopernicusDEM" role="doc-biblioref">[2]</a></span>, NASA SRTM <span class="citation" data-cites="NASASRTM"><a href="#ref-NASASRTM" role="doc-biblioref">[3]</a></span>), atmospheric variables (e.g., ERA5 <span class="citation" data-cites="Hersbach2020"><a href="#ref-Hersbach2020" role="doc-biblioref">[4]</a></span>), climate (e.g., TerraClimate <span class="citation" data-cites="Abatzoglou2018"><a href="#ref-Abatzoglou2018" role="doc-biblioref">[5]</a></span>) and vegetation (e.g., MOD13 <span class="citation" data-cites="MOD13"><a href="#ref-MOD13" role="doc-biblioref">[6]</a></span>) indices, population density (e.g., WorldPop <span class="citation" data-cites="Tatem2017"><a href="#ref-Tatem2017" role="doc-biblioref">[7]</a></span>) and numerous other thematic data layers. These products combine observations from one or more satellite missions with domain knowledge and modeling capabilities (that may or may not incorporate ML methods) to produce analysis-ready information. A more recent addition to this category is pre-computed geospatial embeddings: dense vector representations of locations on Earth produced by large models trained on satellite imagery and often complementary EO modalities. Unlike traditional thematic layers, which target a specific variable interpretable in its own units, embeddings are purportedly general-purpose and task-agnostic. Recent examples include AlphaEarth Foundations <span class="citation" data-cites="brown2025alphaearthfoundations"><a href="#ref-brown2025alphaearthfoundations" role="doc-biblioref">[8]</a></span>, TESSERA <span class="citation" data-cites="feng2025tessera"><a href="#ref-feng2025tessera" role="doc-biblioref">[9]</a></span> and ESL <span class="citation" data-cites="chen2026esd"><a href="#ref-chen2026esd" role="doc-biblioref">[10]</a></span>. Like other derived products, embeddings inherit the uncertainties of their upstream inputs, compounded by the biases of their pre-training data and learning objectives, caveats that should be accounted for in downstream analyses.</p>
-<p>A more accessible entry point into EO data is offered by curated EO datasets for ML: preprocessed samples of the above-mentioned data sources, purportedly ready to feed into ML training pipelines. Such datasets are typically assembled by individual researchers <span class="citation" data-cites="wang2022ssl4eo toker2022dynamicearthnet garnot2021panoptic plekhanova2025ssl4eco Fogel_2025_CVPR"><a href="#ref-wang2022ssl4eo" role="doc-biblioref">[11]</a>, <a href="#ref-toker2022dynamicearthnet" role="doc-biblioref">[12]</a>, <a href="#ref-garnot2021panoptic" role="doc-biblioref">[13]</a>, <a href="#ref-plekhanova2025ssl4eco" role="doc-biblioref">[14]</a>, <a href="#ref-Fogel_2025_CVPR" role="doc-biblioref">[15]</a></span> or through community efforts such as TorchGeo <span class="citation" data-cites="stewart2024torchgeo"><a href="#ref-stewart2024torchgeo" role="doc-biblioref">[16]</a></span> or Major TOM <span class="citation" data-cites="Francis2024MajorTOM"><a href="#ref-Francis2024MajorTOM" role="doc-biblioref">[17]</a></span>, and hosted on platforms like Zenodo <span class="citation" data-cites="zenodo"><a href="#ref-zenodo" role="doc-biblioref">[18]</a></span>, HuggingFace <span class="citation" data-cites="lhoest-etal-2021-datasets"><a href="#ref-lhoest-etal-2021-datasets" role="doc-biblioref">[19]</a></span>, or Source Cooperative<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. They lower the barrier to entry for ML practitioners who would otherwise face the non-trivial task of assembling training-ready inputs from raw or derived EO products. The trade-off, however, is a loss of control: adopting an existing curated dataset means inheriting its creators’ design choices (spatiotemporal coverage, selected data sources, sampling strategy, processing pipeline) which may not match the requirements of another downstream task.</p>
-<p>The choice among these dataset categories carries important implications for research design. Furthermore, selecting any data source requires weighing its spatiotemporal coverage, the reliability of its long-term open accessibility, and the practical costs of download and storage.</p>
 
 
-<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
-<div id="ref-copernicus2021globalland" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Copernicus Global Land Service, <span>“<span>Copernicus Global Land Cover 100m - Algorithm Theoretical Basis Document (ATBD), User Manual</span>.”</span> 2021. Available: <a href="https://land.copernicus.eu/en/technical-library/global-dynamic-land-cover-algorithm-theoretical-basis-document-v3.0">https://land.copernicus.eu/en/technical-library/global-dynamic-land-cover-algorithm-theoretical-basis-document-v3.0</a></div>
-</div>
-<div id="ref-CopernicusDEM" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">ESA, <span>“<span>Copernicus Digital Elevation Model</span>,”</span> <em>Copernicus DEM</em>. European Space Agency, 2022. doi: <a href="https://doi.org/10.5270/esa-c5d3d65">10.5270/esa-c5d3d65</a>.</div>
-</div>
-<div id="ref-NASASRTM" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">NASA JPL, <span>“<span class="nocase">NASA Shuttle Radar Topography Mission Global 1 arc second number</span>.”</span> NASA Land Processes Distributed Active Archive Center, 2013. doi: <a href="https://doi.org/10.5067/MEASURES/SRTM/SRTMGL1N.003">10.5067/MEASURES/SRTM/SRTMGL1N.003</a>.</div>
-</div>
-<div id="ref-Hersbach2020" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">H. Hersbach <em>et al.</em>, <span>“<span class="nocase">The ERA5 global reanalysis</span>,”</span> <em>Quarterly Journal of the Royal Meteorological Society</em>, vol. 146, no. 730, pp. 1999–2049, 2020, doi: <a href="https://doi.org/10.1002/qj.3803">10.1002/qj.3803</a>.</div>
-</div>
-<div id="ref-Abatzoglou2018" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">J. T. Abatzoglou, S. Z. Dobrowski, S. A. Parks, and K. C. Hegewisch, <span>“<span class="nocase">TerraClimate, a high-resolution global dataset of monthly climate and climatic water balance from 1958–2015</span>,”</span> <em>Scientific Data</em>, vol. 5, no. 1, Jan. 2018, doi: <a href="https://doi.org/10.1038/sdata.2017.191">10.1038/sdata.2017.191</a>.</div>
-</div>
-<div id="ref-MOD13" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">K. Didan, <span>“<span>MODIS/Terra Vegetation Indices 16-Day L3 Global 250m SIN Grid V061</span>.”</span> NASA Land Processes Distributed Active Archive Center, 2021. doi: <a href="https://doi.org/10.5067/MODIS/MOD13Q1.061">10.5067/MODIS/MOD13Q1.061</a>.</div>
-</div>
-<div id="ref-Tatem2017" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[7] </div><div class="csl-right-inline">A. J. Tatem, <span>“<span class="nocase">WorldPop, open data for spatial demography</span>,”</span> <em>Scientific Data</em>, vol. 4, no. 1, Jan. 2017, doi: <a href="https://doi.org/10.1038/sdata.2017.4">10.1038/sdata.2017.4</a>.</div>
-</div>
-<div id="ref-brown2025alphaearthfoundations" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[8] </div><div class="csl-right-inline">C. F. Brown <em>et al.</em>, <span>“<span class="nocase">AlphaEarth Foundations: An embedding field model for accurate and efficient global mapping from sparse label data</span>,”</span> <em>arXiv preprint arXiv:2507.22291</em>, 2025, Available: <a href="https://arxiv.org/abs/2507.22291">https://arxiv.org/abs/2507.22291</a></div>
-</div>
-<div id="ref-feng2025tessera" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[9] </div><div class="csl-right-inline">Z. Feng <em>et al.</em>, <span>“<span class="nocase">TESSERA: Temporal Embeddings of Surface Spectra for Earth Representation and Analysis</span>,”</span> <em>arXiv preprint arXiv:2506.20380</em>, 2025, Available: <a href="https://arxiv.org/abs/2506.20380">https://arxiv.org/abs/2506.20380</a></div>
-</div>
-<div id="ref-chen2026esd" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[10] </div><div class="csl-right-inline"><span class="nocase">S. Chen <em>et al.</em></span>, <span>“Democratizing planetary-scale analysis: An ultra-lightweight earth embedding database for accurate and flexible global land monitoring,”</span> <em>arXiv preprint arXiv:2601.11183</em>, 2026, Available: <a href="https://arxiv.org/abs/2601.11183">https://arxiv.org/abs/2601.11183</a></div>
-</div>
-<div id="ref-wang2022ssl4eo" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[11] </div><div class="csl-right-inline">Y. Wang, N. A. A. Braham, Z. Xiong, C. Liu, C. M. Albrecht, and X. X. Zhu, <span>“SSL4EO-S12: A large-scale multi-modal, multi-temporal dataset for self-supervised learning in earth observation,”</span> <em>arXiv preprint arXiv:2211.07044</em>, 2022.</div>
-</div>
-<div id="ref-toker2022dynamicearthnet" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[12] </div><div class="csl-right-inline">A. Toker <em>et al.</em>, <span>“DynamicEarthNet: Daily multi-spectral satellite dataset for semantic change segmentation,”</span> in <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, 2022.</div>
-</div>
-<div id="ref-garnot2021panoptic" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[13] </div><div class="csl-right-inline">V. Sainte Fare Garnot and L. Landrieu, <span>“Panoptic segmentation of satellite image time series with convolutional temporal attention networks,”</span> <em>ICCV</em>, 2021.</div>
-</div>
-<div id="ref-plekhanova2025ssl4eco" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[14] </div><div class="csl-right-inline">E. Plekhanova <em>et al.</em>, <span>“<span>SSL4Eco</span>: A global seasonal dataset for geospatial foundation models in ecology,”</span> in <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, 2025.</div>
-</div>
-<div id="ref-Fogel_2025_CVPR" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[15] </div><div class="csl-right-inline"><span class="nocase">F. Fogel <em>et al.</em></span>, <span>“Open-canopy: <span>Towards</span> very high resolution forest monitoring,”</span> in <em>Proceedings of the <span>IEEE</span>/<span>CVF</span> conference on computer vision and pattern recognition (<span>CVPR</span>)</em>, Jun. 2025, pp. 1395–1406.</div>
-</div>
-<div id="ref-stewart2024torchgeo" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[16] </div><div class="csl-right-inline">A. J. Stewart, C. Robinson, I. A. Corley, A. Ortiz, J. M. Lavista Ferres, and A. Banerjee, <span>“<span><span>TorchGeo</span>: Deep Learning With Geospatial Data</span>,”</span> <em>ACM Transactions on Spatial Algorithms and Systems</em>, vol. 11, no. 4, pp. 1–28, Aug. 2025.</div>
-</div>
-<div id="ref-Francis2024MajorTOM" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[17] </div><div class="csl-right-inline">A. Francis and M. Czerkawski, <span>“<span class="nocase">Major TOM: Expandable Datasets for Earth Observation</span>,”</span> in <em>IGARSS 2024 - 2024 IEEE international geoscience and remote sensing symposium</em>, 2024, pp. 2935–2940. doi: <a href="https://doi.org/10.1109/IGARSS53475.2024.10640760">10.1109/IGARSS53475.2024.10640760</a>.</div>
-</div>
-<div id="ref-zenodo" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[18] </div><div class="csl-right-inline">European Organization For Nuclear Research and OpenAIRE, <span>“<span>Zenodo</span>.”</span> CERN, 2013. doi: <a href="https://doi.org/10.25495/7GXK-RD71">10.25495/7GXK-RD71</a>.</div>
-</div>
-<div id="ref-lhoest-etal-2021-datasets" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[19] </div><div class="csl-right-inline">Q. Lhoest <em>et al.</em>, <span>“<span class="nocase">Datasets: A Community Library for Natural Language Processing</span>,”</span> in <em>Proceedings of the 2021 conference on empirical methods in natural language processing: System demonstrations</em>, Online; Punta Cana, Dominican Republic: Association for Computational Linguistics, Nov. 2021, pp. 175–184. Available: <a href="https://aclanthology.org/2021.emnlp-demo.21">https://aclanthology.org/2021.emnlp-demo.21</a></div>
-</div>
-</div>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p><a href="https://source.coop/products" class="uri">https://source.coop/products</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 
 </main> <!-- /main -->
 <script>
@@ -729,10 +735,15 @@ Table&nbsp;2.1: Overview of widely used Earth observation missions. Revisit time
     "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
     "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
 
-    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
-    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
-    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
-    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+    "appendix_s1_gaps.html":             { part: "Dive Deeper", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Dive Deeper", chapter: "S1/S2 processing across access pathways" },
+    "appendix_s2_artifacts.html":        { part: "Dive Deeper", chapter: "Sentinel-2 tiling artifacts" },
+    "appendix_sar_geometry.html":        { part: "Dive Deeper", chapter: "SAR viewing geometry" },
+    "appendix_sar_rtc.html":             { part: "Dive Deeper", chapter: "SAR calibration & terrain correction" },
+    "appendix_sar_ard.html":             { part: "Dive Deeper", chapter: "Analysis-ready SAR products" },
+    "appendix_cloud_masking.html":       { part: "Dive Deeper", chapter: "Cloud masking for optical data" },
+    "appendix_optical_radiometry.html":  { part: "Dive Deeper", chapter: "Optical radiometric conventions" },
+    "appendix_combining_missions.html":  { part: "Dive Deeper", chapter: "Combining Landsat and Sentinel-2" }
   };
 
   function currentInfo() {
@@ -1201,7 +1212,7 @@ Table&nbsp;2.1: Overview of widely used Earth observation missions. Revisit time
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Best Practices for EO Maps</p>
+<p>Good Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
 <p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>

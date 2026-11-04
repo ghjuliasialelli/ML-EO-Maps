@@ -22,13 +22,9 @@ Subject to change. This page is a work in progress and will be updated as the pr
 
 **Clemens Mosig** is a PhD candidate at Leipzig University's Institute for Earth System Science and Remote Sensing. His research applies data science to Earth system data, with a focus on tree mortality monitoring. He developed deadtrees.earth, an open-access interactive database for centimeter-scale aerial imagery to study global tree mortality dynamics.
 
-**Daniel Lusk** is a PhD candidate in the Department for Sensor-based Geoinformatics at the University of Freiburg. He holds an M.Sc. in Remote Sensing from the University of Potsdam and a B.Sc. in Ecology from the University of Tennessee. His research focuses on global biodiversity patterns using citizen science and Earth observation, plant trait modeling, and bias reduction in geospatial data science.
-
-**Martin Schwartz** is a postdoctoral researcher at the Laboratoire des Sciences du Climat et de l'Environnement (LSCE) in France. His research focuses on forest monitoring using remote sensing and deep learning, including the creation of FORMS — high-resolution tree height, wood volume, and biomass maps of France based on Sentinel-1, Sentinel-2, and GEDI data.
+**Kristof Van Tricht** is with the Flemish Institute for Technological Research (VITO), Belgium, and is the lead author of WorldCereal, the operational global cropland and crop-type mapping system that serves as one of the two running examples throughout this guide.
 
 **Mikolaj Czerkawski** is a co-founder and partner scientist at Asterisk Labs and a former research fellow at the European Space Agency Φ-lab. His research lies at the intersection of computer vision, signal processing, and Earth observation, with recent work on open foundation model embeddings for Sentinel data (BetaEarth).
-
-**Zhengpeng Feng** is a PhD student at the Department of Computer Science and Technology at the University of Cambridge. His research focuses on self-supervised learning for remote sensing imagery. He is the lead author of TESSERA, a foundation model for multi-modal Earth observation time series accepted at CVPR 2026.
 
 **Nandika Tsendbazar** is an Assistant Professor at the Laboratory of Geo-Information Science and Remote Sensing at Wageningen University & Research. She specializes in satellite-based land change monitoring, with extensive expertise in quality and uncertainty assessment of global land cover products. She developed an operational validation framework used for Copernicus Global Land Service and ESA WorldCover maps.
 
@@ -46,7 +42,13 @@ Subject to change. This page is a work in progress and will be updated as the pr
 
 ## Acknowledgments {.unnumbered}
 
-This research was supported by the ETH AI Center through an ETH AI Center doctoral fellowship to Ghjulia Sialelli. We thank Isabelle Tingzon, Chiara Ceccobello, and Sebastian Hafner (RISE Research Institutes of Sweden), Johannes Reiche and Robert N. Masolele (Wageningen University), Nico Lang (University of Copenhagen), Jan Pauls (University of Münster), Christelle Vancutsem (EU Joint Research Centre), Peter Potapov (World Resources Institute), Kristof Van Tricht (VITO), Maurizio Santoro (Gamma Remote Sensing), Marcin Kluczek (CloudFerro), Louis de Vitry (Kanop), Valerie J. Pasquarella (Google), Henry Herzog (Allen Institute for AI), Caleb Robinson (Microsoft AI for Good Research Lab), Gabriel Belouze, Isaac Corley, and Harald Kristen for generously sharing their experience and insights during the preparation of this work. Their input helped shape several of the practical recommendations presented here, though responsibility for any errors or omissions remains with the authors.
+GS is supported by an ETH AI Center doctoral fellowship. We thank Isabelle Tingzon, Chiara Ceccobello, and Sebastian Hafner (RISE Research Institutes of Sweden), Henry Herzog (Allen Institute for AI), Christelle Vancutsem (EU Joint Research Centre), Robert N. Masolele (Wageningen University), Peter Potapov (World Resources Institute), Louis de Vitry (Kanop), and Valerie J. Pasquarella (Google) for generously sharing their experience and insights during the preparation of this work. Their input helped shape several of the practical recommendations presented here, though responsibility for any errors or omissions remains with the authors.
+
+<!-- web-only: not in manuscript -->
+We also thank Daniel Lusk (University of Freiburg), Martin Schwartz (Laboratoire des Sciences du Climat et de l'Environnement, LSCE), and Zhengpeng Feng (University of Cambridge) for their contributions to this guide.
+<!-- /web-only -->
+
+This project received funding from the EU Horizon Europe program under Grant Agreement No 101131841 (Embed2Scale). Additional funding for Embed2Scale has been provided by the Swiss State Secretariat for Education, Research and Innovation (SERI) and UK Research and Innovation (UKRI).
 
 <!-- TODO: Add a Contact section (heading commented out until there is content):
 ## Contact {.unnumbered}

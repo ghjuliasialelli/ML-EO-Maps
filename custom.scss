@@ -43,7 +43,7 @@ $link-color: #2c5282;
   counter-reset: page-subsection;
 }
 
-#quarto-document-content section.level2 > h2.anchored::before {
+#quarto-document-content section.level2 > h2.anchored:not(.unnumbered)::before {
   content: counter(page-section) "\2002";
 }
 
@@ -51,6 +51,117 @@ $link-color: #2c5282;
   counter-increment: page-subsection;
 }
 
-#quarto-document-content section.level3 > h3.anchored::before {
+#quarto-document-content section.level3 > h3.anchored:not(.unnumbered)::before {
   content: counter(page-section) "." counter(page-subsection) "\2002";
+}
+
+/* ── Manuscript boxes (boxes.tex) ──
+   Decision / Definition / Running example / Dive Deeper, written as
+   ::: {.callout-note .box-decision appearance="default" icon="false" title="Decision · …"}
+   Colours match the LaTeX palette; the title label carries the same
+   information, so colour is reinforcement rather than the only cue. */
+$box-decision: rgb(198, 32, 40);
+$box-definition: rgb(62, 84, 112);
+$box-runex: rgb(0, 105, 110);
+$box-sidebar: rgb(110, 110, 110);
+
+@mixin manuscript-box($c, $west: 1px) {
+  border: 1px solid $c !important;
+  border-left: $west solid $c !important;
+  border-radius: 0;
+  background-color: rgba($c, 0.04);
+  text-align: left;
+
+  > .callout-header {
+    background-color: $c !important;
+    border-radius: 0;
+  }
+  > .callout-header .callout-title-container {
+    color: #fff;
+    font-weight: 600;
+  }
+  > .callout-header .callout-toggle::before {
+    filter: brightness(0) invert(1);
+  }
+  .callout-body-container p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.callout.box-decision   { @include manuscript-box($box-decision); }
+.callout.box-definition { @include manuscript-box($box-definition, 4px); }
+.callout.box-runex      { @include manuscript-box($box-runex); }
+.callout.box-sidebar    { @include manuscript-box($box-sidebar); }
+
+/* ── Reference map page (reference_map.qmd) ── */
+
+.refmap {
+  --rm-surface: #fcfcfb;
+  --rm-ink: #0b0b0b;
+  --rm-ink-2: #52514e;
+  --rm-muted: #8a8984;
+  --rm-line: #c9c8c2;
+  position: relative;
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: left;
+
+  svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+  .refmap-part { fill: var(--rm-line); }
+  .refmap-partname {
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    fill: var(--rm-ink-2); pointer-events: none;
+    paint-order: stroke; stroke: var(--rm-surface); stroke-width: 4px; stroke-linejoin: round;
+  }
+  .refmap-links path {
+    fill: none; stroke: var(--rm-line); stroke-width: 1; opacity: 0.45;
+    transition: opacity 120ms, stroke 120ms;
+    &.is-on { stroke: var(--rm-ink-2); opacity: 0.85; stroke-width: 1.25; }
+    &.is-dim { opacity: 0.06; }
+  }
+  .refmap-ref {
+    stroke: var(--rm-surface); stroke-width: 2; cursor: pointer;
+    transition: opacity 120ms;
+    &.is-dim { opacity: 0.12; }
+    &.is-on { stroke: var(--rm-ink); stroke-width: 1.5; }
+  }
+  .refmap-chapter {
+    cursor: pointer;
+    circle { fill: var(--rm-ink); }
+    .refmap-hit { fill: transparent; }
+    text { font-size: 12.5px; fill: var(--rm-ink-2); transition: opacity 120ms; }
+    &.is-on text { fill: var(--rm-ink); font-weight: 600; }
+    &.is-dim { opacity: 0.3; }
+  }
+  .refmap-tip {
+    position: absolute; z-index: 10; max-width: 340px; pointer-events: none;
+    background: #fff; color: var(--rm-ink); border: 1px solid var(--rm-line); border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12); padding: 0.55rem 0.7rem; font-size: 0.82rem; line-height: 1.35;
+  }
+  .refmap-tip-title { font-weight: 600; margin-bottom: 0.2rem; }
+  .refmap-tip-meta { color: var(--rm-ink-2); }
+  .refmap-tip-ch { color: var(--rm-ink-2); margin-top: 0.35rem; padding-top: 0.35rem; border-top: 1px solid #eee; }
+}
+
+.refmap-statrow {
+  display: flex; flex-wrap: wrap; gap: 1rem 2.25rem; margin: 1rem 0 1.25rem; text-align: left;
+  > div { display: flex; flex-direction: column; }
+  .refmap-num { font-size: 1.7rem; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .refmap-lbl { font-size: 0.8rem; color: #52514e; }
+}
+
+.refmap-legend {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 0.35rem 1rem; font-size: 0.8rem; color: #52514e; margin: 0.25rem 0 1.5rem;
+  .refmap-legend-title { font-weight: 600; color: #0b0b0b; }
+  .refmap-legend-size { margin-left: 0.75rem; }
+  .refmap-key { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .refmap-key i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+}
+
+.refmap-table {
+  text-align: left; font-size: 0.85rem;
+  .refmap-n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .refmap-muted { color: #6b6a66; font-size: 0.8rem; }
 }

@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c255c5907d4ec97ac61b80091d22c4d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -160,6 +160,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./chatbot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chatbot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reference_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference map</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -353,7 +359,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Dive Deeper</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -371,12 +377,37 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./appendix_s2_artifacts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Identifying Sentinel-2 tiling artifacts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_sar_geometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Selecting a SAR viewing geometry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./appendix_sar_rtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric calibration and terrain correction of SAR data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for Sentinel-2</span></a>
+  <a href="./appendix_sar_ard.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis-ready SAR products</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_cloud_masking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud masking methods for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_optical_radiometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Radiometric conventions for optical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_combining_missions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Combining Landsat and Sentinel-2</span></a>
   </div>
 </li>
       </ul>
@@ -428,7 +459,22 @@ div.csl-indent {
 </section>
 <section id="reporting-as-a-separate-band" class="level2">
 <h2 class="anchored" data-anchor-id="reporting-as-a-separate-band">Reporting as a separate band</h2>
-<p>Ship the uncertainty layer alongside the map and let users decide how to use it. This is the most flexible option but places the burden of interpretation on the user, who may not have the statistical expertise to use it correctly. Calibration is essential here. If the reported uncertainty is systematically too narrow, users will make overconfident decisions.</p>
+<p>Ship the uncertainty layer alongside the map and let users decide how to use it. For categorical products the choice of what to ship is itself a design decision. The maximum class probability, the predictive entropy, the full probability vector, and a conformal prediction set carry different information and different storage costs, and only the full vector supports downstream area estimation without loss. This is the most flexible option but places the burden of interpretation on the user, who may not have the statistical expertise to use it correctly. Calibration is essential here since if the reported uncertainty is systematically too narrow, users will make overconfident decisions.</p>
+<div class="box-runex callout callout-style-default callout-note no-icon callout-titled" title="Running example · Uncertainty in the two products">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Running example · Uncertainty in the two products
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>WorldCereal</strong> ships a confidence layer rescaled from the winning class probability, and states that it “simply reflects how certain the model is of its prediction” and “does not reflect actual accuracy” <span class="citation" data-cites="Van_Tricht_2023"><a href="#ref-Van_Tricht_2023" role="doc-biblioref">[1]</a></span>.</p>
+<p><strong>CHM</strong> provides no per-pixel uncertainty layer <span class="citation" data-cites="pauls2026echosat"><a href="#ref-pauls2026echosat" role="doc-biblioref">[2]</a></span>.</p>
+<p>Neither product therefore offers calibrated uncertainty in the sense of <a href="./uq_calibration.html">Assessing calibration</a>.</p>
+</div>
+</div>
 </section>
 <section id="weighting-in-post-processing" class="level2">
 <h2 class="anchored" data-anchor-id="weighting-in-post-processing">Weighting in post-processing</h2>
@@ -440,19 +486,25 @@ div.csl-indent {
 </section>
 <section id="guiding-data-collection" class="level2">
 <h2 class="anchored" data-anchor-id="guiding-data-collection">Guiding data collection</h2>
-<p>Calibrated uncertainty identifies where additional observations would most reduce decision-relevant uncertainty, closing the loop between prediction and data collection. An overconfident model forecloses this feedback loop by masking the locations where additional data is most needed <span class="citation" data-cites="young2026interpolation"><a href="#ref-young2026interpolation" role="doc-biblioref">[1]</a></span>. Active learning strategies that target high-uncertainty regions can direct field campaigns, future LiDAR acquisitions, or validation sampling toward the locations with the highest expected information gain <span class="citation" data-cites="settles2009activelearning"><a href="#ref-settles2009activelearning" role="doc-biblioref">[2]</a></span>. <span class="citation" data-cites="meyer2021areaofapplicability"><a href="#ref-meyer2021areaofapplicability" role="doc-biblioref">[3]</a></span> proposed the related concept of an “area of applicability” as a spatial delineation of where the model’s training data support reliable predictions, which can be viewed as a binary uncertainty mask derived from the distance between inference and training data in feature space.</p>
+<p>Calibrated uncertainty identifies where additional observations would most reduce decision-relevant uncertainty, closing the loop between prediction and data collection. An overconfident model forecloses this feedback loop by masking the locations where additional data is most needed <span class="citation" data-cites="young2026interpolation"><a href="#ref-young2026interpolation" role="doc-biblioref">[3]</a></span>. Active learning strategies that target high-uncertainty regions can direct field campaigns, future LiDAR acquisitions, or validation sampling toward the locations with the highest expected information gain <span class="citation" data-cites="settles2009activelearning"><a href="#ref-settles2009activelearning" role="doc-biblioref">[4]</a></span>. Meyer and Pebesma <span class="citation" data-cites="meyer2021areaofapplicability"><a href="#ref-meyer2021areaofapplicability" role="doc-biblioref">[5]</a></span> proposed the related concept of an “area of applicability” as a spatial delineation of where the model’s training data support reliable predictions, which can be viewed as a binary uncertainty mask derived from the distance between inference and training data in feature space.</p>
 <p>Uncertainty quantification completes the modeling phase of the pipeline: the practitioner now has not only a trained model but also a principled framework for assessing how much to trust its outputs across space. What remains is to operationalize these components — to run inference at scale, mitigate the artifacts that inevitably arise when processing millions of patches, apply post-processing corrections that ensure temporal and spatial coherence, validate the result against independent reference data, and disseminate it in formats that are accessible and useful to downstream users. These operational stages are the subject of the next section, which covers map generation, post-processing, validation, and sharing. Although often treated as engineering details rather than research contributions, the choices made here can easily undermine the quality of an otherwise sound model, and they deserve the same level of methodological care.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-Van_Tricht_2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">K. Van Tricht <em>et al.</em>, <span>“<span class="nocase">WorldCereal: a dynamic open-source system for global-scale, seasonal, and reproducible crop and irrigation mapping</span>,”</span> <em>Earth System Science Data</em>, vol. 15, no. 12, pp. 5491–5515, Dec. 2023, doi: <a href="https://doi.org/10.5194/essd-15-5491-2023">10.5194/essd-15-5491-2023</a>.</div>
+</div>
+<div id="ref-pauls2026echosat" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">J. Pauls <em>et al.</em>, <span>“<span class="nocase">ECHOSAT: Estimating Canopy Height Over Space and Time</span>,”</span> <em>arXiv preprint arXiv:2602.21421</em>, 2026, Available: <a href="https://arxiv.org/abs/2602.21421">https://arxiv.org/abs/2602.21421</a></div>
+</div>
 <div id="ref-young2026interpolation" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">R. Young and S. Keshav, <span>“<span class="nocase">Interpolation of GEDI Biomass Estimates with Calibrated Uncertainty Quantification</span>.”</span> 2026. Available: <a href="https://arxiv.org/abs/2601.16834">https://arxiv.org/abs/2601.16834</a></div>
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">R. Young and S. Keshav, <span>“<span class="nocase">Interpolation of GEDI Biomass Estimates with Calibrated Uncertainty Quantification</span>.”</span> 2026. Available: <a href="https://arxiv.org/abs/2601.16834">https://arxiv.org/abs/2601.16834</a></div>
 </div>
 <div id="ref-settles2009activelearning" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">B. Settles, <span>“<span>Active Learning Literature Survey</span>,”</span> University of Wisconsin-Madison, Department of Computer Sciences, TR1648, 2009. Available: <a href="http://digital.library.wisc.edu/1793/60660">http://digital.library.wisc.edu/1793/60660</a></div>
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">B. Settles, <span>“<span>Active Learning Literature Survey</span>,”</span> University of Wisconsin-Madison, Department of Computer Sciences, TR1648, 2009. Available: <a href="http://digital.library.wisc.edu/1793/60660">http://digital.library.wisc.edu/1793/60660</a></div>
 </div>
 <div id="ref-meyer2021areaofapplicability" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">H. Meyer and E. Pebesma, <span>“<span class="nocase">Predicting into Unknown Space? Estimating the Area of Applicability of Spatial Prediction Models</span>,”</span> <em>Methods in Ecology and Evolution</em>, vol. 12, pp. 1620–1633, 2021, doi: <a href="https://doi.org/10.1111/2041-210X.13650">10.1111/2041-210X.13650</a>.</div>
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">H. Meyer and E. Pebesma, <span>“<span class="nocase">Predicting into Unknown Space? Estimating the Area of Applicability of Spatial Prediction Models</span>,”</span> <em>Methods in Ecology and Evolution</em>, vol. 12, pp. 1620–1633, 2021, doi: <a href="https://doi.org/10.1111/2041-210X.13650">10.1111/2041-210X.13650</a>.</div>
 </div>
 </div>
 </section>
@@ -506,10 +558,15 @@ div.csl-indent {
     "conclusion_forward.html":           { part: "Conclusion", chapter: "Conclusion: looking forward" },
     "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
 
-    "appendix_s1_gaps.html":             { part: "Appendices", chapter: "Sentinel-1 data gaps" },
-    "appendix_processing_pathways.html": { part: "Appendices", chapter: "S1/S2 processing across access pathways" },
-    "appendix_sar_rtc.html":             { part: "Appendices", chapter: "SAR calibration & terrain correction" },
-    "appendix_cloud_masking.html":       { part: "Appendices", chapter: "Cloud masking for Sentinel-2" }
+    "appendix_s1_gaps.html":             { part: "Dive Deeper", chapter: "Sentinel-1 data gaps" },
+    "appendix_processing_pathways.html": { part: "Dive Deeper", chapter: "S1/S2 processing across access pathways" },
+    "appendix_s2_artifacts.html":        { part: "Dive Deeper", chapter: "Sentinel-2 tiling artifacts" },
+    "appendix_sar_geometry.html":        { part: "Dive Deeper", chapter: "SAR viewing geometry" },
+    "appendix_sar_rtc.html":             { part: "Dive Deeper", chapter: "SAR calibration & terrain correction" },
+    "appendix_sar_ard.html":             { part: "Dive Deeper", chapter: "Analysis-ready SAR products" },
+    "appendix_cloud_masking.html":       { part: "Dive Deeper", chapter: "Cloud masking for optical data" },
+    "appendix_optical_radiometry.html":  { part: "Dive Deeper", chapter: "Optical radiometric conventions" },
+    "appendix_combining_missions.html":  { part: "Dive Deeper", chapter: "Combining Landsat and Sentinel-2" }
   };
 
   function currentInfo() {
@@ -978,7 +1035,7 @@ div.csl-indent {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Best Practices for EO Maps</p>
+<p>Good Practices for EO Maps</p>
 </div>   
     <div class="nav-footer-center">
 <p><a href="feedback.html" id="site-feedback-link">Feedback</a></p>

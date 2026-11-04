@@ -1,0 +1,28 @@
+---
+title: "Analysis-ready SAR products"
+---
+
+The four corrections described in [SAR preprocessing](data_preprocessing.qmd) can be inherited rather than performed. Two products apply them over the whole globe and distribute the result free of charge, and comparing them is instructive: both arrive at terrain-corrected $\gamma^0$, both are defensible, and they answer the four questions differently at every stage (@tbl-sar-ard-products).
+
+## Sentinel-1 monthly mosaics
+
+The Copernicus Data Space Ecosystem publishes global Sentinel-1 mosaics as a Level-3 product, built by calibrating GRD inputs to $\beta^0$, removing thermal noise, flattening to $\gamma^0_T$ by integrating the illuminated facet areas over the Copernicus DEM, and applying Range-Doppler geometric correction against the same DEM. Each month is then reduced to a weighted mean in which observations at higher local resolution carry more weight [@Small2012] and radar-shadow observations are discarded. Because the compositing is what suppresses speckle, the product commits its user to a monthly cadence.
+
+## ALOS PALSAR/PALSAR-2 mosaics
+
+Beyond Sentinel-1, another widely used SAR data source is the ALOS PALSAR/PALSAR-2 annual mosaic, a seamless global L-band SAR image created by mosaicking strips of PALSAR and PALSAR-2 imagery. Each strip is orthorectified and slope-corrected using the ALOS World 3D–30 m digital surface model, and polarization data can be converted to $\gamma^0$ values. Because these mosaics are delivered as annual composites with terrain and radiometric corrections already applied, they require less user-side preprocessing than Sentinel-1 GRD products.
+
+| | **Sentinel-1 monthly mosaics** (CDSE) | **PALSAR/PALSAR-2 yearly mosaic** (JAXA) |
+| --- | --- | --- |
+| Thermal noise | Thermal noise removal applied. | Not documented as a separate step; radiometric balancing between adjacent paths is derived from their overlap regions, over land only. |
+| Radiometric calibration | Calibrated to $\beta^0$, then flattened to $\gamma^0_T$ by integrating the illuminated facet areas over the DEM. | Radiometric slope correction, with $\gamma^0$ recovered from the stored digital numbers as $10\log_{10}(\mathrm{DN}^2) - 83.0$ dB. |
+| Speckle reduction | Temporal averaging: a weighted monthly mean, weights set by each observation's local resolution [@Small2012], radar-shadow observations discarded. | Power averaged over neighboring pixels; the annual composite is assembled from strips selected by visual inspection, favoring those with the least surface-moisture response. |
+| Terrain correction | Radiometric correction as above, plus Range-Doppler geometric correction, both against the Copernicus DEM — 10 m over Europe, 30 m elsewhere. | Ortho-rectified and slope-corrected against the ALOS World 3D 30 m surface model (AW3D30). |
+| Grid and resolution | 20 m for IW (VV, VH), 40 m for DH (HH, HV); 16-bit cloud-optimized GeoTIFF on a UTM grid. | 25 m; HH and HV (VV and VH over Japan); $1^\circ\times1^\circ$ tiles in geographic coordinates, with layover and shadow flagged in a quality band. |
+| Cadence and coverage | Monthly, global, 2020 onward. | Annual, global, 2007–2010 and 2015 onward; no mosaic exists for 2011–2014, between the two missions. |
+
+: Two analysis-ready SAR products, and the four corrections described in [SAR preprocessing](data_preprocessing.qmd) as each of them resolves them. Neither is wrong; adopting either means adopting its answers. {#tbl-sar-ard-products}
+
+## What is inherited
+
+The case for starting from either is the case for analysis-ready data generally: the work is done once, by people who know the sensor, and the result is consistent across space and time in a way an in-house pipeline rarely is. What is given up is granularity. The cadence is fixed, so the temporal decision discussed in [Temporal distribution](data_selection.qmd#sec-temporal-distribution) is made on the user's behalf and individual acquisitions — with their orbit direction and incidence angle — are no longer addressable. The normalization is fixed too, and the two products differ in kind rather than in quality here: the Sentinel-1 mosaics integrate facet areas over the DEM, while the PALSAR mosaic applies a slope correction and a fixed calibration factor.

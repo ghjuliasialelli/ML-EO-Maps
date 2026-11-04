@@ -2,7 +2,7 @@
 
 ## Overview {.unnumbered}
 
-This book presents an end-to-end account of best practices for producing large-scale geospatial products from Earth observation data using machine learning. It is organized around six interconnected themes that trace the pipeline from raw satellite data to a published, validated map product. Each chapter can be read independently or as part of the full pipeline.
+This book presents an end-to-end account of good practices for producing large-scale geospatial products from Earth observation data using machine learning. It is organized around six interconnected themes that trace the pipeline from raw satellite data to a published, validated map product. Each chapter can be read independently or as part of the full pipeline.
 
 ## Structure {.unnumbered}
 
