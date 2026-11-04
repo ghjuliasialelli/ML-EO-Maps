@@ -520,7 +520,7 @@ Figure&nbsp;A.1: Sentinel-1 Level 1 GRD data coverage, as provided by the Alaska
     "conclusion_limitations.html":       { part: "Conclusion", chapter: "Conclusion: limitations" },
 
     "appendix_s1_gaps.html":             { part: "Dive Deeper", chapter: "Sentinel-1 data gaps" },
-    "appendix_processing_pathways.html": { part: "Dive Deeper", chapter: "S1/S2 processing across access pathways" },
+    "appendix_processing_pathways.html": { part: "Dive Deeper", chapter: "Sentinel-1 and Sentinel-2 processing across access pathways" },
     "appendix_s2_artifacts.html":        { part: "Dive Deeper", chapter: "Sentinel-2 tiling artifacts" },
     "appendix_sar_geometry.html":        { part: "Dive Deeper", chapter: "SAR viewing geometry" },
     "appendix_sar_rtc.html":             { part: "Dive Deeper", chapter: "SAR calibration & terrain correction" },
@@ -553,6 +553,9 @@ Figure&nbsp;A.1: Sentinel-1 Level 1 GRD data coverage, as provided by the Alaska
       if (query) {
         var href = link.getAttribute("href").split("?")[0];
         link.setAttribute("href", href + "?" + query);
+        // Quarto's quarto-nav.js snapshots each link's href into
+        // data-original-href and may restore it later; keep the snapshot in sync.
+        link.dataset.originalHref = link.href;
       }
     }
 
@@ -653,7 +656,7 @@ Figure&nbsp;A.1: Sentinel-1 Level 1 GRD data coverage, as provided by the Alaska
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/ghjuliasialelli\.github\.io\/ml-eo-maps");
+        var filterRegex = new RegExp("https:\/\/ghjuliasialelli\.github\.io\/ML-EO-Maps");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
