@@ -107,6 +107,24 @@ conda run -n mleomaps quarto render        # full book; fails loudly on bad refs
 Then commit and push `main`. The GitHub Actions workflow (`.github/workflows/publish.yml`)
 re-renders and deploys to GitHub Pages automatically.
 
+## 6. Refresh the chatbot
+
+The chatbot (Hugging Face Space `ghjuliasialelli/ML-EO-Maps-chatbot`, embedded in `chatbot.qmd`)
+answers from its **own copy** of the `.qmd` files, so it goes stale after every sync.
+Full setup history and details: `CHATBOT.md`.
+
+The Space is cloned at `~/Documents/GitHub/ML-EO-Maps-chatbot`:
+
+```sh
+cd ~/Documents/GitHub/ML-EO-Maps-chatbot
+git pull
+rm content/*.qmd && cp ../ml-eo-maps/*.qmd content/
+rm content/chatbot.qmd content/feedback.qmd       # no useful content for the bot
+git add -A && git commit -m "Sync book content" && git push   # password = HF write token
+```
+
+Wait ~1 min for the Space to rebuild, then ask the chatbot about a changed section.
+
 ---
 
 ## Section → chapter-file mapping

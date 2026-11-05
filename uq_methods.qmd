@@ -82,3 +82,11 @@ Unfortunately no method is simultaneously cheap, scalable, and well-calibrated. 
 The appropriate choice depends on what will be done with the uncertainty. If the goal is to mask out unreliable regions, even a rough uncertainty proxy may suffice. If the goal is to produce calibrated prediction intervals for carbon accounting, the requirements are stringent and the cost is correspondingly higher. If the goal is to report aggregate uncertainty over administrative units, the dominant concern is spatial error correlation (see [Spatial structure of uncertainty](uq_spatial.qmd)), and no pixel-level UQ method alone will suffice. Users should articulate the intended use of uncertainty before choosing a method, not after. @fig-uq-flowchart summarizes the decision logic discussed in the sections that follow.
 
 ![Decision flowchart for selecting an uncertainty quantification method based on the intended downstream use. Dashed arrow indicates that spatial aggregate uncertainty requires both a pixel-level UQ method and explicit modeling of spatial error correlation.](images/uq_flowchart.png){#fig-uq-flowchart}
+
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · UQ methods on spatial data"}
+
+The [`uq_methods_spatial`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/04_uncertainty/uq_methods_spatial.ipynb) notebook compares ensemble spread, quantile regression, split and normalized conformal and CQR under spatial extrapolation, and global vs. localized conformal prediction when noise varies across the map.
+
+:::
+<!-- /web-only -->

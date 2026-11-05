@@ -37,3 +37,19 @@ The categorical analogs of the above are the reliability diagram (observed frequ
 The recalibration and retraining remedies above presuppose that miscalibration can be, and is, discovered while retraining is still an option. For global maps, training is typically cheap relative to inference over the full domain, so the cost of discovering a regionally patterned failure late is not the retraining itself, but rather the inference run that must now be repeated. Due to the compute use differential, calibration assessment should therefore be treated as a sanity check that precedes wall-to-wall inference. To this end, we suggest a qualification step with a few example components. (i) calibration diagnostics described above, computed on spatially and environmentally blocked holdouts, reported per stratum, since pooled diagnostics can hide regionally patterned miscalibration. (ii) feature space coverage analysis over the full inference domain, such as the area of applicability or a dissimilarity index [@meyer2021areaofapplicability], which requires predictor data only and can be computed before prediction is made. This identifies where the model will be extrapolating and therefore where the proxy-extrapolation test above should be targeted. (iii) end-to-end inference on a small number of tiles chosen to span ecologically distinct regions, including regions that the coverage analysis flags as poorly supported, evaluated against whatever reference data exist there. This should also surface tiling, compositing, and edge artifacts (see [Map production and distribution](map_production.qmd)) that do not appear in pixel-level cross-validation.
 
 Of course, this does not guarantee calibration where reference data are absent, since such regions are unverifiable by modeling alone. However, testing models before inference makes sure that failures that could, in principle, have been detected are detected before expensive inference compute.
+
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · Calibration diagnostics"}
+
+The [`calibration_diagnostics`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/04_uncertainty/calibration_diagnostics.ipynb) notebook computes every diagnostic above, per stratum, for models with known calibration, and shows why globally fitted fixes only restore marginal coverage.
+
+:::
+<!-- /web-only -->
+
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · Area of applicability"}
+
+The [`area_of_applicability`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/04_uncertainty/area_of_applicability.ipynb) notebook maps the dissimilarity index and area of applicability before inference, shows accuracy and calibration holding inside it and failing outside, and runs the whole-region holdout test.
+
+:::
+<!-- /web-only -->

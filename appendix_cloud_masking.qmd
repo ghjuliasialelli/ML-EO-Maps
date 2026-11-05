@@ -24,6 +24,14 @@ Cloud Score+ [@Pasquarella2023] occupies an unusual position because of its cont
 
 The deep learning methods (KappaMask, CloudSen12, OmniCloudMask) generally outperform the rule-based and classical-ML alternatives on hand-labeled benchmarks, but the magnitude of the gain depends on the region, the scene composition, and the specific failure modes the benchmark is designed to expose. Wright et al. [@Wright2025] report computational efficiency for OmniCloudMask against several alternatives on an NVIDIA RTX 4090, providing a useful reference point for relative throughput on consumer-grade hardware. Whether the accuracy gain justifies the additional compute and infrastructure complexity is a judgment that should be made against the requirements of the specific mapping task: for global-scale composite-based workflows, the marginal benefit over SCL is often modest; for single-scene applications or studies in cloud-prone regions such as the humid tropics, it can be decisive.
 
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · SCL vs. cloud probability"}
+
+The [`cloud_masks`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/cloud_masks.ipynb) notebook compares the two masks shipped with every Sentinel-2 L2A product on a cloudy season, including the role of thin cirrus.
+
+:::
+<!-- /web-only -->
+
 ## Landsat
 
 The methods in @tbl-s2-cloud-masking are tuned for Sentinel-2, but the lineage runs the other way: Fmask was developed for Landsat first, and its C implementation is what produces the operational Landsat mask. Collection 2 ships a bit-packed `QA_PIXEL` band generated during Level-1 processing and carried unchanged into the Level-2 package — a structural difference from Sentinel-2, where the SCL is an output of the Level-2 processor and therefore exists only at Level-2. Its design also sits between the two families in @tbl-s2-cloud-masking: alongside high-confidence binary flags for cloud, cloud shadow, cirrus, snow and water, it carries a dilated-cloud bit that provides a buffer around detected cloud, and two-bit confidence fields for cloud, cloud shadow, snow/ice and cirrus. A user can therefore threshold on confidence rather than accept a binary verdict, which is the flexibility that makes Cloud Score+ attractive for Sentinel-2, available here without leaving the operational product. Level-2 adds further layers: `SR_QA_AEROSOL` for Landsat 8 and 9, `SR_CLOUD_QA` for Landsat 4 to 7, and `ST_QA`, which reports per-pixel surface temperature uncertainty in Kelvin. One trap is specific to long archives: the `QA_PIXEL` bit assignments are not identical across Landsat generations, so a pipeline spanning Landsat 5 through 9 must decode the band per sensor rather than apply one bit mask throughout.

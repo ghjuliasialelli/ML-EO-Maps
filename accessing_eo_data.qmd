@@ -34,6 +34,14 @@ of this page showed images/overview.png (the pipeline overview diagram) here wit
 
 Accessing EO data therefore involves practical choices across multiple dimensions. Each platform offers distinct trade-offs in where the data is hosted, support for server-side operations, suitability for large-scale download, and feasibility of running large-scale co-located compute; we summarize them in @tbl-eo-providers. A practical pattern that follows from data gravity is to treat EO data access as a two-stage process. *Model development* typically involves modest data volumes that can be downloaded comfortably from almost any provider; here, convenience and catalog coverage dominate the choice. *Inference at scale*, on the other hand, is dominated by data movement: pulling petabyte-scale imagery from one provider into a different compute environment is rarely tractable. As a result, practitioners typically either (i) co-locate inference compute with the data, or (ii) accept the time and storage cost of moving the EO data into their compute environment. Co-location only helps if the compute you need is available where the data is: large GPU pools are a hyperscaler feature, so GPU-bound inference is restricted to data hosted on AWS, Azure or GCP; CPU-bound pipelines have more options. The platform that minimizes friction for training is therefore often not the one that minimizes cost for inference, and moving between them introduces a risk of distribution shift that should not be taken lightly. No universally optimal solution exists: the most appropriate choice depends on the scale of analysis, computational requirements, institutional constraints, the practical cost of download and storage, and the acceptable trade-off between immediate convenience and the risk of lock-in to proprietary platforms.
 
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · Same granule, different providers"}
+
+The [`compare_eo_providers`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/01_eo_data/compare_eo_providers.ipynb) notebook fetches the same Sentinel-2 L2A granule from Planetary Computer and Earth Search, compares it with the canonical CDSE product, and shows how inconsistent offset metadata and platform-specific processing change reflectance and NDVI.
+
+:::
+<!-- /web-only -->
+
 ::: {.callout-note .box-decision appearance="default" icon="false" title="Decision · Provider"}
 
 **Alternatives.** A canonical EO data provider vs. a re-distribution platform.

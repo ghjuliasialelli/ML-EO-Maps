@@ -11,3 +11,11 @@ title: "Identifying Sentinel-2 tiling artifacts"
 **Tiles requiring mosaicking.** Most tiles are not fully covered by any single orbit and require mosaicking products from several orbits, which may have been acquired on different days. Tile 30SUH is typical: two products acquired two days apart are needed for complete coverage (@fig-s2-combined, middle).
 
 **Duplicate products.** A tile that should be fully covered by one orbit sometimes yields two products sharing date, orbit and footprint. If the processing baselines differ, retain the higher one. If they are identical, the duplication indicates a data strip split: a single continuous observation broken into separate segments during ground processing, slicing the tile into two partial files that must be mosaicked (@fig-s2-combined, bottom).
+
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · Detect these cases automatically"}
+
+[`s2_orbits`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s2_orbits.ipynb) maps each tile to the orbit(s) needed to cover it; [`s2_artifacts`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s2_artifacts.ipynb) detects split products, pairs multi-orbit acquisitions and corrects diluted cloud-cover metadata.
+
+:::
+<!-- /web-only -->

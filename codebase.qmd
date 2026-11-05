@@ -1,0 +1,35 @@
+# Companion Codebase {.unnumbered}
+
+The [**ml-eo-maps-codebase**](https://github.com/ghjuliasialelli/ml-eo-maps-codebase) repository accompanies this
+book with runnable notebooks. Each one demonstrates a concrete claim or pitfall from a chapter, which links to it
+in a **Try it** box. Method notebooks run offline on synthetic data, so the true answer is known; data-access
+notebooks query real catalogs and need no account.
+
+```sh
+git clone https://github.com/ghjuliasialelli/ml-eo-maps-codebase.git
+cd ml-eo-maps-codebase
+uv sync && uv run jupyter lab
+```
+
+| Part | Notebook | What it shows |
+|---|---|---|
+| EO data landscape | [compare_eo_providers](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/01_eo_data/compare_eo_providers.ipynb) | The same Sentinel-2 granule across cloud catalogs: offset metadata, platform-specific processing, effect on NDVI ([Accessing EO data](accessing_eo_data.qmd)) |
+| | [s1_global_coverage](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/01_eo_data/s1_global_coverage.ipynb) | Global Sentinel-1 acquisition density ([Appendix: Sentinel-1 data gaps](appendix_s1_gaps.qmd)) |
+| Data selection | [s2_orbits](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s2_orbits.ipynb) | Orbits needed to cover each Sentinel-2 tile ([Data selection](data_selection.qmd)) |
+| | [s2_artifacts](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s2_artifacts.ipynb) | Least-cloudy full-coverage acquisition per month ([Appendix: Sentinel-2 tiling artifacts](appendix_s2_artifacts.qmd)) |
+| | [pixel_deduplication](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/pixel_deduplication.ipynb) | Duplicated observations in tile overlaps and a one-owner rule ([Data selection](data_selection.qmd)) |
+| | [cloud_masks](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/cloud_masks.ipynb) | SCL vs. cloud probability, scene metadata, effect on composites ([Data preprocessing](data_preprocessing.qmd)) |
+| | [s1_burst](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s1_burst.ipynb) | Choosing a Sentinel-1 viewing geometry ([Appendix: SAR viewing geometry](appendix_sar_geometry.qmd)) |
+| ML dataset & training | [spatial_block_cv](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/03_ml_dataset/spatial_block_cv.ipynb) | Random vs. block vs. buffered cross-validation ([Dataset splits](ml_ready_dataset.qmd#sec-dataset-splits)) |
+| | [grid_comparison](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/03_ml_dataset/grid_comparison.ipynb) | Grid distortion, sampling bias, Sentinel-2 tile overlap and split leakage ([Spatial gridding](ml_ready_dataset.qmd#sec-grid)) |
+| Uncertainty | [calibration_diagnostics](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/04_uncertainty/calibration_diagnostics.ipynb) | Calibration diagnostics per stratum and post-hoc fixes ([Assessing calibration](uq_calibration.qmd)) |
+| | [uq_methods_spatial](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/04_uncertainty/uq_methods_spatial.ipynb) | Ensembles, quantile regression and (localized) conformal on spatial data ([UQ methods](uq_methods.qmd)) |
+| | [area_of_applicability](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/04_uncertainty/area_of_applicability.ipynb) | Qualifying a model before inference ([Assessing calibration](uq_calibration.qmd)) |
+| | [aggregate_uncertainty](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/04_uncertainty/aggregate_uncertainty.ipynb) | Uncertainty of regional means with correlated errors ([Spatial structure of uncertainty](uq_spatial.qmd)) |
+| Map production | [patch_inference](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/05_map_production/patch_inference.ipynb) | Tiling strategies, seams and variance merging ([Map generation](map_generation.qmd)) |
+| | [stac_and_compression](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/05_map_production/stac_and_compression.ipynb) | Compression, native-CRS COGs and a STAC catalog ([Sharing](sharing.qmd)) |
+| Validation | [design_based_accuracy](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/06_validation/design_based_accuracy.ipynb) | Stratified sampling, accuracy and area estimation ([Design-based accuracy assessment](validation_design_based.qmd)) |
+
+The repository also holds written companions to the book (data sharing, helpful packages, training and inference
+efficiency) and a small Python package, `mleo`, with the reusable code behind the notebooks. Contributions are
+welcome via issues and pull requests.

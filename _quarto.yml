@@ -24,6 +24,7 @@ book:
     - index.qmd
     - about.qmd
     - howto.qmd
+    - codebase.qmd
     - chatbot.qmd
     - reference_map.qmd
     - feedback.qmd

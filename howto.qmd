@@ -28,6 +28,8 @@ The book is divided into the following parts:
 
 This book is hosted on [GitHub](https://github.com/ghjuliasialelli/ml-eo-maps). Contributions, corrections, and suggestions are welcome via pull requests or issues.
 
+Runnable notebooks illustrating the book live in the [companion codebase](codebase.qmd).
+
 <!-- TODO: Add a License section once a license is chosen (e.g., CC BY 4.0, CC BY-NC-SA 4.0):
 ## License {.unnumbered}
 -->

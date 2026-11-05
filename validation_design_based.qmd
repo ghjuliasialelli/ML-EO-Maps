@@ -40,6 +40,14 @@ For categorical maps, user's and producer's accuracy (or equivalently, precision
 
 Accuracy metrics should be accompanied by measures of uncertainty, such as standard errors or confidence intervals, to reflect the variability inherent in the sampling process [@stehman2019key]. In practice, standard errors of accuracy metrics are often not reported, making it difficult for users to assess whether the provided estimates are reliable. Bootstrapping with replacement is commonly used to derive confidence intervals because it does not rely on parametric assumptions about the error distribution, although it does not correct systematic sampling bias in the validation design.
 
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · Design-based accuracy assessment"}
+
+The [`design_based_accuracy`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/06_validation/design_based_accuracy.ipynb) notebook sizes and allocates a stratified sample, estimates accuracy and class areas with confidence intervals, and checks them by repeated sampling against pixel counting.
+
+:::
+<!-- /web-only -->
+
 ## Reporting and transparency
 
 Transparent reporting of validation procedures is essential for ensuring credibility, reproducibility, and appropriate interpretation of map products [@stehman2019key]. At a minimum, studies should document the sampling design (including strategy, sample size, and allocation), response design (reference data sources, labeling protocol, and uncertainty considerations), and analysis methods (accuracy metrics, area estimation procedures, and uncertainty measures such as confidence intervals). Any deviations from probability-based sampling or limitations in reference data should be clearly acknowledged.

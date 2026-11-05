@@ -56,6 +56,22 @@ Upon selecting which data product to work with, a common filter in optical image
 
 Another important criterion for selecting optical data products is the occurrence of **artifacts**. For example, Landsat 7 imagery acquired after 2003 exhibits wedge-shaped gaps from the Scan Line Corrector failure, affecting roughly 22% of each scene [@arvidson2006landsat; @ju2008availability]. More generally, a subtler problem arises when the *distribution unit* of a product is not aligned with its *acquisition unit*. Sentinel-2 is the clearest example: the granule is a fixed tile, while the sampling unit is the orbit. Consequently, a tile may be covered partially by one orbit and fully by another, may require mosaicking several orbits acquired on different days, or be affected by other subtle failure cases. [Appendix: Identifying Sentinel-2 tiling artifacts](appendix_s2_artifacts.qmd) illustrates such cases. Addressing these issues is important to avoid duplication of pixel values, which would bias any statistics computed over the data — whether during compositing or when calculating overall dataset statistics from, for example, all Sentinel-2 products acquired within a given time frame, as in [@brown2025alphaearthfoundations; @feng2025tessera].
 
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · Sentinel-2 orbits and tiling artifacts"}
+
+[`s2_orbits`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s2_orbits.ipynb) computes the minimal set of orbits covering every Sentinel-2 tile, and [`s2_artifacts`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s2_artifacts.ipynb) uses it to select the least-cloudy full-coverage acquisition per month while handling split products and multi-orbit tiles.
+
+:::
+<!-- /web-only -->
+
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · Deduplicating tile overlaps"}
+
+The [`pixel_deduplication`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/pixel_deduplication.ipynb) notebook measures how much of the surface Sentinel-2 delivers in more than one tile, assigns every location to a single owner tile, and shows what duplicated acquisitions do to a real time series.
+
+:::
+<!-- /web-only -->
+
 ## SAR data selection {#sec-sar}
 
 SAR imagery is not affected by clouds, but its side-looking acquisition geometry introduces its own artifacts: geometric distortion due to foreshortening, layover, and shadow (see @fig-s1-distortions). These deterministic perturbations arise from the interaction between terrain relief and the radar's look vector: given a digital elevation model and the acquisition geometry, the distortion pattern can be predicted. This predictability is useful at the selection stage: the sheer data volume and the need for geometric consistency over time argue for working with a subset of the data. Since the distortion associated with each candidate geometry can be computed in advance, that subset can be chosen analytically, before any data is downloaded. [Appendix: Selecting a SAR viewing geometry](appendix_sar_geometry.qmd) gives an example of this procedure for Sentinel-1.
@@ -63,3 +79,11 @@ SAR imagery is not affected by clouds, but its side-looking acquisition geometry
 Another common choice is that of the pass direction. While some regions (among them large portions of Africa, Australia, Russia, Canada and the eastern Americas) are systematically acquired in a single pass direction [@BauerMarschallinger2021], when both ascending and descending acquisitions of the same area are available, they can be complementary. They should not, however, be treated interchangeably: unless corrected, the azimuthal dependency of $\sigma^0$ can cause major problems when comparing images acquired from ascending and descending passes [@Schaufler2018]. This has a direct impact on model design: global coverage favors models that accept missing modalities (see [Model design and training](model_design_training.qmd)) over ones that assume a complete and fixed input stack.
 
 ![Main geometric distortions on SAR images with their dependence on acquisition geometry. Figure from [@sarhandbook].](images/s1-distortions.png){#fig-s1-distortions}
+
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · Choosing a Sentinel-1 viewing geometry"}
+
+The [`s1_burst`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s1_burst.ipynb) notebook enumerates candidate tracks from the burst catalogue and ranks them against a DEM for layover, shadow and foreshortening, before any data is downloaded.
+
+:::
+<!-- /web-only -->

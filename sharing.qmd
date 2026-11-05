@@ -26,6 +26,14 @@ For products that include vector outputs (e.g., from polygonization), cloud-nati
 **Constrains.** Accuracy assessment and any analysis that depends on exact pixel values must use the native version; platforms that ingest only GeoTIFFs force tiling; area statistics on a grid that is not equal-area require per-pixel area weighting (see [Validation](validation.qmd)).
 :::
 
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · Compression, COGs and STAC"}
+
+The [`stac_and_compression`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/05_map_production/stac_and_compression.ipynb) notebook compares storage precisions for size and error, writes native-CRS COG tiles, and builds a STAC catalog that declares scale, nodata and projection.
+
+:::
+<!-- /web-only -->
+
 ## Platforms
 
 Several platforms are available for hosting global products, each with different trade-offs in accessibility, infrastructure requirements, and long-term sustainability. Research data repositories such as Zenodo are built for archiving rather than access: their per-record limits (currently 50 GB and 100 files, extendable to 200 GB on request) mean that large products are typically split into regional files or archives, which users must download before use rather than stream for a specific area of interest. In exchange, they offer long-term preservation, versioning, and a DOI. Object storage provides a reliable backbone for distributing large datasets in cloud-native formats, and community-oriented repositories such as Source Cooperative lower the barrier further by offering (to this date) free hosting for open geospatial data. Self-hosting on an institutional server gives full control over formats and access at little direct cost, but ties the product's availability to the group's resources and staff. Google Earth Engine offers high visibility and built-in interactive tooling, but requires data to be ingested into its own infrastructure, introducing platform dependency. Public infrastructures such as the French Theia or the Belgian Terrascope keep data under public control with long-term commitments, often exposing it through STAC catalogs, although they are typically not yet as convenient to use as commercial platforms. Domain-specific platforms such as Global Forest Watch and EOForestSTAC provide established dissemination channels with dedicated user bases; however, contributing new datasets to these platforms typically requires coordination with their maintainers rather than direct self-service upload, making them more suitable as complementary high-visibility channels than as primary distribution mechanisms. Furthermore, no single platform is universally optimal, and the long-term availability of any given service cannot be guaranteed.

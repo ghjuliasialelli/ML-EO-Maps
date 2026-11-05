@@ -67,6 +67,14 @@ Furthermore, in the case of geographically distributed labeled data, it might be
 **CHM** holds out one test area of $960\,\text{m}\times960\,\text{m}$, placed at random inside each Sentinel-2 tile. Every tile therefore contributes both training and test data, and the separation between them rests on a minimum distance of 360 m between training and testing patches.
 :::
 
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · Spatial block cross-validation"}
+
+The [`spatial_block_cv`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/03_ml_dataset/spatial_block_cv.ipynb) notebook compares random, block and buffered cross-validation against the true error of a synthetic map, and sizes blocks from the residual semivariogram.
+
+:::
+<!-- /web-only -->
+
 ## Spatial gridding {#sec-grid}
 
 A map-making pipeline involves not one, but four different grids. The *source grid* is how the EO data archive is organized; it is inherited, and its seams and overlap are to be dealt with (see [Optical data selection](data_selection.qmd#sec-optical)). The *sampling grid* indexes the dataset: it determines which locations become samples, how they are deduplicated, and where the boundaries between training and test data fall. The *inference grid* partitions the Earth for prediction, and the *product grid* determines how the finished map is stored and distributed; both are discussed in [Map production and distribution](map_production.qmd). We hereby discuss the second. The three properties compared in @tbl-grid-comparison are the ones that matter for sampling: a grid is equal-area if every cell represents the same ground area; conformal if it preserves local angles and shapes, so that a square pixel corresponds to a square patch on the ground; and globally continuous if it covers the Earth without seams or inter-zone overlaps. We group candidate grids into four families, which we now describe.
@@ -112,6 +120,14 @@ The three families above all define cells, committing to a geometry before any i
 
 **Constrains.** A grid whose cells overlap cannot guarantee disjoint splits however the folds are assigned, deduplication has to operate in a common geographic reference rather than on cell identifiers, and uniform sampling over its cells is biased toward the overlaps.
 :::
+
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · Compare grids"}
+
+The [`grid_comparison`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/03_ml_dataset/grid_comparison.ipynb) notebook measures cell-area distortion across grids, the bias of per-cell sampling caps, the overlap of the Sentinel-2 tiling, and how much a tile-based split leaks.
+
+:::
+<!-- /web-only -->
 
 ## Data samples {#sec-gridtopatches}
 

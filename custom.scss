@@ -93,6 +93,11 @@ $box-sidebar: rgb(110, 110, 110);
 .callout.box-runex      { @include manuscript-box($box-runex); }
 .callout.box-sidebar    { @include manuscript-box($box-sidebar); }
 
+/* Website-only "Try it" boxes linking to notebooks in the companion codebase
+   (ml-eo-maps-codebase). Not part of the manuscript. */
+$box-tryit: rgb(176, 112, 0);
+.callout.box-tryit      { @include manuscript-box($box-tryit, 4px); }
+
 /* ── Reference map page (reference_map.qmd) ── */
 
 .refmap {

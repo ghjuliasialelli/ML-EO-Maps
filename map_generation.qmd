@@ -60,3 +60,10 @@ The choice between the two strategies therefore follows from the model: where th
 **CHM**: only the first of the three maps documents its inference [@pauls2024estimating]. It predicts on $512\times512$-pixel patches and keeps only the central $312\times312$, discarding a 100-pixel border on each side [@pauls2024estimating]. The kept centers tile the Earth without overlap, so nothing needs blending. The cost is that about 2.7 times as many pixels pass through the network as end up in the map.
 :::
 
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · Tiled inference"}
+
+The [`patch_inference`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/05_map_production/patch_inference.ipynb) notebook compares naive tiling, overlap-and-blend and pad-and-crop on a translation-variant CNN, including the law-of-total-variance merge and the compute overhead of each.
+
+:::
+<!-- /web-only -->

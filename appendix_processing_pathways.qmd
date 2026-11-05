@@ -48,6 +48,14 @@ Speckle filtering is not applied by default on any pathway: it is left to the us
 
 CDSE also distributes a Sentinel-1 Radiometric Terrain Corrected (RTC) backscatter product, processed from GRD inputs and compliant with the CEOS Analysis Ready Data (CEOS-ARD, formerly CARD4L) specifications for Normalized Radar Backscatter (NRB). RTC products are orthorectified using the Copernicus DEM and delivered without speckle filtering. The NRB standard — which combines range–Doppler geocoding with radiometric terrain correction — is increasingly adopted across providers and may eventually supersede GRD as the default Sentinel-1 distribution format for analysis-ready use cases.
 
+<!-- web-only: not in manuscript -->
+::: {.callout-note .box-tryit appearance="default" icon="false" title="Try it · Compare pathways yourself"}
+
+The [`compare_eo_providers`](https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/01_eo_data/compare_eo_providers.ipynb) notebook checks offset handling and processing differences for the same Sentinel-2 granule across cloud catalogs, and contrasts a Sentinel-1 GRD with its RTC counterpart.
+
+:::
+<!-- /web-only -->
+
 ## Further reading
 
 ESA's Sentinel-2 User Handbook [@esas2handbook] and the Sen2Cor Algorithm Theoretical Basis Document [@sen2coratbd] provide the authoritative description of the L2A processing chain. The Sentinel Hub Sentinel-1 GRD processing documentation [@sentinelhubs1grd] details the full set of `demInstance` and `backCoeff` options exposed through the API. The GEE Sentinel-1 algorithm [@gees1grd] documents the preprocessing applied to the GRD collections. @Mullissa2021 provide a community-validated reference implementation for analysis-ready Sentinel-1 preprocessing on GEE, which is the recommended starting point for users who require more control than the default GEE collections provide.

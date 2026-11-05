@@ -3,7 +3,7 @@
 Ask questions about the good practices covered in this book — the chatbot will point you to the relevant section.
 
 <iframe
-  src="https://ghjuliasialelli-ml-eo-maps.hf.space"
+  src="https://ghjuliasialelli-ml-eo-maps-chatbot.hf.space"
   width="100%"
   height="700"
   style="border:none; border-radius: 8px;">
