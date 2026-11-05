@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8e85e69b2f82b0f87e3ce2ddfc68cb2b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -183,6 +183,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to Use This Book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./codebase.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Companion Codebase</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -645,6 +651,21 @@ Figure&nbsp;6.1: Random splits leave train and test points autocorrelated, produ
 <p><strong>CHM</strong> holds out one test area of <span class="math inline">\(960\,\text{m}\times960\,\text{m}\)</span>, placed at random inside each Sentinel-2 tile. Every tile therefore contributes both training and test data, and the separation between them rests on a minimum distance of 360 m between training and testing patches.</p>
 </div>
 </div>
+<!-- web-only: not in manuscript -->
+<div class="box-tryit callout callout-style-default callout-note no-icon callout-titled" title="Try it · Spatial block cross-validation">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Try it · Spatial block cross-validation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/03_ml_dataset/spatial_block_cv.ipynb"><code>spatial_block_cv</code></a> notebook compares random, block and buffered cross-validation against the true error of a synthetic map, and sizes blocks from the residual semivariogram.</p>
+</div>
+</div>
+<!-- /web-only -->
 </section>
 <section id="sec-grid" class="level2">
 <h2 class="anchored" data-anchor-id="sec-grid">Spatial gridding</h2>
@@ -778,6 +799,21 @@ Table&nbsp;6.2: Comparison of candidate grids for global EO dataset construction
 <p><strong>Constrains.</strong> A grid whose cells overlap cannot guarantee disjoint splits however the folds are assigned, deduplication has to operate in a common geographic reference rather than on cell identifiers, and uniform sampling over its cells is biased toward the overlaps.</p>
 </div>
 </div>
+<!-- web-only: not in manuscript -->
+<div class="box-tryit callout callout-style-default callout-note no-icon callout-titled" title="Try it · Compare grids">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Try it · Compare grids
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/03_ml_dataset/grid_comparison.ipynb"><code>grid_comparison</code></a> notebook measures cell-area distortion across grids, the bias of per-cell sampling caps, the overlap of the Sentinel-2 tiling, and how much a tile-based split leaks.</p>
+</div>
+</div>
+<!-- /web-only -->
 </section>
 </section>
 <section id="sec-gridtopatches" class="level2">
@@ -927,6 +963,7 @@ Table&nbsp;6.2: Comparison of candidate grids for global EO dataset construction
     "index.html":                        { part: "General / whole book" },
     "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
+    "codebase.html":                     { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
     "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },

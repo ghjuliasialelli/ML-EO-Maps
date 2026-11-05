@@ -44,7 +44,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8e85e69b2f82b0f87e3ce2ddfc68cb2b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -134,6 +134,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to Use This Book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./codebase.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Companion Codebase</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -436,6 +442,21 @@ Figure&nbsp;C.1: Illustration of Sentinel-2 artifacts. <em>Top</em>: Sentinel-2 
 <p><strong>Partial and full orbit coverage.</strong> Each tile is covered by multiple orbits, some of which encompass it entirely. In <a href="#fig-s2-combined" class="quarto-xref">Figure&nbsp;<span>C.1</span></a> (top), tile 31TGN is partially covered by orbit 008 and fully by orbit 108. The covering orbit is identified directly from the <code>MTD_MSIL2A.xml</code> file: <code>NODATA_PIXEL_PERCENTAGE</code> is 0.0 for the orbit that fully covers the tile and greater than 0.0 for the others.</p>
 <p><strong>Tiles requiring mosaicking.</strong> Most tiles are not fully covered by any single orbit and require mosaicking products from several orbits, which may have been acquired on different days. Tile 30SUH is typical: two products acquired two days apart are needed for complete coverage (<a href="#fig-s2-combined" class="quarto-xref">Figure&nbsp;<span>C.1</span></a>, middle).</p>
 <p><strong>Duplicate products.</strong> A tile that should be fully covered by one orbit sometimes yields two products sharing date, orbit and footprint. If the processing baselines differ, retain the higher one. If they are identical, the duplication indicates a data strip split: a single continuous observation broken into separate segments during ground processing, slicing the tile into two partial files that must be mosaicked (<a href="#fig-s2-combined" class="quarto-xref">Figure&nbsp;<span>C.1</span></a>, bottom).</p>
+<!-- web-only: not in manuscript -->
+<div class="box-tryit callout callout-style-default callout-note no-icon callout-titled" title="Try it · Detect these cases automatically">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Try it · Detect these cases automatically
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s2_orbits.ipynb"><code>s2_orbits</code></a> maps each tile to the orbit(s) needed to cover it; <a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s2_artifacts.ipynb"><code>s2_artifacts</code></a> detects split products, pairs multi-orbit acquisitions and corrects diluted cloud-cover metadata.</p>
+</div>
+</div>
+<!-- /web-only -->
 
 
 
@@ -450,6 +471,7 @@ Figure&nbsp;C.1: Illustration of Sentinel-2 artifacts. <em>Top</em>: Sentinel-2 
     "index.html":                        { part: "General / whole book" },
     "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
+    "codebase.html":                     { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
     "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },

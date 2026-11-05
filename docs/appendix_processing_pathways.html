@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8e85e69b2f82b0f87e3ce2ddfc68cb2b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -183,6 +183,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to Use This Book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./codebase.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Companion Codebase</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -628,6 +634,21 @@ Table&nbsp;B.2: Sentinel-1 GRD processing options across CDSE access pathways an
 <section id="sentinel-1-rtc" class="level3">
 <h3 class="anchored" data-anchor-id="sentinel-1-rtc">Sentinel-1 RTC</h3>
 <p>CDSE also distributes a Sentinel-1 Radiometric Terrain Corrected (RTC) backscatter product, processed from GRD inputs and compliant with the CEOS Analysis Ready Data (CEOS-ARD, formerly CARD4L) specifications for Normalized Radar Backscatter (NRB). RTC products are orthorectified using the Copernicus DEM and delivered without speckle filtering. The NRB standard — which combines range–Doppler geocoding with radiometric terrain correction — is increasingly adopted across providers and may eventually supersede GRD as the default Sentinel-1 distribution format for analysis-ready use cases.</p>
+<!-- web-only: not in manuscript -->
+<div class="box-tryit callout callout-style-default callout-note no-icon callout-titled" title="Try it · Compare pathways yourself">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Try it · Compare pathways yourself
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/01_eo_data/compare_eo_providers.ipynb"><code>compare_eo_providers</code></a> notebook checks offset handling and processing differences for the same Sentinel-2 granule across cloud catalogs, and contrasts a Sentinel-1 GRD with its RTC counterpart.</p>
+</div>
+</div>
+<!-- /web-only -->
 </section>
 </section>
 <section id="further-reading" class="level2">
@@ -665,6 +686,7 @@ Table&nbsp;B.2: Sentinel-1 GRD processing options across CDSE access pathways an
     "index.html":                        { part: "General / whole book" },
     "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
+    "codebase.html":                     { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
     "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },

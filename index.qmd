@@ -4,21 +4,35 @@ The past decade has seen a rapid expansion in the production of large-scale geos
 
 We organize the discussion around six interconnected themes which trace the pipeline from the EO data landscape and preprocessing, through ML-specific stages of dataset construction, model design, and training, to uncertainty quantification, map generation, dissemination, and validation.
 
-![The mapping workflow as a constraint network: choices at each stage constrain the others.](images/overview.png)
+```{=html}
+<figure class="figure overview-figure">
+<div class="overview-map">
+<img src="images/overview.png" class="img-fluid figure-img" alt="The mapping workflow as a constraint network: choices at each stage constrain the others.">
+<a href="introduction.html" title="Go to Introduction" aria-label="Go to Introduction" style="left:38.05%;top:12.26%;width:24.8%;height:8.56%"></a>
+<a href="eo_data_landscape.html" title="Go to § II — EO data landscape" aria-label="Go to § II — EO data landscape" style="left:2.16%;top:31.65%;width:14.25%;height:12.64%"></a>
+<a href="data_selection_preprocessing.html" title="Go to § III — Selection &amp; preprocessing" aria-label="Go to § III — Selection &amp; preprocessing" style="left:18.63%;top:31.65%;width:14.25%;height:12.64%"></a>
+<a href="ml_pipeline.html" title="Go to § IV — ML dataset &amp; training" aria-label="Go to § IV — ML dataset &amp; training" style="left:35.04%;top:31.65%;width:14.25%;height:12.64%"></a>
+<a href="uncertainty_quantification.html" title="Go to § V — Uncertainty quantification" aria-label="Go to § V — Uncertainty quantification" style="left:51.5%;top:31.65%;width:14.25%;height:12.64%"></a>
+<a href="map_production.html" title="Go to § VI — Production &amp; distribution" aria-label="Go to § VI — Production &amp; distribution" style="left:67.97%;top:31.65%;width:14.25%;height:12.64%"></a>
+<a href="validation.html" title="Go to § VII — Map validation" aria-label="Go to § VII — Map validation" style="left:84.43%;top:31.65%;width:14.25%;height:12.64%"></a>
+</div>
+<figcaption>The mapping workflow as a constraint network: choices at each stage constrain the others. Click a box to jump to the corresponding part.</figcaption>
+</figure>
+```
 
 ## Main Sections {.unnumbered}
 
-**Overview of the EO data infrastructure landscape** — Satellite missions, data access platforms, and the practical trade-offs of working with petabyte-scale archives.
+**[Overview of the EO data infrastructure landscape](eo_data_landscape.qmd)** — Satellite missions, data access platforms, and the practical trade-offs of working with petabyte-scale archives.
 
-**Data selection and preprocessing** — Temporal strategies, cloud masking, SAR preprocessing, and the hidden choices that shape the training signal.
+**[Data selection and preprocessing](data_selection_preprocessing.qmd)** — Temporal strategies, cloud masking, SAR preprocessing, and the hidden choices that shape the training signal.
 
-**ML dataset construction and model training** — Data formats, spatial splitting, gridding, model design, and training considerations specific to EO.
+**[ML dataset construction and model training](ml_pipeline.qmd)** — Data formats, spatial splitting, gridding, model design, and training considerations specific to EO.
 
-**Uncertainty quantification** — Sources of uncertainty, quantification methods, calibration diagnostics, and how to operationalize uncertainty in map products.
+**[Uncertainty quantification](uncertainty_quantification.qmd)** — Sources of uncertainty, quantification methods, calibration diagnostics, and how to operationalize uncertainty in map products.
 
-**Map production and distribution** — Tiled inference at scale, artifact mitigation, post-processing, and cloud-native dissemination.
+**[Map production and distribution](map_production.qmd)** — Tiled inference at scale, artifact mitigation, post-processing, and cloud-native dissemination.
 
-**Validation** — Design-based accuracy assessment, the distinction between model evaluation and map validation, and reporting standards.
+**[Validation](validation.qmd)** — Design-based accuracy assessment, the distinction between model evaluation and map validation, and reporting standards.
 
 ::: {.callout-note appearance="minimal" icon="false"}
 © 2026 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, in any current or future media, including reprinting/republishing this material for advertising or promotional purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works.

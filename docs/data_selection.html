@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8e85e69b2f82b0f87e3ce2ddfc68cb2b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -183,6 +183,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to Use This Book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./codebase.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Companion Codebase</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -549,6 +555,36 @@ window.Quarto = {
 </div>
 </div>
 <p>Another important criterion for selecting optical data products is the occurrence of <strong>artifacts</strong>. For example, Landsat 7 imagery acquired after 2003 exhibits wedge-shaped gaps from the Scan Line Corrector failure, affecting roughly 22% of each scene <span class="citation" data-cites="arvidson2006landsat ju2008availability"><a href="#ref-arvidson2006landsat" role="doc-biblioref">[39]</a>, <a href="#ref-ju2008availability" role="doc-biblioref">[40]</a></span>. More generally, a subtler problem arises when the <em>distribution unit</em> of a product is not aligned with its <em>acquisition unit</em>. Sentinel-2 is the clearest example: the granule is a fixed tile, while the sampling unit is the orbit. Consequently, a tile may be covered partially by one orbit and fully by another, may require mosaicking several orbits acquired on different days, or be affected by other subtle failure cases. <a href="./appendix_s2_artifacts.html">Appendix: Identifying Sentinel-2 tiling artifacts</a> illustrates such cases. Addressing these issues is important to avoid duplication of pixel values, which would bias any statistics computed over the data — whether during compositing or when calculating overall dataset statistics from, for example, all Sentinel-2 products acquired within a given time frame, as in <span class="citation" data-cites="brown2025alphaearthfoundations feng2025tessera"><a href="#ref-brown2025alphaearthfoundations" role="doc-biblioref">[41]</a>, <a href="#ref-feng2025tessera" role="doc-biblioref">[42]</a></span>.</p>
+<!-- web-only: not in manuscript -->
+<div class="box-tryit callout callout-style-default callout-note no-icon callout-titled" title="Try it · Sentinel-2 orbits and tiling artifacts">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Try it · Sentinel-2 orbits and tiling artifacts
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s2_orbits.ipynb"><code>s2_orbits</code></a> computes the minimal set of orbits covering every Sentinel-2 tile, and <a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s2_artifacts.ipynb"><code>s2_artifacts</code></a> uses it to select the least-cloudy full-coverage acquisition per month while handling split products and multi-orbit tiles.</p>
+</div>
+</div>
+<!-- /web-only -->
+<!-- web-only: not in manuscript -->
+<div class="box-tryit callout callout-style-default callout-note no-icon callout-titled" title="Try it · Deduplicating tile overlaps">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Try it · Deduplicating tile overlaps
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/pixel_deduplication.ipynb"><code>pixel_deduplication</code></a> notebook measures how much of the surface Sentinel-2 delivers in more than one tile, assigns every location to a single owner tile, and shows what duplicated acquisitions do to a real time series.</p>
+</div>
+</div>
+<!-- /web-only -->
 </section>
 <section id="sec-sar" class="level2">
 <h2 class="anchored" data-anchor-id="sec-sar">SAR data selection</h2>
@@ -564,6 +600,21 @@ Figure&nbsp;4.1: Main geometric distortions on SAR images with their dependence 
 </figcaption>
 </figure>
 </div>
+<!-- web-only: not in manuscript -->
+<div class="box-tryit callout callout-style-default callout-note no-icon callout-titled" title="Try it · Choosing a Sentinel-1 viewing geometry">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Try it · Choosing a Sentinel-1 viewing geometry
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s1_burst.ipynb"><code>s1_burst</code></a> notebook enumerates candidate tracks from the burst catalogue and ranks them against a DEM for layover, shadow and foreshortening, before any data is downloaded.</p>
+</div>
+</div>
+<!-- /web-only -->
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -716,6 +767,7 @@ Figure&nbsp;4.1: Main geometric distortions on SAR images with their dependence 
     "index.html":                        { part: "General / whole book" },
     "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
+    "codebase.html":                     { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
     "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },

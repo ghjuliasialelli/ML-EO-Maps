@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8e85e69b2f82b0f87e3ce2ddfc68cb2b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -154,6 +154,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to Use This Book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./codebase.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Companion Codebase</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -443,6 +449,21 @@ div.csl-indent {
 
 
 <p><a href="./data_selection.html#sec-sar">SAR data selection</a> notes that data volume and the need for geometric consistency (required for analyses such as interferometric stacks, amplitude change detection, or feature extraction) push toward selecting a single track. For Sentinel-1 in Interferometric Wide (IW) mode, three factors define this viewing geometry: the relative orbit number or track (the satellite’s repeating ground path), the sub-swath (which sets the incidence angle range), and the pass direction (ascending or descending). Ascending and descending acquisitions of the same area are complementary (slopes that suffer layover under one geometry are often well-imaged under the other) and combining the two is a standard strategy for filling distortion gaps in mountainous regions. More generally, several tracks are typically available over any target area, each contributing hundreds of acquisitions over the mission’s lifetime. ESA’s Sentinel-1 Burst ID Map <span class="citation" data-cites="sarmpc2022burstid"><a href="#ref-sarmpc2022burstid" role="doc-biblioref">[1]</a></span> provides the metadata needed to make this choice. It consists of global polygons that divide each sub-swath into smaller units called bursts, each annotated with its track and sub-swath identifier. Together with the pass direction, these identifiers specify the viewing geometry for any given location, and three approaches of increasing detail can be used to select among the candidates. The simplest uses the burst grid alone: candidates are filtered by sub-swath, typically with a preference for mid-range incidence angles, which is sufficient for flat or moderate terrain. For rougher terrain, combining the burst grid with a digital elevation model allows candidates to be ranked by the alignment between the radar’s look direction and the dominant slope aspect. For a more exact comparison, tools such as <a href="https://step.esa.int/main/wp-content/help/versions/9.0.0/snap-toolboxes/org.esa.s1tbx.s1tbx.op.sar.processing.ui/operators/SARSimulationOp.html">SNAP’s SAR Simulation Operator</a> can simulate the per-pixel layover and shadow masks that would arise from each candidate, though the per-candidate simulation cost makes this approach impractical at scale.</p>
+<!-- web-only: not in manuscript -->
+<div class="box-tryit callout callout-style-default callout-note no-icon callout-titled" title="Try it · Rank viewing geometries">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Try it · Rank viewing geometries
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/02_data_selection/s1_burst.ipynb"><code>s1_burst</code></a> notebook implements the first two approaches: filtering candidates from the burst catalogue, then ranking them with the Copernicus DEM.</p>
+</div>
+</div>
+<!-- /web-only -->
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -462,6 +483,7 @@ div.csl-indent {
     "index.html":                        { part: "General / whole book" },
     "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
+    "codebase.html":                     { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
     "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },

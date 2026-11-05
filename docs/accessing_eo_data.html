@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8e85e69b2f82b0f87e3ce2ddfc68cb2b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -154,6 +154,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to Use This Book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./codebase.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Companion Codebase</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -564,6 +570,21 @@ Table&nbsp;3.1: Overview of major Earth observation data providers. <strong>Host
 </figure>
 </div>
 <p>Accessing EO data therefore involves practical choices across multiple dimensions. Each platform offers distinct trade-offs in where the data is hosted, support for server-side operations, suitability for large-scale download, and feasibility of running large-scale co-located compute; we summarize them in <a href="#tbl-eo-providers" class="quarto-xref">Table&nbsp;<span>3.1</span></a>. A practical pattern that follows from data gravity is to treat EO data access as a two-stage process. <em>Model development</em> typically involves modest data volumes that can be downloaded comfortably from almost any provider; here, convenience and catalog coverage dominate the choice. <em>Inference at scale</em>, on the other hand, is dominated by data movement: pulling petabyte-scale imagery from one provider into a different compute environment is rarely tractable. As a result, practitioners typically either (i) co-locate inference compute with the data, or (ii) accept the time and storage cost of moving the EO data into their compute environment. Co-location only helps if the compute you need is available where the data is: large GPU pools are a hyperscaler feature, so GPU-bound inference is restricted to data hosted on AWS, Azure or GCP; CPU-bound pipelines have more options. The platform that minimizes friction for training is therefore often not the one that minimizes cost for inference, and moving between them introduces a risk of distribution shift that should not be taken lightly. No universally optimal solution exists: the most appropriate choice depends on the scale of analysis, computational requirements, institutional constraints, the practical cost of download and storage, and the acceptable trade-off between immediate convenience and the risk of lock-in to proprietary platforms.</p>
+<!-- web-only: not in manuscript -->
+<div class="box-tryit callout callout-style-default callout-note no-icon callout-titled" title="Try it · Same granule, different providers">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Try it · Same granule, different providers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/01_eo_data/compare_eo_providers.ipynb"><code>compare_eo_providers</code></a> notebook fetches the same Sentinel-2 L2A granule from Planetary Computer and Earth Search, compares it with the canonical CDSE product, and shows how inconsistent offset metadata and platform-specific processing change reflectance and NDVI.</p>
+</div>
+</div>
+<!-- /web-only -->
 <div class="box-decision callout callout-style-default callout-note no-icon callout-titled" title="Decision · Provider">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -620,6 +641,7 @@ Table&nbsp;3.1: Overview of major Earth observation data providers. <strong>Host
     "index.html":                        { part: "General / whole book" },
     "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
+    "codebase.html":                     { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
     "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },

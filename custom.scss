@@ -170,3 +170,37 @@ $box-tryit: rgb(176, 112, 0);
   .refmap-n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .refmap-muted { color: #6b6a66; font-size: 0.8rem; }
 }
+
+/* ── Welcome page: clickable overview figure ── */
+.overview-figure {
+  display: block;
+  text-align: center;
+}
+
+.overview-map {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.overview-map img {
+  display: block;
+  margin: 0;
+}
+
+.overview-map a {
+  position: absolute;
+  border-radius: 6px;
+  transition: background-color 0.15s, box-shadow 0.15s;
+}
+
+.overview-map a:hover,
+.overview-map a:focus-visible {
+  background-color: rgba(198, 32, 40, 0.08);
+  box-shadow: 0 0 0 2px rgba(198, 32, 40, 0.6);
+  outline: none;
+}
+
+.overview-figure figcaption {
+  text-align: center;
+}

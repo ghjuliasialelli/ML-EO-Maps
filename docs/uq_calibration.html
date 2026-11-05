@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8e85e69b2f82b0f87e3ce2ddfc68cb2b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -183,6 +183,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to Use This Book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./codebase.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Companion Codebase</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -511,6 +517,36 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="qualifying-a-model-before-inference">Qualifying a model before inference</h2>
 <p>The recalibration and retraining remedies above presuppose that miscalibration can be, and is, discovered while retraining is still an option. For global maps, training is typically cheap relative to inference over the full domain, so the cost of discovering a regionally patterned failure late is not the retraining itself, but rather the inference run that must now be repeated. Due to the compute use differential, calibration assessment should therefore be treated as a sanity check that precedes wall-to-wall inference. To this end, we suggest a qualification step with a few example components. (i) calibration diagnostics described above, computed on spatially and environmentally blocked holdouts, reported per stratum, since pooled diagnostics can hide regionally patterned miscalibration. (ii) feature space coverage analysis over the full inference domain, such as the area of applicability or a dissimilarity index <span class="citation" data-cites="meyer2021areaofapplicability"><a href="#ref-meyer2021areaofapplicability" role="doc-biblioref">[3]</a></span>, which requires predictor data only and can be computed before prediction is made. This identifies where the model will be extrapolating and therefore where the proxy-extrapolation test above should be targeted. (iii) end-to-end inference on a small number of tiles chosen to span ecologically distinct regions, including regions that the coverage analysis flags as poorly supported, evaluated against whatever reference data exist there. This should also surface tiling, compositing, and edge artifacts (see <a href="./map_production.html">Map production and distribution</a>) that do not appear in pixel-level cross-validation.</p>
 <p>Of course, this does not guarantee calibration where reference data are absent, since such regions are unverifiable by modeling alone. However, testing models before inference makes sure that failures that could, in principle, have been detected are detected before expensive inference compute.</p>
+<!-- web-only: not in manuscript -->
+<div class="box-tryit callout callout-style-default callout-note no-icon callout-titled" title="Try it · Calibration diagnostics">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Try it · Calibration diagnostics
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/04_uncertainty/calibration_diagnostics.ipynb"><code>calibration_diagnostics</code></a> notebook computes every diagnostic above, per stratum, for models with known calibration, and shows why globally fitted fixes only restore marginal coverage.</p>
+</div>
+</div>
+<!-- /web-only -->
+<!-- web-only: not in manuscript -->
+<div class="box-tryit callout callout-style-default callout-note no-icon callout-titled" title="Try it · Area of applicability">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Try it · Area of applicability
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/04_uncertainty/area_of_applicability.ipynb"><code>area_of_applicability</code></a> notebook maps the dissimilarity index and area of applicability before inference, shows accuracy and calibration holding inside it and failing outside, and runs the whole-region holdout test.</p>
+</div>
+</div>
+<!-- /web-only -->
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -540,6 +576,7 @@ window.Quarto = {
     "index.html":                        { part: "General / whole book" },
     "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
+    "codebase.html":                     { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
     "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },

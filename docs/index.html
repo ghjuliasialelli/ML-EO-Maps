@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8e85e69b2f82b0f87e3ce2ddfc68cb2b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -133,6 +133,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to Use This Book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./codebase.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Companion Codebase</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -435,20 +441,27 @@ ul.task-list li input[type="checkbox"] {
 <h1 class="unnumbered">Welcome</h1>
 <p>The past decade has seen a rapid expansion in the production of large-scale geospatial products derived from Earth observation (EO) data using machine learning (ML). This website is the result of bringing together map-makers across the EO and ML communities. It presents an end-to-end account of the good practices, challenges, and common pitfalls that span the entire pipeline from raw satellite data to a published, validated map product, and treats that pipeline as an integrated workflow rather than a sequence of independent steps. The focus is on wall-to-wall raster maps at moderate resolution (10–30 m) and continental to global extent, produced with ML from open satellite archives, mainly Sentinel-1, Sentinel-2 and Landsat.</p>
 <p>We organize the discussion around six interconnected themes which trace the pipeline from the EO data landscape and preprocessing, through ML-specific stages of dataset construction, model design, and training, to uncertainty quantification, map generation, dissemination, and validation.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/overview.png" class="img-fluid figure-img"></p>
-<figcaption>The mapping workflow as a constraint network: choices at each stage constrain the others.</figcaption>
-</figure>
+<figure class="figure overview-figure">
+<div class="overview-map">
+<img src="images/overview.png" class="img-fluid figure-img" alt="The mapping workflow as a constraint network: choices at each stage constrain the others.">
+<a href="introduction.html" title="Go to Introduction" aria-label="Go to Introduction" style="left:38.05%;top:12.26%;width:24.8%;height:8.56%"></a>
+<a href="eo_data_landscape.html" title="Go to § II — EO data landscape" aria-label="Go to § II — EO data landscape" style="left:2.16%;top:31.65%;width:14.25%;height:12.64%"></a>
+<a href="data_selection_preprocessing.html" title="Go to § III — Selection &amp; preprocessing" aria-label="Go to § III — Selection &amp; preprocessing" style="left:18.63%;top:31.65%;width:14.25%;height:12.64%"></a>
+<a href="ml_pipeline.html" title="Go to § IV — ML dataset &amp; training" aria-label="Go to § IV — ML dataset &amp; training" style="left:35.04%;top:31.65%;width:14.25%;height:12.64%"></a>
+<a href="uncertainty_quantification.html" title="Go to § V — Uncertainty quantification" aria-label="Go to § V — Uncertainty quantification" style="left:51.5%;top:31.65%;width:14.25%;height:12.64%"></a>
+<a href="map_production.html" title="Go to § VI — Production &amp; distribution" aria-label="Go to § VI — Production &amp; distribution" style="left:67.97%;top:31.65%;width:14.25%;height:12.64%"></a>
+<a href="validation.html" title="Go to § VII — Map validation" aria-label="Go to § VII — Map validation" style="left:84.43%;top:31.65%;width:14.25%;height:12.64%"></a>
 </div>
+<figcaption>The mapping workflow as a constraint network: choices at each stage constrain the others. Click a box to jump to the corresponding part.</figcaption>
+</figure>
 <section id="main-sections" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="main-sections">Main Sections</h2>
-<p><strong>Overview of the EO data infrastructure landscape</strong> — Satellite missions, data access platforms, and the practical trade-offs of working with petabyte-scale archives.</p>
-<p><strong>Data selection and preprocessing</strong> — Temporal strategies, cloud masking, SAR preprocessing, and the hidden choices that shape the training signal.</p>
-<p><strong>ML dataset construction and model training</strong> — Data formats, spatial splitting, gridding, model design, and training considerations specific to EO.</p>
-<p><strong>Uncertainty quantification</strong> — Sources of uncertainty, quantification methods, calibration diagnostics, and how to operationalize uncertainty in map products.</p>
-<p><strong>Map production and distribution</strong> — Tiled inference at scale, artifact mitigation, post-processing, and cloud-native dissemination.</p>
-<p><strong>Validation</strong> — Design-based accuracy assessment, the distinction between model evaluation and map validation, and reporting standards.</p>
+<p><strong><a href="./eo_data_landscape.html">Overview of the EO data infrastructure landscape</a></strong> — Satellite missions, data access platforms, and the practical trade-offs of working with petabyte-scale archives.</p>
+<p><strong><a href="./data_selection_preprocessing.html">Data selection and preprocessing</a></strong> — Temporal strategies, cloud masking, SAR preprocessing, and the hidden choices that shape the training signal.</p>
+<p><strong><a href="./ml_pipeline.html">ML dataset construction and model training</a></strong> — Data formats, spatial splitting, gridding, model design, and training considerations specific to EO.</p>
+<p><strong><a href="./uncertainty_quantification.html">Uncertainty quantification</a></strong> — Sources of uncertainty, quantification methods, calibration diagnostics, and how to operationalize uncertainty in map products.</p>
+<p><strong><a href="./map_production.html">Map production and distribution</a></strong> — Tiled inference at scale, artifact mitigation, post-processing, and cloud-native dissemination.</p>
+<p><strong><a href="./validation.html">Validation</a></strong> — Design-based accuracy assessment, the distinction between model evaluation and map validation, and reporting standards.</p>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -475,6 +488,7 @@ ul.task-list li input[type="checkbox"] {
     "index.html":                        { part: "General / whole book" },
     "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
+    "codebase.html":                     { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
     "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },

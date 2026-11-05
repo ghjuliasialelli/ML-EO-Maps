@@ -64,7 +64,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7eb96de51fad1e7e7b7432b0c3d6a94c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8e85e69b2f82b0f87e3ce2ddfc68cb2b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -183,6 +183,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to Use This Book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./codebase.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Companion Codebase</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -478,6 +484,21 @@ window.Quarto = {
 <p>The same argument applies to categorical maps, where aggregates such as total cropland area or annual deforested area are sums of per-pixel class indicators, and the errors in those indicators are spatially clustered for the same reasons that regression residuals are. The consequence, however, manifests differently. In the continuous case, the dominant effect of correlated errors is variance that does not shrink with <span class="math inline">\(n\)</span> but in the categorical case it is bias. Whenever commission and omission of a class are unequal which is commonly the case, pixel counting yields an area estimate that is systematically too large or too small, and averaging over more pixels does not reduce this error but fixes it in place. When the confusion is itself regionally patterned (a crop confused with a neighboring class in one agro-ecological zone but not another), the bias is spatially structured as well. Hence the land cover community has deprecated pixel counting in favor of design-based area estimation, in which the map serves as a stratification and the area estimate and its variance are derived from a probability reference sample and the resulting confusion matrix <span class="citation" data-cites="olofsson2013making stehman2013estimating olofsson2014good"><a href="#ref-olofsson2013making" role="doc-biblioref">[4]</a>, <a href="#ref-stehman2013estimating" role="doc-biblioref">[5]</a>, <a href="#ref-olofsson2014good" role="doc-biblioref">[6]</a></span>.</p>
 <p>The design-based area estimation approach sidesteps the correlation of map errors altogether, because the variance comes from the sampling design rather than from the map, at the cost of requiring a probability sample of reference observations in the reporting unit. Spatial correlation re-enters only when the reference sample is clustered, where it reduces the effective sample size in the usual way <span class="citation" data-cites="stehman1997estimating"><a href="#ref-stehman1997estimating" role="doc-biblioref">[7]</a></span>. Per-pixel outputs, whether variances or class probabilities, are not sufficient for reporting aggregate uncertainty, and something additional (a residual variogram, or a probability sample) is required. Change detection is the hardest case in the categorical branch, since the change class is rare, its errors are the most clustered, and the reference sample has to be sized for the rare class rather than for the map as a whole.</p>
 <p>This remains one of the largest gaps between current practice in ML-based mapping and what is needed for rigorous area-based reporting. The methodology exists: block kriging on model residuals provides a rigorous estimate of aggregate uncertainty <span class="citation" data-cites="wadoux2023spatialaverages johnson2025flexible"><a href="#ref-wadoux2023spatialaverages" role="doc-biblioref">[1]</a>, <a href="#ref-johnson2025flexible" role="doc-biblioref">[2]</a></span>. However, fitting a variogram to residuals requires spatially distributed validation data dense enough to characterize the correlation structure, and that structure is unlikely to be stationary. Most mapping efforts lack the validation density to estimate this, let alone estimate it regionally. Until validation protocols are designed with spatial error correlation in mind by sampling densely enough in representative regions to fit at least regional variograms, aggregate uncertainty will remain underestimated by default. As a practical minimum, we recommend that mapping projects characterize residual spatial correlation in a small number of ecologically distinct validation regions, even if global estimation is infeasible. This provides at least an approximate bound on the aggregation effect and prevents the false precision that arises from treating pixel errors as independent.</p>
+<!-- web-only: not in manuscript -->
+<div class="box-tryit callout callout-style-default callout-note no-icon callout-titled" title="Try it · Aggregate uncertainty">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Try it · Aggregate uncertainty
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="https://github.com/ghjuliasialelli/ml-eo-maps-codebase/blob/main/tutorials/04_uncertainty/aggregate_uncertainty.ipynb"><code>aggregate_uncertainty</code></a> notebook fits a variogram to residuals and computes the variance of regional means, compared with the naive σ/√n and with Monte Carlo truth.</p>
+</div>
+</div>
+<!-- /web-only -->
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -515,6 +536,7 @@ window.Quarto = {
     "index.html":                        { part: "General / whole book" },
     "about.html":                        { part: "General / whole book" },
     "howto.html":                        { part: "General / whole book" },
+    "codebase.html":                     { part: "General / whole book" },
     "chatbot.html":                      { part: "General / whole book" },
     "feedback.html":                     { part: "General / whole book" },
     "introduction.html":                 { part: "General / whole book" },
